@@ -9,7 +9,7 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	}
 	
 	public final int nature() {
-		return Natural.EXCEPTION;
+		return Moona.EXCEPTION;
 	}
 	
 	public MoonaHandlingException notInitialized() {
