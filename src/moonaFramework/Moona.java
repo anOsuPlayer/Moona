@@ -25,6 +25,7 @@ public final class Moona {
 		Init();
 		Add(p);
 		ProcessCondition.RUNNING.set(p);
+		p.initialize();
 		p.run();
 		Remove(p);
 		ProcessCondition.DEAD.set(p);
@@ -56,16 +57,45 @@ public final class Moona {
 		totalElements--;
 	}
 	
+	public static void Provide(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		if (!ProcessCondition.DEAD.check(p)) {
+			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
+					+ " or paused.");
+		}
+		Add(p);
+		ProcessCondition.AWAITING.set(p);
+	}
+	
+	public static void Await(Process p) throws MoonaHandlingException, NullPointerException {
+		Provide(p);
+		p.initialize();
+		new Thread(p, "Process#" + p.id()).start();
+	}
+	
+	public static void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		if (!ProcessCondition.AWAITING.check(p)) {
+			throw new MoonaHandlingException("A process cannot be unlocked if not awaiting.");
+		}
+		ProcessCondition.RUNNING.set(p);
+		p.getClock().release();
+	}
+	
 	public static void Start(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
 		}
 		if (p.isRunning().verify()) {
-			if (p.isPaused().verify()) {
-				throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
-						+ " unlock it.");	
-			}
 			throw new MoonaHandlingException("The Process is already running.");
+		}
+		if (ProcessCondition.AWAITING.check(p)) {
+			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
+					+ " unlock it.");	
 		}
 		Add(p);
 		ProcessCondition.RUNNING.set(p);

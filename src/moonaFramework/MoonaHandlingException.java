@@ -12,10 +12,6 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 		return Moona.EXCEPTION;
 	}
 	
-	public MoonaHandlingException notInitialized() {
-		throw new MoonaHandlingException("Moona was not initialized.");
-	}
-	
 	public MoonaHandlingException(String message) {
 		super(message);
 	}

@@ -2,10 +2,11 @@ package moonaFramework.process;
 
 import moonaFramework.Serial;
 import moonaFramework.Status;
+import moonaFramework.util.Clock;
 
 public interface Process extends Runnable, Serial {
 	
-	Object getLock();
+	Clock getClock();
 	
 	Status isRunning();
 	Status isPaused();
@@ -14,6 +15,6 @@ public interface Process extends Runnable, Serial {
 	void onUnpause();
 	
 	void initialize();
-	void run();
+	void update();
 	void end();
 }

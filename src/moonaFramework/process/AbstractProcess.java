@@ -1,7 +1,9 @@
 package moonaFramework.process;
 
 import moonaFramework.Moona;
+import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
+import moonaFramework.util.Clock;
 
 public abstract class AbstractProcess implements Process {
 	
@@ -10,9 +12,9 @@ public abstract class AbstractProcess implements Process {
 		return Moona.PROCESS;
 	}
 	
-	private final Object lock;
-	public final Object getLock() {
-		return lock;
+	private final Clock clock;
+	public final Clock getClock() {
+		return clock;
 	}
 	
 	private final Status isRunning;
@@ -31,11 +33,20 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public abstract void initialize();
-	public abstract void run();
+	public abstract void update();
 	public abstract void end();
 	
+	public void run() {
+		while (!ProcessCondition.DEAD.check(this)) {
+			synchronized (clock) {
+				clock.pauseHolder();
+				update();
+			}
+		}
+	}
+	
 	public AbstractProcess() {
-		this.lock = new Object();
+		this.clock = new Clock(this);
 		this.isRunning = new Status(false);
 		this.isPaused = new Status(false);
 	}

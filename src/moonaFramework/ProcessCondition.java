@@ -36,7 +36,7 @@ public enum ProcessCondition {
 			return p.isRunning().verify() && p.isPaused().verify();
 		}
 	},
-	DORMIENT {
+	AWAITING {
 		protected void set(Process p) throws NullPointerException {
 			if (p == null) {
 				throw new NullPointerException();
