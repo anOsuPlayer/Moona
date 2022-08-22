@@ -7,7 +7,7 @@ My intent with Moona is to develop a very handy framework that can help software
 
 For now, though, Moona is very simple: it's nothing more than a simple .jar file containing some useful object. With each major improvement I will try to add some new cool feature to expand this framework as much as I can.
 
-*NOTE: Moona will probably be ported to some other language, too. A C++ version (directly utilizing OpenGL) will be soon under developement*
+*NOTE: Moona will probably be ported to some other languages, too. A C++ version (using OpenGL) will be soon under developement.*
 
 ## Versions
 
