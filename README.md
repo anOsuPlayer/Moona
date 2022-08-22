@@ -1,7 +1,7 @@
 # Moona
 Moona is my very personal multi-purpose framework, containing all sorts of tools to do all sorts of things. From setting up graphic interfaces up to useful methods and objects to code your own stuff, you might find something interesting.
 
-## What is this?
+## What is this project?
 
 My intent with Moona is to develop a very handy framework that can help software developers with a wide variety of tools and features. There is something I particularly wish, too, which is to achieve solid bases to use Moona for game developement and to create graphical interfaces.
 
