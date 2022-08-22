@@ -9,6 +9,12 @@ For now, though, Moona is very simple: it's nothing more than a simple .jar file
 
 *NOTE: Moona will probably be ported to some other languages, too. A C++ version (using OpenGL) will be soon under developement.*
 
+### How do I get started?
+
+In order to get started with Moona you'll have to take a look to the *GUIDE.md file* contained here in this repository. Also, there will be a rich source attached to each release that will explain the basics.
+
+I plan on creating my website containing a fully detailed documentation for Moona, but, for now, I'm poor, so the file will do just fine.
+
 ## Versions
 
 I will develop Moona using the following order of releases:
