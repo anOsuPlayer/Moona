@@ -27,4 +27,6 @@ Of the many releases, every one of them will be tagged with one of these tags to
 
 ## Contributing to the project
 
-I do not plan on making this an open-source project, but I would also like to keep an active community-dev interaction. If this framework will get famous enough for people to start wanting some particular feature implemented, just ask for it to be added via pull-requests.
+I do not plan on making this an open-source project, but I would also like to keep an active community-dev interaction.
+
+If this framework will get famous enough for people to start wanting some particular feature implemented, just ask for it to be added via pull-requests or issues (in case a feature of yours could help to solve a reported error).
