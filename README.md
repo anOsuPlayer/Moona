@@ -11,7 +11,7 @@ For now, though, Moona is very simple: it's nothing more than a simple .jar file
 
 ### How do I get started?
 
-In order to get started with Moona you'll have to take a look to the *GUIDE.md file* contained here in this repository. Also, there will be a rich source attached to each release that will explain the basics.
+In order to get started with Moona you'll have to take a look at the *GUIDE.md file* contained here in this repository. Also, there will be a rich source attached to each release that will explain the basics.
 
 I plan on creating my website containing a fully detailed documentation for Moona, but, for now, I'm poor, so the file will do just fine.
 
@@ -30,9 +30,3 @@ I will develop Moona using the following order of releases:
 > **snapshots :** Between each major release, snapshots will be released to introduce new features (they'll have the same purpose of alphas and betas, but they're actually based on stable code, with the only exception of the newly implemented features).
 
 Of the many releases, every one of them will be tagged with one of these tags to communicate the current developing status.
-
-## Contributing to the project
-
-I do not plan on making this an open-source project, but I would also like to keep an active community-dev interaction.
-
-If this framework will get famous enough for people to start wanting some particular feature implemented, just ask for it to be added via pull-requests or issues (in case a feature of yours could help to solve a reported error).
