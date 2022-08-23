@@ -1,32 +1,47 @@
 # Moona
-Moona is my very personal multi-purpose framework, containing all sorts of tools to do all sorts of things. From setting up graphic interfaces up to useful methods and objects to code your own stuff, you might find something interesting.
 
-## What is this project?
+Welcome to Moona! This project is my very own multi-purpose framework that will feature a whole bunch of tools and classes for all sorts of purposes: from building graphic interfaces up to simply keeping your code more compact and clear!
 
-My intent with Moona is to develop a very handy framework that can help software developers with a wide variety of tools and features. There is something I particularly wish, too, which is to achieve solid bases to use Moona for game developement and to create graphical interfaces.
+My hope is to develop this framework as best as I possibly can: I want to offer people a piece of code that not only performs well, but that's also handy, practical and useful at the same time. I do not aim on creating something perfect, but rather something that people can appreciate because of its various and peculiar features.
 
-For now, though, Moona is very simple: it's nothing more than a simple .jar file containing some useful object. With each major improvement I will try to add some new cool feature to expand this framework as much as I can.
+#### ***Moona is still under heavy developement, many of the features listed above are not yet implemented (but they'll be there... soon).***
 
-*NOTE: Moona will probably be ported to some other languages, too. A C++ version (using OpenGL) will be soon under developement.*
+Speaking about very far-in-the-future plans, I would really like to give this framework a graphic interface (with integrated IDE and other things) and, also, to port it along with all its features to other programming languages (like C++). We're talking about a very far future, though... who knows if this'll happen.
 
-### How do I get started?
+## How do I get started?
 
-In order to get started with Moona you'll have to take a look at the *GUIDE.md file* contained here in this repository. Also, there will be a rich source attached to each release that will explain the basics.
+In order to get started with this framework you'll need a few things:
 
-I plan on creating my website containing a fully detailed documentation for Moona, but, for now, I'm poor, so the file will do just fine.
+* This framework utilizes the *Java JDK 18.0.2*, so you'll need to download it from the official [website](https://www.oracle.com/java/technologies/downloads/) (NOTE: if you please, you'll also be able to use some newer versions of the JDK, I hope that it won't cause troubles)
+
+* To avoid making a mess in your IDE and making you regret of your life choices, I would also propose you to read the official [*guide*](https://github.com/anOsuPlayer/Moona/edit/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files).
+
+The rest.. is really up to you! After telling you how this framework works, the next limit is nothing but your fantasy (and, of course, things like *compiling errors* and *your RAM*, but that's another story). Jokes aside, a good dose of trial and error is the best way for you to learn to use this framework, in my opinion.
 
 ## Versions
 
-I will develop Moona using the following order of releases:
+For now, there are not any public releases yet (because of the framework being still too rough and under development to be published), but, regardless, I want to show the way I plan on releasing new versions to the public. Below this paragraph you'll find a list of all the phases I plan the framework to go through:
 
-> **early_dev :** The first phase of development, where most of the features will be builded and where the framework will take its initial shape.
+* **early_dev :** The first phase of development, where most of the features will be builded and where the framework will take its initial shape.
 
-> **alpha :** Once Moona will reach a satisfying ammount of features I will proceed with the alpha phase, where I will focus on both adding new features and making the ones added in early_dev more perfect.
+* **alpha :** Once Moona will reach a satisfying ammount of features I will proceed with the alpha phase, where I will focus on both adding new features and making the ones added in early_dev more perfect.
 
-> **beta :** The closest version to the full release, where the main focus will be to get as close as possible to a fully functional release.
+* **beta :** The closest version to the full release, where the main focus will be to get as close as possible to a fully functional release.
 
-> **release :** The actual full version which is (should hopefylly be) fully stable and safe to use.
+* **release :** The actual full version which is (or rather, *should hopefylly be*) fully stable and safe to use.
 
-> **snapshots :** Between each major release, snapshots will be released to introduce new features (they'll have the same purpose of alphas and betas, but they're actually based on stable code, with the only exception of the newly implemented features).
+* **snapshots :** Between each major release, snapshots will be released to introduce new features (they'll have the same purpose of alphas and betas, but they'll actually be based on stable code, with the only exception of the newly implemented features).
 
-Of the many releases, every one of them will be tagged with one of these tags to communicate the current developing status.
+Once a new release is ready, I will put one of these keywords in the tag, in order to make more clear what kind of release you'll download (an exemple of release tag would be something like: *release-1.0* or *alpha-0.2.1*).
+
+## Contributing to the Project
+
+#### ***NOTE: for now the project DOES NOT DECLARE ANY KIND OF LICENSE YET. It will be added in the future as soon as I have a better idea of how they work and on what they allow the community to do.***
+
+Even though there is no license yet, I want to give the community a possibility to contribute to the project. Via *pull requests* and *issues* tab, I will kindly accept any kind of advice, idea or constructive opinion!
+
+## Thanks!
+
+Thanks for coming until the end of the file. This might not be the best code you might find around, but, on the other hand, it's the best I can offer you. This project will never be perfect, but I will try my best to keep up with the expectations (if.. someone will ever expect something out of this framework). For now, though, enjoy Moona... Happy coding!
+
+> *The Developer*
