@@ -17,7 +17,7 @@ In order to fully understand this framework, you'll need to start by knowing abo
 
 I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular package hierarchy looks like) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience out using this framework.
 
-This being said, dear reader, I want to thank you for giving this framework a shot and I wish you a good experience using Moona! This might not be the best you'll be able to find, but, on the other hand, it's the best I can give you.
+This being said, dear guide-consulter, I want to thank you for giving this framework a shot and I wish you a good experience using Moona!
 
 > *The Developer*
 
