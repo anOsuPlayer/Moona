@@ -1,6 +1,6 @@
-package moonaFramework.util;
+package moonaFramework.process;
 
-import moonaFramework.process.Process;
+import moonaFramework.util.Attached;
 
 public class Clock implements Attached<Process> {
 

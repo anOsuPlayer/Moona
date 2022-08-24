@@ -3,7 +3,6 @@ package moonaFramework.process;
 import moonaFramework.Moona;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
-import moonaFramework.util.Clock;
 
 public abstract class AbstractProcess implements Process {
 	
