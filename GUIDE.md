@@ -1,6 +1,6 @@
 # Moona guide
 
-Here you'll find everything you need in order to fully understand and start using Moona! You'll be introduced to the main framework's features and then, when you'll need, you'll be able to search throughout this file to find anything you need. Every Object in the framework is reported here, along with a fully detailed description that will, hopefully, answer your questions.
+Here you'll find everything you need in order to fully understand and start using Moona! You'll be introduced to the main framework's features and then, when you'll need, you'll be able to search throughout this file to find anything you need. Every object in the framework is reported here, along with a fully detailed description that will, hopefully, answer your questions.
 
 # Index
 
@@ -13,11 +13,11 @@ Here you'll find everything you need in order to fully understand and start usin
 ## Introduction:
 > [^ back](#moona-guide)
 
-In order to fully understand this framework, you'll need to start by knowing about some concept that will be crucial when using Moona. First thing, you need to have a brief idea of how the [*package hierarchy*](#packages-hierarchy) is organized, in order to know where to search the features you need; second thing, you'll need to learn about the [*Moona class*](#moona-class): that is the class which rules the whole framework and that, most importantly, *makes it work*... it manages the whole branch of [*dependent objects*](#dependencies), too (such a cool class).
+In order to fully understand this framework, you'll need to start by knowing about some concept that will be crucial when using Moona. First thing, you need to have a quick look at how the [*package hierarchy*](#packages-hierarchy) is organized, in order to know where to search for some features, if you need; second thing, you'll need to learn about the [*Moona class*](#moona-class): that is the class which rules the whole framework and that, most importantly, *makes it work*... it manages the whole branch of [*dependent objects*](#dependencies), too (such a cool class).
 
-I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular package hierarchy looks like) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience out using this framework.
+I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular package hierarchy looks like) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience when using this framework.
 
-To end this introduction, I want to add the fact that this guide will be updated *each time a major version gets released*: for each update to this file you'll find the sources of all the newly added features as well as the old ones properly updated, if needed.
+To end this introduction, I want to add the fact that this guide will be updated *each time a major version gets released*: each time you'll find the sources of all the newly added features as well as the old ones properly updated, if needed.
 
 This being said, dear guide-consulter, I want to thank you for giving this framework a shot and I wish you a good experience using Moona!
 
