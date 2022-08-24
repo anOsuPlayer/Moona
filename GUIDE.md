@@ -17,6 +17,8 @@ In order to fully understand this framework, you'll need to start by knowing abo
 
 I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular package hierarchy looks like) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience out using this framework.
 
+To end this introduction, I want to add the fact that this guide will be updated *each time a major version gets released*: for each update to this file you'll find the sources of all the newly added features as well as the old ones properly updated, if needed.
+
 This being said, dear guide-consulter, I want to thank you for giving this framework a shot and I wish you a good experience using Moona!
 
 > *The Developer*
@@ -37,6 +39,8 @@ Below this paragraph you'll find a list containing all the packages in this fram
 * *[dependent]* **.process** package: Contains the whole *process framework* part of Moona. You'll be able to learn more about Processes in the relative page.
 
 * *[non-dependent]* **.util** package: It's the part of Moona which contains all those objects that *serve specific purposes around the framework, but are not specific enough to be put somewhere else*. Jokes aside, this package basically consists in a collection of objects that are meant to make Moona's features more accessible and easy-to-code. Also, they are meant for programmers to use them as they please, wherever they want (some of them being, in my opinion, very useful, they'll hopefully satisfy some of your needs). 
+
+> NOTE: as new packages will be added, I will immediately add them to this list followed by the usual brief description!.
 
 ### Some Practical Use...
 
