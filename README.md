@@ -18,6 +18,30 @@ In order to get started with this framework you'll need a few things:
 
 The rest.. is really up to you! After telling you how this framework works, the next limit is nothing but your fantasy (and, of course, things like *compiling errors* and *your RAM*, but that's another story). Jokes aside, a good dose of trial and error is the best way for you to learn to use this framework, in my opinion.
 
+## Working with Moona
+
+Once you have a basic understanding of how everything in this framework works, you might want to start and actually code something of your own. In order to access to Moona's features you'll need to *choose a release* and then to *import the .jar file* into your favourite IDE. Following this paragraph you'll find a very handy tutorial on how to import .jar files into either *Eclipse IDE or IntelliJ Idea* (the most well-known editors when it comes to Java. If you plan on using another IDE you'll need to search on the good old google)
+
+*(to be added SOON)*
+
+## Releases Structure
+
+In order to achieve a certain modularity inside this framework, I decided to *allow people to download standalone releases of non-dependent packages outside of the main framework*. For each major release, you'll have the following options when it comes to downloading:
+
+* **Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature, every package, basically).
+
+* **Choosing the base framework package:** If you plan to make a custom build of Moona, only downloading certain packages that you need, you'll have to download the base package first (the one labeled "MoonaBase.jar"). The base package includes *all the dependent packages* and excludes *ALL the non-dipendent packages*. In order to add certain features, you'll need to download some *standalone jars too*, which will be described next.
+
+* **Choosing a standalone release:** If your idea is to download single features of this framework, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can be used in every project of yours that does not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS STANDALONE, only the *non-dependent ones* will, keep this in mind!!
+
+> NOTE: for a better understanding of the package structure, dependent and non-dependent packages, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/edit/early_dev/GUIDE.md).
+
+Finally, remember those last things:
+* Downloading the full framework package **DOES NOT require any extra feature to be imported**.
+* If you plan on downloading scattered packages, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure** (the procedure shows how it works with *the whole framework*, though the steps are the same for each .jar file you download).
+* Standalone packages **DO NOT REQUIRE the base package to be installed**.
+* Always choose one of the two ways: either download the full package OR make your own custom build. **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
+
 ## Versions
 
 For now, there are not any public releases yet (because of the framework being still too rough and under development to be published), but, regardless, I want to show the way I plan on releasing new versions to the public. Below this paragraph you'll find a list of all the phases I plan the framework to go through:
