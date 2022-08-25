@@ -76,7 +76,7 @@ Now you've covered the basics, understanding how everything in this framework wo
 
 5. Moving inside the **lib** folder, **move ALL Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
 
-6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** amd then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **click on a label stating "Classpath" one time, with your right click**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
+6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** and then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **click on a label stating "Classpath" one time, with your right click**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
 
 7. At this point, just **click on your project's folder** to open an *"explorer-like view"* of its folder. Click on the lib folder and then, *remembering WHERE YOU PUT THE FILES (from step 5)*, search them and **highlight them all**. Once that is done, click the **OK button** and then go for the **Apply and Close** button.
 
