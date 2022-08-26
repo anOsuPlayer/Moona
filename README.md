@@ -38,9 +38,9 @@ While thinking about this project, I also took into count some very neat *modula
 
 Finally, in order to *avoid any kind of tragic issue*, remember those last few things:
 * Downloading the full framework package **DOES NOT require any extra feature to be imported**.
-* If you plan on downloading scattered packages, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure** (the procedure shows how it works with *the whole framework*, though the steps are the same for each .jar file you download).
+* If you plan on downloading scattered packages, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure**.
 * Standalone packages **DO NOT REQUIRE the base package to be installed**.
-* Always choose one of the two tempates: **EITHER** downloading the full package **OR** making your own custom build. **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
+* Always choose between one of the two tempates: **EITHER** download the full package **OR** make your own custom build. **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
 
 ## Versions
 
@@ -68,19 +68,19 @@ Now you've covered the basics, understanding how everything in this framework wo
 
 2. Now that you have your files downloaded, head into Eclipse and **choose the project that you're going to work with**: either create a new one or use one that you already have.
 
-3. Once the choosen one has been... well... *chosen*, you'll need to **locate the project folder in your file system**, I'll show you two ways to do it:
+3. Once the choosen one has been... well... *chosen*, you'll need to **locate the project folder in your file system**, there are two ways to do it:
     * Using the endless power of *human mind*, your extraordinary brain knows *where your Eclipse Workspace is*. Locate the previously mentioned project's folder and open it.
     * If you have no idea of where your workspace is (either because *you forget* or because *you never thought you'd care*), do not worry, I've got you. Just right click on your Eclipse project and then click on **Show In > System Explorer**: this will open a window of your system's file explorer that will show you an highligted folder.. YOU FOUND IT. **Double click on it** and get inside your project folder.
     
 4. At this point, **create a folder called *"lib" (WITHOUT QUOTES)*, if you don't have it already in a project of yours**, do this inside your project's root directory (the aforementioned folder).
 
-5. Moving inside the **lib** folder, **move ALL Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
+5. Moving inside the **lib** folder, **put ALL the Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
 
-6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** and then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **click on a label stating "Classpath" one time, with your right click**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
+6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** and then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **click on a label stating "Classpath" one time, with your left click**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
 
-7. At this point, just **click on your project's folder** to open an *"explorer-like view"* of its folder. Click on the lib folder and then, *remembering WHERE YOU PUT THE FILES (from step 5)*, search them and **highlight them all**. Once that is done, click the **OK button** and then go for the **Apply and Close** button.
+7. At this point, just **click on your project's folder** to open an *"explorer-like view"* of its folder. Click on the lib folder and then, *remembering WHERE YOU PUT THE FILES (from step 5)*, search all of them and **highlight them all**. Once that is done, click the **OK button** and then go for the **Apply and Close** button.
 
-8. Finally, right click on your project's folder once again and **click the "Refresh" button again**.
+8. Finally, right click on your project's folder once again and **click the "Refresh" button**.
 
 GOOD JOB!! now you can start using Moona!
 
