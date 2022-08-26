@@ -84,6 +84,16 @@ Now you've covered the basics, understanding how everything in this framework wo
 
 GOOD JOB!! now you can start using Moona!
 
+## What if I need help?
+
+In case you were lost, desperately trying to work out how a certain feature works or *why* something is developed in a specific way, there's nothing to fear: you'll probably find your answers by doing something like:
+
+* Checking the [GUIDE.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) will most likely answer to some technical questions: if you're confused on some aspects of the framework that you don't fully understand (such as *modularity* or *dependency*), I highly recommend you to go for a read on this file.
+
+* Consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki) here on GitHub will cover your lack of knowledge if your goal is to know some of the framework's feature in particular. There you will find ALL the classes included in this framework together with a fully updated and on-point description to let you know every aspect of every feature.
+
+* Taking a look at the [Issues tab](https://github.com/anOsuPlayer/Moona/issues) or the [Pull Request tab](https://github.com/anOsuPlayer/Moona/pulls). If luck happens to not be on your side and you're faced with some weird, scary looking error, here on the website you will (most likely) find your workaround. If you're lucky, someone already had such an error and therefore you'll just need to read how to solve it in the related tab; if not, you're free to post a pull request or an issue stating the problem that occurred to you and either me, the developer, or the community will try to help you.
+
 ## Contributing to the Project
 
 #### ***NOTE: the project DOES NOT DECLARE ANY KIND OF LICENSE YET. It will be added in the future as soon as I have a better idea of how they work and on what they allow the community to do.***
