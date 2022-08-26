@@ -48,7 +48,7 @@ As mentioned above, words such as *dependent*, *essential* and *non-dependent* w
 
 * *dependent packages* will **NOT** be released as standalone .jar files, this is because of their objects *directly depending from the Moona class* (to keep this brief, dependent objects are those that *cannot live without the Moona class*).
 
-To look after some more details regarding how the releases/downloads work, please consult the [README.md](https://github.com/anOsuPlayer/Moona/edit/early_dev/README.md) file in the repository.
+To look after some more details regarding how the releases/downloads work, please consult the [README.md](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md) file in the repository.
 
 ## Moona Class:
 > [^ back](#moona-guide)
