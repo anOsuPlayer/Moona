@@ -6,9 +6,10 @@ Here you'll find everything you need in order to fully understand and start usin
 
 ### Basics:
 * [Introduction](#introduction)
-* [Moona Class](#moona-class)
 * [Packages Organization](#packages-organization)
 * [Dependencies](#dependencies)
+* [Nature and IDs](#nature-and-ids)
+* [Moona Class](#moona-class)
 
 ## Introduction:
 > [^ back](#moona-guide)
@@ -26,9 +27,9 @@ This being said, dear guide-consulter, I want to thank you for giving this frame
 
 The first thing I want you to have in mind is the *package organization*: the way packages and classes are organized. I think this is one of the most important things if you want to quickly access the features you are looking for (without endlessly searching for a something, wasting time).
 
-> NOTE: Some packages will be marked as *dependent*, *essential* and *not-dependent*, learn more about what these terms mean by consulting the [dependencies](#dependencies) paragraph in this file.
-
 ### Listing Packages
+
+> NOTE: Some packages will be marked as *dependent*, *essential* and *not-dependent*, learn more about what these terms mean by consulting the [dependencies](#dependencies) paragraph in this file.
 
 In the first place, there is the most important package of them all, containing all the others: the **moonaFramework** package. This particular one is the root of all the other sub-packages (which means all the other packages will be named *moonaFramework.(something)*. for practical reasons, you'll see only their name). This package also contains the *root classes* of the framework (like, for example, the [Moona class](#moona-class), which you'll see in a bit).
 
@@ -50,8 +51,11 @@ As mentioned above, words such as *dependent*, *essential* and *non-dependent* w
 
 To look after some more details regarding how the releases/downloads work, please consult the [README.md](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md) file in the repository.
 
-## Moona Class:
+## Dependencies:
 > [^ back](#moona-guide)
 
-## Dependencies:
+## Nature and IDs:
+> [^ back](#moona-guide)
+
+## Moona Class:
 > [^ back](#moona-guide)
