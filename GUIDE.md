@@ -4,19 +4,21 @@ Here you'll find everything you need in order to fully understand and start usin
 
 # Index
 
-### Basics:
 * [Introduction](#introduction)
 * [Packages Organization](#packages-organization)
 * [Dependencies](#dependencies)
 * [Nature and IDs](#nature-and-ids)
 * [Moona Class](#moona-class)
+* [Processes](#processes)
 
 ## Introduction:
 > [^ back](#moona-guide)
 
-In order to fully understand this framework, you'll need to start by knowing about some concept that will be crucial when using Moona. First thing, you need to have a quick look at how the [*package organization*](#packages-organization) is organized, in order to know where to search for some features and, most importantly, to know about how packages are linked to Moona; second thing, you'll need to learn about the [*Moona class*](#moona-class): that is the class which rules the whole framework and that, most importantly, *makes it work*... it manages the whole branch of [*dependent objects*](#dependencies), too (such a cool class).
+In order to fully understand how this framework is structured, you'll need to first comprehend a couple of important concepts. These concepts are those which *the framerwork is built on* and, consequently, they're something you'd better know. Many of these features tend to be explained descending very much into detail, so if your plan is to just look for a particular class I'd recommend you checking the [wiki page](https://github.com/anOsuPlayer/Moona/wiki) instead.
 
-I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular package hierarchy looks like) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience when using this framework.
+You'll be introduced to how the [*packages*](#packages-organization) are organized and then you'll see how [*dependency*] works and how it improves modularity aroun releases. Then there is an explanation to the first object-like structures that will be mostly essential to you using Moona, those being [*Serials and Naturals*](#nature-and-ids) followed by the [*Moona class*](#moona-class) itself, the one that rules the whole framework and manages most of the elements
+
+I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular packages are organized) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience when using this framework.
 
 This being said, dear guide-consulter, I want to thank you for giving this framework a shot and I wish you a good experience using Moona!
 
@@ -58,4 +60,7 @@ To look after some more details regarding how the releases/downloads work, pleas
 > [^ back](#moona-guide)
 
 ## Moona Class:
+> [^ back](#moona-guide)
+
+## Processes:
 > [^ back](#moona-guide)
