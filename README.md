@@ -30,11 +30,11 @@ While thinking about this project, I also took into count some very neat *modula
 
 ### Second Template:
 
-* **Choosing the base framework package:** If you plan to make a custom build of Moona, only downloading certain packages that you need, you'll have to download the base package first (the one labeled "Moona-Base.jar"). The base package includes *all the dependent packages* and leaves out *ALL the non-dipendent packages*. In order to add more features, you'll need to add to your brand new configuration some *standalone .jar*, which will be described next.
+* **Choosing the base framework package:** If you plan to make a custom build of Moona, only downloading certain packages that you need, you'll have to download the base package first (the one labeled "Moona-Base.jar"). The base package includes *all the dependent AND essential packages* and leaves out *ALL the non-dipendent packages*. In order to add more features, you'll need to add to your brand new configuration some *standalone .jar*, which will be described next.
 
 * **Choosing some standalone features:** If your idea is to download single features of this framework, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can be used in every project of yours that does not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent ones* will, keep this in mind!!
 
-> NOTE: for a better understanding of how the package structure works and of what "dependent" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
+> NOTE: for a better understanding of how the package structure works and of what "dependent", "essential" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
 
 Finally, in order to *avoid any kind of tragic issue*, remember those last few things:
 * Downloading the full framework package **DOES NOT require any extra feature to be imported**.
