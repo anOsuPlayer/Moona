@@ -35,6 +35,7 @@ public final class Moona {
 	private static final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	private static int totalElements = 0;
+	private static int totalProcesses = 0;
 	
 	public static void Add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
@@ -45,6 +46,7 @@ public final class Moona {
 		}
 		elements.add(s, s.id());
 		totalElements++;
+		totalProcesses += (s instanceof Process) ? 1 : 0;
 	}
 	public static void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
@@ -55,6 +57,7 @@ public final class Moona {
 		}
 		elements.remove(s, s.id());
 		totalElements--;
+		totalProcesses -= (s instanceof Process) ? 1 : 0;
 	}
 	
 	public static void Provide(Process p) throws MoonaHandlingException, NullPointerException {
@@ -113,6 +116,26 @@ public final class Moona {
 		Remove(p);
 		ProcessCondition.DEAD.set(p);
 		p.end();
+	}
+	
+	public static Serial getElementByID(long id) throws MoonaHandlingException {
+		if (elements.hasKey(id)) {
+			return elements.valueOf(id);
+		}
+		throw new MoonaHandlingException("There is no such element with this ID: " + id + ".");
+	}
+	public static int totalElements() {
+		return totalElements;
+	}
+	
+	public static Process getProcessByID(long id) throws MoonaHandlingException {
+		if (getElementByID(id) instanceof Process proc) {
+			return proc;
+		}
+		throw new MoonaHandlingException("The element that corresponds to that ID is not a Process.");
+	}
+	public static int totalProcesses() {
+		return totalProcesses;
 	}
 	
 	private Moona() {
