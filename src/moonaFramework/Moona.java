@@ -37,6 +37,16 @@ public final class Moona {
 	private static int totalElements = 0;
 	private static int totalProcesses = 0;
 	
+	static void FilteredAdd (Serial s) throws NullPointerException {
+		if (s == null) {
+			throw new NullPointerException();
+		}
+		if (!elements.has(s, s.id())) {
+			elements.add(s, s.id());
+			totalElements--;
+			totalProcesses -= (s instanceof Process) ? 1 : 0;
+		}
+	}
 	public static void Add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
@@ -47,6 +57,16 @@ public final class Moona {
 		elements.add(s, s.id());
 		totalElements++;
 		totalProcesses += (s instanceof Process) ? 1 : 0;
+	}
+	static void FilteredRemove(Serial s) throws NullPointerException {
+		if (s == null) {
+			throw new NullPointerException();
+		}
+		if (elements.has(s, s.id())) {
+			elements.remove(s, s.id());
+			totalElements--;
+			totalProcesses -= (s instanceof Process) ? 1 : 0;
+		}
 	}
 	public static void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
@@ -60,6 +80,13 @@ public final class Moona {
 		totalProcesses -= (s instanceof Process) ? 1 : 0;
 	}
 	
+	public static void Provide(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Provide(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
 	public static void Provide(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
@@ -68,16 +95,30 @@ public final class Moona {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
 		}
-		Add(p);
+		FilteredAdd(p);
 		ProcessCondition.AWAITING.set(p);
 	}
 	
+	public static void Await(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Await(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
 	public static void Await(Process p) throws MoonaHandlingException, NullPointerException {
 		Provide(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
+	public static void Unlock(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Unlock(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
 	public static void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
@@ -89,6 +130,36 @@ public final class Moona {
 		p.getClock().release();
 	}
 	
+	public static void Initiate(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Initiate(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
+	public static void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		if (p.isRunning().verify()) {
+			throw new MoonaHandlingException("The Process is already running.");
+		}
+		if (ProcessCondition.AWAITING.check(p)) {
+			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
+					+ " unlock it.");	
+		}
+		FilteredAdd(p);
+		ProcessCondition.RUNNING.set(p);
+		new Thread(p, "Process#" + p.id()).start();
+	}
+	
+	public static void Start(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Start(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
 	public static void Start(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
@@ -100,22 +171,124 @@ public final class Moona {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
 		}
-		Add(p);
+		FilteredAdd(p);
 		ProcessCondition.RUNNING.set(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public static void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
+	public static void Spark(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Spark(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
+	public static void Spark(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
+			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
+					+ " it.");
+		}
+		if (p.isPaused().verify()) {
+			ProcessCondition.RUNNING.set(p);
+			p.getClock().release();
+			synchronized (p.getClock()) {
+				p.onUnpause();
+			}
+		}
+		else {
+			ProcessCondition.PAUSED.set(p);
+			p.getClock().stasys();
+			synchronized (p.getClock()) {
+				p.onPause();
+			}
+		}
+	}
+	
+	public static void Flick(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Flick(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
+	public static void Flick(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
+			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
+					+ " it.");
+		}
+		if (p.isPaused().verify()) {
+			ProcessCondition.RUNNING.set(p);
+			p.getClock().release();
+			synchronized (p.getClock()) {
+				p.onUnpause();
+			}
+		}
+		else {
+			ProcessCondition.PAUSED.set(p);
+			p.getClock().stasys();
+			synchronized (p.getClock()) {
+				p.onPause();
+			}
+		}
+	}
+	
+	public static void Terminate(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Terminate(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
+	public static void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
 		}
 		if (!p.isRunning().verify()) {
-			throw new MoonaHandlingException("You cannot interrupt a process which is not initialized.");
+			throw new MoonaHandlingException("You cannot interrupt a process which is not running.");
 		}
-		Remove(p);
+		FilteredRemove(p);
 		ProcessCondition.DEAD.set(p);
+	}
+	
+	public static void Interrupt(long id) throws MoonaHandlingException {
+		if (elements.valueOf(id) instanceof Process p) {
+			Interrupt(p);
+		}
+		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
+				+ " process.");
+	}
+	public static void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
+		Terminate(p);
 		p.end();
+	}
+	
+	public static void Fade() {
+		Process[] procs = new Process[totalProcesses];
+		for (int i = 0, c = 0; i < elements.size(); i++) {
+			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
+			c += (procs[c] != null) ? 1 : 0;
+		}
+		for (Process p : procs) {
+			Terminate(p);
+		}
+	}
+	
+	public static void Collapse() {
+		Process[] procs = new Process[totalProcesses];
+		for (int i = 0, c = 0; i < elements.size(); i++) {
+			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
+			c += (procs[c] != null) ? 1 : 0;
+		}
+		for (Process p : procs) {
+			Interrupt(p);
+		}
 	}
 	
 	public static Serial getElementByID(long id) throws MoonaHandlingException {

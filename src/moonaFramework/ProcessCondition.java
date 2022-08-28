@@ -72,4 +72,11 @@ public enum ProcessCondition {
 	protected abstract void set(Process p) throws NullPointerException;
 	
 	public abstract boolean check(Process p) throws NullPointerException;
+	
+	public static boolean allowRemoval(Process p) throws NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		return DEAD.check(p);
+	}
 }
