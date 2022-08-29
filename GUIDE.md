@@ -58,7 +58,7 @@ To look after some more details regarding how the releases/downloads work, pleas
 
 I'm pretty sure that, if you came here, you will not be surprised to be introduced to this topic: I bet you'll have read of those freaky terminology all around the framework. You will now be introduced to the concept of *dependency* that I came up with. In simple words, dependency tells us *how much classes and packages are strictly related to Moona*. By "strictly" I mean *how do those elements DEPEND on Moona* (either to work properly or to *make Moona itself* work properly.
 
-If you're not planning into diving too much into details, I'd recommend you to just check what's written at the [Release Templates](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md#release-templates) inside [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), there you'll find enough information. But if you're here to really unravel each of this framework's aspect, then keep reading!
+If you're not planning into diving too much into details, I'd recommend you to just check what's written in the [previous paragraph](#packages-organization), there you'll find enough information. But if you're here to really unravel each of this framework's aspect, then keep reading!
 
 ### A closer look at Keywords
 
