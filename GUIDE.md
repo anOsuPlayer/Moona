@@ -56,6 +56,42 @@ To look after some more details regarding how the releases/downloads work, pleas
 ## Dependencies:
 > [^ back](#moona-guide)
 
+I'm pretty sure that, if you came here, you will not be surprised to be introduced to this topic: I bet you'll have read of those freaky terminology all around the framework. You will now be introduced to the concept of *dependency* that I came up with. In simple words, dependency tells us *how much classes and packages are strictly related to Moona*. By "strictly" I mean *how do those elements DEPEND on Moona* (either to work properly or to *make Moona itself* work properly.
+
+If you're not planning into diving too much into details, I'd recommend you to just check what's written at the [Release Templates](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md#release-templates) inside [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), there you'll find enough information. But if you're here to really unravel each of this framework's aspect, then keep reading!
+
+### A closer look at Keywords
+
+One of the most used terms I've written throughout the whole documentation might actually be *"dependent"* or *"non-dependent"*... but what do these things mean?
+
+It's actually really simple: those keywords are just *terms that were made to measure dependency* for each class and package. In a few words, you can view them as a simple "expression" of how closely-related they are to the framework. You'll find them all right here:
+
+#### **DEPENDENT:**
+An element is referred to as "dependent" when *it CANNOT LIVE outside of the framework's context* or, even better, *its functionality WOULD NOT BE AS EFFECTIVE as if it was alongside Moona*.
+
+Maybe a practical example will make your idea a bit more clear, let's picture a [Process](#processes): processes were thought to give their best performance when cooperating with the [Moona Class](#moona-class), all their starting, (un)pausing and interrupting procedures are specifically designed inside the latter and, thus, using them in an extern context would result in a real mess (NOTE: you *could* make a process work outside of Moona, but it would end up being really tricky for you to make it work the right way)
+
+To sum things up: dependent elements *are better not to use* outside of the framework context: they're designed purposely to give their best when strictly bound to Moona and, as a result, using them by themselves really makes no sense.
+
+#### **NON-DEPENDENT:**
+For an element to be called *non-dependent*, it needs *to be able to work properly OUTSIDE the framework's context* (with "the framework context" I'm saying some of your projects that includes the framework's package, giving the object access to the Moona class).
+
+Those are really straight forward: you might want to think about non-dependent objects as *pure regular objects*: they have close to no relation with Moona and they can *live by themselves* even outside of the framework.
+
+As already mentioned in the [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), those packages which will be *non-dependent* will be *released in A STANDALONE RELEASE, too*. Those features will live all together inside a separated .jar file, which you'll be able to download when every new update comes out (NOTE: *EVERY non-dependent package* will have its own small release). I had in mind this feature in order for people to really get what they most like or what they most need out of this framework.
+
+#### **BASIC:**
+There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/moonaFramework).
+
+Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework could live *without the framework*... is this some kind of paradox, maybe?
+
+#### **ESSENTIAL:**
+An element is considered to be *essential* when *Moona CANNOT EXIST without that certain element*. They are a bit like *"inverse dependent elements"*: if dependent elements *cannot live outside of the framework*, without essential elements *the framework could not work*.
+
+Also, those elements *follow the same rules of non-dependent elements*: they also can live outside of the framework's context (REMEMBER! they are *essential to Moona*, this means that *MOONA NEEDS THEM*, but *they DON'T NEED MOONA*!) and essential packages will feature their own *standalone release*, too.
+
+Those terms are a bit funky, I know. I came up with them in order to make people's lives easier when downloading features. Well, now that this terminology is out of the way.. **more terminology awaits you ahead**. Jokes aside, now you can consider yourself really ready to start learning *the first basic elements of the framework.*
+
 ## Nature and IDs:
 > [^ back](#moona-guide)
 
