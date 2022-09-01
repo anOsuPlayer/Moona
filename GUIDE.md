@@ -81,7 +81,7 @@ Those are really straight forward: you might want to think about non-dependent o
 As already mentioned in the [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), those packages which will be *non-dependent* will be *released in A STANDALONE RELEASE, too*. Those features will live all together inside a separated .jar file, which you'll be able to download when every new update comes out (NOTE: *EVERY non-dependent package* will have its own small release). I had in mind this feature in order for people to really get what they most like or what they most need out of this framework.
 
 #### **BASIC:**
-There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/moonaFramework).
+There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework).
 
 Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework could live *without the framework*... is this some kind of paradox, maybe?
 
@@ -94,6 +94,42 @@ Those terms are a bit funky, I know. I came up with them in order to make people
 
 ## Nature and IDs:
 > [^ back](#moona-guide)
+
+Moona features a great variety of different objects, each of them doing something specific. Among those elements the most important are [Serial](https://github.com/anOsuPlayer/Moona/wiki/Serial) and [Natural](https://github.com/anOsuPlayer/Moona/wiki/Natural) elements. They are very useful when it comes to *identify a framework's object in a specific way*, that being *the definition of an arbitrary "type" of it* and *the declaration of an unique number for that particular instance*.
+
+### Similar purpose, but different usage
+
+*Serial* and *Natural* are two Interfaces and *Serial EXTENDS Natural*. They're both needed to have methods that *return specific numbers that describe the object*, but they do it in a different way one from another:
+
+> If a type implements *Natural*, this means that it *is required to return a specific number that distinguishes that object from other objects*.
+
+Let's create a quick example: you want to create two different objects, A and B, *both implementing Natural*; let's suppose that these objects are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
+
+*What if the B class extended the A class*? Let's picture this scenario: you have created a method which *returns true* only if passed objects are *instances of the A class* (something like **boolean isA(Object obj) { ... }**, it states something like this in its body: **if (obj instanceof A) { return true; }**; if that was the case, both instances of A and B *would be accepted in this statement*, since B extends A and, thus, the returned value would be *true*.
+
+Let's now imagine a somewhat more *particular case*: we want to create a method that returns true *ONLY when an instance of A is given as an input* (NOTE: a *direct instance*, which means no subtypes are allowed). It would be almost obvious to write something like this: **boolean method(A obj) { ... }**, accepting only *A types* and then filtering them with countless *instanceof* to see if they're not subtypes... but what if that method required to accept *different types*? What if, for each *different type* a *different operation* was required? Of course, in a case like this, accepting an *Object* as argument and then checking each case with the *instanceof operator* would do the trick... but would, also, take up a lot of performance.
+
+Here comes in help the *Natural type*: since A and B *are both Natural*, our hypothetical method could accept *a Natural instead of an Object*; from there, by just switching the value of the *.nature() method* we're able to tell apart *the nature* of that specific object. Even if the method *accepted a generic Object*, you could tell beforehand if that *was an instance of Natural* and, then, filter the .nature() method's output to do stuff. This operation (on the long term) should be able to save a lot of time in terms of performance.
+
+Another possible use for the Natural type would be to *declare as similar two completely different objects*. For example, if both the A and B classes (*not inheriting each other in any way*) were to return **1** from the .nature() method, you would be able to count them as *equal* or, to use some fancy terminology, *of the same nature*. This would lead to some very neat and specific operations that you could perform with those types, but that's up to your creativity, of course!.
+
+***
+
+> If a type implements *Serial*, *it requires BOTH to return a specific nature AND to return a specific ID which distinguishes it from all the others.*
+
+Serial objects extend the concepts already stated in the previous paragraph, this is because, as already mentioned above, *Serial objects are ALSO natural*. But what is their real purpose? I mean, in order to just tell two objects apart the .equals() method would be enough... rigth? Not quite.
+
+Each Serial needs to declare the *.id() method*: this specific method is the one that returns the aforementioned *ID* as a long number needed to tell one Serial from another. But here comes the cool thing, that specific number *is assigned by the [Moona Class](#moona-class)* inside the constructor of each serial object. You don't think that's cool? Well, what if I told you that *Moona can interact with those IDs*? 
+
+Let's make things clear before going on, what does it mean that *Moona can interact with Serials*? To explain you this concept, I will need to once again *blow your mind* by unraveling another one of the Serial objects' secret: *each of them is stored **inside a "List" which resides inside Moona***. By DEFINITION, *A Serial object is an object that declares a specific ID AND is stored inside Moona*.
+
+As you'll be able to see further on, the Moona Class features a lot of ways to *interact with IDs*. The first thing worth mentioning is that **you are able to recall EVERY SERIAL OBJECT if you know its ID**, thanks to methods that accept a long value and that return the corrisponding Serial. This, of course, applies to a lot of various uses.
+
+As I did before, I'll show you a practical use of this class with an example. Let's imagine two instances **A and B** of a class **C** which *implements Serial*, the two instances have two different IDs: **1 and 2**. Imagine that these two instances are two *private fields* inside of a generic **D** class (NOTE: "generic" does not mean *Java Generics*) and that inside of the C class there is a method, which takes as an input a Serial and that... *does something*, a method like this: **void acceptSerial(Serial s)**.
+
+Since A and B are *two private fields inside of another class*, there would be no chance to call them from elsewhere... *maybe*. Thanks to a method called *.getElementByID(long id) { ... }* inside of Moona which returns the Serial corresponding to the given ID, we're able to *access to that private element by ONLY KNOWING ITS ID*, doing something like this: **acceptSerial(Moona.getElementByID(1))** (to know more about methods such as this, you can go check the [Moona Class' Wiki page](https://github.com/anOsuPlayer/Moona/wiki/Moona)). This operation will grant you the serial you're trying to access even if the latter *cannot be regularly accessed* though direct call.
+
+Each "call by ID" is made possible since, as already mentioned before, *each Serial ALSO lives inside the Moona class*. As always, Serials are implied in a lot of tasks inside of the framework and, even though I've not covered each one of them here, you'll be able to try all those features by yourself, I'm 100% convinced that's the best way you can learn!
 
 ## Moona Class:
 > [^ back](#moona-guide)
