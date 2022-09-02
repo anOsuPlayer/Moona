@@ -101,9 +101,9 @@ Moona features a great variety of different objects, each of them doing somethin
 
 *Serial* and *Natural* are two Interfaces and *Serial EXTENDS Natural*. They're both needed to have methods that *return specific numbers that describe the object*, but they do it in a different way one from another:
 
-> If a type implements *Natural*, this means that it *is required to return a specific number that distinguishes that object from other objects*.
+> If a type implements *Natural*, this means that it *is required to return a specific number that distinguishes that type from other types*.
 
-Let's create a quick example: you want to create two different objects, A and B, *both implementing Natural*; let's suppose that these objects are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
+Let's create a quick example: you want to create two different types, A and B, *both implementing Natural*; let's suppose that these types are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
 
 *What if the B class extended the A class*? Let's picture this scenario: you have created a method which *returns true* only if passed objects are *instances of the A class* (something like **boolean isA(Object obj) { ... }**, it states something like this in its body: **if (obj instanceof A) { return true; }**; if that was the case, both instances of A and B *would be accepted in this statement*, since B extends A and, thus, the returned value would be *true*.
 
