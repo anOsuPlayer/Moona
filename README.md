@@ -32,7 +32,7 @@ While thinking about this project, I also took into count some very neat *modula
 
 Keep in mind that, choosing this route, you'll be able to *add more standalone packages* further in the future, if you'd like.
 
-### Thirt Template:
+### Third Template:
 **Choosing standalone features:** If your idea is to download single features of this framework to either make your own build or to use those somewhere else, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can also be used in projects of yours that do not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent AND essentail ones* will, keep this in mind!!
 
 > NOTE: for a better understanding of how the package structure works and of what "dependent", "essential" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
