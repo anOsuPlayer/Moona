@@ -16,7 +16,7 @@ Here you'll find everything you need in order to fully understand and start usin
 
 In order to fully understand how this framework is structured, you'll need to first comprehend a couple of important concepts. These concepts are those which *the framerwork is built on* and, consequently, they're something you'd better know. Many of these features tend to be explained descending very much into detail, so if your plan is to just look for a particular class I'd recommend you checking the [wiki page](https://github.com/anOsuPlayer/Moona/wiki) instead.
 
-You'll be introduced to how the [*packages*](#packages-organization) are organized and then you'll see how [*dependency*] works and how it improves modularity aroun releases. Then there is an explanation to the first object-like structures that will be mostly essential to you using Moona, those being [*Serials and Naturals*](#nature-and-ids) followed by the [*Moona class*](#moona-class) itself, the one that rules the whole framework and manages most of the elements
+You'll be introduced to how the [*packages*](#packages-organization) are organized and then you'll see how [*dependency*] works and how it improves modularity aroun releases. Then there is an explanation to the first object-like structures that will be mostly essential to you using Moona, those being [*Serials and Naturals*](#nature-and-ids) followed by the [*Moona class*](#moona-class) itself, the one that rules the whole framework and manages most of the elements.
 
 I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular packages are organized) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience when using this framework.
 
@@ -81,12 +81,9 @@ Those are really straight forward: you might want to think about non-dependent o
 As already mentioned in the [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), those packages which will be *non-dependent* will be *released in A STANDALONE RELEASE, too*. Those features will live all together inside a separated .jar file, which you'll be able to download when every new update comes out (NOTE: *EVERY non-dependent package* will have its own small release). I had in mind this feature in order for people to really get what they most like or what they most need out of this framework.
 
 #### **BASIC:**
-There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework).
+There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). It's a bit of an obscure property, since it only regards those elements which make up the very base of the framework.
 
-Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework could live *without the framework*... is this some kind of paradox, maybe?
-
-#### **ESSENTIAL:**
-An element is considered to be *essential* when *Moona CANNOT EXIST without that certain element*. They are a bit like *"inverse dependent elements"*: if dependent elements *cannot live outside of the framework*, without essential elements *the framework could not work*.
+Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework could live *without the framework*... is this some kind of paradox, maybe.
 
 Also, those elements *follow the same rules of non-dependent elements*: they also can live outside of the framework's context (REMEMBER! they are *essential to Moona*, this means that *MOONA NEEDS THEM*, but *they DON'T NEED MOONA*!) and essential packages will feature their own *standalone release*, too.
 
@@ -125,11 +122,11 @@ Let's make things clear before going on, what does it mean that *Moona can inter
 
 As you'll be able to see further on, the Moona Class features a lot of ways to *interact with IDs*. The first thing worth mentioning is that **you are able to recall EVERY SERIAL OBJECT if you know its ID**, thanks to methods that accept a long value and that return the corrisponding Serial. This, of course, applies to a lot of various uses.
 
-As I did before, I'll show you a practical use of this class with an example. Let's imagine two instances **A and B** of a class **C** which *implements Serial*, the two instances have two different IDs: **1 and 2**. Imagine that these two instances are two *private fields* inside of a generic **D** class (NOTE: "generic" does not mean *Java Generics*) and that inside of the C class there is a method, which takes as an input a Serial and that... *does something*, a method like this: **void acceptSerial(Serial s)**.
+As I did before, I'll show you a practical use of this class with an example. Let's imagine two instances **A and B** of a class **C** which *implements Serial*, the two instances have two different IDs: **1 and 2**. Imagine that these two instances are two *private fields* inside of a generic **D** class (NOTE: "generic" does not imply *Java Generics*!) and that inside of the C class there is a method, which takes as an input a Serial and that... *does something*, a method like this: **void acceptSerial(Serial s)**.
 
 Since A and B are *two private fields inside of another class*, there would be no chance to call them from elsewhere... *maybe*. Thanks to a method called *.getElementByID(long id) { ... }* inside of Moona which returns the Serial corresponding to the given ID, we're able to *access to that private element by ONLY KNOWING ITS ID*, doing something like this: **acceptSerial(Moona.getElementByID(1))** (to know more about methods such as this, you can go check the [Moona Class' Wiki page](https://github.com/anOsuPlayer/Moona/wiki/Moona)). This operation will grant you the serial you're trying to access even if the latter *cannot be regularly accessed* though direct call.
 
-Each "call by ID" is made possible since, as already mentioned before, *each Serial ALSO lives inside the Moona class*. As always, Serials are implied in a lot of tasks inside of the framework and, even though I've not covered each one of them here, you'll be able to try all those features by yourself, I'm 100% convinced that's the best way you can learn!
+Each "call by ID" is made possible since, as already mentioned before, *each Serial ALSO lives inside the Moona class*. As you'll get your chance to see, Serials are implied in a lot of tasks inside of the framework and, even though I've not covered each one of them here, you'll be able to try all those features by yourself, I'm 100% convinced that's the best way you can learn!
 
 ## Moona Class:
 > [^ back](#moona-guide)
