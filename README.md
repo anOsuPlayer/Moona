@@ -34,7 +34,7 @@ While thinking about this project, I also took into count some very neat *modula
 
 Finally, in order to *avoid any kind of tragic issue*, remember those last few things:
 * Downloading the full framework package **DOES NOT require any extra feature to be imported**.
-* If you plan on downloading scattered packages, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure**.
+* For each package you're going to download, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure**.
 * Standalone packages **DO NOT REQUIRE the base package to be installed**.
 * **ALWAYS CHOOSE** between one of the aforementioned tempates.
 * **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
