@@ -1,4 +1,4 @@
-# Moona
+# Moona 🌙
 
 Welcome to Moona! This project is my very own multi-purpose framework that will feature a whole bunch of tools and classes for all sorts of purposes: from building graphic interfaces up to simply keeping your code more compact and clear!
 
@@ -8,7 +8,7 @@ My hope is to develop this framework as best as I possibly can: I want to offer 
 
 Speaking about very far-in-the-future plans, I would really like to give this framework a graphic interface (with integrated IDE and other things) and, also, to port it along with all its features to other programming languages (like C++). We're talking about a very far future, though... who knows if this'll happen.
 
-## How do I get started?
+## How do I get started? 🔎
 
 In order to get started with this framework you'll need a few things:
 
@@ -18,7 +18,7 @@ In order to get started with this framework you'll need a few things:
 
 Now that you *"really know what you're doing"*, you are ready to take your first look at the [releases tab](https://github.com/anOsuPlayer/Moona/releases) to choose the **release template** that most suits your needings to begin with! ... wait, what's a *release template*...?
 
-## Release Templates
+## Release Templates :package:
 
 If you decided to download a Moona release, then I'd better lighten your mind a bit by telling you *how releases work*. It's really no complex thing: you'll just have to choose between a way to organize things or another.
 
@@ -39,7 +39,7 @@ Finally, in order to *avoid any kind of tragic issue*, remember those last few t
 * **ALWAYS CHOOSE** between one of the aforementioned tempates.
 * **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
 
-## Versions
+## Versions 📑
 
 Before diving head first into using the framework, let me just clarify a couple things about how versioning will work for each release.
 
@@ -57,7 +57,7 @@ For now, there are not any public releases yet (because of the framework being s
 
 Once each new release is ready, I will put one of these keywords in the tag, in order to make more clear what kind of version you'll download (an exemple of release tag would be something like: *release-1.0* or *alpha-0.2.1*).
 
-## Working with Moona
+## Working with Moona 💡
 
 Now you've covered the basics, understanding how everything in this framework works, it might be the time to actually start *coding something of your own*. In order to access to Moona's features you'll need to *[choose a release](#release-templates)* and then to *import (all) the .jar file(s)* into your favourite IDE. The following paragraph will show you how to import .jar files into Eclipse IDE, in case you needed it (if you plan on using a different IDE to code with Moona, then looking out for some help on google might help you. In case of some weird problem, feel free to use the [issues tab](https://github.com/anOsuPlayer/Moona/issues)).
 
@@ -81,7 +81,7 @@ Now you've covered the basics, understanding how everything in this framework wo
 
 GOOD JOB!! now you can start using Moona!
 
-## What if I need help?
+## What if I need help? 📚
 
 In case you were lost, desperately trying to work out how a certain feature works or *why* something is developed in a specific way, there's nothing to fear: you'll probably find your answers by doing something like:
 
@@ -91,13 +91,13 @@ In case you were lost, desperately trying to work out how a certain feature work
 
 * Taking a look at the [Issues tab](https://github.com/anOsuPlayer/Moona/issues) or the [Pull Request tab](https://github.com/anOsuPlayer/Moona/pulls). If luck happens to not be on your side and you're faced with some weird, scary looking error, here on the website you will (most likely) find your workaround. If you're lucky, someone already had such an error and therefore you'll just need to read how to solve it in the related tab; if not, you're free to post a pull request or an issue stating the problem that occurred to you and either me, the developer, or the community will try to help you.
 
-## Contributing to the Project
+## Contributing to the Project 🎓
 
 #### ***NOTE: the project DOES NOT DECLARE ANY KIND OF LICENSE YET. It will be added in the future as soon as I have a better idea of how they work and on what they allow the community to do.***
 
 Even though there is no license yet, I want to give the community a possibility to contribute to the project. Via *pull requests* and *issues* tab, I will kindly accept any kind of advice, idea or constructive opinion!
 
-## Thanks!
+## Thanks! :heart:
 
 Thanks for coming until the end of the file. This might not be the best code you'll find around, but, on the other hand, it's the best I can offer you. This project will never be perfect, but I will try my best to keep up with the expectations (if.. someone will ever expect something out of this framework). For now, though, enjoy Moona... Happy coding!
 
