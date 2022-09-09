@@ -22,25 +22,22 @@ Now that you *"really know what you're doing"*, you are ready to take your first
 
 If you decided to download a Moona release, then I'd better lighten your mind a bit by telling you *how releases work*. It's really no complex thing: you'll just have to choose between a way to organize things or another.
 
-While thinking about this project, I also took into count some very neat *modularity feature* (the reason behind those templates). I thought that it would have been nice to *allow people to download standalone releases of non-dependent packages to use them outside of the main framework, too*. For each major release, you'll have the following options to choose between when the download time will come:
+While thinking about this project, I also took into count some very neat *modularity feature* (the reason behind those templates). I thought that it would have been nice to *allow people to download standalone features to use them outside of the main framework, too*. For each major release, you'll have the following options to choose between when the download time will come:
 
 ### First Template:
-
-* **Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature from every package, basically).
+**Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature from every package, basically).
 
 ### Second Template:
+**Choosing standalone features:** If your idea is to download single features of this framework to use them somewhere else, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can also be used in projects of yours that do not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent ones* will, keep this in mind!!
 
-* **Choosing the base framework package:** If you plan to make a custom build of Moona, only downloading certain packages that you need, you'll have to download the base package first (the one labeled "Moona-Base.jar"). The base package includes *all the dependent AND essential packages* and leaves out *ALL the non-dipendent packages*. In order to add more features, you'll need to add to your brand new configuration some *standalone .jar*, which will be described next.
-
-* **Choosing some standalone features:** If your idea is to download single features of this framework, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can be used in every project of yours that does not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent ones* will, keep this in mind!!
-
-> NOTE: for a better understanding of how the package structure works and of what "dependent", "essential" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
+> NOTE: for a better understanding of how the package structure works and of what "dependent" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
 
 Finally, in order to *avoid any kind of tragic issue*, remember those last few things:
 * Downloading the full framework package **DOES NOT require any extra feature to be imported**.
-* If you plan on downloading scattered packages, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure**.
+* For each package you're going to download, **EACH ONE OF THEM has to be imported following [this](#working-with-moona) procedure**.
 * Standalone packages **DO NOT REQUIRE the base package to be installed**.
-* Always choose between one of the two tempates: **EITHER** download the full package **OR** make your own custom build. **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
+* **ALWAYS CHOOSE** between one of the aforementioned tempates.
+* **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
 
 ## Versions
 

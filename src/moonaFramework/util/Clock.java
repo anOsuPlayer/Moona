@@ -55,9 +55,6 @@ public class Clock implements Attached<Process> {
 		}
 	}
 	
-	private Clock() {
-		this.beginning = System.nanoTime();
-	}
 	public Clock(Process host) {
 		this.beginning = System.nanoTime();
 		this.host = host;
