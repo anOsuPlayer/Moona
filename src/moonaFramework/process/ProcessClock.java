@@ -1,8 +1,8 @@
-package moonaFramework.util;
+package moonaFramework.process;
 
-import moonaFramework.process.Process;
+import moonaFramework.util.Attached;
 
-public class Clock implements Attached<Process> {
+public class ProcessClock implements Attached<Process> {
 
 	private final long beginning;
 	public long getBeginning() {
@@ -55,7 +55,7 @@ public class Clock implements Attached<Process> {
 		}
 	}
 	
-	public Clock(Process host) {
+	public ProcessClock(Process host) {
 		this.beginning = System.nanoTime();
 		this.host = host;
 	}

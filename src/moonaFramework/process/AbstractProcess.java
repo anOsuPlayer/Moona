@@ -3,7 +3,6 @@ package moonaFramework.process;
 import moonaFramework.Moona;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
-import moonaFramework.util.Clock;
 
 public abstract class AbstractProcess implements Process {
 	
@@ -12,8 +11,8 @@ public abstract class AbstractProcess implements Process {
 		return Moona.PROCESS;
 	}
 	
-	private final Clock clock;
-	public final Clock getClock() {
+	private final ProcessClock clock;
+	public final ProcessClock getClock() {
 		return clock;
 	}
 	
@@ -46,7 +45,7 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
-		this.clock = new Clock(this);
+		this.clock = new ProcessClock(this);
 		this.isRunning = new Status(false);
 		this.isPaused = new Status(false);
 	}
