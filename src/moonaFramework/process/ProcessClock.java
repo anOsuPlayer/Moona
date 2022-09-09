@@ -1,6 +1,6 @@
 package moonaFramework.process;
 
-import moonaFramework.util.Attached;
+import moonaFramework.relation.Attached;
 
 public class ProcessClock implements Attached<Process> {
 

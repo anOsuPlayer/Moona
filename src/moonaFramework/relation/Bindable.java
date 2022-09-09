@@ -1,4 +1,4 @@
-package moonaFramework.util;
+package moonaFramework.relation;
 
 public interface Bindable<T> extends Attached<T> {
 	
