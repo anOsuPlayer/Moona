@@ -14,7 +14,7 @@ In order to get started with this framework you'll need a few things:
 
 * This framework uses the *Java JDK 18.0.2*, so you'll need to download it from the official [website](https://www.oracle.com/java/technologies/downloads/) (NOTE: if you like, you should be able to use some newer versions of the JDK, too. I hope that it won't cause troubles, though, I haven't tested it yet)
 
-* To avoid making a mess in your IDE and making you regret of your life choices, I would advise you to read the official [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files).
+* To avoid making a mess in your IDE and making you regret of your life choices, I would advise you to read the official [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files).
 
 Now that you *"really know what you're doing"*, you are ready to take your first look at the [releases tab](https://github.com/anOsuPlayer/Moona/releases) to choose the **release template** that most suits your needings to begin with! ... wait, what's a *release template*...?
 
@@ -30,7 +30,7 @@ While thinking about this project, I also took into count some very neat *modula
 ### Second Template:
 **Choosing standalone features:** If your idea is to download single features of this framework to use them somewhere else, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can also be used in projects of yours that do not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent ones* will, keep this in mind!!
 
-> NOTE: for a better understanding of how the package structure works and of what "dependent" and "non-dependent" actually mean, I suggest you to check the [*guide*](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
+> NOTE: for a better understanding of how the package structure works and of what "dependent" and "non-dependent" actually mean, I suggest you to check the [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
 
 Finally, in order to *avoid any kind of tragic issue*, remember those last few things:
 * Downloading the full framework package **DOES NOT require any extra feature to be imported**.
