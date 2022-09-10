@@ -1,8 +1,9 @@
 package moonaFramework.process;
 
 import moonaFramework.relation.Attached;
+import moonaFramework.util.Chrono;
 
-public class ProcessClock implements Attached<Process> {
+public class ProcessClock extends Chrono implements Attached<Process> {
 
 	private final long beginning;
 	public long getBeginning() {
@@ -14,44 +15,12 @@ public class ProcessClock implements Attached<Process> {
 		return host;
 	}
 	
-	public void sleep(long mills, int nanos) {
-		synchronized (this) {
-			this.notify();
-			try {
-				this.wait(mills, nanos);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	public void sleep(long mills) {
-		sleep(mills);
-	}
-	
 	public void pauseHolder() {
 		if (host.isPaused().verify()) {
 			stasys();
 		}
 		else {
 			release();
-		}
-	}
-	
-	public void stasys() {
-		synchronized (this) {
-			this.notify();
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void release() {
-		synchronized (this) {
-			this.notify();
 		}
 	}
 	
