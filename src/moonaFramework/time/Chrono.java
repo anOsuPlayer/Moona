@@ -1,6 +1,6 @@
-package moonaFramework.util;
+package moonaFramework.time;
 
-public class Chrono {
+public class Chrono extends Clock {
 
 	public void sleep(long mills, int nanos) {
 		synchronized (this) {
@@ -11,10 +11,18 @@ public class Chrono {
 				e.printStackTrace();
 			}
 		}
-		
 	}
+	
 	public void sleep(long mills) {
-		sleep(mills);
+		sleep(mills, 0);
+	}
+	public void sleep(int nanos) {
+		long mills = nanos / 1000000;
+		sleep(mills, nanos % 1000000);
+	}
+	
+	public void sleep(double seconds) {
+		sleep((long) seconds, ((int) ((seconds - ((int) seconds)) * 1000000)));
 	}
 	
 	public void stasys() {
@@ -35,6 +43,6 @@ public class Chrono {
 	}
 	
 	public Chrono() {
-		
+		super();
 	}
 }
