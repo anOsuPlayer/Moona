@@ -69,7 +69,7 @@ Now you've covered the basics, understanding how everything in this framework wo
     * Using the endless power of *human mind*, your extraordinary brain knows *where your Eclipse Workspace is*. Locate the previously mentioned project's folder and open it.
     * If you have no idea of where your workspace is (either because *you forget* or because *you never thought you'd care*), do not worry, I've got you. Just right click on your Eclipse project and then click on **Show In > System Explorer**: this will open a window of your system's file explorer that will show you an highligted folder.. YOU FOUND IT. **Double click on it** and get inside your project folder.
     
-4. At this point, **create a folder called *"lib" (WITHOUT QUOTES)*, if you don't have it already in a project of yours**, do this inside your project's root directory (the aforementioned folder).
+4. At this point, **create a folder called *"lib" (WITHOUT QUOTES)*, if you don't have it already in that project**, do this inside your project's root directory (the aforementioned folder).
 
 5. Moving inside the **lib** folder, **put ALL the Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
 

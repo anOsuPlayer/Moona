@@ -8,8 +8,8 @@ Here you'll find everything you need in order to fully understand and start usin
 * [Packages Organization](#packages-organization)
 * [Dependencies](#dependencies)
 * [Nature and IDs](#nature-and-ids)
-* [Moona Class](#moona-class)
 * [Processes](#processes)
+* [Moona Class](#moona-class)
 
 ## Introduction:
 > [^ back](#moona-guide)
@@ -108,7 +108,11 @@ Let's now imagine a somewhat more *particular case*: we want to create a method 
 
 Here comes in help the *Natural type*: since A and B *are both Natural*, our hypothetical method could accept *a Natural instead of an Object*; from there, by just switching the value of the *.nature() method* we're able to tell apart *the nature* of that specific object. Even if the method *accepted a generic Object*, you could tell beforehand if that *was an instance of Natural* and, then, filter the .nature() method's output to do stuff. This operation (on the long term) should be able to save a lot of time in terms of performance.
 
-Another possible use for the Natural type would be to *declare as similar two completely different objects*. For example, if both the A and B classes (*not inheriting each other in any way*) were to return **1** from the .nature() method, you would be able to count them as *equal* or, to use some fancy terminology, *of the same nature*. This would lead to some very neat and specific operations that you could perform with those types, but that's up to your creativity, of course!.
+Another possible use for the Natural type would be to *declare as similar two completely different objects*. For example, if both the A and B classes (*not inheriting each other in any way*) were to return **1** from the .nature() method, you would be able to count them as *equal* or, to use some fancy terminology, *of the same nature*. This would lead to some very neat and specific operations that you could perform with those types, but that's up to your creativity, of course!
+
+A "nature", as said earlier, is nothing but an *integer number*: all those naturals whose *nature()* method returns that specific integer are said to be *of the same nature*. It's also possible to visualize those integers as *theoretical groups* that keep together all those elements declared as "similar": one example is the nature which value is *-1*: every natural that returns this number is declared to be *of the nature of an Exception*.
+
+This last paragraph was useful to show you that the Nature interface is not only useful to *distinguish* types, but also to *make them have something in common*
 
 ***
 
@@ -128,8 +132,46 @@ Since A and B are *two private fields inside of another class*, there would be n
 
 Each "call by ID" is made possible since, as already mentioned before, *each Serial ALSO lives inside the Moona class*. As you'll get your chance to see, Serials are implied in a lot of tasks inside of the framework and, even though I've not covered each one of them here, you'll be able to try all those features by yourself, I'm 100% convinced that's the best way you can learn!
 
-## Moona Class:
-> [^ back](#moona-guide)
+Of course, though, not everything is automated and not everything will be done by the Moona class itself, so there are some things you might want to keep in mind:
+* Serial objects are NOT AUTOMATICALLY ADDED TO MOONA: if you plan on creating a serial object yourself, keep in mind that *you'll need to manually add it to Moona in order to make the magic happen*.
+* You CANNOT arbitrarily assign an ID to a Serial! IDs are required to *be assigned by the Moona Class itself*. Since they rely on *the total ammount of serials that entered the list*, you're not free to choose an ID since some really dangerous issue might occur.
+
+> NOTE you can learn more about how to do this stuff by checking the [Moona Class paragraph](#moona-class) in this guide or by consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
 
 ## Processes:
 > [^ back](#moona-guide)
+
+## Moona Class:
+> [^ back](#moona-guide)
+
+If you're here reading this guide, I might say that you've probably read something about this very special class throughout the documentations. Well, allow me to present you the most important thing in this framework, containing informations, methods and things that make the framework... *work*.
+
+Let's make some things clear, first:
+* This guide DOES NOT FEATURE the list of all the methods in this class, to find out about that, you'll have to consult the [Official Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) here on GitHub.
+* You might need to learn about some *specific terms* that were previously mentioned in this guide, keep in mind that, for each term you're not familiar with, *this guide will provide you the definitions you need*, just look around a bit and you'll be satisfied.
+* This section of the guide *is very likely to change in the future*. Since this is one of the classes I'll be developing more actively, so expect new stuff to appear and disappear around here.
+
+As you might have guessed, this class is *the most important in the whole framework.*, you'll see in a bit why. It's also very important to mention that *IT IS NOT instantiable*: the Moona class is accessible ONLY via its *static methods*. But.. what are those methods useful for? Let's find out.
+
+### "Mother Nature"
+I chose this title in order to highlight the word "Nature" to your eyes. Inside this class, indeed, are stored *static fields that store ALL the natures inside the framework*.
+
+By definition, [Natural elements](#nature-and-ids) are identified by integer numbers (the *-1* number, for example, identifies *Exceptions*).. but how are they chosen... where can I find them? The answer is *in the Moona Class*. Here you'll find all those aforementioned static fields containing ALL THE NATURES used inside the framework (there is the field *Moona.EXCEPTION*, which evaluates to *-1*).
+
+This was made in order to *make the code more readable*: if the nature() method returned just a normal number it would be much harder to understand, meanwhile, returning the corresponding static field inside of Moona makes the whole thing much more clear to your eyes. In a few words, what's more intuitive *-1* or *Moona.EXCEPTION*?
+
+Another reason those fields were added is because.. well... *I'm not evil*. I thought to the fact that people, for whatever reason, might actually need to operate with those constants and, thus, I chose a fitting place for them to reside and for you to find them easily!
+
+### The Almighty Serial Container
+As mentioned in the [Nature and IDs](#nature-and-ids) paragraph (where *serial elements* were introducted), ALL the serials *have to live inside Moona*, for them to work at their best. 
+
+> NOTE: As always, it's a matter of "working at the best" because dependent elements are not made to operate without Moona. Serials *could* live outside of the framework but... the truth is they'd be pretty useless on their own.
+
+Serial elements are listed inside of Moona via an [*IshMap*](https://github.com/anOsuPlayer/Moona/wiki/IshMap) that stores them *alongisde their ID*. This big list is used recall each of those elements when needed. You're able to access those objects by the [methods](https://github.com/anOsuPlayer/Moona/wiki/Moona#methods) that interact with IDs inside of this class: by knowing the ID of one you'll be able to reach that specified object, even if it's stored as private field somewhere!
+
+When explaining serials I mentioned the fact that *they are not magically added to the Moona class* and that *their ID cannot be imposed by the user*. This is because the Moona Class provides *appropriate methods* to do such things: via the **Add(Serial s)** method and the **GiveID() method** you are able to both store them inside the list and provide an adequate ID for it to not mess up. If you want to check some alternative for those methods or if you just want to know how they work, take a look [here](https://github.com/anOsuPlayer/Moona/wiki/Moona#methods).
+
+Please remember the fact that, other than removing them from the list, *there cannot be any direct interference with how Moona stores serial objects*. This means that the user can only *add* or *remove* those elements, they cannot directly access the place where they're stored, though. I've developed this feature in order to prevent any necessity that involves editing the serials' list, hopefully the methods I provided will be enough for you to work!
+
+### The Process HQ
+*to be added*
