@@ -141,6 +141,31 @@ Of course, though, not everything is automated and not everything will be done b
 ## Processes:
 > [^ back](#moona-guide)
 
+In this guide I purposed myself to explain every technical aspect of this framework, and to do so I will also cover those elements which, in my opinion, are due to have a description for them to be more understandable. This section will contain heaps of useful information about some of the most important elements of Moona, *Processes*.
+
+To begin with, processes are *dependent objects* and there are *many different kinds of processes*, you'll be able to check all of them on [this page](https://github.com/anOsuPlayer/Moona/wiki/.process) of the wiki). All those types of processes, though, have *something in common*; by definition, what identifies a process is the *Process Interface*, which, if implemented, automatically makes that type *a real process*.
+
+The Process Interface is *the most basic example of a process*: it contains the basic methods that make up all the things needed to operate with Moona and, consequently, to be a fully functional object. The hierarchy of the aforementioned interface is the following:
+* It *extends the Serial Interface*: ALL the processes that can be considered such *are ALSO serials*. This means that *the Moona Class CAN treat processes [the same way](#moona-class) it treats Serial Objects*
+* It *extends the java.lang.Runnable interface*: in order for a process to work it needs to *be executed inside another Thread*, implementing this interface is the key element to make processes interoperable with java Threads
+> NOTE: the full functionality of a process (being it a *dependent object*) can ONLY be achieved by using it simultaneously alongside Moona. Inside the Moona Class processes are treated in a [specific way](#the-process-hq) such that they can be started correctly, however if you ever wanted to use them as regular Runnables there would not be any problem (just keep in mind the fact that *it would be ratherly useless*).
+
+To wrap things up, processes are none other than *dependent objects* considered as *serials* which *enhance the Runnable interface*. Yes, they're basically *buffed-up runnables*, but I promise that there are a lot of features that will blow your mind, you'll never use runnables again! (maybe)
+
+### A Process' Status
+Inside every process there are two methods overridden from the Process Interface, those methods return two [statuses](https://github.com/anOsuPlayer/Moona/wiki/Status) which tell us whether the process is *paused or not paused* and whether it's *running or not running*. From these two statuses we can obtain *4 different possible combinations*: each one of those represents a *condition* in which a process can identify itself. The aforementioned conditions are the following:
+
+* **DEAD**: a process is considered to be dead only when *it's neither paused nor running*. Usually, processes are considered to be dead only when *they're initialized* or when *Moona terminated them*. A process CANNOT EXIST inside Moona if it's considered dead.
+* **AWAITING**: if the given process is *paused but NOT running*, it's called an *awaiting process*. This is a special kind of condition that can happen only *before initializing the process*, when it's added to Moona but *it hasn't been started yet*.
+* **PAUSED**: as intuitive as its name is, this condition identifies a *paused AND running process*. This condition can be achieved by pausing the process using specific methods, which you'll se in the [Moona Class paragraph](#moona-class) (or in the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) if you want a detailed list of all the methods).
+* **RUNNING**: in the end, a *running process* consists in a process which *is running and NOT paused* (veeeeery difficult.. right?).
+
+> NOTE 1: All these statuses are controlled by an enumeration called [ProcessCondition](https://github.com/anOsuPlayer/Moona/wiki/ProcessCondition). You can operate with process conditions in different ways using that enum, try it out!
+> NOTE 2: In order to cover the process behind how processes are initialized, check the [Moona Class paragraph] or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona)
+
+### Starting, Pausing and Interrupting processes
+*to be added*
+
 ## Moona Class:
 > [^ back](#moona-guide)
 
