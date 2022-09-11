@@ -163,8 +163,15 @@ This was made in order to *make the code more readable*: if the nature() method 
 Another reason those fields were added is because.. well... *I'm not evil*. I thought to the fact that people, for whatever reason, might actually need to operate with those constants and, thus, I chose a fitting place for them to reside and for you to find them easily!
 
 ### The Almighty Serial Container
-As mentioned in the [Nature and IDs](#nature-and-ids) paragraph (where *Serial elements* were introducted), ALL the serials *have to live inside Moona*, for them to work at their best. 
+As mentioned in the [Nature and IDs](#nature-and-ids) paragraph (where *serial elements* were introducted), ALL the serials *have to live inside Moona*, for them to work at their best. 
 
-As always, it's a matter of "working at the best" because dependent elements are not made to operate without Moona. Serials *could* live outside of the framework but... the truth is they'd be pretty useless on their own.
+> NOTE: As always, it's a matter of "working at the best" because dependent elements are not made to operate without Moona. Serials *could* live outside of the framework but... the truth is they'd be pretty useless on their own.
 
-Serial elements are listed inside of Moona via an [*IshMap*](https://github.com/anOsuPlayer/Moona/wiki/IshMap) that stores them *alongisde their ID*. This big list is used recall each of those elements when needed. You're able to interact with those objects by the [methods](https://github.com/anOsuPlayer/Moona/wiki/Moona#methods) that interact with IDs inside of this class: by knowing the ID of one you'll be able to reach that specified object, even if it's stored as private field somewhere!
+Serial elements are listed inside of Moona via an [*IshMap*](https://github.com/anOsuPlayer/Moona/wiki/IshMap) that stores them *alongisde their ID*. This big list is used recall each of those elements when needed. You're able to access those objects by the [methods](https://github.com/anOsuPlayer/Moona/wiki/Moona#methods) that interact with IDs inside of this class: by knowing the ID of one you'll be able to reach that specified object, even if it's stored as private field somewhere!
+
+When explaining serials I mentioned the fact that *they are not magically added to the Moona class* and that *their ID cannot be imposed by the user*. This is because the Moona Class provides *appropriate methods* to do such things: via the **Add(Serial s)** method and the **GiveID() method** you are able to both store them inside the list and provide an adequate ID for it to not mess up. If you want to check some alternative for those methods or if you just want to know how they work, take a look [here](https://github.com/anOsuPlayer/Moona/wiki/Moona#methods).
+
+Please remember the fact that, other than removing them from the list, *there cannot be any direct interference with how Moona stores serial objects*. This means that the user can only *add* or *remove* those elements, they cannot directly access the place where they're stored, though. I've developed this feature in order to prevent any necessity that involves editing the serials' list, hopefully the methods I provided will be enough for you to work!
+
+### The Process HQ
+*to be added*
