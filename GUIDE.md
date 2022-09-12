@@ -161,10 +161,32 @@ Inside every process there are two methods overridden from the Process Interface
 * **RUNNING**: in the end, a *running process* consists in a process which *is running and NOT paused* (veeeeery difficult.. right?).
 
 > NOTE 1: All these statuses are controlled by an enumeration called [ProcessCondition](https://github.com/anOsuPlayer/Moona/wiki/ProcessCondition). You can operate with process conditions in different ways using that enum, try it out!
-> NOTE 2: In order to cover the process behind how processes are initialized, check the [Moona Class paragraph] or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona)
+> NOTE 2: In order to cover the process behind how processes are initialized, check the [Moona Class paragraph](#moona-class) or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona)
 
 ### Starting, Pausing and Interrupting processes
-*to be added*
+
+After listing each one of the possible statuses a process can assume, now I will proceed by explaining *how a process can be "moved" between a status and another*. Other than that, I will also tell you how *the complete lifecycle of a process* is structured.
+
+First things first, you need to have a basic understanding of *how you can interact with processes*: you do not operate directly on them (meaning *you don't have to invoke anything from the instance of a process*) but you *interact with them via the [Moona Class](#moona-class)*. There you'll find several methods that will help you making a process run properly.
+
+> NOTE: to have a better understanding of all the methods I'll refer to throughout this explanation, I suggest you to check the [Process Interface](https://github.com/anOsuPlayer/Moona/wiki/Process) or the [Moona Class](https://github.com/anOsuPlayer/Moona/wiki/Moona) wiki pages. 
+
+### Starting
+
+In order to set up a process correctly, you first need to *start it*. After instantiating a certain process *P* you'll have some routes to choose between:
+* Using the *.Start(Process p) method*: invoking the Moona.Start(*P*) method you'll have succesfully started you process and thus its execution will begin on a separated thread.
+* Using the *.Initiate(Process p) method*: slightly different from the last one, this will start the process exactly like the .Start() method would, except for the fact that *it would not invoke the .initialize() method from the process*. 
+
+When starting a process, keep in mind those things:
+* Once started, the process *will be tagged as RUNNING*.
+* After invoking any starting method, the process *will be automatically used to set up a Thread to host it*.
+* Starting a process *ALSO* means adding it to the [list of serials](#the-almighty-serial-container) inside of the Moona Class.
+
+### Awaiting and Unlocking
+
+### Sparking
+
+### Interrupting Processes
 
 ## Moona Class:
 > [^ back](#moona-guide)
@@ -178,7 +200,7 @@ Let's make some things clear, first:
 
 As you might have guessed, this class is *the most important in the whole framework.*, you'll see in a bit why. It's also very important to mention that *IT IS NOT instantiable*: the Moona class is accessible ONLY via its *static methods*. But.. what are those methods useful for? Let's find out.
 
-### "Mother Nature"
+### Mother Nature
 I chose this title in order to highlight the word "Nature" to your eyes. Inside this class, indeed, are stored *static fields that store ALL the natures inside the framework*.
 
 By definition, [Natural elements](#nature-and-ids) are identified by integer numbers (the *-1* number, for example, identifies *Exceptions*).. but how are they chosen... where can I find them? The answer is *in the Moona Class*. Here you'll find all those aforementioned static fields containing ALL THE NATURES used inside the framework (there is the field *Moona.EXCEPTION*, which evaluates to *-1*).
