@@ -8,7 +8,6 @@ import moonaFramework.time.Timer;
 public class Test {
 
 	public static void main(String[] args) {
-		Timer t = new Timer(10000, 0);
-		t.elapse();
+		
 	}
 }
