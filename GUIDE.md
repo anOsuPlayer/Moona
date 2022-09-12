@@ -11,7 +11,7 @@ Here you'll find everything you need in order to fully understand and start usin
 * [Processes](#processes)
 * [Moona Class](#moona-class)
 
-## Introduction:
+## Introduction
 > [^ back](#moona-guide)
 
 In order to fully understand how this framework is structured, you'll need to first comprehend a couple of important concepts. These concepts are those which *the framerwork is built on* and, consequently, they're something you'd better know. Many of these features tend to be explained descending very much into detail, so if your plan is to just look for a particular class I'd recommend you checking the [wiki page](https://github.com/anOsuPlayer/Moona/wiki) instead.
@@ -24,7 +24,7 @@ This being said, dear guide-consulter, I want to thank you for giving this frame
 
 > *The Developer*
 
-## Packages Organization:
+## Packages Organization
 > [^ back](#moona-guide)
 
 The first thing I want you to have in mind is the *package organization*: the way packages and classes are organized. I think this is one of the most important things if you want to quickly access the features you are looking for (without endlessly searching for a something, wasting time).
@@ -53,7 +53,7 @@ As mentioned above, words such as *dependent*, *essential* and *non-dependent* w
 
 To look after some more details regarding how the releases/downloads work, please consult the [README.md](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md) file in the repository.
 
-## Dependencies:
+## Dependencies
 > [^ back](#moona-guide)
 
 I'm pretty sure that, if you came here, you will not be surprised to be introduced to this topic: I bet you'll have read of those freaky terminology all around the framework. You will now be introduced to the concept of *dependency* that I came up with. In simple words, dependency tells us *how much classes and packages are strictly related to Moona*. By "strictly" I mean *how do those elements DEPEND on Moona* (either to work properly or to *make Moona itself* work properly.
@@ -89,7 +89,7 @@ Also, those elements *follow the same rules of non-dependent elements*: they als
 
 Those terms are a bit funky, I know. I came up with them in order to make people's lives easier when downloading features. Well, now that this terminology is out of the way.. **more terminology awaits you ahead**. Jokes aside, now you can consider yourself really ready to start learning *the first basic elements of the framework.*
 
-## Nature and IDs:
+## Nature and IDs
 > [^ back](#moona-guide)
 
 Moona features a great variety of different objects, each of them doing something specific. Among those elements the most important are [Serial](https://github.com/anOsuPlayer/Moona/wiki/Serial) and [Natural](https://github.com/anOsuPlayer/Moona/wiki/Natural) elements. They are very useful when it comes to *identify a framework's object in a specific way*, that being *the definition of an arbitrary "type" of it* and *the declaration of an unique number for that particular instance*.
@@ -138,7 +138,7 @@ Of course, though, not everything is automated and not everything will be done b
 
 > NOTE you can learn more about how to do this stuff by checking the [Moona Class paragraph](#moona-class) in this guide or by consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
 
-## Processes:
+## Processes
 > [^ back](#moona-guide)
 
 In this guide I purposed myself to explain every technical aspect of this framework, and to do so I will also cover those elements which, in my opinion, are due to have a description for them to be more understandable. This section will contain heaps of useful information about some of the most important elements of Moona, *Processes*.
@@ -188,7 +188,7 @@ When starting a process, keep in mind those things:
 
 ### Interrupting Processes
 
-## Moona Class:
+## Moona Class
 > [^ back](#moona-guide)
 
 If you're here reading this guide, I might say that you've probably read something about this very special class throughout the documentations. Well, allow me to present you the most important thing in this framework, containing informations, methods and things that make the framework... *work*.
