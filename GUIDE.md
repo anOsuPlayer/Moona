@@ -214,7 +214,7 @@ Adding the line of code *"Moona.Init();"* before using any feature of this frame
 
 > NOTE 1: **ALWAYS use the Moona.Init() instruction IN THE MAIN METHOD.**
 
-> NOTE 2: what I do NOT advice is to add this line *in the middle of your code*: it's always better to write this instruction at the beginning of your main method, in order to avoid complications
+> NOTE 2: what I do NOT advice is to add this line *in the middle of your code*: it's always better to write this instruction at the beginning of your main method, in order to avoid complications.
 
 ### Mother Nature
 I chose this title in order to highlight the word "Nature" to your eyes. Inside this class, indeed, are stored *static fields that store ALL the natures inside the framework*.
