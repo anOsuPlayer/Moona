@@ -13,6 +13,7 @@ public final class Moona {
 	}
 
 	public static final int EXCEPTION = -1;
+	
 	public static final int PROCESS = 0;
 	
 	public static void Init() {
@@ -22,7 +23,9 @@ public final class Moona {
 		}
 	}
 	public static void Init(Process p) {
-		Init();
+		if (!isOn) {
+			Init();
+		}
 		Add(p);
 		ProcessCondition.RUNNING.set(p);
 		p.initialize();
