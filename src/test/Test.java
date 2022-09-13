@@ -1,7 +1,7 @@
 package test;
 
 import moonaFramework.Moona;
-import moonaFramework.process.AbstractProcess;
+import moonaFramework.process.ProcessClock;
 import moonaFramework.time.Timer;
 
 @SuppressWarnings("unused")
