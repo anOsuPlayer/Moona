@@ -22,7 +22,7 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
 	}
-	public static void Init(Process p) {
+	public static void Initialize(Process p) {
 		if (!isOn) {
 			Init();
 		}
