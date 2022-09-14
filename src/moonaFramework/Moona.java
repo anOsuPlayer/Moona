@@ -40,7 +40,7 @@ public final class Moona {
 	private static int totalElements = 0;
 	private static int totalProcesses = 0;
 	
-	static void FilteredAdd (Serial s) throws NullPointerException {
+	static void FilteredAdd(Serial s) throws NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
 		}
