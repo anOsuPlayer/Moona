@@ -10,6 +10,7 @@ Here you'll find everything you need in order to fully understand and start usin
 * [Nature and IDs](#nature-and-ids)
 * [Processes](#processes)
 * [Moona Class](#moona-class)
+* [Beginning with Moona](#beginning-with-moona)
 
 ## Introduction
 > [^ back](#moona-guide)
@@ -162,10 +163,9 @@ Inside every process there are two methods overridden from the Process Interface
 
 > NOTE 1: All these statuses are controlled by an enumeration called [ProcessCondition](https://github.com/anOsuPlayer/Moona/wiki/ProcessCondition). You can operate with process conditions in different ways using that enum, try it out!
 
-> NOTE 2: In order to cover the procedure behind how processes are initialized, check the [Moona Class paragraph](#moona-class) or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
+> NOTE 2: In order to cover the procedure behind how processes are initialized, check the [Moona Class paragraph](#moona-class) or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona). Keep in mind that you'll find many unknown terms that have been descripted or explained in one of the two.
  
 ### Starting, Pausing and Interrupting processes
-
 After listing each one of the possible statuses a process can assume, now I will proceed by explaining *how a process can be "moved" between different statuses*. In other words, it's just a fancy way of saying how you can start, stop or pause processes. Other than that, I will also tell you how *the complete lifecycle of a process* is structured.
 
 First things first, you need to have a basic understanding of *how you can interact with processes*: you do not operate directly on them (meaning *you don't have to invoke anything from the instance of a process*) but you *interact with them via the [Moona Class](#moona-class)*. There you'll find several methods that will help you making a process run properly.
@@ -173,10 +173,11 @@ First things first, you need to have a basic understanding of *how you can inter
 > NOTE: to have a better understanding of all the methods I'll refer to throughout this explanation, I suggest you to check the [Process Interface](https://github.com/anOsuPlayer/Moona/wiki/Process) or the [Moona Class](https://github.com/anOsuPlayer/Moona/wiki/Moona) wiki pages. 
 
 ### Starting
-
 In order to set up a process correctly, you first need to *start it*. After instantiating a certain process *P* you'll have some routes to choose between:
 * Using the *.Start(Process p) method*: invoking the Moona.Start(*P*) method you'll have succesfully started you process and thus its execution will begin on a separated thread.
 * Using the *.Initiate(Process p) method*: slightly different from the last one, this will start the process exactly like the .Start() method would, except for the fact that *it would not invoke the .initialize() method from the process*. 
+
+The substantial difference between these two methods is the *invocation of the .initialize() method*. In order to achieve a satisfying flexibility with how processes are handled, I planned out this kind of methods in order to give the user more possibilities to manipulate them.
 
 When starting a process, keep in mind those things:
 * Once started, the process *will be tagged as RUNNING*.
@@ -184,6 +185,10 @@ When starting a process, keep in mind those things:
 * Starting a process *ALSO* means adding it to the [list of serials](#the-almighty-serial-container) inside of the Moona Class.
 
 ### Main Thread Initialization
+
+During your coding using this framework you might encounter some *special processes*. Those particular types are no regular processes: they require to *be initialized on the main thread*. Be aware, though, because *you'll be able to initialize ONLY ONE PROCESS*! Once it's initialized there, you'll be totally excluded from the main thread and, thus, you'll be locked out of it until the process reaches its end.
+
+In order to initialize processes this way we need to use a very particular method: the *.Init(Process p)* method. Using this method the [.Init()](#initializing-moona) method will get automatically called (only if the *isOn* boolean is FALSE) and, only after that, the process will be started. The thread will remain occupied *as long as the process keeps running*
 
 ### Awaiting and Unlocking
 
@@ -238,3 +243,5 @@ Please remember the fact that, other than removing them from the list, *there ca
 
 ### The Process HQ
 *to be added*
+
+## Beginning with Moona
