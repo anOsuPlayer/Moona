@@ -153,19 +153,20 @@ The Process Interface is *the most basic example of a process*: it contains the 
 To wrap things up, processes are none other than *dependent objects* considered as *serials* which *enhance the Runnable interface*. Yes, they're basically *buffed-up runnables*, but I promise that there are a lot of features that will blow your mind, you'll never use runnables again! (maybe)
 
 ### A Process' Status
-Inside every process there are two methods overridden from the Process Interface, those methods return two [statuses](https://github.com/anOsuPlayer/Moona/wiki/Status) which tell us whether the process is *paused or not paused* and whether it's *running or not running*. From these two statuses we can obtain *4 different possible combinations*: each one of those represents a *condition* in which a process can identify itself. The aforementioned conditions are the following:
+Inside every process there are two methods overridden from the Process Interface, those methods return two [statuses](https://github.com/anOsuPlayer/Moona/wiki/Status) which tell us whether the process is *paused or not paused* and whether it's *running or not running*. From these two statuses we can obtain *4 different possible combinations*: each one of those represents a *condition* in which a process can identify itself into. The aforementioned conditions are the following:
 
-* **DEAD**: a process is considered to be dead only when *it's neither paused nor running*. Usually, processes are considered to be dead only when *they're initialized* or when *Moona terminated them*. A process CANNOT EXIST inside Moona if it's considered dead.
+* **DEAD**: a process is considered to be dead only when *it's both NOT paused and NOT running*. Usually, processes are considered to be dead only when *they've just been initialized* or when *Moona terminated them*. A process CANNOT EXIST inside Moona if it's considered dead.
 * **AWAITING**: if the given process is *paused but NOT running*, it's called an *awaiting process*. This is a special kind of condition that can happen only *before initializing the process*, when it's added to Moona but *it hasn't been started yet*.
-* **PAUSED**: as intuitive as its name is, this condition identifies a *paused AND running process*. This condition can be achieved by pausing the process using specific methods, which you'll se in the [Moona Class paragraph](#moona-class) (or in the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) if you want a detailed list of all the methods).
-* **RUNNING**: in the end, a *running process* consists in a process which *is running and NOT paused* (veeeeery difficult.. right?).
+* **PAUSED**: as intuitive as its name is, this condition identifies *a process which is both running AND paused*. This condition can be achieved by pausing the process using specific methods, which you'll se in the [Moona Class paragraph](#moona-class) (or in the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) if you want a detailed list of all the methods). The running status is needed to mark the fact that *the process is still alive* even though it's paused.
+* **RUNNING**: in the end, a *running process* consists in a process which *is running and NOT paused* (marvellous.. right?).
 
 > NOTE 1: All these statuses are controlled by an enumeration called [ProcessCondition](https://github.com/anOsuPlayer/Moona/wiki/ProcessCondition). You can operate with process conditions in different ways using that enum, try it out!
-> NOTE 2: In order to cover the process behind how processes are initialized, check the [Moona Class paragraph](#moona-class) or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona)
 
+> NOTE 2: In order to cover the procedure behind how processes are initialized, check the [Moona Class paragraph](#moona-class) or the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
+ 
 ### Starting, Pausing and Interrupting processes
 
-After listing each one of the possible statuses a process can assume, now I will proceed by explaining *how a process can be "moved" between a status and another*. Other than that, I will also tell you how *the complete lifecycle of a process* is structured.
+After listing each one of the possible statuses a process can assume, now I will proceed by explaining *how a process can be "moved" between different statuses*. In other words, it's just a fancy way of saying how you can start, stop or pause processes. Other than that, I will also tell you how *the complete lifecycle of a process* is structured.
 
 First things first, you need to have a basic understanding of *how you can interact with processes*: you do not operate directly on them (meaning *you don't have to invoke anything from the instance of a process*) but you *interact with them via the [Moona Class](#moona-class)*. There you'll find several methods that will help you making a process run properly.
 
@@ -181,6 +182,8 @@ When starting a process, keep in mind those things:
 * Once started, the process *will be tagged as RUNNING*.
 * After invoking any starting method, the process *will be automatically used to set up a Thread to host it*.
 * Starting a process *ALSO* means adding it to the [list of serials](#the-almighty-serial-container) inside of the Moona Class.
+
+### Main Thread Initialization
 
 ### Awaiting and Unlocking
 
@@ -199,6 +202,19 @@ Let's make some things clear, first:
 * This section of the guide *is very likely to change in the future*. Since this is one of the classes I'll be developing more actively, so expect new stuff to appear and disappear around here.
 
 As you might have guessed, this class is *the most important in the whole framework.*, you'll see in a bit why. It's also very important to mention that *IT IS NOT instantiable*: the Moona class is accessible ONLY via its *static methods*. But.. what are those methods useful for? Let's find out.
+
+### Initializing Moona
+The first thing to know in relation to Moona is only one, and it's *crucial* in order to make things run properly. Since certain elements inside the framework have the necessity to interoperate with libraries, there must be a way in order to *properly start them*.
+
+> NOTE: not ALL the objects in the framework are linked to a library, I suggest you to initialize Moona regardless of library-dependency, though. It's only one line of code and you'll be able to save a lot of troubles by adding it to your code!
+
+Inside the [Moona Class](https://github.com/anOsuPlayer/Moona/wiki/Moona#fields) there is a specific private boolean field that states *whether or not libraries were initialized or not*: it's the *isOn boolean*. This boolean value can *only be set to true* from its original false status, this can be done via the *.Init() method* of the Moona Class: triggering this method will cause the isOn boolean to be permantently set to *true* (as long as the framework keeps running) and you'll never need to call this method again.
+
+Adding the line of code *"Moona.Init();"* before using any feature of this framework is not only a good practice, but will also make things easier when working with Moona.
+
+> NOTE 1: **ALWAYS use the Moona.Init() instruction IN THE MAIN METHOD.**
+
+> NOTE 2: what I do NOT advice is to add this line *in the middle of your code*: it's always better to write this instruction at the beginning of your main method, in order to avoid complications.
 
 ### Mother Nature
 I chose this title in order to highlight the word "Nature" to your eyes. Inside this class, indeed, are stored *static fields that store ALL the natures inside the framework*.
