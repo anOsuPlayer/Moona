@@ -1,6 +1,6 @@
 # Moona guide
 
-Here you'll find everything you need in order to fully understand and start using Moona! Here you'll be introduced to the main framework's features and functionalities, for you to have a better understanding of what to do and how to do it. In this file you will not find any kind of documentation, for that you can consult the [official wiki](https://github.com/anOsuPlayer/Moona/wiki) here on GitHub!
+Here you'll find everything you need in order to fully comprehend and start using Moona! Here you'll be introduced to the main framework's features and functionalities, for you to have a better picture of what to do and how to do it. In this file you will not find any kind of documentation-like structures, for that you can consult the [official wiki](https://github.com/anOsuPlayer/Moona/wiki) here on GitHub!
 
 # Index
 
@@ -15,9 +15,9 @@ Here you'll find everything you need in order to fully understand and start usin
 ## Introduction
 > [^ back](#moona-guide)
 
-In order to fully understand how this framework is structured, you'll need to first comprehend a couple of important concepts. These concepts are those which *the framerwork is built on* and, consequently, they're something you'd better know. Many of these features tend to be explained descending very much into detail, so if your plan is to just look for a particular class I'd recommend you checking the [wiki page](https://github.com/anOsuPlayer/Moona/wiki) instead.
+In order to fully understand how this framework is structured, you'll need to first comprehend a bunch of important concepts. These concepts are those which *the framerwork is built on* and, consequently, they're something you better know. Many of these features tend to be explained by going very much into detail, so if your plan is to just look for a particular class I'd recommend you checking the [wiki page](https://github.com/anOsuPlayer/Moona/wiki) instead.
 
-You'll be introduced to how the [*packages*](#packages-organization) are organized and then you'll see how [*dependency*] works and how it improves modularity aroun releases. Then there is an explanation to the first object-like structures that will be mostly essential to you using Moona, those being [*Serials and Naturals*](#nature-and-ids) followed by the [*Moona class*](#moona-class) itself, the one that rules the whole framework and manages most of the elements.
+You'll be introduced to how the [*packages*](#packages-organization) are organized and then you'll see how [*dependency*](#dependencies) works and how it improves modularity aroun releases. Then there is an explanation to the first object-like structures that will be mostly essential to you using Moona, those being [*Serials and Naturals*](#nature-and-ids) followed by the [*Moona class*](#moona-class) itself, the one that rules the whole framework and manages most of the elements.
 
 I'm sure that many of these terms might sound a bit... unusual... in a framework's introduction (like, I'm sure that the average Java developer knows what a regular packages are organized) but, regardless, I want to try to describe with my own words the work I've done, so that you can have the best possible experience when using this framework.
 
@@ -34,21 +34,15 @@ The first thing I want you to have in mind is the *package organization*: the wa
 
 > NOTE: Some packages will be marked as *dependent*, *essential* and *not-dependent*, learn more about what these terms mean by consulting the [dependencies](#dependencies) paragraph in this file.
 
-In the first place, there is the most important package of them all, containing all the others: the **moonaFramework** package. This particular one is the root of all the other sub-packages (which means all the other packages will be named *moonaFramework.(something)*. for practical reasons, you'll see only their name). This package also contains the *root classes* of the framework (like, for example, the [Moona class](#moona-class), which you'll see in a bit).
+In the first place, there is the most important package of them all, containing all the others: the [**moonaFramework** package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). This particular one is the root of all the other sub-packages (which means all the other packages will be named *moonaFramework.(something)*. for practical reasons, you'll see only their name). This package also contains the *root classes* of the framework (like, for example, the [Moona class](#moona-class), which you'll see in a bit).
 
-Below this text you'll find a list containing all the packages in this framework. Each of them will have a link that will lead you to a *wiki page*, that wiki page will answer all your questions about the classes in it.
-
-* *[dependent]* **.process** package: Contains the whole *process framework* part of Moona. You'll be able to learn more about Processes in the relative page.
-
-* *[essential]* **.util** package: It's the part of Moona which contains all those objects that *serve specific purposes around the framework, but are not specific enough to be put somewhere else*. Jokes aside, this package basically consists in a collection of objects that are meant to make Moona's features more accessible and easy-to-code. Also, they are meant for programmers to use them as they please, wherever they want (some of them being, in my opinion, very useful, they'll hopefully satisfy some of your needs). 
-
-> NOTE: as new packages will be added, I will immediately add them to this list followed by the usual brief description!.
+As menitoned, the moonaFramework package *contains all the others*. If you wanted a place to consult the full list of packages inside Moona, you could check the [Wiki Page](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework): here, once every new update gets dropped, you'll find all the old and newly added packages, with their relative description.
 
 ### Some Practical Use...
 
 As mentioned above, words such as *dependent*, *essential* and *non-dependent* will be clarified further on but, for now, I will just briefly talk about the way all those packages will be organized upon a release:
 
-* *non-dependent AND essential packages* are going to have a **standalone release** as a .jar file released along with the full .jar containing Moona as a whole. This was thought in order to make people access only features they're looking for when not interested to download the entire framework (which, with each passing update, might get *very heavy* in terms of download size, too).
+* *non-dependent packages* are going to have a **standalone release** as a .jar file released along with the full .jar containing Moona as a whole. This was thought in order to make people access only features they're looking for when not interested to download the entire framework (which, with each passing update, might get *very heavy* in terms of download size, too).
 
 * *dependent packages* will **NOT** be released as standalone .jar files, this is because of their objects *directly depending from the Moona class* (to keep this brief, dependent objects are those that *cannot live without the Moona class*).
 
@@ -57,36 +51,38 @@ To look after some more details regarding how the releases/downloads work, pleas
 ## Dependencies
 > [^ back](#moona-guide)
 
-I'm pretty sure that, if you came here, you will not be surprised to be introduced to this topic: I bet you'll have read of those freaky terminology all around the framework. You will now be introduced to the concept of *dependency* that I came up with. In simple words, dependency tells us *how much classes and packages are strictly related to Moona*. By "strictly" I mean *how do those elements DEPEND on Moona* (either to work properly or to *make Moona itself* work properly.
+I'm pretty sure that, if you came here, you will not be surprised to be introduced to this topic: I bet you'll have read those freaky terms all across the framework. You will now be introduced to the concept of *dependency* that I came up with. In simple words, dependency tells us *how much classes and packages are strictly related to Moona*. By "strictly" I mean *how do those elements DEPEND on Moona* (either to work properly or to *make Moona itself* work properly).
 
 If you're not planning into diving too much into details, I'd recommend you to just check what's written in the [previous paragraph](#packages-organization), there you'll find enough information. But if you're here to really unravel each of this framework's aspect, then keep reading!
 
 ### A closer look at Keywords
 
-One of the most used terms I've written throughout the whole documentation might actually be *"dependent"* or *"non-dependent"*... but what do these things mean?
+One of the words I've written the most throughout the whole documentation might actually be either *"dependent"* or *"non-dependent"*... but what do these things mean?
 
 It's actually really simple: those keywords are just *terms that were made to measure dependency* for each class and package. In a few words, you can view them as a simple "expression" of how closely-related they are to the framework. You'll find them all right here:
 
 #### **DEPENDENT:**
 An element is referred to as "dependent" when *it CANNOT LIVE outside of the framework's context* or, even better, *its functionality WOULD NOT BE AS EFFECTIVE as if it was alongside Moona*.
 
-Maybe a practical example will make your idea a bit more clear, let's picture a [Process](#processes): processes were thought to give their best performance when cooperating with the [Moona Class](#moona-class), all their starting, (un)pausing and interrupting procedures are specifically designed inside the latter and, thus, using them in an extern context would result in a real mess (NOTE: you *could* make a process work outside of Moona, but it would end up being really tricky for you to make it work the right way)
+Maybe a practical example will make your idea a bit more clear, let's picture a [Process](#processes): processes were thought to give their best performance when cooperating with the [Moona Class](#moona-class), all their starting, (un)pausing and interrupting procedures are specifically designed inside the latter and, thus, using them in an extern context would result in a real mess (NOTE: you *could* make a process work outside of Moona, but it would end up being really tricky for you to make it work the right way).
 
-To sum things up: dependent elements *are better not to use* outside of the framework context: they're designed purposely to give their best when strictly bound to Moona and, as a result, using them by themselves really makes no sense.
+To sum things up: dependent elements *are better not to be used* outside of the framework context: they're designed purposely to give their best when strictly bound to Moona and, as a result, using them by themselves really makes no sense.
 
 #### **NON-DEPENDENT:**
 For an element to be called *non-dependent*, it needs *to be able to work properly OUTSIDE the framework's context* (with "the framework context" I'm saying some of your projects that includes the framework's package, giving the object access to the Moona class).
 
 Those are really straight forward: you might want to think about non-dependent objects as *pure regular objects*: they have close to no relation with Moona and they can *live by themselves* even outside of the framework.
 
+> NOTE: Non-dependent objects *do not need* the whole framework to function, but the framework *MIGHT NEED THOSE ELEMENTS*. If downloaded separately from the framework, they'll work on their own, but, because of the aforementioned statement, when downloading the whole package *all the non-dependent objects will be included, too*.
+
 As already mentioned in the [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), those packages which will be *non-dependent* will be *released in A STANDALONE RELEASE, too*. Those features will live all together inside a separated .jar file, which you'll be able to download when every new update comes out (NOTE: *EVERY non-dependent package* will have its own small release). I had in mind this feature in order for people to really get what they most like or what they most need out of this framework.
 
+> NOTE: All the non-dependent objects published under *the same package* mostly depend on each other (meaning inheritance is involved): you'll never find packages containing only *one object*, because it would make zero sense. Visualize non-dependent packages as small *collections* of non-dependent objects which *relate on one another* and which *can, as a whole, survive outside the framework*.
+
 #### **BASIC:**
-There is not much to need on this dependency type: all the *basic elements* are *those CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). It's a bit of an obscure property, since it only regards those elements which make up the very base of the framework.
+There is not much to say on this dependency type: all the *basic elements* are *those classes CONTAINED INSIDE THE moonaFramework PACKAGE (INCLUDED)*, which you'll be able to see right [here](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). It's a bit of an obscure property, since it only regards those elements which make up the very base of the framework.
 
-Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework could live *without the framework*... is this some kind of paradox, maybe.
-
-Also, those elements *follow the same rules of non-dependent elements*: they also can live outside of the framework's context (REMEMBER! they are *essential to Moona*, this means that *MOONA NEEDS THEM*, but *they DON'T NEED MOONA*!) and essential packages will feature their own *standalone release*, too.
+Basic elements *ARE ALSO DEPENDENT:* being them the framework itself it would not make any sense if.. elements that make the framework were able live *without the framework*... is this some kind of paradox..?
 
 Those terms are a bit funky, I know. I came up with them in order to make people's lives easier when downloading features. Well, now that this terminology is out of the way.. **more terminology awaits you ahead**. Jokes aside, now you can consider yourself really ready to start learning *the first basic elements of the framework.*
 
@@ -99,13 +95,13 @@ Moona features a great variety of different objects, each of them doing somethin
 
 *Serial* and *Natural* are two Interfaces and *Serial EXTENDS Natural*. They're both needed to have methods that *return specific numbers that describe the object*, but they do it in a different way one from another:
 
-> If a type implements *Natural*, this means that it *is required to return a specific number that distinguishes that type from other types*.
+> If a type implements *Natural*, this means that it *is required to return a specific integer number that distinguishes that natural from others OR that makes two different naturals have something in common*.
 
-Let's create a quick example: you want to create two different types, A and B, *both implementing Natural*; let's suppose that these types are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
+Let's create a quick example: you want to create two different classes, A and B, *both implementing Natural*; let's suppose that these types are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
 
-*What if the B class extended the A class*? Let's picture this scenario: you have created a method which *returns true* only if passed objects are *instances of the A class* (something like **boolean isA(Object obj) { ... }**, it states something like this in its body: **if (obj instanceof A) { return true; }**; if that was the case, both instances of A and B *would be accepted in this statement*, since B extends A and, thus, the returned value would be *true*.
+*What if the B class extended the A class*? Let's picture this scenario: you have created a method which *returns true* only if passed objects are *instances of the A class* (something like **boolean isA(A obj) { ... }**; if that was the case, both instances of A and B *would be accepted* and, thus, the same operations would be performed with both instances of A and B, since B extends A.
 
-Let's now imagine a somewhat more *particular case*: we want to create a method that returns true *ONLY when an instance of A is given as an input* (NOTE: a *direct instance*, which means no subtypes are allowed). It would be almost obvious to write something like this: **boolean method(A obj) { ... }**, accepting only *A types* and then filtering them with countless *instanceof* to see if they're not subtypes... but what if that method required to accept *different types*? What if, for each *different type* a *different operation* was required? Of course, in a case like this, accepting an *Object* as argument and then checking each case with the *instanceof operator* would do the trick... but would, also, take up a lot of performance.
+Let's now imagine a somewhat more *particular case*: we want to create a method that returns true *ONLY when an instance of A is given as an input* (NOTE: a *direct instance*, which means no subtypes are allowed). It would be almost obvious to write something like this: **boolean method(A obj) { ... }**, accepting only *A types* and then filtering them with countless *instanceof* to see if they're not subtypes... but what if that method required to accept *different types* (something like **boolean method(Object obj) { ... }**)? What if, for each *different type* a *different operation* was required? Of course, in a case like this, accepting an *Object* as argument and then checking each case with the *instanceof operator* would do the trick... but would, also, take up a lot of performance.
 
 Here comes in help the *Natural type*: since A and B *are both Natural*, our hypothetical method could accept *a Natural instead of an Object*; from there, by just switching the value of the *.nature() method* we're able to tell apart *the nature* of that specific object. Even if the method *accepted a generic Object*, you could tell beforehand if that *was an instance of Natural* and, then, filter the .nature() method's output to do stuff. This operation (on the long term) should be able to save a lot of time in terms of performance.
 
