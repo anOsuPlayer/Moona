@@ -184,7 +184,7 @@ When starting a process, keep in mind those things:
 
 During your coding using this framework you might encounter some *special processes*. Those particular types are no regular processes: they require to *be initialized on the main thread*. Be aware, though, because *you'll be able to initialize ONLY ONE PROCESS*! Once it's initialized there, you'll be totally excluded from the main thread and, thus, you'll be locked out of it until the process reaches its end.
 
-In order to initialize processes this way we need to use a very particular method: the *.Init(Process p)* method. Using this method the [.Init()](#initializing-moona) method will get automatically called (only if the *isOn* boolean is FALSE) and, only after that, the process will be started. The thread will remain occupied *as long as the process keeps running*
+In order to initialize processes this way we need to use a very particular method: the *.Initialize(Process p)* method. Using this method the [.Init()](#initializing-moona) method will get automatically called (only if the *isOn* boolean is FALSE) and, only after that, the process will be started. The thread will remain occupied *as long as the process keeps running*
 
 ### Awaiting and Unlocking
 
