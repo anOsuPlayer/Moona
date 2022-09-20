@@ -1,28 +1,26 @@
 # Moona 🌙
 
+> NOTE: This project is in a VERY *VERY* EARLY PHASE. There is NO RELEASE YET and some features haven't been covered yet.
+
 Welcome to Moona! This project is my very own multi-purpose framework that will feature a whole bunch of tools and classes for all sorts of purposes: from building graphic interfaces up to simply keeping your code more compact and clear!
 
-My hope is to develop this framework as best as I possibly can: I want to offer people a piece of code that not only performs well, but that's also handy, practical and useful at the same time. I do not aim on creating something perfect, but rather something that you all can appreciate because of its various and peculiar uses or functions.
+My hope is to develop this framework as best as I can: I want to offer people a piece of code that not only performs well, but that's also handy, practical and useful at the same time. I do not aim on creating something perfect, but rather something that you might appreciate because of its various uses and functions.
 
-#### ***Moona is still under heavy developement, many of the features listed above are not yet implemented (but they'll be there... soon).***
-
-Speaking about very far-in-the-future plans, I would really like to give this framework a graphic interface (with integrated IDE and other things) and, also, to port it along with all its features to other programming languages (like C++). We're talking about a very far future, though... who knows if this'll happen.
+In the future, I would really like to give this framework a graphic interface (with integrated IDE and other things) and, also, to make other versions using other programming languages (like C++). We're talking about a very far future, though... who knows if this'll happen.
 
 ## How do I get started? 🔎
 
-In order to get started with this framework you'll need a few things:
+In order to get started with this framework you'll need a couple things:
 
 * This framework uses the *Java JDK 18.0.2*, so you'll need to download it from the official [website](https://www.oracle.com/java/technologies/downloads/) (NOTE: if you like, you should be able to use some newer versions of the JDK, too. I hope that it won't cause troubles, though, I haven't tested it yet)
 
-* To avoid making a mess in your IDE and making you regret of your life choices, I would advise you to read the official [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files).
+* To avoid making a mess in your IDE and making you regret of your life choices, I would advise you to read the official [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files) and the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/home).
 
-Now that you *"really know what you're doing"*, you are ready to take your first look at the [releases tab](https://github.com/anOsuPlayer/Moona/releases) to choose the **release template** that most suits your needings to begin with! ... wait, what's a *release template*...?
+Now that you covered the basics, you are ready to take your first look at the [releases tab](https://github.com/anOsuPlayer/Moona/releases) to choose the *release* that most suits your needings! ... but first, let me introduce you to *release templates*, so that you'll know what you're going to download.
 
 ## Release Templates :package:
 
-If you decided to download a Moona release, then I'd better lighten your mind a bit by telling you *how releases work*. It's really no complex thing: you'll just have to choose between a way to organize things or another.
-
-While thinking about this project, I also took into count some very neat *modularity feature* (the reason behind those templates). I thought that it would have been nice to *allow people to download standalone features to use them outside of the main framework, too*. For each major release, you'll have the following options to choose between when the download time will come:
+This fancy term you're reading up here it's just a nice word to identify two different routes you can follow when downloading Moona. In order to achieve a nice *modularity* with all the features I'm planning to implement, I thought that this idea I've got might make things easier to a lot of you. You'll just have to choose between the following two ways:
 
 ### First Template:
 **Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature from every package, basically).
@@ -39,57 +37,77 @@ Finally, in order to *avoid any kind of tragic issue*, remember those last few t
 * **ALWAYS CHOOSE** between one of the aforementioned tempates.
 * **DO NOT import .jar files if not needed** (for example, do not import extra packages in the full installation or the same package multiple times).
 
+## Working with Moona 💡
+
+After choosing which packages to download, allow me to guide you through a *simple tutorial* on how *import .jar files in your projects* (which is required to access all the features Moona offers). This tutorial covers the steps you have to go through if you use *Eclipse IDE*, if you happen to use another IDE for coding Java, do not worry: just search on google *how to import .jar files* in your IDE of choice, you'll be good to go.
+
+This procedure does not feature any explaination or "spoiler" about some of the framework's elements: is purely a tutorial to help those of you *non-nerdy-programmers* to setup Moona. If you happen to already know about how to import .jar files, then you can skip this part without worrying.
+
+If you decided to stay, here's your fully detailed tutorial:
+
+1. First things first: hop in the [**releases tab**](https://github.com/anOsuPlayer/Moona/releases) and choose you favourite download template for Moona (*full framework* or *base package + something else*, as shown before).
+
+2. Now that you have downloaded your files, head into Eclipse and **choose the project that you're going to work with**: either create a new one or use one that you already have.
+
+3. Once the choosen one has been... well... *chosen*, you'll need to **locate the project folder in your file system**, there are two ways to do it:
+    * Using the endless power of *your immense memory*, your extraordinary brain knows *where your Eclipse Workspace is*. Locate the previously mentioned project's folder inside of it and open it.
+    * If you have no idea of where your workspace is (either because *you forget* or because *you never thought you'd care*), do not worry, I've got you. Just right click on your Eclipse project and then click on **Show In > System Explorer**: this will open a window of your system's file explorer that will show you an highligted folder.. YOU FOUND IT. **Double click it** and get inside your project folder.
+    
+4. At this point, **create a folder called *"lib" (WITHOUT QUOTES)*, if you don't have it already in that project**, do this inside your project's root directory (the aforementioned folder).
+
+5. Moving inside the **lib** folder, **put ALL the Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
+
+> NOTE: The location you choose to put your .jar files into is *your choice*: the folder *does not need to be necessarily called "lib"*, it's just a convenient way to name the folder which contains libraries or extra stuff for your projects.
+
+6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** and then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **left click once on the label stating "Classpath"**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
+
+7. At this point, just **click on your project's folder** to open an *"explorer-like view"* of its folder. Click on the lib folder and then, *remembering WHERE YOU PUT THE FILES (from step 5)*, search for all of them and **highlight them**. Once that is done, click the **OK button** and then go for the **Apply and Close** button.
+
+8. Finally, right click on your project's folder once again and **click the "Refresh" button**.
+
+GOOD JOB!! now you can start using Moona!
+
 ## Versions 📑
 
 Before diving head first into using the framework, let me just clarify a couple things about how versioning will work for each release.
 
 For now, there are not any public releases yet (because of the framework being still too rough and under development to be published), but, regardless, I want to show the way I plan on releasing new versions to the public. Below this paragraph you'll find a list of all the phases I plan the framework to go through:
 
-* **early_dev :** The first phase of development, where most of the features will be builded and where the framework will take its initial shape.
+#### early_dev versions
+The *early_dev* era is the one where *the framework will be shaped* and where *all the base elements* will be added. Releases will remain under this condition until Moona will reach enough features to move on. Those versions are very likely to work very poorly... I mean.. they're *early_dev version* for a reason, after all.
 
-* **alpha :** Once Moona will reach a satisfying ammount of features I will proceed with the alpha phase, where I will focus on both adding new features and making the ones added in early_dev more perfect.
+#### alpha versions
+Once the early_dev phase will be over, releases will start to be labeled as *alphas*. An alpha version is... *very unstable*: their stability will vary depending on how many features are added and on *how many bugs get spotted*. Alpha versions are a prelude to *betas*, more stable and closer to the final release
 
-* **beta :** The closest version to the full release, where the main focus will be to get as close as possible to a fully functional release.
+#### beta verisons
+As said in the previous paragraph, *beta versions* are those which are the closest to stable releases. The framework will enter its beta stage only once the ammount of features will be satisfying and the stability will be acceptable. With each new beta release, the main focus will be to *stabilize already existing features*.
 
-* **release :** The actual full version which is (or rather, *should hopefylly be*) fully stable and safe to use.
+#### release versions
+Releases, as you might guess, are *full stable releases of the framework*. Releases will start to be dropped *after the beta phase ends*, meaning that there are going to be lots of fixes to all the features before achieving stability. Once the first release will be published, *no more beta and alpha versions will be dropped*.
 
-* **snapshots :** Between each major release, snapshots will be released to introduce new features (they'll have the same purpose of alphas and betas, but they'll actually be based on stable code, with the only exception of the newly implemented features).
+#### build versions
+After a release, as said before, there will be no more versions such as alpha and betas. At their place *builds* and *snapshots* are going to get released. A new set of builds will begin to be released when *new big features* will be added to the framework. To have a better idea, they're just like *alphas*: they'll introduce a great variety of new stuff for you to test and play with but will also be very unstable.
 
-Once each new release is ready, I will put one of these keywords in the tag, in order to make more clear what kind of version you'll download (an exemple of release tag would be something like: *release-1.0* or *alpha-0.2.1*).
+#### snapshot versions
+To end the apparently endless list of possible versions, let me introduce you to *the snapshot*. Snapshots are versions which follow *build versions*: after a build will introduce a new set of features, future snapshots will help to make them more stable, preparing the project to reach its next big release.
 
-## Working with Moona 💡
+After a good ammount of snapshot and (hopefully) a satisfying number of issues solved, a new stable release will be published and, from there on, the procedure will repeat seamlessly *until the end of time* (set of builds > snapshots to bring stability > new big release > repeat).
 
-Now you've covered the basics, understanding how everything in this framework works, it might be the time to actually start *coding something of your own*. In order to access to Moona's features you'll need to *[choose a release](#release-templates)* and then to *import (all) the .jar file(s)* into your favourite IDE. The following paragraph will show you how to import .jar files into Eclipse IDE, in case you needed it (if you plan on using a different IDE to code with Moona, then looking out for some help on google might help you. In case of some weird problem, feel free to use the [issues tab](https://github.com/anOsuPlayer/Moona/issues)).
+As a final note, each release will be tagged as following:
+* The first thing you'll see in the release's title will be *the kind of version you're dealing with*.
+* Following, you'll see the *the tag* of that precise version.
 
-1. First things first: hop in the [**releases tab**](https://github.com/anOsuPlayer/Moona/releases) and choose you favourite download template for Moona (*full framework* or *base package + something else*, as shown before).
-
-2. Now that you have your files downloaded, head into Eclipse and **choose the project that you're going to work with**: either create a new one or use one that you already have.
-
-3. Once the choosen one has been... well... *chosen*, you'll need to **locate the project folder in your file system**, there are two ways to do it:
-    * Using the endless power of *human mind*, your extraordinary brain knows *where your Eclipse Workspace is*. Locate the previously mentioned project's folder and open it.
-    * If you have no idea of where your workspace is (either because *you forget* or because *you never thought you'd care*), do not worry, I've got you. Just right click on your Eclipse project and then click on **Show In > System Explorer**: this will open a window of your system's file explorer that will show you an highligted folder.. YOU FOUND IT. **Double click on it** and get inside your project folder.
-    
-4. At this point, **create a folder called *"lib" (WITHOUT QUOTES)*, if you don't have it already in that project**, do this inside your project's root directory (the aforementioned folder).
-
-5. Moving inside the **lib** folder, **put ALL the Moona .jars inside this folder** (for better organization, you are free to create any number of *sub-folders* inside of the lib directory: this will not matter as long as *you'll keep in mind where all the files are located*).
-
-6. Once the lib folder is properly set up, hop back into Eclipse and, firstly, **right click on your project's folder** and then choose **Refresh**. Then, right click again but, instead, go for **Build Path > Configure Build Path**. You'll be presented with a newly opened window, here you'll want to **click on a label stating "Classpath" one time, with your left click**. Once that is selected, you'll have to **press the Add Jars button (on the right side of the window)**.
-
-7. At this point, just **click on your project's folder** to open an *"explorer-like view"* of its folder. Click on the lib folder and then, *remembering WHERE YOU PUT THE FILES (from step 5)*, search all of them and **highlight them all**. Once that is done, click the **OK button** and then go for the **Apply and Close** button.
-
-8. Finally, right click on your project's folder once again and **click the "Refresh" button**.
-
-GOOD JOB!! now you can start using Moona!
+An example of what was explained above would be something like this: *alpha-0.12* or *release-1.0*.
 
 ## What if I need help? 📚
 
 In case you were lost, desperately trying to work out how a certain feature works or *why* something is developed in a specific way, there's nothing to fear: you'll probably find your answers by doing something like:
 
-* Checking the [GUIDE.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) will most likely answer to some technical questions: if you're confused on some aspects of the framework that you don't fully understand (such as *modularity* or *dependency*), I highly recommend you to go for a read on this file.
+* Checking the [GUIDE.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) will most likely answer to some technical questions: if you're confused on some aspects of the framework that you don't fully understand (such as *modularity* or *dependency*), I highly recommend you to go for a read on that file.
 
-* Consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki) here on GitHub will cover your lack of knowledge if your goal is to know one of the framework's feature in particular. There you will find ALL the classes included in this framework together with a fully updated and on-point description to let you know every aspect of every feature.
+* Consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki) here on GitHub will cover your lack of knowledge if your goal is to know one of the framework's feature in particular. There you will find ALL the classes that this framework offers you together with an updated and on-point description to let you know every obscure detail of every feature.
 
-* Taking a look at the [Issues tab](https://github.com/anOsuPlayer/Moona/issues) or the [Pull Request tab](https://github.com/anOsuPlayer/Moona/pulls). If luck happens to not be on your side and you're faced with some weird, scary looking error, here on the website you will (most likely) find your workaround. If you're lucky, someone already had such an error and therefore you'll just need to read how to solve it in the related tab; if not, you're free to post a pull request or an issue stating the problem that occurred to you and either me, the developer, or the community will try to help you.
+* Taking a look at the [Issues tab](https://github.com/anOsuPlayer/Moona/issues) or the [Pull Request tab](https://github.com/anOsuPlayer/Moona/pulls). If luck doesn't happen to be on your side and you're dealing with some weird, scary looking error, here on the website you will (most likely) find yourself a workaround. If you're lucky, someone already had such an error and therefore you'll just need to read how to solve it in the related tab; if not, you're free to post a pull request or an issue stating the problem that occurred to you and either me, the developer, or the community will try to help you.
 
 ## Contributing to the Project 🎓
 
@@ -99,6 +117,6 @@ Even though there is no license yet, I want to give the community a possibility 
 
 ## Thanks! :heart:
 
-Thanks for coming until the end of the file. This might not be the best code you'll find around, but, on the other hand, it's the best I can offer you. This project will never be perfect, but I will try my best to keep up with the expectations (if.. someone will ever expect something out of this framework). For now, though, enjoy Moona... Happy coding!
+Thanks for reading this file until the end. This might not be the best code you'll find around, but, on the other hand, it's the best I can offer you. This project will never be perfect, but I will try my best to keep up with the expectations (if.. someone will ever expect something out of this framework). For now, though, enjoy Moona... Happy coding!
 
 > *The Developer*
