@@ -74,10 +74,10 @@ Before diving head first into using the framework, let me just clarify a couple 
 For now, there are not any public releases yet (because of the framework being still too rough and under development to be published), but, regardless, I want to show the way I plan on releasing new versions to the public. Below this paragraph you'll find a list of all the phases I plan the framework to go through:
 
 ### early_dev versions ⚛️
-The *early_dev* era is the one where *the framework will be shaped* and where *all the base elements* will be added. Releases will remain under this condition until Moona will reach enough features to move on. Those versions are very likely to work very poorly... I mean.. they're *early_dev version* for a reason, after all.
+The *early_dev* era is the one where *the framework will be shaped* and where *all the base elements* will be added. Releases will remain under this condition until Moona will reach enough features to move on. Those versions are likely to have many issues... I mean.. they're *early_dev version* for a reason, after all.
 
 ### alpha versions 🛑
-Once the early_dev phase will be over, releases will start to be labeled as *alphas*. An alpha version is... *very unstable*: their stability will vary depending on how many features are added and on *how many bugs get spotted*. Alpha versions are a prelude to *betas*, more stable and closer to the final release
+Once the early_dev phase will be over, releases will start to be labeled as *alphas*. An alpha version is... *very unstable*: their stability will vary depending on how many features are added and on *how many bugs get spotted*. Alpha versions are a prelude to *betas*, more stable and closer to the final release.
 
 ### beta verisons 🔱
 As said in the previous paragraph, *beta versions* are those which are the closest to stable releases. The framework will enter its beta stage only once the ammount of features will be satisfying and the stability will be acceptable. With each new beta release, the main focus will be to *stabilize already existing features*.
