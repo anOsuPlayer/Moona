@@ -48,9 +48,12 @@ Interdependency is based on a few simples rules:
 * Types of the same dependency *can be interdependent*: meaning a non-dependent object can require another non-dependent to work, for example.
 * Non-dependent types *CANNOT be interdependent* with dependent/basic objects: that would break the non-dependency concept: elements which can be external to the framework *must not* require anything from it to function properly.
 * Dependent and basic objects *can be interdependent* with non-dependent types: since the framework contains them all by definition, there are no problems in linking them all to each other.
-* There are cases of *multiple interdependency*: assuming all the previous three rules, throughout the framework there are some cases of this phenomenon which behaves just like regular interdependency, it just includes multiple types.
+* There are cases of *multiple interdependency*: it's possible that various objects might need to have contacts with more than one other type. Assuming that the three aforementioned rules don't get broken in any way, this will work just as regular interdependency.
 
 Interdependency was created mainly to explain how *package are organized*: further on you'll be able to see how this technique shines when it comes to divide each different feature in its own package. It's, yet again, not a fundamental concept to know, but it helps to satisfy your doubts.
+
+### Telling Dependency Apart 🔎
+In order for you to find out the dependency of a certain object, you'll need to check its related [Wiki page](https://github.com/anOsuPlayer/Moona/wiki/home). Together with the description of that element, you'll be able to see its grade of dependency by looking at the title of the page: there's a full description listing all the attributes of the class (visibility, finality ecc...) which contains that, too.
 
 In conclusion, all this dependency stuff just *defines relations* between either the Moona Class (regular dependency) or other elements.
 
