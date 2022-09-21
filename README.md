@@ -1,6 +1,6 @@
 # Moona 🌙
 
-> NOTE: This project is in a VERY *VERY* EARLY PHASE. There is NO RELEASE YET and some features haven't been covered yet.
+> NOTE: This project is in its VERY *VERY* EARLY STAGES. There is NO RELEASE YET and some features haven't been covered yet.
 
 Welcome to Moona! This project is my very own multi-purpose framework that will feature a whole bunch of tools and classes for all sorts of purposes: from building graphic interfaces up to simply keeping your code more compact and clear!
 
@@ -73,22 +73,22 @@ Before diving head first into using the framework, let me just clarify a couple 
 
 For now, there are not any public releases yet (because of the framework being still too rough and under development to be published), but, regardless, I want to show the way I plan on releasing new versions to the public. Below this paragraph you'll find a list of all the phases I plan the framework to go through:
 
-#### early_dev versions
+### early_dev versions ⚛️
 The *early_dev* era is the one where *the framework will be shaped* and where *all the base elements* will be added. Releases will remain under this condition until Moona will reach enough features to move on. Those versions are very likely to work very poorly... I mean.. they're *early_dev version* for a reason, after all.
 
-#### alpha versions
+### alpha versions 🛑
 Once the early_dev phase will be over, releases will start to be labeled as *alphas*. An alpha version is... *very unstable*: their stability will vary depending on how many features are added and on *how many bugs get spotted*. Alpha versions are a prelude to *betas*, more stable and closer to the final release
 
-#### beta verisons
+### beta verisons 🔱
 As said in the previous paragraph, *beta versions* are those which are the closest to stable releases. The framework will enter its beta stage only once the ammount of features will be satisfying and the stability will be acceptable. With each new beta release, the main focus will be to *stabilize already existing features*.
 
-#### release versions
+### release versions ✅
 Releases, as you might guess, are *full stable releases of the framework*. Releases will start to be dropped *after the beta phase ends*, meaning that there are going to be lots of fixes to all the features before achieving stability. Once the first release will be published, *no more beta and alpha versions will be dropped*.
 
-#### build versions
+### build versions ♾️
 After a release, as said before, there will be no more versions such as alpha and betas. At their place *builds* and *snapshots* are going to get released. A new set of builds will begin to be released when *new big features* will be added to the framework. To have a better idea, they're just like *alphas*: they'll introduce a great variety of new stuff for you to test and play with but will also be very unstable.
 
-#### snapshot versions
+### snapshot versions 🌀
 To end the apparently endless list of possible versions, let me introduce you to *the snapshot*. Snapshots are versions which follow *build versions*: after a build will introduce a new set of features, future snapshots will help to make them more stable, preparing the project to reach its next big release.
 
 After a good ammount of snapshot and (hopefully) a satisfying number of issues solved, a new stable release will be published and, from there on, the procedure will repeat seamlessly *until the end of time* (set of builds > snapshots to bring stability > new big release > repeat).
