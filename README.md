@@ -20,7 +20,9 @@ Now that you covered the basics, you are ready to take your first look at the [r
 
 ## Release Templates :package:
 
-This fancy term you're reading up here it's just a nice word to identify two different routes you can follow when downloading Moona. In order to achieve a nice *modularity* with all the features I'm planning to implement, I thought that this idea I've got might make things easier to a lot of you. You'll just have to choose between the following two ways:
+This fancy term you're reading up here it's just a nice word to identify two different routes you can follow when downloading Moona. In order to achieve a nice *modularity* with all the features I'm planning to implement, I thought that this idea of mine might make things easier to a lot of you. In a few words, your choice is between *the whole framework* OR *some features that you like*.
+
+You'll just have to choose between the following two ways:
 
 ### First Template:
 **Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature from every package, basically).
