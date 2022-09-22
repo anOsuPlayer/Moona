@@ -24,10 +24,10 @@ This fancy term you're reading up here it's just a nice word to identify two dif
 
 You'll just have to choose between the following two ways:
 
-### First Template:
+### First Template 📍:
 **Choosing the framework as a whole:** If you'll decide to download the main package (labeled: "Moona.jar"), you'll be downloading *the framework as a whole*. This means that your download will include *the base package* along with *all the dependent and non-dependent packages* (every feature from every package, basically).
 
-### Second Template:
+### Second Template 📍:
 **Choosing standalone features:** If your idea is to download single features of this framework to use them somewhere else, then your best option is to download *singular standalone packages* (labeled: "Moona-[something]"). Those packages *are NOT strictly bound to Moona*, so they can also be used in projects of yours that do not directly involve the framework. NOT ALL THE PACKAGES WILL BE AVAILABLE AS A STANDALONE, only the *non-dependent ones* will, keep this in mind!!
 
 > NOTE: for a better understanding of how the package structure works and of what "dependent" and "non-dependent" actually mean, I suggest you to check the [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) attached to this repository.
