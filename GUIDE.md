@@ -46,8 +46,8 @@ To top things off, I will introduce you to *interdependency*. Despite the very c
 
 Interdependency is based on a few simples rules:
 * Types of the same dependency *can be interdependent*: meaning a non-dependent object can require another non-dependent to work, for example.
-* Non-dependent types *CANNOT be interdependent* with dependent/basic objects: that would break the non-dependency concept: elements which can be external to the framework *must not* require anything from it to function properly.
-* Dependent and basic objects *can be interdependent* with non-dependent types: since the framework contains them all by definition, there are no problems in linking them all to each other.
+* Non-dependent types *CANNOT be interdependent* to dependent/basic objects: that would break the non-dependency concept: elements which can be external to the framework *must not* require anything from it to function properly.
+* Dependent and basic objects *can be interdependent* to non-dependent types: since the framework contains them all by definition, there are no problems in linking them all to each other.
 * There are cases of *multiple interdependency*: it's possible that various objects might need to have contacts with more than one other type. Assuming that the three aforementioned rules don't get broken in any way, this will work just as regular interdependency.
 
 Interdependency was created mainly to explain how *package are organized*: further on you'll be able to see how this technique shines when it comes to divide each different feature in its own package. It's, yet again, not a fundamental concept to know, but it helps to satisfy your doubts.
@@ -60,11 +60,16 @@ In conclusion, all this dependency stuff just *defines relations* between either
 ## Packages Organization 📦
 > [^ back](#moona-guide)
 
-The first thing I want you to have in mind is the *package organization*: the way packages and classes are organized. I think this is one of the most important things if you want to quickly access the features you are looking for (without endlessly searching for a something, wasting time).
+In this part of the guide, I will introduce you to how the *packages are organized*. There are no quirky concepts to keep in mind here, so don't worry. The organization of packages is based on *interdependency* and *affinity between elements*. 
+
+### Packages Rules ⚖️
+To begin with, packages *can have their own dependency*, just like regular classes: there are *non-dependent packages* and *dependent packages* which *can* or *cannot* be used alone outside of the framework. The dependency of a package is dictated by the classes it contains; in fact, packages can only contain types which are *equally dependent* (if that wasn't so, many rules would be broken).
+
+The *interdependency rules* also remain with packages. Since package have the same dependency of the classes they contain, this means that we can assume that interdependency *between those classes* could be interpreted as interdependency *between packages* (packages are not explicitly linked between each other, their interdependency is inferred by the classes). To make this a bit more clear, you can assume that a *package A* is interdependent to a *package B* if a class of A is linked with a class of B (always assuming that the general interdependency rules are respected).
+
+The only rule that must be kept in mind is that *non-dependent packages cannot be interdependent to each other*: as you might guess, since non-dependent packages can be used alone outside of the framework, it's not certain whether or not the classes they reqire *will be there*. I've organized packages in order to not have you downloading a lot of packages to have only one feature working: similar features are grouped in the same package and they don't need anything elese to operate alone.
 
 ### Listing Packages
-
-> NOTE: Some packages will be marked as *dependent*, *essential* and *not-dependent*, learn more about what these terms mean by consulting the [dependencies](#dependencies) paragraph in this file.
 
 In the first place, there is the most important package of them all, containing all the others: the [**moonaFramework** package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). This particular one is the root of all the other sub-packages (which means all the other packages will be named *moonaFramework.(something)*. for practical reasons, you'll see only their name). This package also contains the *root classes* of the framework (like, for example, the [Moona class](#moona-class), which you'll see in a bit).
 
