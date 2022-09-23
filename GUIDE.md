@@ -65,25 +65,25 @@ In this part of the guide, I will introduce you to how the *packages are organiz
 ### Packages Rules ⚖️
 To begin with, packages *can have their own dependency*, just like regular classes: there are *non-dependent packages* and *dependent packages* which *can* or *cannot* be used alone outside of the framework. The dependency of a package is dictated by the classes it contains; in fact, packages can only contain types which are *equally dependent* (if that wasn't so, many rules would be broken).
 
-The *interdependency rules* also remain with packages. Since package have the same dependency of the classes they contain, this means that we can assume that interdependency *between those classes* could be interpreted as interdependency *between packages* (packages are not explicitly linked between each other, their interdependency is inferred by the classes). To make this a bit more clear, you can assume that a *package A* is interdependent to a *package B* if a class of A is linked with a class of B (always assuming that the general interdependency rules are respected).
+The *interdependency rules* also remain with packages. Since package have the same dependency of the classes they contain, this means that we can assume that interdependency *between those classes* could be interpreted as interdependency *between packages* (packages are not explicitly linked between each other, their interdependency is inferred by the classes).
+
+To make this a bit more clear, you can assume that a *package A* is interdependent to a *package B* if a class inside of A is linked with a class inside of B (always assuming that the general interdependency rules are respected).
 
 The only rule that must be kept in mind is that *non-dependent packages cannot be interdependent to each other*: as you might guess, since non-dependent packages can be used alone outside of the framework, it's not certain whether or not the classes they reqire *will be there*. I've organized packages in order to not have you downloading a lot of packages to have only one feature working: similar features are grouped in the same package and they don't need anything elese to operate alone.
 
-### Listing Packages
+### Hierarchy 📋
+The *packages hierarchy* in this framework is ratherly simple: a main package containing all the others. The main package is called the [.moonaFramework package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework), which, as mentioned, is the root *all the other packages* and, other than that, it's also the container of *all the [basic](#dependencies) elements* that make up the framework.
 
-In the first place, there is the most important package of them all, containing all the others: the [**moonaFramework** package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework). This particular one is the root of all the other sub-packages (which means all the other packages will be named *moonaFramework.(something)*. for practical reasons, you'll see only their name). This package also contains the *root classes* of the framework (like, for example, the [Moona class](#moona-class), which you'll see in a bit).
+In order to consult the full list of package, I advise you to check the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework): the page of the main package contains a full list of both all the framework's sub-packages and all the basic elements (descriptions included!).
 
-As menitoned, the moonaFramework package *contains all the others*. If you wanted a place to consult the full list of packages inside Moona, you could check the [Wiki Page](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework): here, once every new update gets dropped, you'll find all the old and newly added packages, with their relative description.
+### Some Practical Use... 🔮
+Coming to an end, packages were made following all those pretty strange rules in order to achieve some kind of *modularity*. I wanted packages to be seen as some kind of "clusters" of similar classes and objects: for each one of them, similar features are grouped together for you to have both an organized environment in which to find what you're looking for and a way to have downloadable separated features.
 
-### Some Practical Use...
+Speaking of which, as mentioned in this repository's [README.md file](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md), some of the packages *are available as standalone downloads*:
+* Dependent packages *are not downloadable* as standalone (since they need the framework to function, downloading them and using them separately would break them)
+* Non-dependent packages, on the other hand, are those who you'll be able to download. They were purposely thought for you to download them if you're interested in *just* that singular set of features.
 
-As mentioned above, words such as *dependent*, *essential* and *non-dependent* will be clarified further on but, for now, I will just briefly talk about the way all those packages will be organized upon a release:
-
-* *non-dependent packages* are going to have a **standalone release** as a .jar file released along with the full .jar containing Moona as a whole. This was thought in order to make people access only features they're looking for when not interested to download the entire framework (which, with each passing update, might get *very heavy* in terms of download size, too).
-
-* *dependent packages* will **NOT** be released as standalone .jar files, this is because of their objects *directly depending from the Moona class* (to keep this brief, dependent objects are those that *cannot live without the Moona class*).
-
-To look after some more details regarding how the releases/downloads work, please consult the [README.md](https://github.com/anOsuPlayer/Moona/blob/early_dev/README.md) file in the repository.
+In a few words, this modularity-kind of environment was built to *make single features available* without downloading the whole framework. It's a kind of freedom I wanted my community to have, to maximize the possibilities: if you only like some feature, just download it! (but pls consider downloadin the whole framework 'cause it's cool \* wink \*).
 
 ## Nature and IDs
 > [^ back](#moona-guide)
