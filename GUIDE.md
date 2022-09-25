@@ -8,15 +8,15 @@ Following this brief introduction, you'll find a nice *index* which will summari
 
 # Index 📌
 
-* [Dependencies](#dependencies)
-* [Packages Organization](#packages-organization)
-* [Nature and IDs](#nature-and-ids)
-* [Processes](#processes)
-* [Moona Class](#moona-class)
-* [Beginning with Moona](#beginning-with-moona)
+* [Dependencies](#dependencies-)
+* [Packages Organization](#packages-organization-)
+* [Nature and IDs](#nature-and-ids-)
+* [Processes](#processes-)
+* [Moona Class](#moona-class-)
+* [Beginning with Moona](#beginning-with-moona-)
 
 ## Dependencies 🔗
-> [^ back](#moona-guide)
+> [^ back](#moona-guide-)
 
 I'm pretty sure that, at some point, you'll have read about some this freaky concept around the framework. Fear not, though, it's nothing too complex to comprehend. The concept of *dependency* states *how closely related each element is to the [Moona Class](#moona-class)*.
 
@@ -58,7 +58,7 @@ In order for you to find out the dependency of a certain object, you'll need to 
 In conclusion, all this dependency stuff just *defines relations* between either the Moona Class (regular dependency) or other elements.
 
 ## Packages Organization 📦
-> [^ back](#moona-guide)
+> [^ back](#moona-guide-)
 
 In this part of the guide, I will introduce you to how the *packages are organized*. There are no quirky concepts to keep in mind here, so don't worry. The organization of packages is based on *interdependency* and *affinity between elements*. 
 
@@ -74,7 +74,7 @@ The only rule that must be kept in mind is that *non-dependent packages cannot b
 ### Hierarchy 📋
 The *packages hierarchy* in this framework is ratherly simple: a main package containing all the others. The main package is called the [.moonaFramework package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework), which, as mentioned, is the root *all the other packages* and, other than that, it's also the container of *all the [basic](#dependencies) elements* that make up the framework.
 
-In order to consult the full list of package, I advise you to check the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework): the page of the main package contains a full list of both all the framework's sub-packages and all the basic elements (descriptions included!).
+In order to consult the full list of package, I advise you to check the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework): the page of the main package contains all the .moonaFramework package's sub-packages and all the basic elements (descriptions included!).
 
 ### Some Practical Use... 🔮
 Coming to an end, packages were made following all those pretty strange rules in order to achieve some kind of *modularity*. I wanted packages to be seen as some kind of "clusters" of similar classes and objects: for each one of them, similar features are grouped together for you to have both an organized environment in which to find what you're looking for and a way to have downloadable separated features.
@@ -85,14 +85,32 @@ Speaking of which, as mentioned in this repository's [README.md file](https://gi
 
 In a few words, this modularity-kind of environment was built to *make single features available* without downloading the whole framework. It's a kind of freedom I wanted my community to have, to maximize the possibilities: if you only like some feature, just download it! (but pls consider downloadin the whole framework 'cause it's cool \* wink \*).
 
-## Nature and IDs
-> [^ back](#moona-guide)
+## Nature and IDs 📐
+> [^ back](#moona-guide-)
 
-Moona features a great variety of different objects, each of them doing something specific. Among those elements the most important are [Serial](https://github.com/anOsuPlayer/Moona/wiki/Serial) and [Natural](https://github.com/anOsuPlayer/Moona/wiki/Natural) elements. They are very useful when it comes to *identify a framework's object in a specific way*, that being *the definition of an arbitrary "type" of it* and *the declaration of an unique number for that particular instance*.
+This framework "features" (as of now, *will feature*) a wide variety of objects. Among them all, though, the most important ones are, for sure, [Serials](https://github.com/anOsuPlayer/Moona/wiki/Serial) and [Naturals](https://github.com/anOsuPlayer/Moona/wiki/Natural).
 
-### Similar purpose, but different usage
+The reason behind their importance resides in their purpose: they serve as *identifiers*. They are both needed to specify a certain aspect of an object which implements either interfaces, the thing that makes them apart is *how specific* is the aspect of the object they highlight. I know this might sound slightly strange, but it's really easy to understand.
 
-*Serial* and *Natural* are two Interfaces and *Serial EXTENDS Natural*. They're both needed to have methods that *return specific numbers that describe the object*, but they do it in a different way one from another:
+### Similar purpose, but different usage ⚙
+On the technical note, *Serial* and *Natural* are nothing but *two interfaces*, with the Serial interface *extending Natural*; from now on, elements which will be referred to as "serials" or "naturals" will be those types *which will implement either Serial or Natural*.
+
+Those two interfaces contain only one method each: the Natural interface contains the *.nature() method*, returning an *integer*; whilst the Serial interface has the *.id() method*, returning a *long* (obviously, due to inheritance, the Serial interface will contain the *.nature() method*, too).
+
+With technical things out of the way, the wait is finally over: it's time to describe what these two magical interfaces do!
+
+### Natural Interface 🏷
+To begin with, naturals furnish *an arbitrary number* which *identifies the general aspects of the type they're being extended by*. In order to use this "special number", the *.nature()* method must be called.
+
+To make things more clear, that number will be referred to as *the nature* of a specific natural. The first *layer of distinction* directly depends from the nature: two naturals can *have the same nature* or *it can be totally different*; the usage of this number is the key to an efficient and functional usage of those types.
+
+An *equality* between two different types having the same nature can make them *have a factor in common*; following the same idea, a *difference* between two natures can make two classes of the same type *have some difference*. We're speaking about a trait that *surpasses the concepts of inheritance*: those two types will never be considered "similar" or "different" from the language's perspective, but they'll appear similar *under our perspective*... and that's what counts!
+
+This is what the nature does: makes *totally different types* have *something in common* or makes *"similar types" have differences*. That difference (or similarity) is totally *arbitrary* and all the naturals are beforehandedly classified in order to be returning certain natures according to the framework's necessities.
+
+The main use for this feature is to *add a way of distinguishing types from each others*. This interface was thought in order to prevent countless *instanceof* operations, since comparing two integers is significantly more rapid than comparing two objects. The second reason why I've come up with this feature is to *group similar features*: if multiple naturals share the same nature they can be identified as if part of a *bigger group of object* having something in common.
+
+### Serial Interface 📝
 
 > If a type implements *Natural*, this means that it *is required to return a specific integer number that distinguishes that natural from others OR that makes two different naturals have something in common*.
 
@@ -135,7 +153,7 @@ Of course, though, not everything is automated and not everything will be done b
 > NOTE you can learn more about how to do this stuff by checking the [Moona Class paragraph](#moona-class) in this guide or by consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
 
 ## Processes
-> [^ back](#moona-guide)
+> [^ back](#moona-guide-)
 
 In this guide I purposed myself to explain every technical aspect of this framework, and to do so I will also cover those elements which, in my opinion, are due to have a description for them to be more understandable. This section will contain heaps of useful information about some of the most important elements of Moona, *Processes*.
 
@@ -192,7 +210,7 @@ In order to initialize processes this way we need to use a very particular metho
 ### Interrupting Processes
 
 ## Moona Class
-> [^ back](#moona-guide)
+> [^ back](#moona-guide-)
 
 If you're here reading this guide, I might say that you've probably read something about this very special class throughout the documentations. Well, allow me to present you the most important thing in this framework, containing informations, methods and things that make the framework... *work*.
 
