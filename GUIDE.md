@@ -112,24 +112,6 @@ The main use for this feature is to *add a way of distinguishing types from each
 
 ### Serial Interface 📝
 
-> If a type implements *Natural*, this means that it *is required to return a specific integer number that distinguishes that natural from others OR that makes two different naturals have something in common*.
-
-Let's create a quick example: you want to create two different classes, A and B, *both implementing Natural*; let's suppose that these types are distinguished by two different "natures", e.g. the method *nature()* in the A class returns **1** whilst the one in the B class returns **2**. This might seem a bit.. useless.. since A and B are two completely different objects there is absolutely no need to make them different from each other even further... or is it?
-
-*What if the B class extended the A class*? Let's picture this scenario: you have created a method which *returns true* only if passed objects are *instances of the A class* (something like **boolean isA(A obj) { ... }**; if that was the case, both instances of A and B *would be accepted* and, thus, the same operations would be performed with both instances of A and B, since B extends A.
-
-Let's now imagine a somewhat more *particular case*: we want to create a method that returns true *ONLY when an instance of A is given as an input* (NOTE: a *direct instance*, which means no subtypes are allowed). It would be almost obvious to write something like this: **boolean method(A obj) { ... }**, accepting only *A types* and then filtering them with countless *instanceof* to see if they're not subtypes... but what if that method required to accept *different types* (something like **boolean method(Object obj) { ... }**)? What if, for each *different type* a *different operation* was required? Of course, in a case like this, accepting an *Object* as argument and then checking each case with the *instanceof operator* would do the trick... but would, also, take up a lot of performance.
-
-Here comes in help the *Natural type*: since A and B *are both Natural*, our hypothetical method could accept *a Natural instead of an Object*; from there, by just switching the value of the *.nature() method* we're able to tell apart *the nature* of that specific object. Even if the method *accepted a generic Object*, you could tell beforehand if that *was an instance of Natural* and, then, filter the .nature() method's output to do stuff. This operation (on the long term) should be able to save a lot of time in terms of performance.
-
-Another possible use for the Natural type would be to *declare as similar two completely different objects*. For example, if both the A and B classes (*not inheriting each other in any way*) were to return **1** from the .nature() method, you would be able to count them as *equal* or, to use some fancy terminology, *of the same nature*. This would lead to some very neat and specific operations that you could perform with those types, but that's up to your creativity, of course!
-
-A "nature", as said earlier, is nothing but an *integer number*: all those naturals whose *nature()* method returns that specific integer are said to be *of the same nature*. It's also possible to visualize those integers as *theoretical groups* that keep together all those elements declared as "similar": one example is the nature which value is *-1*: every natural that returns this number is declared to be *of the nature of an Exception*.
-
-This last paragraph was useful to show you that the Nature interface is not only useful to *distinguish* types, but also to *make them have something in common*
-
-***
-
 > If a type implements *Serial*, *it requires BOTH to return a specific nature AND to return a specific ID which distinguishes it from all the others.*
 
 Serial objects extend the concepts already stated in the previous paragraph, this is because, as already mentioned above, *Serial objects are ALSO natural*. But what is their real purpose? I mean, in order to just tell two objects apart the .equals() method would be enough... rigth? Not quite.
