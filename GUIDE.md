@@ -100,15 +100,22 @@ Those two interfaces contain only one method each: the Natural interface contain
 With technical things out of the way, the wait is finally over: it's time to describe what these two magical interfaces do!
 
 ### Natural Interface 🏷
-To begin with, naturals furnish *an arbitrary number* which *identifies the general aspects of the type they're being extended by*. In order to use this "special number", the *.nature()* method must be called.
+To begin with, naturals furnish *an arbitrary number* which *identifies the general aspects of the type that implements them*. In order to use this "special number", the *.nature()* method must be called.
 
 To make things more clear, that number will be referred to as *the nature* of a specific natural. The first *layer of distinction* directly depends from the nature: two naturals can *have the same nature* or *it can be totally different*; the usage of this number is the key to an efficient and functional usage of those types.
 
+> NOTE: Further on, you will encounter the word *"type"*: which simply means that we're referring to *an object (or their respective class class, it's the same)*. Speaking about objects being *of the same type*, it just means either *that one extends the other* or *that they extend the same super class (which is also considered of the same type)* 
+
 An *equality* between two different types having the same nature can make them *have a factor in common*; following the same idea, a *difference* between two natures can make two classes of the same type *have some difference*. We're speaking about a trait that *surpasses the concepts of inheritance*: those two types will never be considered "similar" or "different" from the language's perspective, but they'll appear similar *under our perspective*... and that's what counts!
 
-This is what the nature does: makes *totally different types* have *something in common* or makes *"similar types" have differences*. That difference (or similarity) is totally *arbitrary* and all the naturals are beforehandedly classified in order to be returning certain natures according to the framework's necessities.
+This is what the nature does: makes *totally different types* have *something in common* or makes *"similar types" have differences*. That difference (or similarity) is totally *arbitrary* and all the naturals are beforehandedly classified in order to return certain natures according to the framework's necessities.
 
-The main use for this feature is to *add a way of distinguishing types from each others*. This interface was thought in order to prevent countless *instanceof* operations, since comparing two integers is significantly more rapid than comparing two objects. The second reason why I've come up with this feature is to *group similar features*: if multiple naturals share the same nature they can be identified as if part of a *bigger group of object* having something in common.
+#### Why Naturals? 💭
+The main use for this feature is to *add a way of distinguishing types from each others*. This interface was thought in order to prevent the usage of *instanceof*, if we consider the nature as the way of comparing two different types, the instanceof keyword *would not give the same result*: if the natures were different but the objects were of the same type (and vice versa, same nature, not of the same type), the results would be different.
+
+The second reason why I've come up with this feature is to *group similar features*: if multiple naturals share the same nature they can be identified as if part of a *bigger group of objects*, all having something in common. Normally, objects would be made similar through inheritance: if two classes extend the same one, they are *similar* both to each other and to the class they extend (they're *of the same type*), but naturals get over this distincton between types.
+
+On the final note, remember that Moona tends to consider more the nature of objects than their type: it uses their natures in order to classify them, performing different operations for each different nature.
 
 ### Serial Interface 📝
 
