@@ -18,7 +18,7 @@ Following this brief introduction, you'll find a nice *index* which will summari
 ## Dependencies 🔗
 > [^ back](#moona-guide-)
 
-I'm pretty sure that, at some point, you'll have read about some this freaky concept around the framework. Fear not, though, it's nothing too complex to comprehend. The concept of *dependency* states *how closely related each element is to the [Moona Class](#moona-class)*.
+I'm pretty sure that, at some point, you'll have read about some this freaky concept around the framework. Fear not, though, it's nothing too complex to comprehend. The concept of *dependency* states *how closely related each element is to the [Moona Class](#moona-class-)*.
 
 Being Moona, basically, the *very core of the whole framework*, this idea can be stretched out even further by saying that dependency tells us *if certain elements can or cannot live outside of the framework*.
 
@@ -32,7 +32,7 @@ We call an element *dependent* when *it's closely related to Moona*, also meanin
 Their proximity to the Moona Class basically means that *they are required to interact with it in order to function properly*. When it comes to dependent objects, it's always a matter of *"functioning in the right way"*: there is no strict rule that forces you to use them alongside Moona, but not doing so would be... pretty useless. They were designed to give their best when handled by the framework, excluding them from that environment could potentially even be dangerous.
 
 #### **BASIC 💥**
-There is not much to say on this dependency: *basic elements* are those which *are contained in the [.moonaFramework](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework) package*. This applies to very few elements but, among those, just remember the [Moona Class](#moona-class), [Serials](#nature-and-ids) and [Naturals](#nature-and-ids)
+There is not much to say on this dependency: *basic elements* are those which *are contained in the [.moonaFramework](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework) package*. This applies to very few elements but, among those, just remember the [Moona Class](#moona-class-), [Serials](#nature-and-ids-) and [Naturals](#nature-and-ids)
 
 Basic elements *are also dependent:* being them the very base of the framework itself it would not make any sense if.. elements that make the framework were able live *without the framework*... is this some kind of paradox..?
 
@@ -53,7 +53,7 @@ Interdependency is based on a few simples rules:
 Interdependency was created mainly to explain how *package are organized*: further on you'll be able to see how this technique shines when it comes to divide each different feature in its own package. It's, yet again, not a fundamental concept to know, but it helps to satisfy your doubts.
 
 ### Telling Dependency Apart 🔎
-In order for you to find out the dependency of a certain object, you'll need to check its related [Wiki page](https://github.com/anOsuPlayer/Moona/wiki/home). Together with the description of that element, you'll be able to see its grade of dependency by looking at the title of the page: there's a full description listing all the attributes of the class (visibility, finality ecc...) which contains that, too.
+In order for you to find out the dependency of a certain object, you'll need to check its related [Wiki page](https://github.com/anOsuPlayer/Moona/wiki/Home). Together with the description of that element, you'll be able to see its grade of dependency by looking at the title of the page: there's a full description listing all the attributes of the class (visibility, finality ecc...) which contains that, too.
 
 In conclusion, all this dependency stuff just *defines relations* between either the Moona Class (regular dependency) or other elements.
 
@@ -100,24 +100,33 @@ Those two interfaces contain only one method each: the Natural interface contain
 With technical things out of the way, the wait is finally over: it's time to describe what these two magical interfaces do!
 
 ### Natural Interface 🏷
-To begin with, naturals furnish *an arbitrary number* which *identifies the general aspects of the type that implements them*. In order to use this "special number", the *.nature()* method must be called.
+To begin with, naturals furnish *an arbitrary number* which *identifies the general aspects of the type that implements them*. In order to use this "special number", the *.nature() method* must be called.
 
 To make things more clear, that number will be referred to as *the nature* of a specific natural. The first *layer of distinction* directly depends from the nature: two naturals can *have the same nature* or *it can be totally different*; the usage of this number is the key to an efficient and functional usage of those types.
 
-> NOTE: Further on, you will encounter the word *"type"*: which simply means that we're referring to *an object (or their respective class class, it's the same)*. Speaking about objects being *of the same type*, it just means either *that one extends the other* or *that they extend the same super class (which is also considered of the same type)* 
+> NOTE: Further on, you will encounter the word *"type"*: which simply means that we're referring to *an object (or their respective class class, it's the same)*. Speaking about objects being *of the same type*, it just means either *that one extends the other* or *that they extend the same super class (which is also considered of the same type)*.
 
 An *equality* between two different types having the same nature can make them *have a factor in common*; following the same idea, a *difference* between two natures can make two classes of the same type *have some difference*. We're speaking about a trait that *surpasses the concepts of inheritance*: those two types will never be considered "similar" or "different" from the language's perspective, but they'll appear similar *under our perspective*... and that's what counts!
 
 This is what the nature does: makes *totally different types* have *something in common* or makes *"similar types" have differences*. That difference (or similarity) is totally *arbitrary* and all the naturals are beforehandedly classified in order to return certain natures according to the framework's necessities.
 
 #### Why Naturals? 💭
-The main use for this feature is to *add a way of distinguishing types from each others*. This interface was thought in order to prevent the usage of *instanceof*, if we consider the nature as the way of comparing two different types, the instanceof keyword *would not give the same result*: if the natures were different but the objects were of the same type (and vice versa, same nature, not of the same type), the results would be different.
+The main use for this feature is to *add another way of distinguishing types from each others*. This interface was thought in order to prevent the usage of *instanceof*, if we consider the nature as the way of comparing two different types, the instanceof keyword *would not give the same result*: if the natures were different but the objects were of the same type (and vice versa, same nature, not of the same type), the results would differ.
 
-The second reason why I've come up with this feature is to *group similar features*: if multiple naturals share the same nature they can be identified as if part of a *bigger group of objects*, all having something in common. Normally, objects would be made similar through inheritance: if two classes extend the same one, they are *similar* both to each other and to the class they extend (they're *of the same type*), but naturals get over this distincton between types.
+The second reason why I've come up with this feature is to *have similar features grouped*: if multiple naturals share the same nature they can be identified as if part of an hypothetical *bigger group of types*, all having something in common. Normally, objects would achieve similarity through inheritance, but naturals get over this distincton between types.
 
 On the final note, remember that Moona tends to consider more the nature of objects than their type: it uses their natures in order to classify them, performing different operations for each different nature.
 
+#### How To Use Them? ✏️
+Naturals, as every other object in this framework, were structured for you to interact with them, too. Inside the [Moona Class](moona-class-), there's a series of *constants* which contains *all the natures* which Moona uses: for example, the nature identifying a *Process* is *0* (check the [Moona.PROCESS](https://github.com/anOsuPlayer/Moona/wiki/Moona#fields-) field in the wiki, along with it you'll find the rest, too).
+
 ### Serial Interface 📝
+If naturals describe an object in a general way, every serial object *is described with an ID* which identifies it and makes it different from all the others (even if it were of the same type).
+
+Before going on, I'd better remind you of something very important, which is that *serials are also naturals*: if a certain type specifies an ID, it *also* has to specify *a nature*, "classifying" that specific object on both a *general* and *specific* aspect. This is the reason behind why the *Serial interface extends the Natural interface*, inside Moona there cannot be a clear distinction between two object which generalities are not known.
+
+The Serial interface contains the *.id() method*, which returns a long number identifying a certain object (its *ID*). But how do IDs work? And how are they handled?
+
 
 > If a type implements *Serial*, *it requires BOTH to return a specific nature AND to return a specific ID which distinguishes it from all the others.*
 
