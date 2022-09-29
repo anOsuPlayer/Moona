@@ -47,7 +47,7 @@ public final class Moona {
 		if (!elements.has(s, s.id())) {
 			elements.add(s, s.id());
 			totalElements--;
-			totalProcesses -= (s instanceof Process) ? 1 : 0;
+			totalProcesses -= (s.nature() == PROCESS)? 1 : 0;
 		}
 	}
 	public static void Add(Serial s) throws MoonaHandlingException, NullPointerException {
