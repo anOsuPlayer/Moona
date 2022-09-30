@@ -42,7 +42,7 @@ public final class Moona {
 	private static int totalElements = 0;
 	private static int totalProcesses = 0;
 	
-	static void FilteredAdd(Serial s) throws NullPointerException {
+	static void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (s == null) {
 			throw new NullPointerException();
@@ -65,7 +65,7 @@ public final class Moona {
 		totalElements++;
 		totalProcesses += (s instanceof Process) ? 1 : 0;
 	}
-	static void FilteredRemove(Serial s) throws NullPointerException {
+	static void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (s == null) {
 			throw new NullPointerException();
@@ -296,7 +296,7 @@ public final class Moona {
 		p.end();
 	}
 	
-	public static void Fade() {
+	public static void Fade() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
@@ -308,7 +308,7 @@ public final class Moona {
 		}
 	}
 	
-	public static void Collapse() {
+	public static void Collapse() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
