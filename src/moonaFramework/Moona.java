@@ -16,7 +16,7 @@ public final class Moona {
 	
 	public static final int PROCESS = 0;
 	
-	public static void Init() {
+	public static void Init() throws MoonaHandlingException {
 		isOn = true;
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
@@ -39,7 +39,9 @@ public final class Moona {
 	
 	private static final IshMap<Serial, Long> elements = new IshMap<>();
 	
-	private static int totalElements = 0;
+	private static long idCounter = 0;
+	
+	private static long totalElements = 0;
 	private static int totalProcesses = 0;
 	
 	static void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
@@ -63,7 +65,7 @@ public final class Moona {
 		}
 		elements.add(s, s.id());
 		totalElements++;
-		totalProcesses += (s instanceof Process) ? 1 : 0;
+		totalProcesses += (s.nature() == PROCESS) ? 1 : 0;
 	}
 	static void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
@@ -73,7 +75,7 @@ public final class Moona {
 		if (elements.has(s, s.id())) {
 			elements.remove(s, s.id());
 			totalElements--;
-			totalProcesses -= (s instanceof Process) ? 1 : 0;
+			totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
 		}
 	}
 	public static void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
@@ -86,7 +88,7 @@ public final class Moona {
 		}
 		elements.remove(s, s.id());
 		totalElements--;
-		totalProcesses -= (s instanceof Process) ? 1 : 0;
+		totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
 	}
 	
 	public static void Provide(long id) throws MoonaHandlingException {
@@ -307,7 +309,6 @@ public final class Moona {
 			Terminate(p);
 		}
 	}
-	
 	public static void Collapse() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses];
@@ -320,6 +321,10 @@ public final class Moona {
 		}
 	}
 	
+	public static long GiveID(Serial s) {
+		return idCounter++;
+	}
+	
 	public static Serial getElementByID(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.hasKey(id)) {
@@ -327,7 +332,7 @@ public final class Moona {
 		}
 		throw new MoonaHandlingException("There is no such element with this ID: " + id + ".");
 	}
-	public static int totalElements() {
+	public static long totalElements() {
 		return totalElements;
 	}
 	
@@ -343,5 +348,6 @@ public final class Moona {
 	}
 	
 	private Moona() {
+	
 	}
 }
