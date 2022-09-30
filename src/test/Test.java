@@ -2,6 +2,7 @@ package test;
 
 import moonaFramework.Moona;
 import moonaFramework.process.ProcessClock;
+import moonaFramework.time.Clock;
 import moonaFramework.time.Timer;
 
 @SuppressWarnings("unused")

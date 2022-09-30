@@ -5,7 +5,7 @@ package moonaFramework.relation;
  * one abstract method, .getHost() method allows a forced connection to an object of type T (forced
  * connection = the initial host object cannot be changed).
  * 
- * @author Master_ZEr0
+ * @author MasterZEr0
  * @param <T> : The type of the host.
  */
 public interface Attached<T> {
