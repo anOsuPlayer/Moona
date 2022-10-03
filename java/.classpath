@@ -130,7 +130,6 @@
 	<classpathentry kind="lib" path="lwjgl/lwjgl-par-natives-windows.jar"/>
 	<classpathentry kind="lib" path="lwjgl/lwjgl-par-natives-windows-x86.jar"/>
 	<classpathentry kind="lib" path="lwjgl/lwjgl-par-sources.jar"/>
-	<classpathentry kind="lib" path="lwjgl/lwjgl-release-all-zip.json"/>
 	<classpathentry kind="lib" path="lwjgl/lwjgl-remotery.jar"/>
 	<classpathentry kind="lib" path="lwjgl/lwjgl-remotery-javadoc.jar"/>
 	<classpathentry kind="lib" path="lwjgl/lwjgl-remotery-natives-windows.jar"/>
