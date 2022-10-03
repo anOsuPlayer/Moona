@@ -125,7 +125,7 @@ If naturals describe an object in a general way, every serial object *is describ
 
 Before going on, I'd better remind you of something very important, which is that *serials are also naturals*: if a certain type specifies an ID, it *also* has to specify *a nature*, "classifying" that specific object on both a *general* and *specific* aspect. This is the reason behind why the *Serial interface extends the Natural interface*, inside Moona there cannot be a clear distinction between two object which generalities are not known.
 
-The Serial interface contains the *.id() method*, which returns a long number identifying a certain object (its *ID*). In classes belonging to the framework, they are *never* arbitrarily assigned, but there's a method in the Moona Class which generates them accordingly to how many were already requested.
+The Serial interface contains the *.id() method*, which returns a long number identifying a certain object (its *ID*). In classes belonging to the framework, they are *never* arbitrarily assigned, but there's a method in the Moona Class which generates them accordingly to how many were already requested. IDs are *always stored inside a field in every object*; since the ID is required to *not change in time* is always saved like this (in many cases it's declared as final, too).
 
 As mentioned, serials add *another layer of distinction* between objects: if a nature identifies *a large group of objects*, an ID, on the other hand, helps *telling objects apart from each other*. The concept might seem ratherly useless but, believe me, it's not: since each serial has its own unique identifier, via the Moona Class is possible to *recall serials by knowing their ID*: if a serial element [is added](#moona-class-) to the Moona Class, it automatically becomes *dependent from its ID*.
 
@@ -137,7 +137,7 @@ I came up with Serials when I was thinking about a way to make accessing importa
 They're planned to remain simple: no though concepts to keep in mind, just a simple method which can improve quite a lot of quality of life aspects. On the final note, as always, the best way to understand this simple (yet useful) feature by is giving it a try.
 
 #### How To Use Them? ✏️
-If you were to create serials of your own, remember to *never* decide the ID of a serial as a default value: use the *[Moona.GenerateID()](https://github.com/anOsuPlayer/Moona/wiki/Moona) method* in order to avoid making a mess.
+If you were to create serials of your own, remember to *never* decide the ID of a serial as a default value: use the *[Moona.GenerateID()](https://github.com/anOsuPlayer/Moona/wiki/Moona) method* inside of the type's constructor to declare a field: this will make so that the ID will be different for each object, but it will not change during time.
 
 For the rest, it's all fairly simple: use the *.id() method* to obtain the ID of a Serial and, via the Moona Class, recall one by *calling its ID* (visit the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) to find out some nice method to do this stuff).
 
