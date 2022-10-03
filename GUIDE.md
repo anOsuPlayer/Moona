@@ -125,30 +125,21 @@ If naturals describe an object in a general way, every serial object *is describ
 
 Before going on, I'd better remind you of something very important, which is that *serials are also naturals*: if a certain type specifies an ID, it *also* has to specify *a nature*, "classifying" that specific object on both a *general* and *specific* aspect. This is the reason behind why the *Serial interface extends the Natural interface*, inside Moona there cannot be a clear distinction between two object which generalities are not known.
 
-The Serial interface contains the *.id() method*, which returns a long number identifying a certain object (its *ID*). But how do IDs work? And how are they handled?
+The Serial interface contains the *.id() method*, which returns a long number identifying a certain object (its *ID*). In classes belonging to the framework, they are *never* arbitrarily assigned, but there's a method in the Moona Class which generates them accordingly to how many were already requested.
 
+As mentioned, serials add *another layer of distinction* between objects: if a nature identifies *a large group of objects*, an ID, on the other hand, helps *telling objects apart from each other*. The concept might seem ratherly useless but, believe me, it's not: since each serial has its own unique identifier, via the Moona Class is possible to *recall serials by knowing their ID*: if a serial element [is added](#moona-class-) to the Moona Class, it automatically becomes *dependent from its ID*.
 
-> If a type implements *Serial*, *it requires BOTH to return a specific nature AND to return a specific ID which distinguishes it from all the others.*
+Since IDs are unique for every single serial, their purpose is not limited to a mere distinction anymore, they now offer as *a mirror* to their correspondent Serial. Having access to an ID also means *having access to their related object*, even if it weren't available to a regular access (e.g. if it were private, somewhere not reachable).
 
-Serial objects extend the concepts already stated in the previous paragraph, this is because, as already mentioned above, *Serial objects are ALSO natural*. But what is their real purpose? I mean, in order to just tell two objects apart the .equals() method would be enough... rigth? Not quite.
+#### Why Serials? 💭
+I came up with Serials when I was thinking about a way to make accessing important objects an easier task. Not only this feature makes up a quick way to gain access to certain objects, but also makes them unique when it comes to both *distinction* and *identification*.
 
-Each Serial needs to declare the *.id() method*: this specific method is the one that returns the aforementioned *ID* as a long number needed to tell one Serial from another. But here comes the cool thing, that specific number *is assigned by the [Moona Class](#moona-class)* inside the constructor of each serial object. You don't think that's cool? Well, what if I told you that *Moona can interact with those IDs*? 
+They're planned to remain simple: no though concepts to keep in mind, just a simple method which can improve quite a lot of quality of life aspects. On the final note, as always, the best way to understand this simple (yet useful) feature by is giving it a try.
 
-Let's make things clear before going on, what does it mean that *Moona can interact with Serials*? To explain you this concept, I will need to once again *blow your mind* by unraveling another one of the Serial objects' secret: *each of them is stored **inside a "List" which resides inside Moona***. By DEFINITION, *A Serial object is an object that declares a specific ID AND is stored inside Moona*.
+#### How To Use Them? ✏️
+If you were to create serials of your own, remember to *never* decide the ID of a serial as a default value: use the *[Moona.GenerateID()](https://github.com/anOsuPlayer/Moona/wiki/Moona) method* in order to avoid making a mess.
 
-As you'll be able to see further on, the Moona Class features a lot of ways to *interact with IDs*. The first thing worth mentioning is that **you are able to recall EVERY SERIAL OBJECT if you know its ID**, thanks to methods that accept a long value and that return the corrisponding Serial. This, of course, applies to a lot of various uses.
-
-As I did before, I'll show you a practical use of this class with an example. Let's imagine two instances **A and B** of a class **C** which *implements Serial*, the two instances have two different IDs: **1 and 2**. Imagine that these two instances are two *private fields* inside of a generic **D** class (NOTE: "generic" does not imply *Java Generics*!) and that inside of the C class there is a method, which takes as an input a Serial and that... *does something*, a method like this: **void acceptSerial(Serial s)**.
-
-Since A and B are *two private fields inside of another class*, there would be no chance to call them from elsewhere... *maybe*. Thanks to a method called *.getElementByID(long id) { ... }* inside of Moona which returns the Serial corresponding to the given ID, we're able to *access to that private element by ONLY KNOWING ITS ID*, doing something like this: **acceptSerial(Moona.getElementByID(1))** (to know more about methods such as this, you can go check the [Moona Class' Wiki page](https://github.com/anOsuPlayer/Moona/wiki/Moona)). This operation will grant you the serial you're trying to access even if the latter *cannot be regularly accessed* though direct call.
-
-Each "call by ID" is made possible since, as already mentioned before, *each Serial ALSO lives inside the Moona class*. As you'll get your chance to see, Serials are implied in a lot of tasks inside of the framework and, even though I've not covered each one of them here, you'll be able to try all those features by yourself, I'm 100% convinced that's the best way you can learn!
-
-Of course, though, not everything is automated and not everything will be done by the Moona class itself, so there are some things you might want to keep in mind:
-* Serial objects are NOT AUTOMATICALLY ADDED TO MOONA: if you plan on creating a serial object yourself, keep in mind that *you'll need to manually add it to Moona in order to make the magic happen*.
-* You CANNOT arbitrarily assign an ID to a Serial! IDs are required to *be assigned by the Moona Class itself*. Since they rely on *the total ammount of serials that entered the list*, you're not free to choose an ID since some really dangerous issue might occur.
-
-> NOTE you can learn more about how to do this stuff by checking the [Moona Class paragraph](#moona-class) in this guide or by consulting the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona).
+For the rest, it's all fairly simple: use the *.id() method* to obtain the ID of a Serial and, via the Moona Class, recall one by *calling its ID* (visit the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/Moona) to find out some nice method to do this stuff).
 
 ## Processes
 > [^ back](#moona-guide-)
