@@ -6,7 +6,10 @@ import moonaFramework.Status;
 
 public abstract class AbstractProcess implements Process {
 	
-	public abstract long id();
+	private final long id;
+	public final long id() {
+		return this.id;
+	}
 	public int nature() {
 		return Moona.PROCESS;
 	}
@@ -45,6 +48,7 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
+		this.id = Moona.GenerateID();
 		this.clock = new ProcessClock(this);
 		this.isRunning = new Status(false);
 		this.isPaused = new Status(false);

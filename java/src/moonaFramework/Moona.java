@@ -321,7 +321,7 @@ public final class Moona {
 		}
 	}
 	
-	public static long GiveID(Serial s) {
+	public static long GenerateID() {
 		return idCounter++;
 	}
 	
