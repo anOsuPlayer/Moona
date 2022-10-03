@@ -35,8 +35,8 @@ public class Timer extends Clock {
 	public Timer(long mills) {
 		this(mills, 0);
 	}
-	public Timer(int nanos) {
-		this(nanos / 1000000, nanos % 1000000);
+	public Timer(int micros) {
+		this(micros / 1000, ((micros * 1000) % 1000000));
 	}
 	public Timer(double seconds) {
 		this((long) seconds, ((int) ((seconds - ((int) seconds)) * 1000000)));
