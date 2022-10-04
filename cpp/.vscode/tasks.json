@@ -3,50 +3,8 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: cpp.exe build active file",
-			"command": "C:\\Program Files\\CodeBlocks\\MinGW\\bin\\cpp.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"-std=c++20",
-				"${file}",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: \"C:\\Program Files\\CodeBlocks\\MinGW\\bin\\cpp.exe\""
-		},
-		{
-			"type": "cppbuild",
 			"label": "C/C++: g++.exe build active file",
-			"command": "C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"-std=c++20",
-				"${fileBasenameNoExtension}.cpp",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "compiler: \"C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe\""
-		},
-		{
-			"type": "cppbuild",
-			"label": "C/C++: g++.exe build active file",
-			"command": "C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe",
+			"command": "C:\\Users\\pelle\\Documents\\Compilers\\mingw64\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
@@ -61,10 +19,7 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"detail": "compiler: \"C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe\""
 		}
 	]
