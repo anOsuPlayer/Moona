@@ -52,8 +52,7 @@
      */
     #define constant static const
     /**
-     * @brief Custom keyword for when classes extend each others. I just couldn't stand that ":" operator, cmon
-     * this looks so much better.
+     * @brief Custom keyword for when classes extend each others. Makes the syntax closer to Java.
      */
     #define extends :
 
