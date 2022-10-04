@@ -1,6 +1,6 @@
 # CHANGELOG
 
-# early_dev-0.0.1 - The First Release
+## early_dev-0.0.1 - The First Release
 Added:
 * [.moonaFramework package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework), containing:
   * [Benchmark class](https://github.com/anOsuPlayer/Moona/wiki/Benchmark)
