@@ -1,17 +1,71 @@
-#include <iostream>
+/**
+ * @file msyntax.h
+ * @author Master_ZEr0
+ * @brief This header handles specific syntaxes and constructs to make C++'s awful syntax more readable and easy
+ * to understand.
+ */
 
-#define foreach(FROM, TO) for (ssize_t i = FROM; i < TO; i++)
-#define repeat(TIMES) for (ssize_t i = 0; i < TIMES; i++)
+#ifndef msyntax
 
-#define elif else if
-#define in :
+    #define msyntax
 
-#define ptr *
-#define at &
+    /**
+     * @brief Alternative for "else if" statement. 
+     */
+    #define elif else if
+    /**
+     * @brief Stands for the ":" operator in foreach cycles.
+     */
+    #define in :
 
-#define public public:
-#define protected protected:
-#define private private:
+    /**
+     * @brief A more readable alias of the "*" indicating pointers.
+     */
+    #define ptr *
+    /**
+     * @brief A more readable alias of the "&" indicating memory addresses.
+     */
+    #define at & 
 
-#define abstract virtual
-#define constant static const
+    /**
+     * @brief Defines public members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define public public:
+    /**
+     * @brief Defines protected members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define protected protected:
+    /**
+     * @brief Defines private members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define private private:
+
+    /**
+     * @brief Just an alias of the "virtual" keyword. Makes the syntax closer to Java.
+     */
+    #define abstract virtual
+    /**
+     * @brief This modifier identifies those variables considered as "constants".
+     */
+    #define constant static const
+    /**
+     * @brief Custom keyword for when classes extend each others. I just couldn't stand that ":" operator, cmon
+     * this looks so much better.
+     */
+    #define extends :
+
+    /**
+     * @brief Builds a getter for the given variable. The name of the getter is structured as follows "get_VAR",
+     * where "VAR" is the name of your variable.
+     */
+    #define getter(VAR) auto get_##VAR() { return this -> VAR; }
+    /**
+     * @brief Builds a setter for the given variable. The name of the setter is structured as follows "set_VAR",
+     * where "VAR" is the name of your variable.
+     */
+    #define setter(VAR) void set_##VAR(auto n) { this -> VAR = n; }
+
+#endif
