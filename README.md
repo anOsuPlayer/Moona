@@ -1,7 +1,5 @@
 # Moona 🌙
 
-> NOTE: This project is in its VERY *VERY* EARLY STAGES. There is NO RELEASE YET and some features haven't been covered yet.
-
 Welcome to Moona! This project is my very own multi-purpose framework that will feature a whole bunch of tools and classes for all sorts of purposes: from building graphic interfaces up to simply keeping your code more compact and clear!
 
 My hope is to develop this framework as best as I can: I want to offer people a piece of code that not only performs well, but that's also handy, practical and useful at the same time. I do not aim on creating something perfect, but rather something that you might appreciate because of its various uses and functions.
