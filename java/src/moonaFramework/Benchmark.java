@@ -14,7 +14,7 @@ public class Benchmark {
 	 * in nanoseconds.
 	 * 
 	 * @param r : The Runnable to time.
-	 * @return
+	 * @return the ammount of time elapsed.
 	 */
 	public static final long TIME(Runnable r) {
 		long beginning = System.nanoTime();
