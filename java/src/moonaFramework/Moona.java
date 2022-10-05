@@ -22,6 +22,7 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
 	}
+	
 	private static void CheckOn() throws MoonaHandlingException {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
