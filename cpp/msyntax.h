@@ -1,67 +1,70 @@
-#include <iostream>
+/**
+ * @file msyntax.h
+ * @author Master_ZEr0
+ * @brief This header handles specific syntaxes and constructs to make C++'s awful syntax more readable and easy
+ * to understand.
+ */
 
-/**
- * A repeat(N) loop simply iterates N times a certain instruction.
- */
-#define repeat(times) for (ssize_t i = 0; i < times; i++)
-/**
- * The range(from, to) loop iterates over the interval between "from" (included) and "to" (not
- * included). You can use the "i" variable to get the number at the current iteration.
- */
-#define range(from, to) for (ssize_t i = from; i < to; i++)
-/**
- * The rangeinc(from, to, delta) is another version of the range cycle: the thing that changes is
- * the fact that "i" increments of "delta" at each iteration.
- */
-#define rangeinc(from, to, delta) for (ssize_t i = from; i < to, i += delta)
+#ifndef msyntax
 
-/**
- * Alternative syntax for "else if". The use does not change.
- */
-#define elif else if
-/**
- * Substitutes the ":" operator in foreach loops when it comes to cycling on iterators.
- */
-#define in :
+    #define msyntax
 
-/**
- * More friendly way of declaring pointers.
- */
-#define ptr *
-/**
- * More friendly way of declaring memory addresses of variabless.
- */
-#define at &
+    /**
+     * @brief Alternative for "else if" statement. 
+     */
+    #define elif else if
+    /**
+     * @brief Stands for the ":" operator in foreach cycles.
+     */
+    #define in :
 
-/**
- * Java-like sintax of declaring public methods or fields in classes. It's either placeable just once
- * at the beginning of a series of public elements or before each one of them.
- */
-#define public public:
-/**
- * Java-like sintax of declaring protected methods or fields in classes. It's either placeable just once
- * at the beginning of a series of protected elements or before each one of them.
- */
-#define protected protected:
-/**
- * Java-like sintax of declaring private methods or fields in classes. It's either placeable just once
- * at the beginning of a series of private elements or before each one of them.
- */
-#define private private:
+    /**
+     * @brief A more readable alias of the "*" indicating pointers.
+     */
+    #define ptr *
+    /**
+     * @brief A more readable alias of the "&" indicating memory addresses.
+     */
+    #define at & 
 
-/**
- * Alias for virtual elements. It's not meant to entirely replace the keyword, but it's only handy
- * when declaring what Java would interpret as abstract methods.
- */
-#define abstract virtual
-/**
- * This keyword represents constants. Constant fields inside classes are those which exclusively
- * require readonly access.
- */
-#define constant static const
+    /**
+     * @brief Defines public members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define public public:
+    /**
+     * @brief Defines protected members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define protected protected:
+    /**
+     * @brief Defines private members inside classes. Both usable just once for multiple parameters or multiple
+     * times for better readability.
+     */
+    #define private private:
 
-#define getter(field) auto field##_getter() { return this -> field; }
+    /**
+     * @brief Just an alias of the "virtual" keyword. Makes the syntax closer to Java.
+     */
+    #define abstract virtual
+    /**
+     * @brief This modifier identifies those variables considered as "constants".
+     */
+    #define constant static const
+    /**
+     * @brief Custom keyword for when classes extend each others. Makes the syntax closer to Java.
+     */
+    #define extends :
 
-#define setter(field) void field##_setter(auto a) { this -> field = a; }
+    /**
+     * @brief Builds a getter for the given variable. The name of the getter is structured as follows "get_VAR",
+     * where "VAR" is the name of your variable.
+     */
+    #define getter(VAR) auto get_##VAR() { return this -> VAR; }
+    /**
+     * @brief Builds a setter for the given variable. The name of the setter is structured as follows "set_VAR",
+     * where "VAR" is the name of your variable.
+     */
+    #define setter(VAR) void set_##VAR(auto n) { this -> VAR = n; }
 
-#define array(LENGTH) [##LENGTH]
+#endif

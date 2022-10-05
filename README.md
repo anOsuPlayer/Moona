@@ -12,7 +12,11 @@ In the future, I would really like to give this framework a graphic interface (w
 
 In order to get started with this framework you'll need a couple things:
 
+#### Java ☕
 * This framework uses the *Java JDK 18.0.2*, so you'll need to download it from the official [website](https://www.oracle.com/java/technologies/downloads/) (NOTE: if you like, you should be able to use some newer versions of the JDK, too. I hope that it won't cause troubles, though, I haven't tested it yet)
+
+#### C++ #️⃣
+* If you plan on implementing the C++ features, too, you'll need to install *MinGW Compiler with GCC 12 or above*: since C++20 support is required be sure to have the adequate compiler correctly installed.
 
 * To avoid making a mess in your IDE and making you regret of your life choices, I would advise you to read the official [guide](https://github.com/anOsuPlayer/Moona/blob/early_dev/GUIDE.md) on how to use the framework (which you can find by clicking on the link or in the repository's files) and the [Wiki](https://github.com/anOsuPlayer/Moona/wiki/home).
 
