@@ -10,6 +10,7 @@ Following this brief introduction, you'll find a nice *index* which will summari
 
 * [Dependencies](#dependencies-)
 * [Packages Organization](#packages-organization-)
+* [C++ Headers](#c++-headers-)
 * [Nature and IDs](#nature-and-ids-)
 * [Processes](#processes-)
 * [Moona Class](#moona-class-)
@@ -84,6 +85,8 @@ Speaking of which, as mentioned in this repository's [README.md file](https://gi
 * Non-dependent packages, on the other hand, are those who you'll be able to download. They were purposely thought for you to download them if you're interested in *just* that singular set of features.
 
 In a few words, this modularity-kind of environment was built to *make single features available* without downloading the whole framework. It's a kind of freedom I wanted my community to have, to maximize the possibilities: if you only like some feature, just download it! (but pls consider downloadin the whole framework 'cause it's cool \* wink \*).
+
+## C++ Headers #️⃣
 
 ## Nature and IDs 📐
 > [^ back](#moona-guide-)
