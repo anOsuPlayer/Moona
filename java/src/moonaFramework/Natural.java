@@ -10,6 +10,7 @@ package moonaFramework;
  * <br><br>
  * In this interface there's only one method: the .nature() method. It returns an integer identifying the
  * given type (defining its nature).
+ * 
  * @author MasterZEr0
  */
 public interface Natural {
