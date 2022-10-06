@@ -1,8 +1,8 @@
 /**
  * @file msyntax.h
  * @author Master_ZEr0
- * @brief This header handles specific syntaxes and constructs to make C++'s awful syntax more readable and easy
- * to understand.
+ * @brief This header handles specific syntaxes and constructs to make C++'s awful syntax more readable
+ * and easy to understand.
  */
 
 #ifndef msyntax
