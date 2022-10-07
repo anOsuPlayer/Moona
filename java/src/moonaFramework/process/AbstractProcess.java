@@ -114,6 +114,9 @@ public abstract class AbstractProcess implements Process {
 		}
 	}
 	
+	/**
+	 * Standard constructor which initializes the four private fields.
+	 */
 	public AbstractProcess() {
 		this.id = Moona.GenerateID();
 		this.clock = new ProcessClock(this);

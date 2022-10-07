@@ -16,6 +16,8 @@ public final class Moona {
 	
 	public static final int PROCESS = 0;
 	
+	public static final int DAEMON = 1;
+	
 	public static void Init() throws MoonaHandlingException {
 		isOn = true;
 		if (!GLFW.glfwInit()) {
@@ -44,6 +46,7 @@ public final class Moona {
 	
 	private static long totalElements = 0;
 	private static int totalProcesses = 0;
+	private static int totalDaemons = 0;
 	
 	static void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
@@ -53,7 +56,8 @@ public final class Moona {
 		if (!elements.has(s, s.id())) {
 			elements.add(s, s.id());
 			totalElements--;
-			totalProcesses -= (s.nature() == PROCESS)? 1 : 0;
+			totalProcesses += (s.nature() == PROCESS)? 1 : 0;
+			totalDaemons += (s.nature() == DAEMON)? 1 : 0;
 		}
 	}
 	public static void Add(Serial s) throws MoonaHandlingException, NullPointerException {
@@ -67,6 +71,7 @@ public final class Moona {
 		elements.add(s, s.id());
 		totalElements++;
 		totalProcesses += (s.nature() == PROCESS) ? 1 : 0;
+		totalDaemons += (s.nature() == DAEMON)? 1 : 0;
 	}
 	static void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
@@ -77,6 +82,7 @@ public final class Moona {
 			elements.remove(s, s.id());
 			totalElements--;
 			totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
+			totalDaemons -= (s.nature() == DAEMON)? 1 : 0;
 		}
 	}
 	public static void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
@@ -90,6 +96,7 @@ public final class Moona {
 		elements.remove(s, s.id());
 		totalElements--;
 		totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
+		totalDaemons -= (s.nature() == DAEMON)? 1 : 0;
 	}
 	
 	public static void Provide(long id) throws MoonaHandlingException {
@@ -346,6 +353,9 @@ public final class Moona {
 	}
 	public static int totalProcesses() {
 		return totalProcesses;
+	}
+	public static int totalDaemons() {
+		return totalDaemons;
 	}
 	
 	private Moona() {
