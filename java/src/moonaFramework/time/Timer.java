@@ -39,7 +39,8 @@ public class Timer extends Clock {
 		this(micros / 1000, ((micros * 1000) % 1000000));
 	}
 	public Timer(double seconds) {
-		this((long) seconds, ((int) ((seconds - ((int) seconds)) * 1000000)));
+		this((long) seconds * 1000 + ((int) ((seconds - ((int) seconds)) * 1000)),
+				(int) (((seconds - ((int) seconds)) * 1000000000)) % 1000000);
 	}
 	public Timer() {
 		this(0, 0);
