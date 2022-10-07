@@ -38,7 +38,7 @@ public class ProcessClock extends Chrono implements Attached<Process> {
 	 * Returns (in nanoseconds) the time value in which this ProcessClock was created.
 	 * @return {@link #beginning}
 	 */
-	public long getBeginning() {
+	public final long getBeginning() {
 		return beginning;
 	}
 	
