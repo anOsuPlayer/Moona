@@ -42,6 +42,9 @@ public class IshMap<V, K> {
 	public void lock() {
 		this.isImmutable = true;
 	}
+	public void unlock() {
+		this.isImmutable = false;
+	}
 	
 	public boolean add(int at, V value, K key) throws IndexOutOfBoundsException {
 		requireInRange(at);

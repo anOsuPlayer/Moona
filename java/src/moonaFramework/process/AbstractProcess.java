@@ -1,5 +1,6 @@
 package moonaFramework.process;
 
+import moonaFramework.Deadlined;
 import moonaFramework.Moona;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
@@ -80,14 +81,14 @@ public abstract class AbstractProcess implements Process {
 	 * Initially not declared (to not force overriding when not needed), it executes a certain action when
 	 * the process is paused.
 	 */
-	@Override
+	@Deadlined
 	public void onPause() {
 	}
 	/**
 	 * Initially not declared (to not force overriding when not needed), it executes a certain action when
 	 * the process is not paused anymore.
 	 */
-	@Override
+	@Deadlined
 	public void onUnpause() {
 	}
 	
