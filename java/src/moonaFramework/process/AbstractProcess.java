@@ -107,7 +107,7 @@ public abstract class AbstractProcess implements Process {
 	 */
 	@Override
 	public void run() {
-		while (!ProcessCondition.DEAD.check(this)) {
+		while (!ProcessCondition.DEAD.check(this) && Moona.IsOn()) {
 			synchronized (clock) {
 				clock.pauseHolder();
 				update();

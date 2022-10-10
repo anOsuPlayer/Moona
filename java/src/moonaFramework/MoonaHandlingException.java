@@ -33,12 +33,14 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	}
 	
 	/**
-	 * The main constructor of this exceptions builds a RuntimeException on top of the given message.
+	 * The main constructor of this exceptions builds a RuntimeException on top of the given message. Sets
+	 * the Moona.isOn boolean on false in order to stop every running process.
 	 * 
 	 * @param message : The given string to output.
 	 */
 	public MoonaHandlingException(String message) {
 		super(message);
+		Moona.isOn = false;
 	}
 	
 	/**
@@ -48,5 +50,6 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	 */
 	public MoonaHandlingException() {
 		super("Something went wrong with Moona...");
+		Moona.isOn = false;
 	}
 }
