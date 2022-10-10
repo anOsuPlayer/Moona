@@ -289,9 +289,15 @@ public final class Moona {
 			throw new MoonaHandlingException("You cannot interrupt a process which is not running"
 					+ " or awaiting.");
 		}
+		boolean wasPaused = p.isPaused().verify();
 		FilteredRemove(p);
 		ProcessCondition.DEAD.set(p);
-		p.getClock().release();
+		if (wasPaused) {
+			p.getClock().release();
+		}
+		if (totalProcesses == 0) {
+			Moona.Fade();
+		}
 	}
 	
 	public static void Interrupt(long id) throws MoonaHandlingException {
@@ -304,13 +310,13 @@ public final class Moona {
 	}
 	public static void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
-		Terminate(p);
 		p.end();
+		Terminate(p);
 	}
 	
 	public static void Fade() throws MoonaHandlingException {
 		CheckOn();
-		Process[] procs = new Process[totalProcesses];
+		Process[] procs = new Process[totalProcesses+totalDaemons];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
 			c += (procs[c] != null) ? 1 : 0;
@@ -322,7 +328,7 @@ public final class Moona {
 	}
 	public static void Collapse() throws MoonaHandlingException {
 		CheckOn();
-		Process[] procs = new Process[totalProcesses];
+		Process[] procs = new Process[totalProcesses+totalDaemons];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
 			c += (procs[c] != null) ? 1 : 0;

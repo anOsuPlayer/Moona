@@ -18,6 +18,7 @@ public class IshMap<V, K> {
 		return values.size();
 	}
 	
+	@Override
 	public String toString() {
 		String str = "[ ";
 		for (int i = 0; i < size(); i++) {
@@ -25,6 +26,7 @@ public class IshMap<V, K> {
 		}
 		return str;
 	}
+	@Override
 	public IshMap<V, K> clone() {
 		return new IshMap<>(values, keys);
 	}
@@ -255,20 +257,25 @@ public class IshMap<V, K> {
 		private final Iterator<V> reverse = new Iterator<V>() {
 			private int index = -2;
 			
+			@Override
 			public boolean hasNext() {
 				return index >= 0 || index == -2;
 			}
+			@Override
 			public V next() {
 				if (index == -1 || index == -2) { index = size()-1; }
 				return values.get(index--);
 			}
 		};
 		
+		@Override
 		public Iterator<V> iterator() {
 			return values.iterator();
 		}
+		@Override
 		public Iterable<V> reverse() {
 			return new Iterable<V>() {
+				@Override
 				public Iterator<V> iterator() {
 					return reverse;
 				}
@@ -283,20 +290,25 @@ public class IshMap<V, K> {
 		private final Iterator<K> reverse = new Iterator<K>() {
 			private int index = -2;
 			
+			@Override
 			public boolean hasNext() {
 				return index >= 0 || index == -2;
 			}
+			@Override
 			public K next() {
 				if (index == -1 || index == -2) { index = size()-1; }
 				return keys.get(index--);
 			}
 		};
 		
+		@Override
 		public Iterator<K> iterator() {
 			return keys.iterator();
 		}
+		@Override
 		public Iterable<K> reverse() {
 			return new Iterable<K>() {
+				@Override
 				public Iterator<K> iterator() {
 					return reverse;
 				}
@@ -307,7 +319,8 @@ public class IshMap<V, K> {
 		return keysIterator;
 	}
 	
-	public void forEach(Consumer<? super V> valueFunction, Consumer <? super K> keyFunction) {
+	public void forEach(Consumer<? super V> valueFunction, Consumer <? super K> keyFunction)
+			throws NullPointerException {
 		Objects.requireNonNull(valueFunction);
 		Objects.requireNonNull(keyFunction);
 		for (int i = 0; i < size(); i++) {
@@ -315,17 +328,17 @@ public class IshMap<V, K> {
 			keyFunction.accept(keys.get(i));
 		}
 	}
-	public void forEach(BiConsumer<? super V, ? super K> bifunction) {
+	public void forEach(BiConsumer<? super V, ? super K> bifunction) throws NullPointerException {
 		Objects.requireNonNull(bifunction);
 		for (int i = 0; i < size(); i++) {
 			bifunction.accept(values.get(i), keys.get(i));
 		}
 	}
-	public void forEachValue(Consumer<? super V> function) {
+	public void forEachValue(Consumer<? super V> function) throws NullPointerException {
 		Objects.requireNonNull(function);
 		values.forEach(function);
 	}
-	public void forEachKey(Consumer<? super K> function) {
+	public void forEachKey(Consumer<? super K> function) throws NullPointerException {
 		Objects.requireNonNull(function);
 		keys.forEach(function);
 	}
@@ -344,7 +357,7 @@ public class IshMap<V, K> {
 		return subMap(from, size()-1);
 	}
 	
-	public void clone(IshMap<V, K> branch) throws UnsupportedOperationException, NullPointerException {
+	public void absorb(IshMap<V, K> branch) throws UnsupportedOperationException, NullPointerException {
 		Objects.requireNonNull(branch);
 		if ((long) size() + (long) branch.size() >= Integer.MAX_VALUE) {
 			throw new UnsupportedOperationException("The sum of the two Ishmaps' lengths goes beyond the"
@@ -353,8 +366,9 @@ public class IshMap<V, K> {
 		values.addAll(branch.values);
 		keys.addAll(branch.keys);
 	}
-	public void join(IshMap<V, K> branch) throws UnsupportedOperationException {
-		clone(branch);
+	public void join(IshMap<V, K> branch) throws UnsupportedOperationException, NullPointerException {
+		Objects.requireNonNull(branch);
+		absorb(branch);
 		branch.clear();
 	}
 	
