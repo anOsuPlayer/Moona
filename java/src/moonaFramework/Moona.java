@@ -308,26 +308,6 @@ public final class Moona {
 		p.end();
 	}
 	
-	public static void Sleep(int mills, int nanos) throws MoonaHandlingException {
-		CheckOn();
-		for (int i = 0; i < totalProcesses; i ++) {
-			if (elements.getValue(i) instanceof Process p) {
-				p.getClock().stasys();
-			}
-		}
-		try {
-			Thread.sleep(mills, nanos);
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		for (int i = 0; i < totalProcesses; i ++) {
-			if (elements.getValue(i) instanceof Process p) {
-				p.getClock().release();
-			}
-		}
-	}
-	
 	public static void Fade() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses];
@@ -338,6 +318,7 @@ public final class Moona {
 		for (Process p : procs) {
 			Terminate(p);
 		}
+		Moona.isOn = false;
 	}
 	public static void Collapse() throws MoonaHandlingException {
 		CheckOn();
@@ -349,6 +330,7 @@ public final class Moona {
 		for (Process p : procs) {
 			Interrupt(p);
 		}
+		Moona.isOn = false;
 	}
 	
 	public static long GenerateID() {
