@@ -24,6 +24,7 @@ public abstract class Daemon extends AbstractProcess {
 		while (!ProcessCondition.DEAD.check(this) && Moona.IsOn()) {
 			synchronized (getClock()) {
 				if (Moona.totalProcesses() == 0) {
+					getClock().stasys();
 					Moona.Interrupt(this);
 				}
 				getClock().pauseHolder();

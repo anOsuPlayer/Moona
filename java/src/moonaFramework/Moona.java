@@ -295,9 +295,6 @@ public final class Moona {
 		if (wasPaused) {
 			p.getClock().release();
 		}
-		if (totalProcesses == 0) {
-			Moona.Fade();
-		}
 	}
 	
 	public static void Interrupt(long id) throws MoonaHandlingException {
@@ -310,8 +307,10 @@ public final class Moona {
 	}
 	public static void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
-		p.end();
 		Terminate(p);
+		synchronized (p.getClock()) {
+			p.end();
+		}
 	}
 	
 	public static void Fade() throws MoonaHandlingException {
