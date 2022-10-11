@@ -2,21 +2,16 @@ package moonaFramework;
 
 import org.lwjgl.glfw.GLFW;
 import moonaFramework.process.Process;
+import moonaFramework.process.ProcessHandler;
 import moonaFramework.util.IshMap;
 
-public final class Moona {
+public final class Moona implements ProcessHandler {
 
 	static boolean isOn = false;
 	
 	public static boolean IsOn() {
 		return isOn;
 	}
-
-	public static final int EXCEPTION = -1;
-	
-	public static final int PROCESS = 0;
-	
-	public static final int DAEMON = 1;
 	
 	public static void Init() throws MoonaHandlingException {
 		isOn = true;
@@ -29,7 +24,7 @@ public final class Moona {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
-	public static void Initialize(Process p) {
+	public void Initialize(Process p) {
 		CheckOn();
 		Add(p);
 		ProcessCondition.RUNNING.set(p);
@@ -40,28 +35,28 @@ public final class Moona {
 		p.end();
 	}
 	
-	private static final IshMap<Serial, Long> elements = new IshMap<>();
+	private final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	private static long idCounter = 0;
 	
-	private static long totalElements = 0;
+	private long totalElements = 0;
 	
-	private static int totalProcesses = 0;
+	private int totalProcesses = 0;
 	
-	private static int totalDaemons = 0;
+	private int totalDaemons = 0;
 	
-	static void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
+	void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
 		}
 		if (!elements.has(s, s.id())) {
 			elements.add(s, s.id());
 			totalElements++;
-			totalProcesses += (s.nature() == PROCESS)? 1 : 0;
-			totalDaemons += (s.nature() == DAEMON)? 1 : 0;
+			totalProcesses += (s.nature() == Natural.PROCESS)? 1 : 0;
+			totalDaemons += (s.nature() == Natural.DAEMON)? 1 : 0;
 		}
 	}
-	public static void Add(Serial s) throws MoonaHandlingException, NullPointerException {
+	public void Add(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (s == null) {
 			throw new NullPointerException();
@@ -71,21 +66,21 @@ public final class Moona {
 		}
 		elements.add(s, s.id());
 		totalElements++;
-		totalProcesses += (s.nature() == PROCESS) ? 1 : 0;
-		totalDaemons += (s.nature() == DAEMON)? 1 : 0;
+		totalProcesses += (s.nature() == Natural.PROCESS) ? 1 : 0;
+		totalDaemons += (s.nature() == Natural.DAEMON)? 1 : 0;
 	}
-	static void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
+	void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
 		}
 		if (elements.has(s, s.id())) {
 			elements.remove(s, s.id());
 			totalElements--;
-			totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
-			totalDaemons -= (s.nature() == DAEMON)? 1 : 0;
+			totalProcesses -= (s.nature() == Natural.PROCESS) ? 1 : 0;
+			totalDaemons -= (s.nature() == Natural.DAEMON)? 1 : 0;
 		}
 	}
-	public static void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
+	public void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (s == null) {
 			throw new NullPointerException();
@@ -95,11 +90,11 @@ public final class Moona {
 		}
 		elements.remove(s, s.id());
 		totalElements--;
-		totalProcesses -= (s.nature() == PROCESS) ? 1 : 0;
-		totalDaemons -= (s.nature() == DAEMON)? 1 : 0;
+		totalProcesses -= (s.nature() == Natural.PROCESS) ? 1 : 0;
+		totalDaemons -= (s.nature() == Natural.DAEMON)? 1 : 0;
 	}
 	
-	public static void Provide(long id) throws MoonaHandlingException {
+	public void Provide(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Provide(p);
@@ -107,7 +102,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Provide(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Provide(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -120,7 +115,7 @@ public final class Moona {
 		ProcessCondition.AWAITING.set(p);
 	}
 	
-	public static void Await(long id) throws MoonaHandlingException {
+	public void Await(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Await(p);
@@ -128,14 +123,14 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Await(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Await(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		Provide(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public static void Unlock(long id) throws MoonaHandlingException {
+	public void Unlock(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Unlock(p);
@@ -143,7 +138,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -155,7 +150,7 @@ public final class Moona {
 		p.getClock().release();
 	}
 	
-	public static void Initiate(long id) throws MoonaHandlingException {
+	public void Initiate(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Initiate(p);
@@ -163,7 +158,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -180,7 +175,7 @@ public final class Moona {
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public static void Start(long id) throws MoonaHandlingException {
+	public void Start(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Start(p);
@@ -188,7 +183,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Start(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Start(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -206,7 +201,7 @@ public final class Moona {
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public static void Spark(long id) throws MoonaHandlingException {
+	public void Spark(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Spark(p);
@@ -214,7 +209,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Spark(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Spark(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -239,7 +234,7 @@ public final class Moona {
 		}
 	}
 	
-	public static void Flick(long id) throws MoonaHandlingException {
+	public void Flick(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Flick(p);
@@ -247,7 +242,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Flick(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Flick(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -272,7 +267,7 @@ public final class Moona {
 		}
 	}
 	
-	public static void Terminate(long id) throws MoonaHandlingException {
+	public void Terminate(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Terminate(p);
@@ -280,7 +275,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		if (p == null) {
 			throw new NullPointerException();
@@ -297,7 +292,7 @@ public final class Moona {
 		}
 	}
 	
-	public static void Interrupt(long id) throws MoonaHandlingException {
+	public void Interrupt(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.valueOf(id) instanceof Process p) {
 			Interrupt(p);
@@ -305,7 +300,7 @@ public final class Moona {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public static void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
+	public void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
 		CheckOn();
 		Terminate(p);
 		synchronized (p.getClock()) {
@@ -313,7 +308,7 @@ public final class Moona {
 		}
 	}
 	
-	public static void Fade() throws MoonaHandlingException {
+	public void Fade() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses+totalDaemons];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
@@ -325,7 +320,7 @@ public final class Moona {
 		}
 		Moona.isOn = false;
 	}
-	public static void Collapse() throws MoonaHandlingException {
+	public void Collapse() throws MoonaHandlingException {
 		CheckOn();
 		Process[] procs = new Process[totalProcesses+totalDaemons];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
@@ -342,28 +337,28 @@ public final class Moona {
 		return idCounter++;
 	}
 	
-	public static Serial getElementByID(long id) throws MoonaHandlingException {
+	public Serial getElementByID(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (elements.hasKey(id)) {
 			return elements.valueOf(id);
 		}
 		throw new MoonaHandlingException("There is no such element with this ID: " + id + ".");
 	}
-	public static long totalElements() {
+	public long totalElements() {
 		return totalElements;
 	}
 	
-	public static Process getProcessByID(long id) throws MoonaHandlingException {
+	public Process getProcessByID(long id) throws MoonaHandlingException {
 		CheckOn();
 		if (getElementByID(id) instanceof Process proc) {
 			return proc;
 		}
 		throw new MoonaHandlingException("The element that corresponds to that ID is not a Process.");
 	}
-	public static int totalProcesses() {
+	public int totalProcesses() {
 		return totalProcesses;
 	}
-	public static int totalDaemons() {
+	public int totalDaemons() {
 		return totalDaemons;
 	}
 	

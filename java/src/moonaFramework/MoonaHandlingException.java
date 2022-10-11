@@ -29,7 +29,7 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	 */
 	@Override
 	public final int nature() {
-		return Moona.EXCEPTION;
+		return Natural.EXCEPTION;
 	}
 	
 	/**

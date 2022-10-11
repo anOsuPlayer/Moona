@@ -2,6 +2,7 @@ package moonaFramework.process;
 
 import moonaFramework.Deadlined;
 import moonaFramework.Moona;
+import moonaFramework.Natural;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
 
@@ -38,7 +39,7 @@ public abstract class AbstractProcess implements Process {
 	 */
 	@Override
 	public int nature() {
-		return Moona.PROCESS;
+		return Natural.PROCESS;
 	}
 	
 	/**

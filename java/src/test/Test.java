@@ -13,25 +13,15 @@ import moonaFramework.util.Condition;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Task t = new Task() {
-		public void initialize() {
-			System.out.println("CCCCCCCCC");
-		}
+	static Moona m;
+	
+	static Daemon d = new Daemon(m) {
 		public void update() {
-			System.out.println("AAAAAAAAA");
-		}
-		public void end() {
-			System.out.println("BBBBBBBBB");
+			
 		}
 	};
 	
 	public static void main(String[] args) throws InterruptedException {
-		Moona.Init();
 		
-		Moona.Start(t);
-		
-		Thread.sleep(1000);
-		
-		Moona.Interrupt(t);
 	}
 }
