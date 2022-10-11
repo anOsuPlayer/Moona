@@ -1,6 +1,6 @@
 package moonaFramework.process;
 
-import moonaFramework.Deadlined;
+import moonaFramework.annotations.Deadlined;
 
 public abstract class Task extends AbstractProcess {
 

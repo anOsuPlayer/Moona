@@ -1,11 +1,10 @@
 package moonaFramework;
 
 import org.lwjgl.glfw.GLFW;
-import moonaFramework.process.Process;
-import moonaFramework.process.ProcessHandler;
+
 import moonaFramework.util.IshMap;
 
-public final class Moona implements ProcessHandler {
+public class Moona {
 
 	static boolean isOn = false;
 	
@@ -20,349 +19,71 @@ public final class Moona implements ProcessHandler {
 		}
 	}
 	
-	private static void CheckOn() throws MoonaHandlingException {
+	public static void CheckOn() throws MoonaHandlingException {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
-	public void Initialize(Process p) {
-		CheckOn();
-		Add(p);
-		ProcessCondition.RUNNING.set(p);
-		p.initialize();
-		p.run();
-		Remove(p);
-		ProcessCondition.DEAD.set(p);
-		p.end();
+	static final IshMap<Serial, Long> globalElements = new IshMap<>();
+	public static int totalPhases() {
+		int tot = 0;
+		for (int i = 0; i < globalElements.size(); i++) {
+			tot += (globalElements.getValue(i).nature() == Natural.PHASE) ? 1 : 0;
+		}
+		return tot;
 	}
 	
-	private final IshMap<Serial, Long> elements = new IshMap<>();
+	private static long totalElements = 0;
+	public static long totalElements() {
+		return totalElements;
+	}
+	
+	private static int totalProcesses = 0;
+	public static int totalProcesses() {
+		return totalProcesses;
+	}
+	
+	private static int totalDaemons = 0;
+	public static int totalDaemons() {
+		return totalDaemons;
+	}
+	
+	static void FilteredAdd(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
+		if (s == null) {
+			throw new NullPointerException();
+		}
+		if (!p.elements.has(s, s.id())) {
+			p.elements.add(s, s.id());
+			totalElements++; p.elementCount++;
+			if (s.nature() == Natural.PROCESS) { totalProcesses++; p.processCount++; };
+			if (s.nature() == Natural.DAEMON) { totalDaemons++; p.daemonCount++; };
+		}
+	}
+	static void FilteredRemove(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
+		if (s == null) {
+			throw new NullPointerException();
+		}
+		if (p.elements.has(s, s.id())) {
+			p.elements.remove(s, s.id());
+			totalElements--; p.elementCount--;
+			if (s.nature() == Natural.PROCESS) { totalProcesses--; p.processCount--; };
+			if (s.nature() == Natural.DAEMON) { totalDaemons--; p.daemonCount--; };
+		}
+	}
+	
+	static void AddPhase(Phase p) throws NullPointerException {
+		if (p == null) {
+			throw new NullPointerException();
+		}
+		globalElements.add(p, p.id());
+	}
 	
 	private static long idCounter = 0;
-	
-	private long totalElements = 0;
-	
-	private int totalProcesses = 0;
-	
-	private int totalDaemons = 0;
-	
-	void FilteredAdd(Serial s) throws MoonaHandlingException, NullPointerException {
-		if (s == null) {
-			throw new NullPointerException();
-		}
-		if (!elements.has(s, s.id())) {
-			elements.add(s, s.id());
-			totalElements++;
-			totalProcesses += (s.nature() == Natural.PROCESS)? 1 : 0;
-			totalDaemons += (s.nature() == Natural.DAEMON)? 1 : 0;
-		}
-	}
-	public void Add(Serial s) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (s == null) {
-			throw new NullPointerException();
-		}
-		if (elements.has(s, s.id())) {
-			throw new MoonaHandlingException("Moona already contains this element.");
-		}
-		elements.add(s, s.id());
-		totalElements++;
-		totalProcesses += (s.nature() == Natural.PROCESS) ? 1 : 0;
-		totalDaemons += (s.nature() == Natural.DAEMON)? 1 : 0;
-	}
-	void FilteredRemove(Serial s) throws MoonaHandlingException, NullPointerException {
-		if (s == null) {
-			throw new NullPointerException();
-		}
-		if (elements.has(s, s.id())) {
-			elements.remove(s, s.id());
-			totalElements--;
-			totalProcesses -= (s.nature() == Natural.PROCESS) ? 1 : 0;
-			totalDaemons -= (s.nature() == Natural.DAEMON)? 1 : 0;
-		}
-	}
-	public void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (s == null) {
-			throw new NullPointerException();
-		}
-		if (!elements.has(s, s.id())) {
-			throw new MoonaHandlingException("Moona does not contain this element.");
-		}
-		elements.remove(s, s.id());
-		totalElements--;
-		totalProcesses -= (s.nature() == Natural.PROCESS) ? 1 : 0;
-		totalDaemons -= (s.nature() == Natural.DAEMON)? 1 : 0;
-	}
-	
-	public void Provide(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Provide(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Provide(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (!ProcessCondition.DEAD.check(p)) {
-			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
-					+ " or paused.");
-		}
-		FilteredAdd(p);
-		ProcessCondition.AWAITING.set(p);
-	}
-	
-	public void Await(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Await(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Await(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		Provide(p);
-		p.initialize();
-		new Thread(p, "Process#" + p.id()).start();
-	}
-	
-	public void Unlock(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Unlock(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (!ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("A process cannot be unlocked if not awaiting.");
-		}
-		ProcessCondition.RUNNING.set(p);
-		p.getClock().release();
-	}
-	
-	public void Initiate(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Initiate(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (p.isRunning().verify()) {
-			throw new MoonaHandlingException("The Process is already running.");
-		}
-		if (ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
-					+ " unlock it.");	
-		}
-		FilteredAdd(p);
-		ProcessCondition.RUNNING.set(p);
-		new Thread(p, "Process#" + p.id()).start();
-	}
-	
-	public void Start(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Start(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Start(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (p.isRunning().verify()) {
-			throw new MoonaHandlingException("The Process is already running.");
-		}
-		if (ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
-					+ " unlock it.");	
-		}
-		FilteredAdd(p);
-		ProcessCondition.RUNNING.set(p);
-		p.initialize();
-		new Thread(p, "Process#" + p.id()).start();
-	}
-	
-	public void Spark(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Spark(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Spark(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
-					+ " it.");
-		}
-		if (p.isPaused().verify()) {
-			ProcessCondition.RUNNING.set(p);
-			p.getClock().release();
-			synchronized (p.getClock()) {
-				p.onUnpause();
-			}
-		}
-		else {
-			ProcessCondition.PAUSED.set(p);
-			p.getClock().stasys();
-			synchronized (p.getClock()) {
-				p.onPause();
-			}
-		}
-	}
-	
-	public void Flick(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Flick(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Flick(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
-					+ " it.");
-		}
-		if (p.isPaused().verify()) {
-			ProcessCondition.RUNNING.set(p);
-			p.getClock().release();
-			synchronized (p.getClock()) {
-				p.onUnpause();
-			}
-		}
-		else {
-			ProcessCondition.PAUSED.set(p);
-			p.getClock().stasys();
-			synchronized (p.getClock()) {
-				p.onPause();
-			}
-		}
-	}
-	
-	public void Terminate(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Terminate(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		if (p == null) {
-			throw new NullPointerException();
-		}
-		if (ProcessCondition.DEAD.check(p)) {
-			throw new MoonaHandlingException("You cannot interrupt a process which is not running"
-					+ " or awaiting.");
-		}
-		boolean wasPaused = p.isPaused().verify();
-		FilteredRemove(p);
-		ProcessCondition.DEAD.set(p);
-		if (wasPaused) {
-			p.getClock().release();
-		}
-	}
-	
-	public void Interrupt(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.valueOf(id) instanceof Process p) {
-			Interrupt(p);
-		}
-		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
-	}
-	public void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
-		CheckOn();
-		Terminate(p);
-		synchronized (p.getClock()) {
-			p.end();
-		}
-	}
-	
-	public void Fade() throws MoonaHandlingException {
-		CheckOn();
-		Process[] procs = new Process[totalProcesses+totalDaemons];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
-			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
-			c += (procs[c] != null) ? 1 : 0;
-		}
-		for (Process p : procs) {
-			Terminate(p);
-		}
-		Moona.isOn = false;
-	}
-	public void Collapse() throws MoonaHandlingException {
-		CheckOn();
-		Process[] procs = new Process[totalProcesses+totalDaemons];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
-			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
-			c += (procs[c] != null) ? 1 : 0;
-		}
-		for (Process p : procs) {
-			Interrupt(p);
-		}
-		Moona.isOn = false;
-	}
 	
 	public static long GenerateID() {
 		return idCounter++;
 	}
 	
-	public Serial getElementByID(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (elements.hasKey(id)) {
-			return elements.valueOf(id);
-		}
-		throw new MoonaHandlingException("There is no such element with this ID: " + id + ".");
-	}
-	public long totalElements() {
-		return totalElements;
-	}
-	
-	public Process getProcessByID(long id) throws MoonaHandlingException {
-		CheckOn();
-		if (getElementByID(id) instanceof Process proc) {
-			return proc;
-		}
-		throw new MoonaHandlingException("The element that corresponds to that ID is not a Process.");
-	}
-	public int totalProcesses() {
-		return totalProcesses;
-	}
-	public int totalDaemons() {
-		return totalDaemons;
-	}
-	
 	private Moona() {
-	
+		
 	}
 }

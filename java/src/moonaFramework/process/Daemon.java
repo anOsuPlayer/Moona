@@ -1,20 +1,21 @@
 package moonaFramework.process;
 
-import moonaFramework.Deadlined;
+import moonaFramework.Phase;
 import moonaFramework.Moona;
 import moonaFramework.Natural;
 import moonaFramework.ProcessCondition;
+import moonaFramework.annotations.Deadlined;
 import moonaFramework.relation.Attached;
 
-public abstract class Daemon extends AbstractProcess implements Attached<Moona> {
+public abstract class Daemon extends AbstractProcess implements Attached<Phase> {
 
 	@Override
 	public int nature() {
 		return Natural.DAEMON;
 	}
 	
-	private final Moona host;
-	public final Moona getHost() {
+	private final Phase host;
+	public final Phase getHost() {
 		return this.host;
 	}
 	
@@ -30,8 +31,7 @@ public abstract class Daemon extends AbstractProcess implements Attached<Moona> 
 	public void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.IsOn()) {
 			synchronized (getClock()) {
-				if (host.totalProcesses() == 0) {
-					getClock().stasys();
+				if (host.processCount() == 0) {
 					host.Interrupt(this);
 				}
 				getClock().pauseHolder();
@@ -42,7 +42,7 @@ public abstract class Daemon extends AbstractProcess implements Attached<Moona> 
 		}
 	}
 	
-	public Daemon(Moona host) {
+	public Daemon(Phase host) {
 		super();
 		this.host = host;
 	}

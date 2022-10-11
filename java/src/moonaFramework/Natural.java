@@ -15,11 +15,13 @@ package moonaFramework;
  */
 public interface Natural {
 	
-	public static final int EXCEPTION = -1;
+	public static final int EXCEPTION = 0xffffffff;
 	
-	public static final int PROCESS = 0;
+	public static final int PHASE = 0x00000000;
 	
-	public static final int DAEMON = 1;
+	public static final int PROCESS = 0x00000001;
+	
+	public static final int DAEMON = 0x00000005;
 	
 	/**
 	 * Returns a certain number according to the nature of the given object.
