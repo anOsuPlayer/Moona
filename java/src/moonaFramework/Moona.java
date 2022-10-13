@@ -3,6 +3,7 @@ package moonaFramework;
 import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
+import moonaFramework.process.Process;
 
 public final class Moona {
 
@@ -30,6 +31,17 @@ public final class Moona {
 			tot += (globalElements.getValue(i).nature() == Natural.PHASE) ? 1 : 0;
 		}
 		return tot;
+	}
+	public static Phase getPhaseByID(long id) throws MoonaHandlingException {
+		for (int i = 0; i < globalElements.size(); i++) {
+			if (globalElements.getValue(i).id() == id) {
+				if (globalElements.getValue(i).nature() == Natural.PHASE) {
+					return (Phase) globalElements.getValue(i);
+				}
+				throw new MoonaHandlingException("The given ID does not correspond to any Phase.");
+			}
+		}
+		return null;
 	}
 	
 	private static long totalElements = 0;
@@ -72,7 +84,7 @@ public final class Moona {
 		}
 	}
 	
-	static void AddPhase(Phase p) throws NullPointerException {
+	static void addPhase(Phase p) throws NullPointerException {
 		if (p == null) {
 			throw new NullPointerException();
 		}

@@ -346,6 +346,6 @@ public class Phase implements Serial, ProcessHandler {
 	public Phase() {
 		this.id = Moona.GenerateID();
 		this.elements = new IshMap<>();
-		Moona.AddPhase(this);
+		Moona.addPhase(this);
 	}
 }

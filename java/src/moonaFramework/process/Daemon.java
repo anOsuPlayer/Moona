@@ -1,8 +1,8 @@
 package moonaFramework.process;
 
-import moonaFramework.Phase;
 import moonaFramework.Moona;
 import moonaFramework.Natural;
+import moonaFramework.Phase;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.relation.Attached;
