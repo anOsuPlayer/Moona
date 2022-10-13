@@ -2,10 +2,9 @@ package moonaFramework;
 
 import moonaFramework.annotations.Timeless;
 import moonaFramework.process.Process;
-import moonaFramework.process.ProcessHandler;
 import moonaFramework.util.IshMap;
 
-public class Phase implements Serial, ProcessHandler {
+public class Phase implements Serial {
 	
 	private final long id;
 	@Override
@@ -59,7 +58,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Provide(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -81,7 +79,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Await(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		Provide(p);
@@ -97,7 +94,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -118,7 +114,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -144,7 +139,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Start(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -171,7 +165,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Flick(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -205,7 +198,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Spark(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -239,7 +231,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		if (p == null) {
@@ -265,7 +256,6 @@ public class Phase implements Serial, ProcessHandler {
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	@Override
 	public void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
 		Terminate(p);
