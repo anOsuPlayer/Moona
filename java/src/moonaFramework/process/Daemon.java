@@ -28,6 +28,7 @@ public abstract class Daemon extends AbstractProcess implements Attached<Phase> 
 	
 	public abstract void update();
 	
+	@Override
 	public void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.IsOn()) {
 			synchronized (getClock()) {

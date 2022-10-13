@@ -2,6 +2,7 @@ package test;
 
 import moonaFramework.Benchmark;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
@@ -19,12 +20,10 @@ public class Test {
 	
 	static Phase p = new Phase();
 
-	static Task t = new Task() {
+	static Task d = new Task() {
 		@Timeless
 		public void initialize() {
-			while (true) {
-				
-			}
+			
 		}
 		public void update() {
 			System.out.println("AAAAAAAAA");
@@ -34,6 +33,6 @@ public class Test {
 	public static void main(String[] args) throws InterruptedException {
 		Moona.Init();
 		
-		p.Start(t);
+		p.Start(d);
 	}
 }

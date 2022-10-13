@@ -1,5 +1,6 @@
 package moonaFramework;
 
+import moonaFramework.annotations.Timeless;
 import moonaFramework.process.Process;
 import moonaFramework.process.ProcessHandler;
 import moonaFramework.util.IshMap;
@@ -16,6 +17,8 @@ public class Phase implements Serial, ProcessHandler {
 		return Natural.PHASE;
 	}
 	
+	final IshMap<Serial, Long> elements;
+	
 	public void MainStart(Process p) {
 		Moona.CheckOn();
 		Add(p);
@@ -26,8 +29,6 @@ public class Phase implements Serial, ProcessHandler {
 		ProcessCondition.DEAD.set(p);
 		p.end();
 	}
-	
-	final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	public void Add(Serial s) throws MoonaHandlingException, NullPointerException {
 		Moona.CheckOn();
@@ -158,7 +159,7 @@ public class Phase implements Serial, ProcessHandler {
 		}
 		Moona.FilteredAdd(this, p);
 		ProcessCondition.RUNNING.set(p);
-		p.initialize();
+		initiator(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
@@ -269,7 +270,7 @@ public class Phase implements Serial, ProcessHandler {
 		Moona.CheckOn();
 		Terminate(p);
 		synchronized (p.getClock()) {
-			p.end();
+			ender(p);
 		}
 	}
 	
@@ -298,6 +299,39 @@ public class Phase implements Serial, ProcessHandler {
 		Moona.isOn = false;
 	}
 
+	private final void initiator(Process p) {
+			try {
+				if (p.getClass().getMethod("initialize", new Class<?>[0])
+						.getAnnotation(Timeless.class) != null) {
+					
+					new Thread(() -> {
+						p.initialize();
+					}, "initiator#" + p.id()).start();
+				}
+				else {
+					p.initialize();
+				}
+			} catch (NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			}
+	}
+	private final void ender(Process p) {
+		try {
+			if (p.getClass().getMethod("end", new Class<?>[0])
+					.getAnnotation(Timeless.class) != null) {
+				
+				new Thread(() -> {
+					p.end();
+				}, "ender#" + p.id()).start();
+			}
+			else {
+				p.end();
+			}
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	long elementCount = 0;
 	public long elementCount() {
 		return elementCount;
@@ -331,6 +365,7 @@ public class Phase implements Serial, ProcessHandler {
 	
 	public Phase() {
 		this.id = Moona.GenerateID();
+		this.elements = new IshMap<>();
 		Moona.AddPhase(this);
 	}
 }

@@ -4,7 +4,7 @@ import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
 
-public class Moona {
+public final class Moona {
 
 	static boolean isOn = false;
 	
@@ -54,8 +54,10 @@ public class Moona {
 		if (!p.elements.has(s, s.id())) {
 			p.elements.add(s, s.id());
 			totalElements++; p.elementCount++;
-			if (s.nature() == Natural.PROCESS) { totalProcesses++; p.processCount++; };
-			if (s.nature() == Natural.DAEMON) { totalDaemons++; p.daemonCount++; };
+			if (s instanceof Process) {
+				if (s.nature() == Natural.PROCESS) { totalProcesses++; p.processCount++; }
+				if (s.nature() == Natural.DAEMON) { totalDaemons++; p.daemonCount++; }
+			}
 		}
 	}
 	static void FilteredRemove(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
