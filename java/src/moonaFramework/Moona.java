@@ -8,18 +8,18 @@ public final class Moona {
 
 	static boolean isOn = false;
 	
-	public static boolean IsOn() {
+	public static boolean isOn() {
 		return isOn;
 	}
 	
-	public static void Init() throws MoonaHandlingException {
+	public static void init() throws MoonaHandlingException {
 		isOn = true;
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
 	}
 	
-	public static void CheckOn() throws MoonaHandlingException {
+	public static void checkOn() throws MoonaHandlingException {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
@@ -47,7 +47,7 @@ public final class Moona {
 		return totalDaemons;
 	}
 	
-	static void FilteredAdd(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
+	static void silentAdd(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
 		}
@@ -60,7 +60,7 @@ public final class Moona {
 			}
 		}
 	}
-	static void FilteredRemove(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
+	static void silentRemove(Phase p, Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException();
 		}

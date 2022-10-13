@@ -2,9 +2,10 @@ package moonaFramework;
 
 import moonaFramework.annotations.Timeless;
 import moonaFramework.process.Process;
+import moonaFramework.process.ProcessHandler;
 import moonaFramework.util.IshMap;
 
-public class Phase implements Serial {
+public class Phase implements Serial, ProcessHandler {
 	
 	private final long id;
 	@Override
@@ -18,48 +19,48 @@ public class Phase implements Serial {
 	
 	final IshMap<Serial, Long> elements;
 	
-	public void MainStart(Process p) {
-		Moona.CheckOn();
-		Add(p);
+	public void mainStart(Process p) {
+		Moona.checkOn();
+		add(p);
 		ProcessCondition.RUNNING.set(p);
 		p.initialize();
 		p.run();
-		Remove(p);
+		remove(p);
 		ProcessCondition.DEAD.set(p);
 		p.end();
 	}
 	
-	public void Add(Serial s) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (s == null) {
 			throw new NullPointerException();
 		}
 		if (elements.has(s, s.id())) {
 			throw new MoonaHandlingException("Moona already contains this element.");
 		}
-		Moona.FilteredAdd(this, s);
+		Moona.silentAdd(this, s);
 	}
-	public void Remove(Serial s) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void remove(Serial s) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (s == null) {
 			throw new NullPointerException();
 		}
 		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("Moona does not contain this element.");
 		}
-		Moona.FilteredRemove(this, s);
+		Moona.silentRemove(this, s);
 	}
 	
-	public void Provide(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void provide(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Provide(p);
+			provide(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Provide(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void provide(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -67,35 +68,35 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
 		}
-		Moona.FilteredAdd(this, p);
+		Moona.silentAdd(this, p);
 		ProcessCondition.AWAITING.set(p);
 	}
 	
-	public void Await(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void await(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Await(p);
+			await(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Await(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
-		Provide(p);
+	public void await(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
+		provide(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public void Unlock(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void unlock(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Unlock(p);
+			unlock(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Unlock(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void unlock(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -106,16 +107,16 @@ public class Phase implements Serial {
 		p.getClock().release();
 	}
 	
-	public void Initiate(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void initiate(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Initiate(p);
+			initiate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Initiate(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void initiate(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -126,21 +127,21 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
 					+ " unlock it.");	
 		}
-		Moona.FilteredAdd(this, p);
+		Moona.silentAdd(this, p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public void Start(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void start(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Start(p);
+			start(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Start(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void start(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -151,22 +152,22 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
 		}
-		Moona.FilteredAdd(this, p);
+		Moona.silentAdd(this, p);
 		ProcessCondition.RUNNING.set(p);
 		initiator(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 	
-	public void Flick(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void flick(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Flick(p);
+			flick(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Flick(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void flick(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -190,16 +191,16 @@ public class Phase implements Serial {
 		}
 	}
 	
-	public void Spark(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void spark(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Spark(p);
+			spark(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Spark(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void spark(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -223,16 +224,16 @@ public class Phase implements Serial {
 		}
 	}
 	
-	public void Terminate(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void terminate(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Terminate(p);
+			terminate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Terminate(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
+	public void terminate(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException();
 		}
@@ -241,50 +242,50 @@ public class Phase implements Serial {
 					+ " or awaiting.");
 		}
 		boolean wasPaused = p.isPaused().verify();
-		Moona.FilteredRemove(this, p);
+		Moona.silentRemove(this, p);
 		ProcessCondition.DEAD.set(p);
 		if (wasPaused) {
 			p.getClock().release();
 		}
 	}
 	
-	public void Interrupt(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void interrupt(long id) throws MoonaHandlingException {
+		Moona.checkOn();
 		if (elements.valueOf(id) instanceof Process p) {
-			Interrupt(p);
+			interrupt(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void Interrupt(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.CheckOn();
-		Terminate(p);
+	public void interrupt(Process p) throws MoonaHandlingException, NullPointerException {
+		Moona.checkOn();
+		terminate(p);
 		synchronized (p.getClock()) {
 			ender(p);
 		}
 	}
 	
-	public void Fade() throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void fade() throws MoonaHandlingException {
+		Moona.checkOn();
 		Process[] procs = new Process[processCount+daemonCount];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
 			c += (procs[c] != null) ? 1 : 0;
 		}
 		for (Process p : procs) {
-			Terminate(p);
+			terminate(p);
 		}
 		Moona.isOn = false;
 	}
-	public void Collapse() throws MoonaHandlingException {
-		Moona.CheckOn();
+	public void collapse() throws MoonaHandlingException {
+		Moona.checkOn();
 		Process[] procs = new Process[processCount+daemonCount];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
 			c += (procs[c] != null) ? 1 : 0;
 		}
 		for (Process p : procs) {
-			Interrupt(p);
+			interrupt(p);
 		}
 		Moona.isOn = false;
 	}
@@ -328,7 +329,7 @@ public class Phase implements Serial {
 	}
 	
 	public Serial getElementByID(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+		Moona.checkOn();
 		if (elements.hasKey(id)) {
 			return elements.valueOf(id);
 		}
@@ -346,7 +347,7 @@ public class Phase implements Serial {
 	}
 	
 	public Process getProcessByID(long id) throws MoonaHandlingException {
-		Moona.CheckOn();
+		Moona.checkOn();
 		if (getElementByID(id) instanceof Process proc) {
 			return proc;
 		}

@@ -30,10 +30,10 @@ public abstract class Daemon extends AbstractProcess implements Attached<Phase> 
 	
 	@Override
 	public void run() {
-		while (!ProcessCondition.DEAD.check(this) && Moona.IsOn()) {
+		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
 			synchronized (getClock()) {
 				if (host.processCount() == 0) {
-					host.Interrupt(this);
+					host.interrupt(this);
 				}
 				getClock().pauseHolder();
 				if (!ProcessCondition.DEAD.check(this)) {

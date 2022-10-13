@@ -2,19 +2,17 @@ package moonaFramework.process;
 
 public interface ProcessHandler {
 
-	void MainStart(Process p);
+	void provide(Process p);
 	
-	void Provide(Process p);
+	void await(Process p);
+	void unlock(Process p);
 	
-	void Await(Process p);
-	void Unlock(Process p);
+	void initiate(Process p);
+	void start(Process p);
 	
-	void Initiate(Process p);
-	void Start(Process p);
+	void flick(Process p);
+	void spark(Process p);
 	
-	void Flick(Process p);
-	void Spark(Process p);
-	
-	void Terminate(Process p);
-	void Interrupt(Process p);
+	void terminate(Process p);
+	void interrupt(Process p);
 }

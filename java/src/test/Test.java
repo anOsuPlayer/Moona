@@ -31,8 +31,8 @@ public class Test {
 	};
 	
 	public static void main(String[] args) throws InterruptedException {
-		Moona.Init();
+		Moona.init();
 		
-		p.Start(d);
+		p.start(d);
 	}
 }
