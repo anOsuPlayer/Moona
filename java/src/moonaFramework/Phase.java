@@ -19,17 +19,6 @@ public class Phase implements Serial, ProcessHandler {
 	
 	final IshMap<Serial, Long> elements;
 	
-	public void mainStart(Process p) {
-		Moona.checkOn();
-		add(p);
-		ProcessCondition.RUNNING.set(p);
-		p.initialize();
-		p.run();
-		remove(p);
-		ProcessCondition.DEAD.set(p);
-		p.end();
-	}
-	
 	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (s == null) {
