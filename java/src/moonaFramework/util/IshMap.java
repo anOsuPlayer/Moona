@@ -97,21 +97,21 @@ public class IshMap<V, K> {
 	public Duo<V, K> get(int index) throws IndexOutOfBoundsException {
 		return new Duo<>(getValue(index), getKey(index));
 	}
-	public V valueOf(K key) throws IllegalArgumentException {
+	public V valueOf(K key) {
 		if (hasKey(key)) {
 			return getValue(indexOfKey(key));
 		}
-		throw new IllegalArgumentException("No such Key belongs to this IshMap.");
+		return null;
 	}
 	public V getValue(int index) throws IndexOutOfBoundsException {
 		requireInRange(index);
 		return values.get(index);
 	}
-	public K keyOf(V value) throws IllegalArgumentException {
+	public K keyOf(V value) {
 		if (hasValue(value)) {
 			return getKey(indexOfValue(value));
 		}
-		throw new IllegalArgumentException("No such Value belongs to this IshMap.");
+		return null;
 	}
 	public K getKey(int index) throws IndexOutOfBoundsException {
 		requireInRange(index);

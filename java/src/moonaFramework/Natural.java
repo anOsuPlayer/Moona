@@ -16,12 +16,28 @@ package moonaFramework;
 public interface Natural {
 	
 	public static final int EXCEPTION = 0xffffffff;
+	public static boolean isException(Natural n) {
+		return n.nature() == EXCEPTION;
+	}
 	
 	public static final int PHASE = 0x00000000;
+	public static boolean isPhase(Natural n) {
+		return n.nature() == PHASE;
+	}
 	
 	public static final int PROCESS = 0x00000001;
+	public static boolean isProcess(Natural n) {
+		return n.nature() == PROCESS;
+	}
 	
 	public static final int DAEMON = 0x00000005;
+	public static boolean isDaemon(Natural n) {
+		return n.nature() == DAEMON;
+	}
+	
+	public static boolean isProcesslike(Natural n) {
+		return n.nature() == PROCESS || n.nature() == DAEMON;
+	}
 	
 	/**
 	 * Returns a certain number according to the nature of the given object.

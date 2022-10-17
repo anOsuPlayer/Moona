@@ -17,7 +17,6 @@ public class Test {
 	static Phase p = new Phase();
 
 	static Task d = new Task() {
-		@Timeless
 		public void initialize() {
 			
 		}
@@ -26,9 +25,13 @@ public class Test {
 		}
 	};
 	
+	static Worm w = new Worm() {
+		public void update() {
+			System.out.println("BBBBBBBBB");
+		}
+	};
+	
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
-		
-		p.start(d);
 	}
 }
