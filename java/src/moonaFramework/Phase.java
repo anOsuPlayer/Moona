@@ -1,6 +1,7 @@
 package moonaFramework;
 
 import moonaFramework.Moona.Core;
+import moonaFramework.process.Process;
 
 public class Phase implements Serial {
 	
@@ -17,7 +18,6 @@ public class Phase implements Serial {
 	private final Core<Serial> core;
 	
 	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Phases.");
 		}
@@ -28,7 +28,6 @@ public class Phase implements Serial {
 	}
 	
 	public void remove(Serial s) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
 		if (s == null) {
 			throw new NullPointerException("You cannot a null element.");
 		}
@@ -40,6 +39,14 @@ public class Phase implements Serial {
 	
 	public Serial get(long id) {
 		return core.valueOf(id);
+	}
+	public Process getProcess(long id) throws MoonaHandlingException {
+		return core.valueOf(id) != null ? (core.valueOf(id) instanceof Process) ? (Process) core.valueOf(id)
+				: null : null;
+	}
+	
+	public boolean has(Serial s) {
+		return core.has(s, s.id());
 	}
 	
 	public Phase() {

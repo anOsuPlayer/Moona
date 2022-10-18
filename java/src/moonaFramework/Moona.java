@@ -68,7 +68,6 @@ public final class Moona {
 	}
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullPointerException {
-		checkOn();
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
@@ -79,7 +78,6 @@ public final class Moona {
 	}
 	
 	public static void remove(Serial s) throws MoonaHandlingException, NullPointerException {
-		checkOn();
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
