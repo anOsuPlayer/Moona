@@ -39,6 +39,11 @@ public interface Natural {
 		return n.nature() == PROCESS || n.nature() == DAEMON;
 	}
 	
+	public static final int EVENT = 0x0000000a;
+	public static boolean isEvent(Natural n) {
+		return n.nature() == EVENT;
+	}
+	
 	/**
 	 * Returns a certain number according to the nature of the given object.
 	 * @return The nature of the type.

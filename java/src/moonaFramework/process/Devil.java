@@ -1,6 +1,5 @@
 package moonaFramework.process;
 
-import moonaFramework.Moona;
 import moonaFramework.Phase;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
@@ -28,8 +27,8 @@ public abstract class Devil extends Daemon implements Attached<Phase> {
 	public void run() {
 		while (!ProcessCondition.DEAD.check(this)) {
 			synchronized (getClock()) {
-				if (Moona.totalProcesses() == 0) {
-					Moona.interrupt(this);
+				if (host.processCount() == 0) {
+					host.interrupt(this);
 				}
 				getClock().pauseHolder();
 				if (!ProcessCondition.DEAD.check(this)) {
