@@ -10,7 +10,7 @@ public interface Event extends Serial {
 	@Override
 	int nature();
 	
-	void onTrigger();
+	void trigger();
 	
 	EventMode getMode();
 	

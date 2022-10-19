@@ -17,6 +17,7 @@ public abstract class AbstractEvent implements Event {
 	}
 	
 	private final EventMode eventMode;
+	@Override
 	public final EventMode getMode() {
 		return eventMode;
 	}
@@ -28,6 +29,10 @@ public abstract class AbstractEvent implements Event {
 	}
 	@Override
 	public void setCondition(Conditional c) throws UnsupportedOperationException {
+		if (this.eventMode != EventMode.UNTIL) {
+			throw new UnsupportedOperationException("You're not allowed to set iterations if the EventMode "
+					+ "is not UNTIL.");
+		}
 		this.condition = c;
 	}
 	
@@ -38,11 +43,15 @@ public abstract class AbstractEvent implements Event {
 	}
 	@Override
 	public void setIterations(int i) throws UnsupportedOperationException {
+		if (this.eventMode != EventMode.REPEAT) {
+			throw new UnsupportedOperationException("You're not allowed to set iterations if the EventMode "
+					+ "is not REPEAT.");
+		}
 		this.iterations = i;
 	}
 	
 	@Override
-	public abstract void onTrigger();
+	public abstract void trigger();
 	
 	public AbstractEvent(int iterations) {
 		this.iterations = (iterations <= 0) ? -1 : iterations;

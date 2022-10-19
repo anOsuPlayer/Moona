@@ -81,7 +81,7 @@ public class EventSpace extends Task {
 					toRemove.add(e);
 				}
 			}
-			e.onTrigger();
+			e.trigger();
 		}
 	}
 	

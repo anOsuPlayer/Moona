@@ -35,7 +35,7 @@ public class EventDaemon extends EventSpace {
 					toRemove.add(e);
 				}
 			}
-			e.onTrigger();
+			e.trigger();
 		}
 	}
 	
