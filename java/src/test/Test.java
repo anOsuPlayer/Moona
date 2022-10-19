@@ -22,25 +22,15 @@ public class Test {
 		}
 	};
 	
-	static Daemon d = new Daemon() {
+	static Devil d = new Devil(p) {
 		public void update() {
-			System.out.println("AAAAAAAAAAA");
+			System.out.println("BBBBBBBB");
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
 		
-		p.await(t);
-		Moona.start(d);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		p.collapse();
+		p.start(t);
 	}
 }

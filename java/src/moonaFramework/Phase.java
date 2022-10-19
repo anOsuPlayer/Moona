@@ -1,6 +1,7 @@
 package moonaFramework;
 
 import moonaFramework.process.Process;
+import moonaFramework.process.Devil;
 import moonaFramework.util.IshMap;
 
 public class Phase implements Serial {
@@ -28,6 +29,15 @@ public class Phase implements Serial {
 		if (elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element already belongs to this Phase.");
 		}
+		if (Natural.isPhasic(s)) {
+			throw new MoonaHandlingException("You cannot add a Phase to another Phase.");
+		}
+		if (s.nature() == Natural.DEVIL) {
+			if (!((Devil) s).getHost().equals(this)) {
+				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
+						+ " its host.");
+			}
+		}
 		addSerial(s);
 	}
 	void addSerial(Serial s) {
@@ -50,9 +60,6 @@ public class Phase implements Serial {
 		}
 		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element is not present in this Phase.");
-		}
-		if (Natural.isPhasic(s)) {
-			throw new MoonaHandlingException("You cannot add a Phase to another Phase.");
 		}
 		removeSerial(s);
 	}
@@ -86,6 +93,12 @@ public class Phase implements Serial {
 		if (!ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
+		}
+		if (p.nature() == Natural.DEVIL) {
+			if (!((Devil) p).getHost().equals(this)) {
+				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
+						+ " its host.");
+			}
 		}
 		addSerial(p);
 		ProcessCondition.AWAITING.set(p);
@@ -146,6 +159,12 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
 					+ " unlock it.");	
 		}
+		if (p.nature() == Natural.DEVIL) {
+			if (!((Devil) p).getHost().equals(this)) {
+				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
+						+ " its host.");
+			}
+		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
@@ -170,6 +189,12 @@ public class Phase implements Serial {
 		if (ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
+		}
+		if (p.nature() == Natural.DEVIL) {
+			if (!((Devil) p).getHost().equals(this)) {
+				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
+						+ " its host.");
+			}
 		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
@@ -250,6 +275,15 @@ public class Phase implements Serial {
 		if (p == null) {
 			throw new NullPointerException();
 		}
+		if (!ProcessCondition.DEAD.check(p)) {
+			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
+		}
+		if (p.nature() == Natural.DEVIL) {
+			if (!((Devil) p).getHost().equals(this)) {
+				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
+						+ " its host.");
+			}
+		}
 		boolean wasPaused = p.isPaused().verify();
 		removeSerial(p);
 		ProcessCondition.DEAD.set(p);
@@ -276,11 +310,12 @@ public class Phase implements Serial {
 
 	public void fade() throws MoonaHandlingException {
 		Moona.checkOn();
-		Process[] procs = new Process[processCount+daemonCount];
+		Process[] procs = new Process[processCount];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			if (procs.length > 0) {
-				procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
-				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
+						(Process) elements.getValue(i) : procs[c];
+				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 		}
 		for (Process p : procs) {
@@ -289,11 +324,12 @@ public class Phase implements Serial {
 	}
 	public void collapse() throws MoonaHandlingException {
 		Moona.checkOn();
-		Process[] procs = new Process[processCount+daemonCount];
+		Process[] procs = new Process[processCount];
 		for (int i = 0, c = 0; i < elements.size(); i++) {
 			if (procs.length > 0) {
-				procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
-				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
+						(Process) elements.getValue(i) : procs[c];
+				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 		}
 		for (Process p : procs) {

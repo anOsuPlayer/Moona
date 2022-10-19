@@ -8,7 +8,7 @@ import moonaFramework.annotations.Deadlined;
 public abstract class Daemon extends AbstractProcess {
 	
 	@Override
-	public final int nature() {
+	public int nature() {
 		return Natural.DAEMON;
 	}
 	

@@ -1,12 +1,18 @@
 package moonaFramework.process;
 
+import moonaFramework.Natural;
 import moonaFramework.Phase;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.relation.Attached;
 
 public abstract class Devil extends Daemon implements Attached<Phase> {
-
+	
+	@Override
+	public final int nature() {
+		return Natural.DEVIL;
+	}
+	
 	private final Phase host;
 	@Override
 	public final Phase getHost() {
@@ -40,8 +46,5 @@ public abstract class Devil extends Daemon implements Attached<Phase> {
 	
 	public Devil(Phase host) {
 		this.host = host;
-	}
-	private Devil() {
-		this(null);
 	}
 }

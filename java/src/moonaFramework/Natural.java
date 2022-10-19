@@ -20,12 +20,12 @@ public interface Natural {
 		return n.nature() == EXCEPTION;
 	}
 	
-	public static final int PHASE = 0x00000000;
+	public static final int PHASE = 0;
 	public static boolean isPhase(Natural n) {
 		return n.nature() == PHASE;
 	}
 	
-	public static final int EVENTSPACE = 0x0000000a;
+	public static final int EVENTSPACE = 2;
 	public static boolean isEventSpace(Natural n) {
 		return n.nature() == EVENTSPACE;
 	}
@@ -34,21 +34,35 @@ public interface Natural {
 		return n.nature() == PHASE || n.nature() == EVENTSPACE;
 	}
 	
-	public static final int PROCESS = 0x00000001;
+	public static final int PROCESS = 3;
 	public static boolean isProcess(Natural n) {
 		return n.nature() == PROCESS;
 	}
 	
-	public static final int DAEMON = 0x00000005;
+	public static final int DAEMON = 5;
 	public static boolean isDaemon(Natural n) {
 		return n.nature() == DAEMON;
 	}
 	
-	public static boolean isProcesslike(Natural n) {
-		return n.nature() == PROCESS || n.nature() == DAEMON;
+	public static final int DEVIL = 7;
+	public static boolean isDevil(Natural n) {
+		return n.nature() == DEVIL;
 	}
 	
-	public static final int EVENT = 0x0000000b;
+	public static final int WORM = 11;
+	public static boolean isWorm(Natural n) {
+		return n.nature() == WORM;
+	}
+	
+	public static boolean isProcesslike(Natural n) {
+		return n.nature() == PROCESS || n.nature() == DAEMON || n.nature() == DEVIL || n.nature() == WORM;
+	}
+	
+	public static boolean isDaemonic(Natural n) {
+		return n.nature() == DAEMON || n.nature() == DEVIL || n.nature() == WORM;
+	}
+	
+	public static final int EVENT = 13;
 	public static boolean isEvent(Natural n) {
 		return n.nature() == EVENT;
 	}

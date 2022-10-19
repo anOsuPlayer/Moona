@@ -46,6 +46,9 @@ public final class Moona {
 		if (elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element already belongs to Moona.");
 		}
+		if (s.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils cannot be contained inside Moona.");
+		}
 		addSerial(s);
 	}
 	private static void addSerial(Serial s) {
@@ -64,6 +67,9 @@ public final class Moona {
 		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element is not present in Moona.");
 		}
+		if (s.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils cannot be contained inside Moona.");
+		}
 		removeSerial(s);
 	}
 	private static void removeSerial(Serial s) {
@@ -81,6 +87,9 @@ public final class Moona {
 		}
 		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element is not present in Moona.");
+		}
+		if (s.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		eraseSerial(s);
 	}
@@ -129,6 +138,9 @@ public final class Moona {
 		if (!ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
+		}
+		if (p.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addSerial(p);
 		ProcessCondition.AWAITING.set(p);
@@ -189,6 +201,9 @@ public final class Moona {
 			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
 					+ " unlock it.");	
 		}
+		if (p.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
+		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
@@ -213,6 +228,9 @@ public final class Moona {
 		if (ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
+		}
+		if (p.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
@@ -293,6 +311,12 @@ public final class Moona {
 		if (p == null) {
 			throw new NullPointerException();
 		}
+		if (!ProcessCondition.DEAD.check(p)) {
+			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
+		}
+		if (p.nature() == Natural.DEVIL) {
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
+		}
 		boolean wasPaused = p.isPaused().verify();
 		eraseSerial(p);
 		ProcessCondition.DEAD.set(p);
@@ -325,7 +349,7 @@ public final class Moona {
 			if (procs.length > 0) {
 				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
 						(Process) elements.getValue(i) : procs[c];
-				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 			if (phases.length > 0) {
 				phases[pc] = (elements.getValue(i) instanceof Phase ph) ? ph : phases[pc];
@@ -348,7 +372,7 @@ public final class Moona {
 			if (procs.length > 0) {
 				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
 						(Process) elements.getValue(i) : procs[c];
-				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 			if (phases.length > 0) {
 				phases[pc] = (elements.getValue(i) instanceof Phase ph) ? ph : phases[pc];
