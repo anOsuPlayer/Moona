@@ -433,27 +433,25 @@ public final class Moona {
 	public static int processCount() {
 		return processCount;
 	}
+	
+	private static int totalProcesses = 0;
+	static void newProcess(boolean addRem) {
+		totalProcesses += (addRem) ? 1 : -1;
+	}
 	public static int totalProcesses() {
-		int total = processCount;
-		for (int i = 0; i < elements.size(); i++) {
-			if (elements.getValue(i) instanceof Phase p) {
-				total += p.processCount();
-			}
-		}
-		return total;
+		return totalProcesses + processCount;
 	}
 	
 	public static int daemonCount() {
 		return daemonCount;
 	}
+	
+	private static int totalDaemons = 0;
+	static void newDaemon(boolean addRem) {
+		totalDaemons += (addRem) ? 1 : -1;
+	}
 	public static int totalDaemons() {
-		int total = daemonCount;
-		for (int i = 0; i < elements.size(); i++) {
-			if (elements.getValue(i) instanceof Phase p) {
-				total += p.daemonCount();
-			}
-		}
-		return total;
+		return totalDaemons + daemonCount;
 	}
 	
 	public static int phaseCount() {

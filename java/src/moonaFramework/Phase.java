@@ -33,8 +33,14 @@ public class Phase implements Serial {
 	void addSerial(Serial s) {
 		if (!elements.has(s, s.id())) {
 			elements.add(s, s.id());
-			processCount += (s.nature() == PROCESS) ? 1 : 0;
-			daemonCount += (s.nature() == DAEMON) ? 1 : 0;
+			if (s.nature() == Natural.PROCESS) {
+				processCount++;
+				Moona.newProcess(true);
+			}
+			if (s.nature() == Natural.DAEMON) {
+				daemonCount++;
+				Moona.newDaemon(true);
+			}
 		}
 	}
 	
@@ -53,8 +59,14 @@ public class Phase implements Serial {
 	void removeSerial(Serial s) {
 		if (elements.has(s, s.id())) {
 			elements.remove(s, s.id());
-			processCount -= (s.nature() == PROCESS) ? 1 : 0;
-			daemonCount -= (s.nature() == DAEMON) ? 1 : 0;
+			if (s.nature() == Natural.PROCESS) {
+				processCount--;
+				Moona.newProcess(false);
+			}
+			if (s.nature() == Natural.DAEMON) {
+				daemonCount--;
+				Moona.newDaemon(false);
+			}
 		}
 	}
 	
