@@ -1,7 +1,6 @@
 package moonaFramework.event;
 
 import moonaFramework.Serial;
-import moonaFramework.util.Conditional;
 
 public interface Event extends Serial {
 
@@ -11,12 +10,4 @@ public interface Event extends Serial {
 	int nature();
 	
 	void trigger();
-	
-	EventMode getMode();
-	
-	Conditional getCondition();
-	void setCondition(Conditional c) throws UnsupportedOperationException;
-	
-	int getIterations();
-	void setIterations(int i) throws UnsupportedOperationException;
 }

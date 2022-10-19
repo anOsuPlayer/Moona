@@ -21,19 +21,24 @@ public class EventDaemon extends EventSpace {
 		}
 		
 		for (Event e : events.values()) {
-			if (e.getMode().equals(EventMode.ONCE)) {
+			if (e instanceof ModalEvent me) {
+				if (me.getMode().equals(EventMode.ONCE)) {
+					toRemove.add(e);
+				}
+				if (me.getMode().equals(EventMode.REPEAT)) {
+					if (me.getIterations() - 1 == 0) {
+						toRemove.add(e);
+					}
+					me.setIterations(me.getIterations()-1);
+				}
+				if (me.getMode().equals(EventMode.UNTIL) && me.getCondition() != null) {
+					if (!me.getCondition().verify()) {
+						toRemove.add(me);
+					}
+				}
+			}
+			else {
 				toRemove.add(e);
-			}
-			if (e.getMode().equals(EventMode.REPEAT)) {
-				if (e.getIterations() - 1 == 0) {
-					toRemove.add(e);
-				}
-				e.setIterations(e.getIterations()-1);
-			}
-			if (e.getMode().equals(EventMode.UNTIL) && e.getCondition() != null) {
-				if (!e.getCondition().verify()) {
-					toRemove.add(e);
-				}
 			}
 			e.trigger();
 		}
