@@ -15,18 +15,17 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static EventPlace e = new EventPlace();
-	
-	static Action a = new Action(EventMode.ONCE) {
-		public void trigger() {
-			System.out.println("AAAAAAA");
+	static Series<Integer> s = new Series<Integer>(0, 10) {
+		public Integer loop(Integer n) {
+			return n + 12;
 		}
 	};
 	
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
 		
-		e.add(a);
-		Moona.start(e);
+		s.generate();
+		
+		System.out.println(s);
 	}
 }
