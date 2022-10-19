@@ -1,4 +1,4 @@
-package moonaFramework.event;
+package moonaFramework.process;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,12 @@ import java.util.List;
 import moonaFramework.MoonaHandlingException;
 import moonaFramework.Natural;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.process.Task;
+import moonaFramework.event.Event;
+import moonaFramework.event.EventMode;
+import moonaFramework.event.ModalEvent;
 import moonaFramework.util.IshMap;
 
-public class EventSpace extends Task {
+public class EventPlace extends Task {
 
 	final IshMap<Event, Long> events;
 	
@@ -90,12 +92,12 @@ public class EventSpace extends Task {
 		}
 	}
 	
-	public EventSpace() {
+	public EventPlace() {
 		this.events = new IshMap<>();
 		this.toRemove = new ArrayList<>();
 		this.toAdd = new ArrayList<>();
 	}
-	public EventSpace(Event...es) {
+	public EventPlace(Event...es) {
 		this();
 		for (Event e : es) {
 			events.add(e, e.id());

@@ -1,8 +1,11 @@
-package moonaFramework.event;
+package moonaFramework.process;
 
 import moonaFramework.Moona;
+import moonaFramework.event.Event;
+import moonaFramework.event.EventMode;
+import moonaFramework.event.ModalEvent;
 
-public class EventDaemon extends EventSpace {
+public class EventSpace extends EventPlace {
 	
 	@Override
 	public void update() {
@@ -44,10 +47,10 @@ public class EventDaemon extends EventSpace {
 		}
 	}
 	
-	public EventDaemon(Event...es) {
+	public EventSpace(Event...es) {
 		super(es);
 	}
-	public EventDaemon() {
+	public EventSpace() {
 		super();
 	}
 }

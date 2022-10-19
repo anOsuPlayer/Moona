@@ -15,7 +15,7 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static EventSpace e = new EventSpace();
+	static EventPlace e = new EventPlace();
 	
 	static Action a = new Action(EventMode.ONCE) {
 		public void trigger() {
