@@ -10,4 +10,8 @@ public interface Event extends Serial {
 	int nature();
 	
 	void onTrigger();
+	
+	default EventMode getMode() {
+		return EventMode.ONCE;
+	}
 }

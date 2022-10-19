@@ -8,29 +8,34 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.annotations.*;
+import moonaFramework.event.AbstractEvent;
+import moonaFramework.event.Event;
+import moonaFramework.event.EventMode;
+import moonaFramework.event.EventSpace;
 import moonaFramework.process.*;
 import moonaFramework.util.Condition;
 
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Phase p = new Phase();
+	static EventSpace e = new EventSpace();
 	
-	static Task t = new Task() {
-		public void update() {
-			System.out.println("AAAAAAAAA");
-		}
-	};
-	
-	static Devil d = new Devil(p) {
-		public void update() {
-			System.out.println("BBBBBBBB");
+	static Event ev = new AbstractEvent(EventMode.REPEAT.setIterations(3)) {
+		public void onTrigger() {
+			System.out.println("AAAAAAA");
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
 		
-		p.start(t);
+		Moona.start(e);
+		e.add(ev);
 	}
 }

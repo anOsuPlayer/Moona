@@ -275,7 +275,7 @@ public class Phase implements Serial {
 		if (p == null) {
 			throw new NullPointerException();
 		}
-		if (!ProcessCondition.DEAD.check(p)) {
+		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
 		}
 		if (p.nature() == Natural.DEVIL) {
