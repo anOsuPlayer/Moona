@@ -25,6 +25,15 @@ public interface Natural {
 		return n.nature() == PHASE;
 	}
 	
+	public static final int EVENTSPACE = 0x0000000a;
+	public static boolean isEventSpace(Natural n) {
+		return n.nature() == EVENTSPACE;
+	}
+	
+	public static boolean isPhasic(Natural n) {
+		return n.nature() == PHASE || n.nature() == EVENTSPACE;
+	}
+	
 	public static final int PROCESS = 0x00000001;
 	public static boolean isProcess(Natural n) {
 		return n.nature() == PROCESS;
@@ -39,7 +48,7 @@ public interface Natural {
 		return n.nature() == PROCESS || n.nature() == DAEMON;
 	}
 	
-	public static final int EVENT = 0x0000000a;
+	public static final int EVENT = 0x0000000b;
 	public static boolean isEvent(Natural n) {
 		return n.nature() == EVENT;
 	}

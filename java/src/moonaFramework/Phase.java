@@ -1,7 +1,7 @@
 package moonaFramework;
 
-import moonaFramework.Moona.Core;
 import moonaFramework.process.Process;
+import moonaFramework.util.IshMap;
 
 public class Phase implements Serial {
 	
@@ -15,31 +15,52 @@ public class Phase implements Serial {
 		return Natural.PHASE;
 	}
 	
-	final Core<Serial> core;
+	final IshMap<Serial, Long> elements;
+	
+	private int processCount = 0;
+	
+	private int daemonCount = 0;
 	
 	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Phases.");
 		}
-		if (core.has(s, s.id())) {
+		if (elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element already belongs to this Phase.");
 		}
-		core.addSerial(s);
+		addSerial(s);
+	}
+	void addSerial(Serial s) {
+		if (!elements.has(s, s.id())) {
+			elements.add(s, s.id());
+			processCount += (s.nature() == PROCESS) ? 1 : 0;
+			daemonCount += (s.nature() == DAEMON) ? 1 : 0;
+		}
 	}
 	
 	public void remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException("You cannot a null element.");
 		}
-		if (!core.has(s, s.id())) {
+		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element is not present in this Phase.");
 		}
-		core.removeSerial(s);
+		if (Natural.isPhasic(s)) {
+			throw new MoonaHandlingException("You cannot add a Phase to another Phase.");
+		}
+		removeSerial(s);
+	}
+	void removeSerial(Serial s) {
+		if (elements.has(s, s.id())) {
+			elements.remove(s, s.id());
+			processCount -= (s.nature() == PROCESS) ? 1 : 0;
+			daemonCount -= (s.nature() == DAEMON) ? 1 : 0;
+		}
 	}
 	
 	public void provide(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			provide(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -54,13 +75,13 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
 		}
-		core.addSerial(p);
+		addSerial(p);
 		ProcessCondition.AWAITING.set(p);
 	}
 
 	public void await(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			await(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -75,7 +96,7 @@ public class Phase implements Serial {
 
 	public void unlock(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			unlock(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -95,7 +116,7 @@ public class Phase implements Serial {
 
 	public void initiate(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			initiate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -113,14 +134,14 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
 					+ " unlock it.");	
 		}
-		core.addSerial(p);
+		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
 	public void start(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			start(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -138,7 +159,7 @@ public class Phase implements Serial {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
 		}
-		core.addSerial(p);
+		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
 		Moona.initiator(p);
 		new Thread(p, "Process#" + p.id()).start();
@@ -146,7 +167,7 @@ public class Phase implements Serial {
 
 	public void flick(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			flick(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -173,7 +194,7 @@ public class Phase implements Serial {
 
 	public void spark(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			spark(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -206,7 +227,7 @@ public class Phase implements Serial {
 
 	public void terminate(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			terminate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -217,12 +238,8 @@ public class Phase implements Serial {
 		if (p == null) {
 			throw new NullPointerException();
 		}
-		if (ProcessCondition.DEAD.check(p)) {
-			throw new MoonaHandlingException("You cannot interrupt a process which is not running"
-					+ " or awaiting.");
-		}
 		boolean wasPaused = p.isPaused().verify();
-		core.removeSerial(p);
+		removeSerial(p);
 		ProcessCondition.DEAD.set(p);
 		if (wasPaused) {
 			p.getClock().release();
@@ -231,7 +248,7 @@ public class Phase implements Serial {
 
 	public void interrupt(long id) throws MoonaHandlingException {
 		Moona.checkOn();
-		if (core.valueOf(id) instanceof Process p) {
+		if (elements.valueOf(id) instanceof Process p) {
 			interrupt(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -247,9 +264,12 @@ public class Phase implements Serial {
 
 	public void fade() throws MoonaHandlingException {
 		Moona.checkOn();
-		Process[] procs = new Process[core.totalProcesses()];
-		for (int i = 0, c = 0; i < core.size(); i++) {
-			procs[c] = (core.getValue(i) instanceof Process p) ? p : procs[c += (procs[c] != null) ? 1 : 0];
+		Process[] procs = new Process[processCount+daemonCount];
+		for (int i = 0, c = 0; i < elements.size(); i++) {
+			if (procs.length > 0) {
+				procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
+				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+			}
 		}
 		for (Process p : procs) {
 			terminate(p);
@@ -257,9 +277,12 @@ public class Phase implements Serial {
 	}
 	public void collapse() throws MoonaHandlingException {
 		Moona.checkOn();
-		Process[] procs = new Process[core.totalProcesses()];
-		for (int i = 0, c = 0; i < core.size(); i++) {
-			procs[c] = (core.getValue(i) instanceof Process p) ? p : procs[c += (procs[c] != null) ? 1 : 0];
+		Process[] procs = new Process[processCount+daemonCount];
+		for (int i = 0, c = 0; i < elements.size(); i++) {
+			if (procs.length > 0) {
+				procs[c] = (elements.getValue(i) instanceof Process p) ? p : procs[c];
+				c += (elements.getValue(i) instanceof Process) ? 1 : 0;
+			}
 		}
 		for (Process p : procs) {
 			interrupt(p);
@@ -267,30 +290,30 @@ public class Phase implements Serial {
 	}
 	
 	public Serial get(long id) {
-		return core.valueOf(id);
+		return elements.valueOf(id);
 	}
 	public Process getProcess(long id) throws MoonaHandlingException {
-		return core.valueOf(id) != null ? (core.valueOf(id) instanceof Process) ? (Process) core.valueOf(id)
+		return elements.valueOf(id) != null ? (elements.valueOf(id) instanceof Process) ? (Process) elements.valueOf(id)
 				: null : null;
 	}
 	
 	public boolean has(Serial s) {
-		return core.has(s, s.id());
+		return elements.has(s, s.id());
 	}
 	
 	public int elementCount() {
-		return core.size();
+		return elements.size();
 	}
 	
 	public int processCount() {
-		return core.totalProcesses();
+		return processCount;
 	}
 	public int daemonCount() {
-		return core.totalDaemons();
+		return daemonCount;
 	}
 	
 	public Phase() {
-		this.core = new Core<>();
+		this.elements = new IshMap<>();
 		this.id = Moona.generateID();
 		Moona.add(this);
 	}

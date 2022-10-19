@@ -15,23 +15,32 @@ import moonaFramework.util.Condition;
 public class Test {
 	
 	static Phase p = new Phase();
-
-	static Task d = new Task() {
-		public void initialize() {
-			
-		}
+	
+	static Task t = new Task() {
 		public void update() {
 			System.out.println("AAAAAAAAA");
 		}
 	};
 	
-	static Worm w = new Worm() {
+	static Daemon d = new Daemon() {
 		public void update() {
-			System.out.println("BBBBBBBBB");
+			System.out.println("AAAAAAAAAAA");
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		p.await(t);
+		Moona.start(d);
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		p.collapse();
 	}
 }

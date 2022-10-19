@@ -1,10 +1,17 @@
 package moonaFramework.event;
 
-import moonaFramework.annotations.Deadlined;
-import moonaFramework.process.AbstractProcess;
-import moonaFramework.util.IshMap;
+import moonaFramework.Natural;
+import moonaFramework.Serial;
+import moonaFramework.process.Task;
 
-public class EventSpace extends AbstractProcess {
+public class EventSpace extends Task implements Serial {
 
+	@Override
+	public int nature() {
+		return Natural.EVENTSPACE;
+	}
 	
+	public void update() {
+		
+	}
 }
