@@ -2,6 +2,7 @@ package moonaFramework.event;
 
 import moonaFramework.Moona;
 import moonaFramework.Natural;
+import moonaFramework.util.Conditional;
 
 public abstract class AbstractEvent implements Event {
 
@@ -15,20 +16,45 @@ public abstract class AbstractEvent implements Event {
 		return Natural.EVENT;
 	}
 	
-	private EventMode mode;
+	private final EventMode eventMode;
+	public final EventMode getMode() {
+		return eventMode;
+	}
+	
+	private Conditional condition;
 	@Override
-	public EventMode getMode() {
-		return this.mode;
+	public Conditional getCondition() {
+		return this.condition;
+	}
+	@Override
+	public void setCondition(Conditional c) {
+		this.condition = c;
+	}
+	
+	private int iterations;
+	@Override
+	public int getIterations() {
+		return this.iterations;
+	}
+	@Override
+	public void setIterations(int i) {
+		this.iterations = i;
 	}
 	
 	@Override
 	public abstract void onTrigger();
 	
-	public AbstractEvent(EventMode e) {
-		this.mode = e;
+	public AbstractEvent(int iterations) {
+		this.iterations = (iterations <= 0) ? -1 : iterations;
 		this.id = Moona.generateID();
+		this.eventMode = (iterations == 1) ? EventMode.ONCE : EventMode.REPEAT;
+	}
+	public AbstractEvent(Conditional c) {
+		this.condition = c;
+		this.id = Moona.generateID();
+		this.eventMode = EventMode.UNTIL;
 	}
 	public AbstractEvent() {
-		this(EventMode.ONCE);
+		this(1);
 	}
 }

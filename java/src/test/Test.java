@@ -8,31 +8,27 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.annotations.*;
-import moonaFramework.event.AbstractEvent;
-import moonaFramework.event.Event;
-import moonaFramework.event.EventMode;
-import moonaFramework.event.EventSpace;
+import moonaFramework.event.*;
 import moonaFramework.process.*;
-import moonaFramework.util.Condition;
+import moonaFramework.util.*;
 
 @SuppressWarnings("unused")
 public class Test {
 	
-	static EventSpace e = new EventSpace();
+	static EventDaemon e = new EventDaemon();
 	
-	static Event ev = new AbstractEvent(EventMode.REPEAT.setIterations(3)) {
+	static Event ev = new AbstractEvent(4) {
 		public void onTrigger() {
 			System.out.println("AAAAAAA");
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	};
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
 		
 		Moona.start(e);

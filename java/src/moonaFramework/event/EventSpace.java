@@ -29,7 +29,6 @@ public class EventSpace extends Task {
 		if (events.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event is already present in this EventSpace.");
 		}
-		e.getMode().iterationDistance = this.iteration;
 		toAdd.add(e);
 		getClock().release();
 	}
@@ -50,8 +49,6 @@ public class EventSpace extends Task {
 	@Deadlined
 	public final void end() {
 	}
-	
-	private int iteration = 0;
 	
 	@Override
 	public void update() {
@@ -74,19 +71,18 @@ public class EventSpace extends Task {
 				toRemove.add(e);
 			}
 			if (e.getMode().equals(EventMode.REPEAT)) {
-				if (e.getMode().iterationDistance + e.getMode().iterations - 1 == iteration) {
+				if (e.getIterations() - 1 == 0) {
 					toRemove.add(e);
 				}
+				e.setIterations(e.getIterations()-1);
 			}
-			if (e.getMode().equals(EventMode.UNTIL) && e.getMode().getCondition() != null) {
-				if (!e.getMode().getCondition().verify()) {
+			if (e.getMode().equals(EventMode.UNTIL) && e.getCondition() != null) {
+				if (!e.getCondition().verify()) {
 					toRemove.add(e);
 				}
 			}
 			e.onTrigger();
 		}
-		
-		iteration++;
 	}
 	
 	public EventSpace() {
