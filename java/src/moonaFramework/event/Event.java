@@ -15,8 +15,8 @@ public interface Event extends Serial {
 	EventMode getMode();
 	
 	Conditional getCondition();
-	void setCondition(Conditional c);
+	void setCondition(Conditional c) throws UnsupportedOperationException;
 	
 	int getIterations();
-	void setIterations(int i);
+	void setIterations(int i) throws UnsupportedOperationException;
 }

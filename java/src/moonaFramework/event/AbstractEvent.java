@@ -27,17 +27,17 @@ public abstract class AbstractEvent implements Event {
 		return this.condition;
 	}
 	@Override
-	public void setCondition(Conditional c) {
+	public void setCondition(Conditional c) throws UnsupportedOperationException {
 		this.condition = c;
 	}
 	
-	private int iterations;
+	private int iterations = -1;
 	@Override
 	public int getIterations() {
 		return this.iterations;
 	}
 	@Override
-	public void setIterations(int i) {
+	public void setIterations(int i) throws UnsupportedOperationException {
 		this.iterations = i;
 	}
 	
