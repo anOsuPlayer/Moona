@@ -3,16 +3,16 @@ package moonaFramework.time;
 /**
  * A Chrono is a very particular object. It was thought in order to achieve two things: a revamped use of
  * the .wait() and .notify() methods and a very good option for an object to put inside synchronized blocks.
- * 
+ * <br><br>
  * It handles waiting and notifying processes in a pretty smart way: all of the following methods use the
  * Chrono itself as an argument for synchronized blocks that wrap .wait() and .notify(). Since their purpose
  * is only wrapping waiting and notifying operations, there are no losses in terms of thread safety:
  * InterruptedExceptions are properly handled in order to not have any issues.
- * 
+ * <br><br>
  * They also are a good choice for synchronized blocks since they only require one method call to be either
  * set on a waiting state or notified. Forget the old and bulky try-catch method to use the .wait() method
  * on a normal object, just use one line and you'll do the same thing in an even clearer way!
- *	
+ * <br><br>
  * The other (and more serius) motivation because of why they should be used there is that, since they
  * auto-refer themselves when waiting and notifying, they can also be used for synchronization... aren't
  * they cool?
