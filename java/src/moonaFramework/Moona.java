@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
 import moonaFramework.annotations.Timeless;
+import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Process;
 
 public final class Moona {
@@ -389,30 +390,34 @@ public final class Moona {
 	}
 
 	static final void initiator(Process p) {
-			try {
-				if (p.getClass().getMethod("initialize", new Class<?>[0])
-						.getAnnotation(Timeless.class) != null) {
+		try {
+			if (p.getClass().getMethod("initialize", new Class<?>[0])
+					.getAnnotation(Timeless.class) != null) {
 
-					new Thread(() -> {
+				start(new AutoEvent() {
+					public void trigger() {
 						p.initialize();
-					}, "initiator#" + p.id()).start();
-				}
-				else {
-					p.initialize();
-				}
+					}
+				});
 			}
-			catch (NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
+			else {
+				p.initialize();
 			}
+		}
+		catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
 	}
 	static final void ender(Process p) {
 		try {
 			if (p.getClass().getMethod("end", new Class<?>[0])
 					.getAnnotation(Timeless.class) != null) {
 
-				new Thread(() -> {
-					p.end();
-				}, "ender#" + p.id()).start();
+				start(new AutoEvent() {
+					public void trigger() {
+						p.end();
+					}
+				});
 			}
 			else {
 				p.end();
@@ -454,6 +459,10 @@ public final class Moona {
 		return search(s.id()) != null;
 	}
 	
+	public static int phaseCount() {
+		return phaseCount;
+	}
+	
 	public static int processCount() {
 		return processCount;
 	}
@@ -476,10 +485,6 @@ public final class Moona {
 	}
 	public static int totalDaemons() {
 		return totalDaemons + daemonCount;
-	}
-	
-	public static int phaseCount() {
-		return phaseCount;
 	}
 	
 	private Moona() {

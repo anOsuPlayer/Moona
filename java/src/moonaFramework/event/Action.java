@@ -1,16 +1,10 @@
 package moonaFramework.event;
 
-import moonaFramework.Moona;
 import moonaFramework.Natural;
 import moonaFramework.util.Conditional;
 
-public abstract class Action implements ModalEvent {
+public abstract class Action extends AbstractEvent implements ModalEvent {
 
-	private final long id;
-	@Override
-	public final long id() {
-		return id;
-	}
 	@Override
 	public int nature() {
 		return Natural.EVENT;
@@ -54,18 +48,18 @@ public abstract class Action implements ModalEvent {
 	public abstract void trigger();
 	
 	public Action(EventMode em) {
-		this.id = Moona.generateID();
+		super();
 		this.eventMode = (em == EventMode.UNTIL) ? EventMode.REPEAT : em;
 		this.iterations = (em == EventMode.ONCE) ? 1 : -1;
 	}
 	public Action(int iterations) {
+		super();
 		this.iterations = (iterations <= 0) ? -1 : iterations;
-		this.id = Moona.generateID();
 		this.eventMode = (iterations == 1) ? EventMode.ONCE : EventMode.REPEAT;
 	}
 	public Action(Conditional c) {
+		super();
 		this.condition = c;
-		this.id = Moona.generateID();
 		this.eventMode = EventMode.UNTIL;
 	}
 	public Action() {
