@@ -88,7 +88,7 @@ public class Phase implements Serial {
 	public void provide(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot provide a null Process.");
 		}
 		if (!ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
@@ -130,7 +130,7 @@ public class Phase implements Serial {
 	public void unlock(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot unlock a null Process.");
 		}
 		if (!ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("A process cannot be unlocked if not awaiting.");
@@ -150,7 +150,7 @@ public class Phase implements Serial {
 	public void initiate(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot initiate a null Process.");
 		}
 		if (p.isRunning().verify()) {
 			throw new MoonaHandlingException("The Process is already running.");
@@ -181,7 +181,7 @@ public class Phase implements Serial {
 	public void start(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot start a null Process.");
 		}
 		if (p.isRunning().verify()) {
 			throw new MoonaHandlingException("The Process is already running.");
@@ -213,7 +213,7 @@ public class Phase implements Serial {
 	public void flick(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot flick a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
@@ -240,7 +240,7 @@ public class Phase implements Serial {
 	public void spark(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot spark a null Process");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
@@ -273,7 +273,7 @@ public class Phase implements Serial {
 	public void terminate(Process p) throws MoonaHandlingException, NullPointerException {
 		Moona.checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot terminate a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");

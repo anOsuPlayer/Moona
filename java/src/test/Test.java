@@ -16,11 +16,11 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static EventSpace es = new EventSpace();
+	static Phase p = new Phase();
 	
-	static AutoEvent a = new AutoEvent(10) {
-		public void trigger() {
-			System.out.println("AAAAAAA");
+	static Task t = new Task() {
+		public void update() {
+			System.out.println("BBBBBBBBBB");
 		}
 	};
 	

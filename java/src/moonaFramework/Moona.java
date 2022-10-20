@@ -84,7 +84,7 @@ public final class Moona {
 	
 	public static void erase(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
-			throw new NullPointerException("You cannot add null elements to Moona.");
+			throw new NullPointerException("You cannot erase null elements.");
 		}
 		if (!elements.has(s, s.id())) {
 			throw new MoonaHandlingException("This element is not present in Moona.");
@@ -125,7 +125,7 @@ public final class Moona {
 	
 	public static void provide(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			provide(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -134,7 +134,7 @@ public final class Moona {
 	public static void provide(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot provide a null Process.");
 		}
 		if (!ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
@@ -149,7 +149,7 @@ public final class Moona {
 
 	public static void await(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			await(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -164,7 +164,7 @@ public final class Moona {
 
 	public static void unlock(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			unlock(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -173,7 +173,7 @@ public final class Moona {
 	public static void unlock(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot unlock a null Process.");
 		}
 		if (!ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("A process cannot be unlocked if not awaiting.");
@@ -184,7 +184,7 @@ public final class Moona {
 
 	public static void initiate(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			initiate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -193,7 +193,7 @@ public final class Moona {
 	public static void initiate(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot initiate a null Process.");
 		}
 		if (p.isRunning().verify()) {
 			throw new MoonaHandlingException("The Process is already running.");
@@ -212,7 +212,7 @@ public final class Moona {
 
 	public static void start(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			start(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -221,7 +221,7 @@ public final class Moona {
 	public static void start(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot start a null Process.");
 		}
 		if (p.isRunning().verify()) {
 			throw new MoonaHandlingException("The Process is already running.");
@@ -241,7 +241,7 @@ public final class Moona {
 
 	public static void flick(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			flick(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -250,7 +250,7 @@ public final class Moona {
 	public static void flick(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot flick a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
@@ -268,7 +268,7 @@ public final class Moona {
 
 	public static void spark(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			spark(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -277,7 +277,7 @@ public final class Moona {
 	public static void spark(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot spark a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
@@ -301,7 +301,7 @@ public final class Moona {
 
 	public static void terminate(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			terminate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
@@ -310,7 +310,7 @@ public final class Moona {
 	public static void terminate(Process p) throws MoonaHandlingException, NullPointerException {
 		checkOn();
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("You cannot terminate a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
@@ -328,7 +328,7 @@ public final class Moona {
 
 	public static void interrupt(long id) throws MoonaHandlingException {
 		checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+		if (search(id) instanceof Process p) {
 			interrupt(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
