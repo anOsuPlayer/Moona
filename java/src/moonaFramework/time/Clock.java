@@ -20,7 +20,10 @@ public class Clock {
 	 * @param mills : The ammount of milliseconds to sleep.
 	 * @param nanos : The ammount of nanoseconds to sleep.
 	 */
-	public void sleep(long mills, int nanos) {
+	public void sleep(long mills, int nanos) throws IllegalArgumentException {
+		if (mills < 0 || nanos < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		try {
 			Thread.sleep(mills, nanos);
 		} catch (InterruptedException e) {
@@ -33,7 +36,10 @@ public class Clock {
 	 * 
 	 * @param mills : The ammount of milliseconds to sleep.
 	 */
-	public void sleep(long mills) {
+	public void sleep(long mills) throws IllegalArgumentException {
+		if (mills < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		sleep(mills, 0);
 	}
 	/**
@@ -43,7 +49,10 @@ public class Clock {
 	 * 
 	 * @param micros : The ammount of microseconds to sleep.
 	 */
-	public void sleep(int micros) {
+	public void sleep(int micros) throws IllegalArgumentException {
+		if (micros < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		long mills = micros / 1000;
 		sleep(mills, ((micros * 1000) % 1000000));
 	}
@@ -55,7 +64,10 @@ public class Clock {
 	 * 
 	 * @param seconds : The ammount of seconds to sleep.
 	 */
-	public void sleep(double seconds) {
+	public void sleep(double seconds) throws IllegalArgumentException {
+		if (seconds < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		sleep((long) seconds * 1000 + ((int) ((seconds - ((int) seconds)) * 1000)),
 				((int) (((seconds - ((int) seconds)) * 1000000000)) % 1000000));
 	}

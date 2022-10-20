@@ -26,7 +26,10 @@ public class Chrono extends Clock {
 	 * the wait(long mills, int nanos) method to make the calling thread wait for the given ammount of time.
 	 */
 	@Override
-	public void sleep(long mills, int nanos) {
+	public void sleep(long mills, int nanos) throws IllegalArgumentException {
+		if (mills < 0 || nanos < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		synchronized (this) {
 			this.notify();
 			try {
@@ -38,17 +41,26 @@ public class Chrono extends Clock {
 	}
 	
 	@Override
-	public void sleep(long mills) {
+	public void sleep(long mills) throws IllegalArgumentException {
+		if (mills < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		sleep(mills, 0);
 	}
 	@Override
-	public void sleep(int micros) {
+	public void sleep(int micros) throws IllegalArgumentException {
+		if (micros < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		long mills = micros / 1000;
-		sleep(mills, ((micros * 1000) % 1000000));
+		sleep(mills, (micros * 1000) % 1000000);
 	}
 	
 	@Override
-	public void sleep(double seconds) {
+	public void sleep(double seconds) throws IllegalArgumentException {
+		if (seconds < 0) {
+			throw new IllegalArgumentException("Time values cannot be negative.");
+		}
 		sleep((long) seconds * 1000 + ((int) ((seconds - ((int) seconds)) * 1000)),
 				((int) (((seconds - ((int) seconds)) * 1000000000)) % 1000000));
 	}
