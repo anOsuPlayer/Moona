@@ -57,9 +57,9 @@ public abstract class Action extends AbstractEvent implements ModalEvent {
 		this.iterations = (iterations <= 0) ? -1 : iterations;
 		this.eventMode = (iterations == 1) ? EventMode.ONCE : EventMode.REPEAT;
 	}
-	public Action(Conditional c) {
+	public Action(Conditional c) throws NullPointerException {
 		super();
-		this.condition = c;
+		setCondition(c);
 		this.eventMode = EventMode.UNTIL;
 	}
 	public Action() {

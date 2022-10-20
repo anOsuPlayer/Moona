@@ -16,6 +16,14 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
+	static EventSpace es = new EventSpace();
+	
+	static AutoEvent a = new AutoEvent(10) {
+		public void trigger() {
+			System.out.println("AAAAAAA");
+		}
+	};
+	
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
 	}
