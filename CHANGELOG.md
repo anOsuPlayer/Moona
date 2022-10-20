@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## early_dev-0.0.2 - The Event Update
+
+* to be added *
+
 ## early_dev-0.0.1 - The First Release
 Added:
 * [.moonaFramework package](https://github.com/anOsuPlayer/Moona/wiki/.moonaFramework), containing:
