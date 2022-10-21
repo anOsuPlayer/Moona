@@ -40,8 +40,10 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 		while (!ProcessCondition.DEAD.check(this)) {
 			synchronized (getClock()) {
 				if (host != null) {
-					if (!ProcessCondition.DEAD.check(host)) {
-						Moona.interrupt(this);
+					synchronized (host.getClock()) {
+						if (ProcessCondition.DEAD.check(host)) {
+							Moona.interrupt(this);
+						}
 					}
 				}
 				if (Moona.totalProcesses() == 0) {

@@ -31,11 +31,7 @@ public class Test {
 		}
 	};
 	
-	static Synchronizer s = new Synchronizer(t, t2);
-	
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
-		
-		
 	}
 }
