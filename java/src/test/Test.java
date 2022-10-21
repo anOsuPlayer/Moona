@@ -20,18 +20,12 @@ public class Test {
 	static Phase p = new Phase();
 	
 	static Task t = new Task() {
-		public void initialize() {
-			System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBB");
-		}
 		public void update() {
 			System.out.println("BBBBBBBBBB");
 		}
 	};
 	
-	static Task t2 = new Task() {
-		public void initialize() {
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAA");
-		}
+	static Worm t2 = new Worm(t) {
 		public void update() {
 			System.out.println("AAAAAAAAAA");
 		}
@@ -41,5 +35,7 @@ public class Test {
 	
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
+		
+		
 	}
 }

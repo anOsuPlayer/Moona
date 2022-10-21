@@ -54,4 +54,11 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 			}
 		}
 	}
+	
+	public Worm(Process host) {
+		this.host = host;
+	}
+	public Worm() {
+		this(null);
+	}
 }
