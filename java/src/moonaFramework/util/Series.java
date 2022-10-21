@@ -35,11 +35,6 @@ public abstract class Series<T> implements Iterable<T> {
 		}
 	}
 	
-	public Series(T from, long l) {
-		this.series = new ArrayList<>();
-		this.from = from; this.iterations = l;
-		this.offset = 0;
-	}
 	public Series(T from, long until, int offset) {
 		offset *= offset < 0 ? -1 : 1;
 		offset += offset == 0 ? 1 : 0;
@@ -47,11 +42,15 @@ public abstract class Series<T> implements Iterable<T> {
 		this.from = from; this.iterations = until;
 		this.offset = offset;
 	}
+	public Series(T from, long until) {
+		this(from, until, 0);
+	}
 
 	@Override
 	public Iterator<T> iterator() {
 	   return this.series.iterator();
 	}
+	
 
 	public T get(int index) {
 		return this.series.get(index);
