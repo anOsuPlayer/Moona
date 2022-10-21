@@ -1,6 +1,19 @@
 package moonaFramework.reflection;
 
-public interface Reflection<T> {
+public non-sealed abstract class Reflection<T> implements Property<T> {
 
-	T reflect();
+	private T value;
+	
+	public abstract void reflect();
+	
+	public T evaluate() {
+		if (value == null) {
+			reflect();
+		}
+		return value;
+	}
+	
+	public Reflection() {
+		this.value = null;
+	}
 }
