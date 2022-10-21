@@ -1,6 +1,8 @@
 package moonaFramework;
 
 import moonaFramework.process.Process;
+import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
 import moonaFramework.process.Devil;
 import moonaFramework.util.IshMap;
 

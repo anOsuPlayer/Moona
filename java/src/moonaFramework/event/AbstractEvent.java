@@ -1,7 +1,7 @@
 package moonaFramework.event;
 
 import moonaFramework.Moona;
-import moonaFramework.Natural;
+import moonaFramework.essentials.Natural;
 
 public abstract class AbstractEvent implements Event {
 

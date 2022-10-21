@@ -1,4 +1,4 @@
-package moonaFramework;
+package moonaFramework.essentials;
 
 /**
  * The Natural Interface aims to create a new layer of distinction between different types. Each class can

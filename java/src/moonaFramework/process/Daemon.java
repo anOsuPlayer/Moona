@@ -1,9 +1,9 @@
 package moonaFramework.process;
 
 import moonaFramework.Moona;
-import moonaFramework.Natural;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
+import moonaFramework.essentials.Natural;
 
 public abstract class Daemon extends AbstractProcess {
 	

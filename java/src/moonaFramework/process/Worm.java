@@ -1,9 +1,9 @@
 package moonaFramework.process;
 
 import moonaFramework.Moona;
-import moonaFramework.Natural;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
+import moonaFramework.essentials.Natural;
 import moonaFramework.relation.Bindable;
 
 public abstract class Worm extends Daemon implements Bindable<Process> {

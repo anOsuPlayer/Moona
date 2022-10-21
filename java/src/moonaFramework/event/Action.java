@@ -1,6 +1,6 @@
 package moonaFramework.event;
 
-import moonaFramework.Natural;
+import moonaFramework.essentials.Natural;
 import moonaFramework.util.Conditional;
 
 public abstract class Action extends AbstractEvent implements ModalEvent {

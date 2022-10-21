@@ -1,10 +1,10 @@
 package moonaFramework.process;
 
 import moonaFramework.Moona;
-import moonaFramework.Natural;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
 import moonaFramework.annotations.Deadlined;
+import moonaFramework.essentials.Natural;
 
 /**
  * Introducing itself as the simplest process of them all, I am proud to present to you the Abstract Process!

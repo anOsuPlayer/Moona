@@ -4,6 +4,8 @@ import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
 import moonaFramework.annotations.Timeless;
+import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Process;
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaFramework.MoonaHandlingException;
-import moonaFramework.Natural;
 import moonaFramework.annotations.Deadlined;
+import moonaFramework.essentials.Natural;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;

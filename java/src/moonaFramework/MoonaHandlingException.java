@@ -1,5 +1,8 @@
 package moonaFramework;
 
+import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
+
 /**
  * The MoonaHandlingException was created with the intent of warning the user of some problem happening in 
  * relation to the Moona Class. When it comes to some incorrect argument or to some wrong usage of a Moona 

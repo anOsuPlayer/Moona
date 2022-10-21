@@ -1,9 +1,9 @@
 package moonaFramework.process;
 
-import moonaFramework.Natural;
 import moonaFramework.Phase;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
+import moonaFramework.essentials.Natural;
 import moonaFramework.relation.Attached;
 
 public abstract class Devil extends Daemon implements Attached<Phase> {

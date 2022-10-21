@@ -1,7 +1,8 @@
 package moonaFramework.process;
 
-import moonaFramework.Serial;
 import moonaFramework.Status;
+import moonaFramework.essentials.Dynamic;
+import moonaFramework.essentials.Serial;
 
 /**
  * The Process Interface is the base of all process-like types, it features all the basic methods to make a
@@ -21,7 +22,7 @@ import moonaFramework.Status;
  * 
  * @author MasterZEr0
  */
-public interface Process extends Runnable, Serial {
+public interface Process extends Runnable, Dynamic, Serial {
 	
 	@Override
 	long id();
