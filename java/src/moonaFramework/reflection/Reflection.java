@@ -6,7 +6,7 @@ public non-sealed abstract class Reflection<T> implements Property<T> {
 	
 	public abstract void reflect();
 	
-	public T evaluate() {
+	public final T evaluate() {
 		if (value == null) {
 			reflect();
 		}
