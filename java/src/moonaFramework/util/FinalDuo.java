@@ -12,9 +12,10 @@ public abstract class FinalDuo<V1, V2> {
 		return value2;
 	}
 	
-	public FinalDuo() {
+	protected FinalDuo() {
+		
 	}
 	public FinalDuo(V1 value1, V2 value2) {
-		this.value1 = null; this.value2 = null;
+		this.value1 = value1; this.value2 = value2;
 	}
 }

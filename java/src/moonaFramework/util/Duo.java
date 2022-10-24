@@ -11,6 +11,7 @@ public class Duo<V1, V2> extends FinalDuo<V1, V2> {
 	}
 	
 	public Duo() {
+		super();
 	}
 	public Duo(V1 value1, V2 value2) {
 		super(value1, value2);
