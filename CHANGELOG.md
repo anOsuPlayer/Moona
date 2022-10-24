@@ -1,6 +1,10 @@
 # CHANGELOG
 
 ## earliest changes:
+Added:
+* .reflection package features, namely:
+  * Annotated Class: contains tools to work with Annotations, marks whether or not a certain element presents a certain annotation.
+
 Fixed:
 * Duo Class' Constructors.
 
