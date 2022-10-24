@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## earliest changes:
+Fixed:
+* Duo Class' Constructors.
+
 ## early_dev-0.0.2.1 - The Exceptions Patch
 Added:
 * .reflection package: a set of tools to operate with java reflection, containing:
