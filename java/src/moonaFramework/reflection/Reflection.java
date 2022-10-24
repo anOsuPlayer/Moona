@@ -2,7 +2,7 @@ package moonaFramework.reflection;
 
 public non-sealed abstract class Reflection<T> implements Property<T> {
 
-	private T value;
+	protected T value;
 	
 	public abstract void reflect();
 	

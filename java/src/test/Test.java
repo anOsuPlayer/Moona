@@ -1,6 +1,8 @@
 package test;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
@@ -18,33 +20,9 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Phase p = new Phase();
-	
-	static Task t = new Task() {
-		public void update() {
-			System.out.println("BBBBBBBBBB");
-		}
-	};
-	
-	static Task t2 = new Task() {
-		@Timeless
-		public void initialize() {
-			
-		}
-		public void update() {
-			System.out.println("AAAAAAAAAA");
-		}
-	};
-	
-	static Synchronizer s = new Synchronizer(new Timer(250l), t2, t);
+	static Annotated a = new Annotated(Deadlined.class, Retention.class, ElementType.ANNOTATION_TYPE);
 	
 	public static void main(String[] args) throws InterruptedException {
-		Moona.init();
-		
-		Moona.start(t);
-		
-		Thread.sleep(1000);
-		
-		Moona.interrupt(t);
+		System.out.println(a.evaluate());
 	}
 }
