@@ -22,10 +22,13 @@ public abstract class Action extends AbstractEvent implements ModalEvent {
 		return this.condition;
 	}
 	@Override
-	public void setCondition(Conditional c) throws UnsupportedOperationException {
+	public void setCondition(Conditional c) throws UnsupportedOperationException, NullPointerException {
 		if (this.eventMode != EventMode.UNTIL) {
 			throw new UnsupportedOperationException("You're not allowed to set iterations if the EventMode "
 					+ "is not UNTIL.");
+		}
+		if (c == null) {
+			throw new NullPointerException("The given Conditional is null.");
 		}
 		this.condition = c;
 	}
@@ -47,9 +50,12 @@ public abstract class Action extends AbstractEvent implements ModalEvent {
 	@Override
 	public abstract void trigger();
 	
-	public Action(EventMode em) {
+	public Action(EventMode em) throws NullPointerException {
 		super();
-		this.eventMode = (em == EventMode.UNTIL) ? EventMode.REPEAT : em;
+		if (em == null) {
+			throw new NullPointerException("Non null EventMode is required.");
+		}
+		this.eventMode = em;
 		this.iterations = (em == EventMode.ONCE) ? 1 : -1;
 	}
 	public Action(int iterations) {

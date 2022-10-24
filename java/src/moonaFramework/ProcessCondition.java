@@ -4,79 +4,34 @@ import moonaFramework.process.Process;
 
 public enum ProcessCondition {
 	
-	RUNNING {
-		protected void set(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			p.isRunning().imposeSet(true);
-			p.isPaused().imposeSet(false);
-		}
-		
-		public boolean check(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			return p.isRunning().verify() && !p.isPaused().verify();
-		}
-	},
-	PAUSED {
-		protected void set(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			p.isRunning().imposeSet(true);
-			p.isPaused().imposeSet(true);
-		}
-		
-		public boolean check(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			return p.isRunning().verify() && p.isPaused().verify();
-		}
-	},
-	AWAITING {
-		protected void set(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			p.isRunning().imposeSet(false);
-			p.isPaused().imposeSet(true);
-		}
-		
-		public boolean check(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			return !p.isRunning().verify() && p.isPaused().verify();
-		}
-	},
-	DEAD {
-		protected void set(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			p.isRunning().imposeSet(false);
-			p.isPaused().imposeSet(false);
-		}
-		
-		public boolean check(Process p) throws NullPointerException {
-			if (p == null) {
-				throw new NullPointerException();
-			}
-			return !p.isRunning().verify() && !p.isPaused().verify();
-		}
-	};
+	RUNNING (true, false),
 	
-	protected abstract void set(Process p) throws NullPointerException;
+	PAUSED (true, true),
 	
-	public abstract boolean check(Process p) throws NullPointerException;
+	AWAITING (false, true),
 	
-	public static boolean allowRemoval(Process p) throws NullPointerException {
+	DEAD (false, false);
+	
+	private boolean isRunning;
+	private boolean isPaused;
+	
+	protected void set(Process p) throws NullPointerException {
 		if (p == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("The given process is null.");
 		}
-		return DEAD.check(p);
+		p.isRunning().imposeSet(isRunning);
+		p.isPaused().imposeSet(isPaused);
+	}
+	
+	public boolean check(Process p) throws NullPointerException {
+		if (p == null) {
+			throw new NullPointerException("The given process is null.");
+		}
+		return p.isRunning().verify() == isRunning && p.isPaused().verify() == isPaused;
+	}
+	
+	private ProcessCondition(boolean isRunning, boolean isPaused) {
+		this.isRunning = isRunning;
+		this.isPaused = isPaused;
 	}
 }

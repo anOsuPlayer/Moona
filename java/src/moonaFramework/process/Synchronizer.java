@@ -78,16 +78,22 @@ public class Synchronizer extends Task implements Synced<Process> {
 		}
 	}
 	
-	public Synchronizer(Timer t, Process...synced) {
+	public Synchronizer(Timer t, Process...synced) throws NullPointerException {
+		if (t == null) {
+			throw new NullPointerException("The given Timer is null.");
+		}
 		this.cooldown = t;
-		this.synced = synced;
 		for (Process p : synced) {
+			if (p == null) {
+				throw new NullPointerException("You cannot sync null Processes.");
+			}
 			if (!ProcessCondition.DEAD.check(p)) {
 				Moona.terminate(p);
 			}
 		}
+		this.synced = synced;
 	}
-	public Synchronizer(Process...synced) {
+	public Synchronizer(Process...synced) throws NullPointerException {
 		this(null, synced);
 	}
 }

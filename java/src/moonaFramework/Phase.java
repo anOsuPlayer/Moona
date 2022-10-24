@@ -347,7 +347,7 @@ public class Phase implements Serial {
 				: null : null;
 	}
 	
-	public boolean has(Serial s) {
+	public boolean has(Serial s) throws NullPointerException {
 		return elements.has(s, s.id());
 	}
 	

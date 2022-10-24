@@ -16,6 +16,6 @@ public abstract class AutoEvent extends Task implements Event, Dynamic {
 	}
 	
 	public AutoEvent() {
-		
+		super();
 	}
 }

@@ -454,10 +454,10 @@ public final class Moona {
 				: null : null;
 	}
 	
-	public static boolean has(Serial s) {
+	public static boolean has(Serial s) throws NullPointerException {
 		return elements.has(s, s.id());
 	}
-	public static boolean contains(Serial s) {
+	public static boolean contains(Serial s) throws NullPointerException {
 		return search(s.id()) != null;
 	}
 	

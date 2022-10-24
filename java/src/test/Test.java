@@ -41,5 +41,10 @@ public class Test {
 	public static void main(String[] args) throws InterruptedException {
 		Moona.init();
 		
+		Moona.start(t);
+		
+		Thread.sleep(1000);
+		
+		Moona.interrupt(t);
 	}
 }

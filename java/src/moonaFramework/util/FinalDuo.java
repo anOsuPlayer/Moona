@@ -15,6 +15,6 @@ public abstract class FinalDuo<V1, V2> {
 	public FinalDuo() {
 	}
 	public FinalDuo(V1 value1, V2 value2) {
-		
+		this.value1 = null; this.value2 = null;
 	}
 }

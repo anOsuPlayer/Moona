@@ -34,17 +34,6 @@ public abstract class Series<T> implements Iterable<T> {
 		   	this.series.add(this.loop(this.series.get(i - offset)));
 		}
 	}
-	
-	public Series(T from, long until, int offset) {
-		offset *= offset < 0 ? -1 : 1;
-		offset += offset == 0 ? 1 : 0;
-		this.series = new ArrayList<>();
-		this.from = from; this.iterations = until;
-		this.offset = offset;
-	}
-	public Series(T from, long until) {
-		this(from, until, 0);
-	}
 
 	@Override
 	public Iterator<T> iterator() {
@@ -52,10 +41,29 @@ public abstract class Series<T> implements Iterable<T> {
 	}
 	
 
-	public T get(int index) {
+	public T get(int index) throws IndexOutOfBoundsException {
 		return this.series.get(index);
 	}
 	public List<T> asList() {
 		return this.series;
+	}
+	
+	public Series(T from, long until, int offset) throws NullPointerException, IllegalArgumentException {
+		if (from == null) {
+			throw new NullPointerException("A Series cannot be initialized starting from a null number.");
+		}
+		if (offset < 0) {
+			throw new IllegalArgumentException("The offset cannot be negative.");
+		}
+		if (offset > until) {
+			throw new IllegalArgumentException("The offset cannot be greater than the Series's length.");
+		}
+		offset += offset == 0 ? 1 : 0;
+		this.series = new ArrayList<>();
+		this.from = from; this.iterations = until;
+		this.offset = offset;
+	}
+	public Series(T from, long until) throws NullPointerException {
+		this(from, until, 0);
 	}
 }

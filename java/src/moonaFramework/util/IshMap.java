@@ -1,7 +1,6 @@
 package moonaFramework.util;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -33,7 +32,8 @@ public class IshMap<V, K> {
 	
 	private void requireInRange(int index) throws IndexOutOfBoundsException {
 		if (index < 0 || index > size()) {
-			throw new IndexOutOfBoundsException(index);
+			throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for this IshMap of"
+					+ " size " + size() + ".");
 		}
 	}
 	
@@ -41,11 +41,8 @@ public class IshMap<V, K> {
 	public boolean isImmutable() {
 		return isImmutable;
 	}
-	public void lock() {
-		this.isImmutable = true;
-	}
-	public void unlock() {
-		this.isImmutable = false;
+	public void setImmutable(boolean value) {
+		this.isImmutable = value;
 	}
 	
 	public boolean add(int at, V value, K key) throws IndexOutOfBoundsException {
@@ -84,13 +81,13 @@ public class IshMap<V, K> {
 		}
 		return isImmutable;
 	}
-	public boolean set(int at, Duo<V, K> duo) {
+	public boolean set(int at, Duo<V, K> duo) throws IndexOutOfBoundsException {
 		return set(at, duo.value1, duo.value2);
 	}
-	public boolean setValue(int at, V value) {
+	public boolean setValue(int at, V value) throws IndexOutOfBoundsException {
 		return set(at, value, null);
 	}
-	public boolean setKey(int at, K key) {
+	public boolean setKey(int at, K key) throws IndexOutOfBoundsException {
 		return set(at, null, key);
 	}
 	
@@ -131,7 +128,7 @@ public class IshMap<V, K> {
 			c += (arr[c] == i) ? 1 : 0;
 		}
 		if (arr[0] == -1) {
-			return new int[] { -1 };
+			return new int[0];
 		}
 		return Arrays.copyOf(arr, c);
 	}
@@ -169,6 +166,9 @@ public class IshMap<V, K> {
  			arr[c] = (getValue(i).equals(value)) ? i : -1;
  			c += (arr[c] == i) ? 1 : 0;
  		}
+ 		if (arr[0] == -1) {
+ 			return new int[0];
+ 		}
  		return Arrays.copyOf(arr, c);
  	}
  	public int occurrenciesOfValue(V value) {
@@ -190,6 +190,9 @@ public class IshMap<V, K> {
  			arr[c] = (getKey(i).equals(key)) ? i : -1;
  			c += (arr[c] == i) ? 1 : 0;
  		}
+ 		if (arr[0] == -1) {
+ 			return new int[0];
+ 		}
  		return Arrays.copyOf(arr, c);
 	}
 	public int occurrenciesOfKey(K key) {
@@ -203,16 +206,17 @@ public class IshMap<V, K> {
 		return keys.lastIndexOf(key);
 	}
 	
-	public boolean remove(int at) {
+	public boolean remove(int at) throws IndexOutOfBoundsException {
 		requireInRange(at);
 		if (!isImmutable) {
 			values.remove(at); keys.remove(at);
 		}
 		return isImmutable;
 	}
-	public boolean removeAll(int[] indexes) {
+	public boolean removeAll(int[] indexes) throws IndexOutOfBoundsException {
 		if (!isImmutable) {
 			for (int at : indexes) {
+				requireInRange(at);
 				values.remove(at); keys.remove(at);
 			}
 		}
@@ -221,7 +225,7 @@ public class IshMap<V, K> {
 	public boolean remove(V value, K key) {
 		return remove(indexOf(value, key));
 	}
-	public boolean removeOccurrency(int at, V value, K key) {
+	public boolean removeOccurrency(int at, V value, K key) throws IndexOutOfBoundsException {
 		return remove(indexesOf(value, key)[at]);
 	}
 	public boolean removeLast(V value, K key) {
@@ -321,36 +325,43 @@ public class IshMap<V, K> {
 	
 	public void forEach(Consumer<? super V> valueFunction, Consumer <? super K> keyFunction)
 			throws NullPointerException {
-		Objects.requireNonNull(valueFunction);
-		Objects.requireNonNull(keyFunction);
+		if (valueFunction == null || keyFunction == null) {
+			throw new NullPointerException("One of the functions you tried to pass is null.");
+		}
 		for (int i = 0; i < size(); i++) {
 			valueFunction.accept(values.get(i));
 			keyFunction.accept(keys.get(i));
 		}
 	}
 	public void forEach(BiConsumer<? super V, ? super K> bifunction) throws NullPointerException {
-		Objects.requireNonNull(bifunction);
+		if (bifunction == null) {
+			throw new NullPointerException("The function you tried to pass is null.");
+		}
 		for (int i = 0; i < size(); i++) {
 			bifunction.accept(values.get(i), keys.get(i));
 		}
 	}
 	public void forEachValue(Consumer<? super V> function) throws NullPointerException {
-		Objects.requireNonNull(function);
+		if (function == null) {
+			throw new NullPointerException("The function you tried to pass is null.");
+		}
 		values.forEach(function);
 	}
 	public void forEachKey(Consumer<? super K> function) throws NullPointerException {
-		Objects.requireNonNull(function);
+		if (function == null) {
+			throw new NullPointerException("The function you tried to pass is null.");
+		}
 		keys.forEach(function);
 	}
 	
-	public IshMap<V, K> subMap(int from, int to) throws IllegalArgumentException {
+	public IshMap<V, K> subMap(int from, int to) throws IllegalArgumentException, IndexOutOfBoundsException {
 		requireInRange(from); requireInRange(to);
 		to++;
 		if (from == 0 && to == size()) {
 			return clone();
 		}
-		if (from > to) { throw new IllegalArgumentException("The beginning index of the sub-Ishmap"
-				+ " cannot be less the end index."); }
+		if (from > to) { throw new IllegalArgumentException("The beginning index of the sub-IshMap"
+				+ " cannot be less than the end index."); }
 		return new IshMap<>(values.subList(from, to), keys.subList(from, to));
 	}
 	public IshMap<V, K> subMap(int from) throws IllegalArgumentException {
@@ -358,16 +369,16 @@ public class IshMap<V, K> {
 	}
 	
 	public void absorb(IshMap<V, K> branch) throws UnsupportedOperationException, NullPointerException {
-		Objects.requireNonNull(branch);
-		if ((long) size() + (long) branch.size() >= Integer.MAX_VALUE) {
-			throw new UnsupportedOperationException("The sum of the two Ishmaps' lengths goes beyond the"
-					+ " Integer Limit, thus they cannot be joined.");
+		if (branch == null) {
+			throw new NullPointerException("You cannot absorb a null IshMap.");
 		}
 		values.addAll(branch.values);
 		keys.addAll(branch.keys);
 	}
 	public void join(IshMap<V, K> branch) throws UnsupportedOperationException, NullPointerException {
-		Objects.requireNonNull(branch);
+		if (branch == null) {
+			throw new NullPointerException("You cannot join a null IshMap.");
+		}
 		absorb(branch);
 		branch.clear();
 	}

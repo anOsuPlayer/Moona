@@ -71,10 +71,10 @@ public class ProcessClock extends Chrono implements Attached<Process> {
 	 * @param host The host for the new ProcessClock.
 	 * @throws IllegalArgumentException Thrown if the Process is null.
 	 */
-	public ProcessClock(Process host) throws IllegalArgumentException {
+	public ProcessClock(Process host) throws NullPointerException {
 		this.beginning = System.nanoTime();
 		if (host == null) {
-			throw new IllegalArgumentException("A ProcessClock's host cannot be null.");
+			throw new NullPointerException("A ProcessClock's host cannot be null.");
 		}
 		this.host = host;
 	}
