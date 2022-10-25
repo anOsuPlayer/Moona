@@ -3,6 +3,7 @@ package test;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -22,9 +23,19 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	private static Object o = new Object();
+	@Target(ElementType.TYPE_USE)
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Annot {
+	}
 	
-	static Annotated a;
+	@Annot
+	public static Task t = new Task() {
+		public void update() {
+			
+		}
+	};
+	
+	static Annotated a = new Annotated(t, Annot.class, ElementType.TYPE_USE);
 	
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println(a.evaluate());
