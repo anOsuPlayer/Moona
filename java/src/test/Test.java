@@ -23,7 +23,7 @@ import moonaFramework.time.*;
 import moonaFramework.util.*;
 
 @SuppressWarnings("unused")
-public class Test {
+public class Test<T> {
 	
 	public static void main(String[] args) throws InterruptedException {
 		

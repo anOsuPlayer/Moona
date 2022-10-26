@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 
 public abstract class Annotated extends Reflection<Boolean> {
-
+	
 	public static final class Type extends Annotated {
 		
 		private final Class<?> target;
