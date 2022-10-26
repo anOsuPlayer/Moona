@@ -35,7 +35,7 @@ public class Test {
 		}
 	};
 	
-	static Annotated a = new Annotated(t, Annot.class, ElementType.TYPE_USE);
+	static Annotated a = new Annotated(Timeless.class, Retention.class);
 	
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println(a.evaluate());
