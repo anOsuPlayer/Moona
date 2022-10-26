@@ -25,18 +25,7 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	@Target(ElementType.CONSTRUCTOR)
-	@Retention(RetentionPolicy.RUNTIME)
-	public @interface Annot {
-		
-	}
-	
 	public static void main(String[] args) throws InterruptedException {
-		
-	}
-	
-	@Annot
-	public Test() {
 		
 	}
 }

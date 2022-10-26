@@ -1,24 +1,32 @@
 package moonaFramework.reflection;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
 
 public abstract class Annotated extends Reflection<Boolean> {
 
-	public static final class AnnotationType extends Annotated {
+	public static final class Type extends Annotated {
 		
-		private final Class<? extends Annotation> target;
+		private final Class<?> target;
+		
 		private final Class<? extends Annotation> annotation;
 		
 		public void reflect() {
 			super.value = target.getAnnotation(annotation) != null;
 		}
 		
-		public AnnotationType(Class<? extends Annotation> target, Class<? extends Annotation> annotation)
-				throws NullPointerException {
+		public ElementType getType() {
+			if (target.isAnnotation()) { return ElementType.ANNOTATION_TYPE; }
+			if (target.isAnonymousClass()) { return ElementType.TYPE_USE; }
+			return ElementType.TYPE;
+		}
+		
+		public Type(Class<?> target, Class<? extends Annotation> annotation) throws NullPointerException {
 			if (target == null || annotation == null) {
 				throw new NullPointerException("Null parameters are not allowed.");
 			}
-			this.target = target; this.annotation = annotation;
+			this.target = target;
+			this.annotation = annotation;
 		}
 	}
 	
@@ -34,14 +42,17 @@ public abstract class Annotated extends Reflection<Boolean> {
 			for (java.lang.reflect.Constructor<?> con : target.getDeclaredConstructors()) {
 				if (args != null) {
 					super.value = (con.getParameterTypes().equals(args) && con.getAnnotation(annotation) != null);
-					if (super.value) { return; }
 				}
 				else {
 					super.value = con.getAnnotation(annotation) != null;
-					if (super.value) { return; }
 				}
+				if (super.value) { return; }
 			}
 			super.value = false;
+		}
+		
+		public ElementType getType() {
+			return ElementType.CONSTRUCTOR;
 		}
 		
 		public Constructor(Object target, Class<? extends Annotation> annotation, Class<?>[] args) 
@@ -70,14 +81,17 @@ public abstract class Annotated extends Reflection<Boolean> {
 			for (java.lang.reflect.Field f : target.getDeclaredFields()) {
 				if (fieldName != null) {
 					super.value = (f.getName().equals(fieldName) && f.getAnnotation(annotation) != null);
-					if (super.value) { return; }
 				}
 				else {
 					super.value = f.getAnnotation(annotation) != null;
-					if (super.value) { return; }
 				}
+				if (super.value) { return; }
 			}
 			super.value = false;
+		}
+		
+		public ElementType getType() {
+			return ElementType.FIELD;
 		}
 		
 		public Field(Object target, Class<? extends Annotation> annotation, String fieldName)
@@ -106,8 +120,23 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		public void reflect() {
 			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
-				
+				if (args != null && methodName != null) {
+					super.value = m.getName().equals(methodName) && m.getParameterTypes().equals(args)
+							&& m.getAnnotation(annotation) != null;
+				}
+				else if (args != null) {
+					super.value = m.getParameterTypes().equals(args) && m.getAnnotation(annotation) != null;
+				}
+				else if (methodName != null) {
+					super.value = m.getName().equals(methodName) && m.getAnnotation(annotation) != null;
+				}
+				if (super.value) { return; }
 			}
+			super.value = false;
+		}
+		
+		public ElementType getType() {
+			return ElementType.METHOD;
 		}
 		
 		public Method(Class<?> target, Class<? extends Annotation> annotation, String methodName,
@@ -135,6 +164,9 @@ public abstract class Annotated extends Reflection<Boolean> {
 	
 	public abstract void reflect();
 	
+	public abstract ElementType getType();
+	
 	private Annotated() {
+		
 	}
 }
