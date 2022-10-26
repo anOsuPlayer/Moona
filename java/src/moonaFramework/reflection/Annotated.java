@@ -1,88 +1,140 @@
 package moonaFramework.reflection;
 
 import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 
-public class Annotated extends Reflection<Boolean> {
+public abstract class Annotated extends Reflection<Boolean> {
+
+	public static final class AnnotationType extends Annotated {
+		
+		private final Class<? extends Annotation> target;
+		private final Class<? extends Annotation> annotation;
+		
+		public void reflect() {
+			super.value = target.getAnnotation(annotation) != null;
+		}
+		
+		public AnnotationType(Class<? extends Annotation> target, Class<? extends Annotation> annotation)
+				throws NullPointerException {
+			if (target == null || annotation == null) {
+				throw new NullPointerException("Null parameters are not allowed.");
+			}
+			this.target = target; this.annotation = annotation;
+		}
+	}
 	
-	private final Object target;
-	private final Class<?> host;
-	
-	private final ElementType element;
-	
-	private final Class<? extends Annotation> annotation;
-	
-	private final Class<?>[] args;
-	
-	private final String name;
-	
-	public void reflect() {
-		super.value = switch (element) {
-			case ANNOTATION_TYPE:
-				yield (host.isAnnotation()) ? host.getAnnotation(annotation) != null : false;
-			case CONSTRUCTOR:
-				for (Constructor<?> con : host.getConstructors()) {
-					if (args != null && con.getParameterTypes().equals(args) &&
-							con.getAnnotation(annotation) != null) {
-						
-						yield true;
-					}
-					else if (con.getAnnotation(annotation) != null) {
-						yield true;
-					}
+	public static final class Constructor extends Annotated {
+		
+		private final Class<?> target;
+		
+		private final Class<? extends Annotation> annotation;
+		
+		private final Class<?>[] args;
+		
+		public void reflect() {
+			for (java.lang.reflect.Constructor<?> con : target.getDeclaredConstructors()) {
+				if (args != null) {
+					super.value = (con.getParameterTypes().equals(args) && con.getAnnotation(annotation) != null);
+					if (super.value) { return; }
 				}
-				yield false;
-			case FIELD:
-				for (Field f : host.getFields()) {
-					try {
-						if (target != null && name != null && f.getName().equals(name)
-								&& f.getAnnotation(annotation) != null && f.get(host).equals(target)) {
-							yield true;
-						}
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
-					}
+				else {
+					super.value = con.getAnnotation(annotation) != null;
+					if (super.value) { return; }
 				}
-				yield false;
-			case LOCAL_VARIABLE:
-				yield false;
-			case METHOD:
-				yield false;
-			case MODULE:
-				yield false;
-			case PACKAGE:
-				yield false;
-			case PARAMETER:
-				yield false;
-			case RECORD_COMPONENT:
-				yield false;
-			case TYPE:
-				yield host.getAnnotation(annotation) != null;
-			case TYPE_PARAMETER:
-				yield false;
-			case TYPE_USE:
-				yield false;
-			default:
-				yield false;
-		};
+			}
+			super.value = false;
+		}
+		
+		public Constructor(Object target, Class<? extends Annotation> annotation, Class<?>[] args) 
+				throws NullPointerException {
+			if (target == null || annotation == null) {
+				throw new NullPointerException("Null parameters are not allowed.");
+			}
+			this.target = (target instanceof Class<?> c) ? c : target.getClass();
+			this.annotation = annotation;
+			this.args = args;
+		}
+		public Constructor(Object target, Class<? extends Annotation> annotation) throws NullPointerException {
+			this(target, annotation, null);
+		}
 	}
 	
-	public Annotated(Object target, Class<?> host, Class<? extends Annotation> annotation, ElementType element,
-			String name, Class<?>...args) {
-		this.target = target; this.host = host;
-		this.annotation = annotation; this.element = element;
-		this.name = name; this.args = args;
+	public static final class Field extends Annotated {
+		
+		private final Class<?> target;
+		
+		private final Class<? extends Annotation> annotation;
+		
+		private final String fieldName;
+		
+		public void reflect() {
+			for (java.lang.reflect.Field f : target.getDeclaredFields()) {
+				if (fieldName != null) {
+					super.value = (f.getName().equals(fieldName) && f.getAnnotation(annotation) != null);
+					if (super.value) { return; }
+				}
+				else {
+					super.value = f.getAnnotation(annotation) != null;
+					if (super.value) { return; }
+				}
+			}
+			super.value = false;
+		}
+		
+		public Field(Object target, Class<? extends Annotation> annotation, String fieldName)
+				throws NullPointerException {
+			if (target == null || annotation == null) {
+				throw new NullPointerException("Null parameters are not allowed.");
+			}
+			this.target = (target instanceof Class<?> c) ? c : target.getClass();
+			this.annotation = annotation;
+			this.fieldName = fieldName;
+		}
+		public Field(Object target, Class<? extends Annotation> annotation) throws NullPointerException {
+			this(target, annotation, null);
+		}
 	}
 	
-	public Annotated(Object target, Class<? extends Annotation> annotation, ElementType element) {
-		this.target = target; this.host = (target instanceof Class<?> c) ? c : target.getClass();
-		this.annotation = annotation; this.element = element;
-		this.name = null; this.args = null;
+	public static final class Method extends Annotated {
+		
+		private final Class<?> target;
+		
+		private final Class<? extends Annotation> annotation;
+		
+		private final String methodName;
+		
+		private final Class<?>[] args;
+		
+		public void reflect() {
+			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
+				
+			}
+		}
+		
+		public Method(Class<?> target, Class<? extends Annotation> annotation, String methodName,
+				Class<?>[] args) throws NullPointerException {
+			if (target == null|| annotation == null) {
+				throw new NullPointerException("Null parameters are not allowed.");
+			}
+			this.target = target;
+			this.annotation = annotation;
+			this.methodName = methodName;
+			this.args = args;
+		}
+		public Method(Class<?> target, Class<? extends Annotation> annotation, String methodName)
+				throws NullPointerException {
+			this(target, annotation, methodName, null);
+		}
+		public Method(Class<?> target, Class<? extends Annotation> annotation, Class<?>[] args)
+				throws NullPointerException {
+			this(target, annotation, null, args);
+		}
+		public Method(Class<?> target, Class<? extends Annotation> annotation) throws NullPointerException {
+			this(target, annotation, null, null);
+		}
 	}
 	
-	public Annotated(Class<? extends Annotation> target, Class<? extends Annotation> annotation) {
-		this(target, target, annotation, ElementType.ANNOTATION_TYPE, null, new Class<?>[0]);
+	public abstract void reflect();
+	
+	private Annotated() {
 	}
 }
