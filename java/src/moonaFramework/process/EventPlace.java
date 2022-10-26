@@ -24,7 +24,7 @@ public class EventPlace extends Task {
 	
 	final List<Event> toAdd;
 	
-	public void add(Event e) throws MoonaHandlingException, NullPointerException {
+	public void join(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null Events.");
 		}
@@ -35,7 +35,7 @@ public class EventPlace extends Task {
 		getClock().release();
 	}
 	
-	public void remove(Event e) throws MoonaHandlingException, NullPointerException {
+	public void kick(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove null Events.");
 		}

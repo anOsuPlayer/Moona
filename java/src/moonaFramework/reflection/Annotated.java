@@ -141,7 +141,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		public Method(Class<?> target, Class<? extends Annotation> annotation, String methodName,
 				Class<?>[] args) throws NullPointerException {
-			if (target == null|| annotation == null) {
+			if (target == null || annotation == null) {
 				throw new NullPointerException("Null parameters are not allowed.");
 			}
 			this.target = target;
