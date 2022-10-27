@@ -6,14 +6,17 @@ import java.util.List;
 import moonaFramework.MoonaHandlingException;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Container;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
 import moonaFramework.util.IshMap;
 
-public class EventPlace extends Task {
+public class EventPlace extends Task implements Container<Event> {
 
 	final IshMap<Event, Long> events;
+	
+	private int eventCount;
 	
 	@Override
 	public int nature() {
@@ -24,24 +27,28 @@ public class EventPlace extends Task {
 	
 	final List<Event> toAdd;
 	
-	public void join(Event e) throws MoonaHandlingException, NullPointerException {
+	@Override
+	public void add(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null Events.");
 		}
 		if (events.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event is already present in this EventSpace.");
 		}
+		eventCount++;
 		toAdd.add(e);
 		getClock().release();
 	}
 	
-	public void kick(Event e) throws MoonaHandlingException, NullPointerException {
+	@Override
+	public void remove(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove null Events.");
 		}
 		if (!events.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event is not present in this EventSpace.");
 		}
+		eventCount--;
 		toRemove.add(e);
 	}
 	
@@ -56,9 +63,11 @@ public class EventPlace extends Task {
 	public void update() {
 		for (Event e : toRemove) {
 			events.remove(e, e.id());
+			eventCount--;
 		}
 		for (Event e : toAdd) {
 			events.add(e, e.id());
+			eventCount++;
 		}
 		
 		toRemove.clear();
@@ -90,6 +99,16 @@ public class EventPlace extends Task {
 			}
 			e.trigger();
 		}
+	}
+	
+	@Override
+	public Event get(long id) {
+		return events.valueOf(id);
+	}
+	
+	@Override
+	public int elementCount() {
+		return eventCount;
 	}
 	
 	public EventPlace() {

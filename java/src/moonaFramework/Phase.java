@@ -3,10 +3,11 @@ package moonaFramework;
 import moonaFramework.process.Process;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
+import moonaFramework.essentials.Container;
 import moonaFramework.process.Devil;
 import moonaFramework.util.IshMap;
 
-public class Phase implements Serial {
+public class Phase implements Serial, Container<Serial> {
 	
 	private final long id;
 	@Override
@@ -24,6 +25,7 @@ public class Phase implements Serial {
 	
 	private int daemonCount = 0;
 	
+	@Override
 	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Phases.");
@@ -56,6 +58,7 @@ public class Phase implements Serial {
 		}
 	}
 	
+	@Override
 	public void remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
 			throw new NullPointerException("You cannot a null element.");
@@ -339,6 +342,7 @@ public class Phase implements Serial {
 		}
 	}
 	
+	@Override
 	public Serial get(long id) {
 		return elements.valueOf(id);
 	}
@@ -351,6 +355,7 @@ public class Phase implements Serial {
 		return elements.has(s, s.id());
 	}
 	
+	@Override
 	public int elementCount() {
 		return elements.size();
 	}

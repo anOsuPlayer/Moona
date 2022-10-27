@@ -100,6 +100,14 @@ public interface Natural {
 		return n.nature() == EVENT;
 	}
 	
+	public static final int REFLECTION = 0xf;
+	public static boolean isReflection(Natural n) throws NullPointerException {
+		if (n == null) {
+			throw new NullPointerException("Null Naturals do not specify any nature.");
+		}
+		return n.nature() == REFLECTION;
+	}
+	
 	/**
 	 * Returns a certain number according to the nature of the given object.
 	 * @return The nature of the type.

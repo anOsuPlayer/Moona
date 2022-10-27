@@ -1,6 +1,13 @@
 package moonaFramework.reflection;
 
-public sealed interface Property<T> permits Reflection<T> {
+import moonaFramework.essentials.Serial;
 
+public sealed interface Property<T> extends Serial permits Reflection<T> {
+
+	@Override
+	long id();
+	@Override
+	int nature();
+	
 	T evaluate();
 }

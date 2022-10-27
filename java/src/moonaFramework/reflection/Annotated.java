@@ -11,10 +11,12 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		private final Class<? extends Annotation> annotation;
 		
+		@Override
 		public void reflect() {
 			super.value = target.getAnnotation(annotation) != null;
 		}
 		
+		@Override
 		public ElementType getType() {
 			if (target.isAnnotation()) { return ElementType.ANNOTATION_TYPE; }
 			if (target.isAnonymousClass()) { return ElementType.TYPE_USE; }
@@ -38,6 +40,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		private final Class<?>[] args;
 		
+		@Override
 		public void reflect() {
 			for (java.lang.reflect.Constructor<?> con : target.getDeclaredConstructors()) {
 				if (args != null) {
@@ -51,6 +54,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
+		@Override
 		public ElementType getType() {
 			return ElementType.CONSTRUCTOR;
 		}
@@ -77,6 +81,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		private final String fieldName;
 		
+		@Override
 		public void reflect() {
 			for (java.lang.reflect.Field f : target.getDeclaredFields()) {
 				if (fieldName != null) {
@@ -90,6 +95,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
+		@Override
 		public ElementType getType() {
 			return ElementType.FIELD;
 		}
@@ -118,6 +124,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		private final Class<?>[] args;
 		
+		@Override
 		public void reflect() {
 			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
 				if (args != null && methodName != null) {
@@ -135,6 +142,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
+		@Override
 		public ElementType getType() {
 			return ElementType.METHOD;
 		}
