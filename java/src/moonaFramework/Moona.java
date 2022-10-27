@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
 import moonaFramework.annotations.Timeless;
+import moonaFramework.essentials.Container;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
@@ -88,22 +89,20 @@ public final class Moona {
 		if (s == null) {
 			throw new NullPointerException("You cannot erase null elements.");
 		}
-		if (!elements.has(s, s.id())) {
-			throw new MoonaHandlingException("This element is not present in Moona.");
-		}
 		if (s.nature() == Natural.DEVIL) {
 			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		eraseSerial(s);
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static void eraseSerial(Serial s) {
 		if (elements.has(s, s.id())) {
 			removeSerial(s);
 		}
 		else {
 			for (Serial S : elements.values()) {
-				if (S instanceof Phase ph && ph.has(s)) {
-					ph.removeSerial(s);
+				if (S instanceof Container<?> con) {
+					((Container) con).remove(s);
 				}
 			}
 		}

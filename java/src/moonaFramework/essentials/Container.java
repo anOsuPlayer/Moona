@@ -1,12 +1,21 @@
 package moonaFramework.essentials;
 
-public interface Container<E extends Serial> {
+import moonaFramework.MoonaHandlingException;
 
-	void add(E element);
+public interface Container<T extends Serial> extends Serial {
 	
-	void remove(E element);
+	@Override
+	long id();
+	@Override
+	int nature();
+	
+	void add(T element) throws NullPointerException, MoonaHandlingException;
+	
+	void remove(T element) throws NullPointerException, MoonaHandlingException;
 	
 	int elementCount();
 	
-	E get(long id);
+	T get(long id);
+	
+	boolean has(T element);
 }

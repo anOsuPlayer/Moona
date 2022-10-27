@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.annotations.*;
+import moonaFramework.essentials.Serial;
 import moonaFramework.event.*;
 import moonaFramework.process.*;
 import moonaFramework.process.Process;
@@ -25,7 +26,20 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
+	static Task t = new Task() {
+		public void update() {
+			
+		}
+	};
+	
+	static Phase p = new Phase();
+	
 	public static void main(String[] args) {
-		
+		Moona.init();
+		p.add(t);
+		p.start(t);
+		System.out.println(p.elementCount());
+		Moona.erase(t);
+		System.out.println(p.elementCount());
 	}
 }

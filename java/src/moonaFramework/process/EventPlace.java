@@ -6,13 +6,14 @@ import java.util.List;
 import moonaFramework.MoonaHandlingException;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
 import moonaFramework.essentials.Container;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
 import moonaFramework.util.IshMap;
 
-public class EventPlace extends Task implements Container<Event> {
+public class EventPlace extends Task implements Serial, Container<Event> {
 
 	final IshMap<Event, Long> events;
 	
@@ -27,7 +28,6 @@ public class EventPlace extends Task implements Container<Event> {
 	
 	final List<Event> toAdd;
 	
-	@Override
 	public void add(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null Events.");
@@ -104,6 +104,11 @@ public class EventPlace extends Task implements Container<Event> {
 	@Override
 	public Event get(long id) {
 		return events.valueOf(id);
+	}
+	
+	@Override
+	public boolean has(Event e) {
+		return events.has(e, e.id());
 	}
 	
 	@Override

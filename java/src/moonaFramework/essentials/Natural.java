@@ -107,6 +107,13 @@ public interface Natural {
 		}
 		return n.nature() == REFLECTION;
 	}
+	public static final int MIRROR = 0x10;
+	public static boolean isMirror(Natural n) throws NullPointerException {
+		if (n == null) {
+			throw new NullPointerException("Null Naturals do not specify any nature.");
+		}
+		return n.nature() == MIRROR;
+	}
 	
 	/**
 	 * Returns a certain number according to the nature of the given object.
