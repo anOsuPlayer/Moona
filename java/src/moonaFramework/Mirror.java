@@ -8,7 +8,7 @@ public final class Mirror implements Container<Property<?>> {
 
 	final IshMap<Property<?>, Long> reflections = new IshMap<>();
 	
-	private int totalReflections;
+	private int totalReflections = 0;
 	
 	@Override
 	public final void add(Property<?> p) throws NullPointerException, MoonaHandlingException {

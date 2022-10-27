@@ -16,7 +16,7 @@ public class EventPlace extends Task implements Container<Event> {
 
 	final IshMap<Event, Long> events;
 	
-	private int eventCount;
+	private int eventCount = 0;
 	
 	@Override
 	public int nature() {
