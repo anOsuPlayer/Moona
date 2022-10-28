@@ -33,5 +33,8 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
+		m.add(ann);
+		
+		System.out.println();
 	}
 }
