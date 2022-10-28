@@ -26,20 +26,12 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Task t = new Task() {
-		public void update() {
-			
-		}
-	};
+	static Mirror m = new Mirror();
 	
-	static Phase p = new Phase();
+	static Annotated ann = new Annotated.Type(Deadlined.class, Retention.class);
 	
 	public static void main(String[] args) {
 		Moona.init();
-		p.add(t);
-		p.start(t);
-		System.out.println(p.elementCount());
-		Moona.erase(t);
-		System.out.println(p.elementCount());
+		
 	}
 }

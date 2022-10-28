@@ -9,6 +9,7 @@ import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Process;
+import moonaFramework.reflection.Reflection;
 
 public final class Moona {
 	
@@ -22,6 +23,10 @@ public final class Moona {
 		isOn = true;
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
+		}
+		for (Serial s : elements.values()) {
+			if (s instanceof Reflection<?> r) { r.reflect(); }
+			if (s instanceof Mirror m) { m.reflections.forEachValue((r) -> r.reflect()); }
 		}
 	}
 	

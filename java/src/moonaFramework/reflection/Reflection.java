@@ -2,8 +2,9 @@ package moonaFramework.reflection;
 
 import moonaFramework.Moona;
 import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
 
-public abstract non-sealed class Reflection<T> implements Property<T> {
+public abstract class Reflection<T> implements Serial {
 
 	private final long id;
 	@Override
@@ -19,7 +20,6 @@ public abstract non-sealed class Reflection<T> implements Property<T> {
 	
 	public abstract void reflect();
 	
-	@Override
 	public final T evaluate() {
 		if (value == null) {
 			reflect();

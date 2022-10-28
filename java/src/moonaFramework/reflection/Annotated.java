@@ -3,13 +3,31 @@ package moonaFramework.reflection;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 
+import moonaFramework.annotations.Deadlined;
+
 public abstract class Annotated extends Reflection<Boolean> {
 	
 	public static final class Type extends Annotated {
 		
 		private final Class<?> target;
+		public Class<?> getTarget() {
+			return target;
+		}
 		
 		private final Class<? extends Annotation> annotation;
+		public Class<? extends Annotation> getAnnotation() {
+			return annotation;
+		}
+		
+		@Deadlined
+		public String getName() {
+			return null;
+		}
+		
+		@Deadlined
+		public Class<?>[] getArgs() {
+			return null;
+		}
 		
 		@Override
 		public void reflect() {
@@ -35,10 +53,24 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Constructor extends Annotated {
 		
 		private final Class<?> target;
+		public Class<?> getTarget() {
+			return target;
+		}
 		
 		private final Class<? extends Annotation> annotation;
+		public Class<? extends Annotation> getAnnotation() {
+			return annotation;
+		}
+		
+		@Deadlined
+		public String getName() {
+			return null;
+		}
 		
 		private final Class<?>[] args;
+		public Class<?>[] getArgs() {
+			return args;
+		}
 		
 		@Override
 		public void reflect() {
@@ -76,10 +108,24 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Field extends Annotated {
 		
 		private final Class<?> target;
+		public Class<?> getTarget() {
+			return target;
+		}
 		
 		private final Class<? extends Annotation> annotation;
+		public Class<? extends Annotation> getAnnotation() {
+			return annotation;
+		}
 		
 		private final String fieldName;
+		public String getName() {
+			return fieldName;
+		}
+		
+		@Deadlined
+		public Class<?>[] getArgs() {
+			return null;
+		}
 		
 		@Override
 		public void reflect() {
@@ -117,12 +163,24 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Method extends Annotated {
 		
 		private final Class<?> target;
+		public Class<?> getTarget() {
+			return target;
+		}
 		
 		private final Class<? extends Annotation> annotation;
+		public Class<? extends Annotation> getAnnotation() {
+			return annotation;
+		}
 		
 		private final String methodName;
+		public String getName() {
+			return methodName;
+		}
 		
 		private final Class<?>[] args;
+		public Class<?>[] getArgs() {
+			return args;
+		}
 		
 		@Override
 		public void reflect() {
@@ -173,6 +231,11 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public abstract void reflect();
 	
 	public abstract ElementType getType();
+	
+	public abstract Class<?> getTarget();
+	public abstract Class<? extends Annotation> getAnnotation();
+	public abstract String getName();
+	public abstract Class<?>[] getArgs();
 	
 	private Annotated() {
 		
