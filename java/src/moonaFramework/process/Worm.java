@@ -1,6 +1,6 @@
 package moonaFramework.process;
 
-import moonaFramework.Moona;
+import moonaFramework.Phase;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.essentials.Natural;
@@ -42,12 +42,12 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 				if (host != null) {
 					synchronized (host.getClock()) {
 						if (ProcessCondition.DEAD.check(host)) {
-							Moona.interrupt(this);
+							Phase.interrupt(this);
 						}
 					}
 				}
-				if (Moona.totalProcesses() == 0) {
-					Moona.interrupt(this);
+				if (Phase.totalProcesses() == 0) {
+					Phase.interrupt(this);
 				}
 				getClock().pauseHolder();
 				if (!ProcessCondition.DEAD.check(this)) {

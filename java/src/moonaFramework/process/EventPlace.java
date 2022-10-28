@@ -13,7 +13,7 @@ import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
 import moonaFramework.util.IshMap;
 
-public class EventPlace extends Task implements Serial, Container<Event> {
+public class EventPlace extends Task implements Serial {
 
 	final IshMap<Event, Long> events;
 	
