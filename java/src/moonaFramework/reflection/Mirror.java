@@ -1,31 +1,19 @@
-package moonaFramework;
+package moonaFramework.reflection;
 
 import java.lang.annotation.Annotation;
 
-import moonaFramework.essentials.Container;
+import moonaFramework.Moona;
+import moonaFramework.MoonaHandlingException;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
-import moonaFramework.reflection.Annotated;
-import moonaFramework.reflection.Reflection;
 import moonaFramework.util.IshMap;
 
-public final class Mirror implements Serial, Container<Reflection<?>> {
-
-	private final long id;
-	@Override
-	public final long id() {
-		return this.id;
-	}
-	@Override
-	public final int nature() {
-		return Natural.MIRROR;
-	}
+public class Mirror extends Moona {
 	
 	final IshMap<Reflection<?>, Long> reflections = new IshMap<>();
 	
 	private int totalReflections = 0;
 	
-	@Override
 	public final void add(Reflection<?> p) throws NullPointerException, MoonaHandlingException {
 		if (p == null) {
 			throw new NullPointerException("The Property you're trying to add is null.");
@@ -37,7 +25,6 @@ public final class Mirror implements Serial, Container<Reflection<?>> {
 		totalReflections++;
 	}
 	
-	@Override
 	public final void remove(Reflection<?> p) throws NullPointerException, MoonaHandlingException {
 		if (p == null) {
 			throw new NullPointerException("The Property you're trying to remove is null.");
@@ -70,12 +57,10 @@ public final class Mirror implements Serial, Container<Reflection<?>> {
 		return arr;
 	}
 	
-	@Override
 	public Reflection<?> get(long id) {
 		return reflections.valueOf(id);
 	}
 	
-	@Override
 	public int elementCount() {
 		return totalReflections;
 	}
@@ -100,13 +85,11 @@ public final class Mirror implements Serial, Container<Reflection<?>> {
 		return count;
 	}
 	
-	@Override
 	public boolean has(Reflection<?> p) {
 		return reflections.has(p, p.id());
 	}
 	
 	public Mirror() {
-		this.id = Moona.generateID();
-		Moona.add(this);
+		
 	}
 }

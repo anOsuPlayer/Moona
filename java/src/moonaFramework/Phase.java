@@ -1,97 +1,80 @@
 package moonaFramework;
 
-import moonaFramework.process.Process;
 import moonaFramework.essentials.Natural;
-import moonaFramework.essentials.Serial;
-import moonaFramework.essentials.Container;
-import moonaFramework.process.Devil;
-import moonaFramework.util.IshMap;
+import moonaFramework.event.AutoEvent;
+import moonaFramework.process.Daemon;
+import moonaFramework.process.Process;
+import moonaFramework.process.Worm;
+import moonaFramework.annotations.Timeless;
 
-public class Phase implements Serial, Container<Serial> {
+public class Phase extends Moona {
 	
-	private final long id;
-	@Override
-	public final long id() {
-		return this.id;
-	}
-	@Override
-	public final int nature() {
-		return Natural.PHASE;
-	}
+	protected static int totalProcesses = 0;
 	
-	final IshMap<Serial, Long> elements;
+	protected static int totalDaemons = 0;
 	
-	private int processCount = 0;
+	protected static int totalWorms = 0;
 	
-	private int daemonCount = 0;
-	
-	@Override
-	public void add(Serial s) throws MoonaHandlingException, NullPointerException {
-		if (s == null) {
+	public static void add(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
 			throw new NullPointerException("You cannot add null elements to Phases.");
 		}
-		if (elements.has(s, s.id())) {
+		if (elements.has(p, p.id())) {
 			throw new MoonaHandlingException("This element already belongs to this Phase.");
 		}
-		if (Natural.isPhasic(s)) {
-			throw new MoonaHandlingException("You cannot add a Phase to another Phase.");
-		}
-		if (s.nature() == Natural.DEVIL) {
-			if (!((Devil) s).getHost().equals(this)) {
-				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
-						+ " its host.");
-			}
-		}
-		addSerial(s);
+		addProcess(p);
 	}
-	void addSerial(Serial s) {
-		if (!elements.has(s, s.id())) {
-			elements.add(s, s.id());
-			if (s.nature() == Natural.PROCESS) {
-				processCount++;
-				Moona.newProcess(true);
-			}
-			if (s.nature() == Natural.DAEMON) {
-				daemonCount++;
-				Moona.newDaemon(true);
-			}
-		}
+	protected static void addProcess(Process p) {
+		totalProcesses++;
+		totalDaemons += (p instanceof Daemon) ? 1 : 0;
+		totalWorms += (p instanceof Worm) ? 1 : 0;
+		
+		elements.add(p, p.id());
 	}
 	
-	@Override
-	public void remove(Serial s) throws MoonaHandlingException, NullPointerException {
-		if (s == null) {
+	public static void remove(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
 			throw new NullPointerException("You cannot a null element.");
 		}
-		if (!elements.has(s, s.id())) {
+		if (!elements.has(p, p.id())) {
 			throw new MoonaHandlingException("This element is not present in this Phase.");
 		}
-		removeSerial(s);
+		removeProcess(p);
 	}
-	void removeSerial(Serial s) {
-		if (elements.has(s, s.id())) {
-			elements.remove(s, s.id());
-			if (s.nature() == Natural.PROCESS) {
-				processCount--;
-				Moona.newProcess(false);
-			}
-			if (s.nature() == Natural.DAEMON) {
-				daemonCount--;
-				Moona.newDaemon(false);
-			}
-		}
+	protected static void removeProcess(Process p) {
+		totalProcesses--;
+		totalDaemons -= (p instanceof Daemon) ? 1 : 0;
+		totalWorms -= (p instanceof Worm) ? 1 : 0;
+		
+		elements.remove(p, p.id());
 	}
 	
-	public void provide(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void mainStart(Process p) throws MoonaHandlingException, NullPointerException {
+		if (p == null) {
+			throw new NullPointerException("The Process you're trying to start is null.");
+		}
+		if (!ProcessCondition.DEAD.check(p)) {
+			throw new MoonaHandlingException("You can't mainStart an already running Process.");
+		}
+		addSerial(p);
+		p.initialize();
+		ProcessCondition.RUNNING.set(p);
+		p.run();
+		ProcessCondition.DEAD.set(p);
+		p.end();
+		removeSerial(p);
+	}
+	
+	public static void provide(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			provide(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void provide(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void provide(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot provide a null Process.");
 		}
@@ -100,40 +83,37 @@ public class Phase implements Serial, Container<Serial> {
 					+ " or paused.");
 		}
 		if (p.nature() == Natural.DEVIL) {
-			if (!((Devil) p).getHost().equals(this)) {
-				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
-						+ " its host.");
-			}
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addSerial(p);
 		ProcessCondition.AWAITING.set(p);
 	}
 
-	public void await(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void await(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			await(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void await(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void await(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		provide(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
-	public void unlock(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void unlock(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			unlock(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void unlock(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void unlock(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot unlock a null Process.");
 		}
@@ -144,16 +124,16 @@ public class Phase implements Serial, Container<Serial> {
 		p.getClock().release();
 	}
 
-	public void initiate(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void initiate(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			initiate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void initiate(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void initiate(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot initiate a null Process.");
 		}
@@ -165,26 +145,23 @@ public class Phase implements Serial, Container<Serial> {
 					+ " unlock it.");	
 		}
 		if (p.nature() == Natural.DEVIL) {
-			if (!((Devil) p).getHost().equals(this)) {
-				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
-						+ " its host.");
-			}
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
-	public void start(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void start(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			start(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void start(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void start(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot start a null Process.");
 		}
@@ -196,27 +173,24 @@ public class Phase implements Serial, Container<Serial> {
 					+ " unlock it.");	
 		}
 		if (p.nature() == Natural.DEVIL) {
-			if (!((Devil) p).getHost().equals(this)) {
-				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
-						+ " its host.");
-			}
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addSerial(p);
 		ProcessCondition.RUNNING.set(p);
-		Moona.initiator(p);
+		initiator(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
-	
-	public void flick(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+
+	public static void flick(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			flick(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void flick(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void flick(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot flick a null Process.");
 		}
@@ -234,18 +208,18 @@ public class Phase implements Serial, Container<Serial> {
 		}
 	}
 
-	public void spark(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void spark(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			spark(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void spark(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void spark(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
-			throw new NullPointerException("You cannot spark a null Process");
+			throw new NullPointerException("You cannot spark a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
@@ -267,16 +241,16 @@ public class Phase implements Serial, Container<Serial> {
 		}
 	}
 
-	public void terminate(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void terminate(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			terminate(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void terminate(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void terminate(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot terminate a null Process.");
 		}
@@ -284,39 +258,36 @@ public class Phase implements Serial, Container<Serial> {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
 		}
 		if (p.nature() == Natural.DEVIL) {
-			if (!((Devil) p).getHost().equals(this)) {
-				throw new MoonaHandlingException("A Devil cannot be part of a Phase which differs from"
-						+ " its host.");
-			}
+			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		boolean wasPaused = p.isPaused().verify();
-		removeSerial(p);
+		remove(p);
 		ProcessCondition.DEAD.set(p);
 		if (wasPaused) {
 			p.getClock().release();
 		}
 	}
 
-	public void interrupt(long id) throws MoonaHandlingException {
-		Moona.checkOn();
-		if (elements.valueOf(id) instanceof Process p) {
+	public static void interrupt(long id) throws MoonaHandlingException {
+		checkOn();
+		if (Moona.get(id) instanceof Process p) {
 			interrupt(p);
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
 	}
-	public void interrupt(Process p) throws MoonaHandlingException, NullPointerException {
-		Moona.checkOn();
+	public static void interrupt(Process p) throws MoonaHandlingException, NullPointerException {
+		checkOn();
 		terminate(p);
 		synchronized (p.getClock()) {
-			Moona.ender(p);
+			ender(p);
 		}
 	}
 
-	public void fade() throws MoonaHandlingException {
-		Moona.checkOn();
-		Process[] procs = new Process[processCount];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
+	public static void fade() throws MoonaHandlingException {
+		checkOn();
+		Process[] procs = new Process[totalProcesses];
+		for (int i = 0, c = 0, pc = 0; i < elements.size(); i++) {
 			if (procs.length > 0) {
 				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
 						(Process) elements.getValue(i) : procs[c];
@@ -326,11 +297,12 @@ public class Phase implements Serial, Container<Serial> {
 		for (Process p : procs) {
 			terminate(p);
 		}
+		Moona.isOn = false;
 	}
-	public void collapse() throws MoonaHandlingException {
-		Moona.checkOn();
-		Process[] procs = new Process[processCount];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
+	public static void collapse() throws MoonaHandlingException {
+		checkOn();
+		Process[] procs = new Process[totalProcesses];
+		for (int i = 0, c = 0, pc = 0; i < elements.size(); i++) {
 			if (procs.length > 0) {
 				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
 						(Process) elements.getValue(i) : procs[c];
@@ -340,37 +312,65 @@ public class Phase implements Serial, Container<Serial> {
 		for (Process p : procs) {
 			interrupt(p);
 		}
+		Moona.isOn = false;
+	}
+
+	private static final void initiator(Process p) {
+		try {
+			if (p.getClass().getMethod("initialize", new Class<?>[0])
+					.getAnnotation(Timeless.class) != null) {
+
+				start(new AutoEvent() {
+					public void trigger() {
+						p.initialize();
+					}
+				});
+			}
+			else {
+				p.initialize();
+			}
+		}
+		catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+	private static final void ender(Process p) {
+		try {
+			if (p.getClass().getMethod("end", new Class<?>[0])
+					.getAnnotation(Timeless.class) != null) {
+
+				start(new AutoEvent() {
+					public void trigger() {
+						p.end();
+					}
+				});
+			}
+			else {
+				p.end();
+			}
+		}
+		catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	@Override
-	public Serial get(long id) {
-		return elements.valueOf(id);
-	}
-	public Process getProcess(long id) throws MoonaHandlingException {
-		return elements.valueOf(id) != null ? (elements.valueOf(id) instanceof Process) ? (Process) elements.valueOf(id)
-				: null : null;
+	public static Process get(long id) {
+		return isProcess(id) ? (Process) elements.valueOf(id) : null;
 	}
 	
-	@Override
-	public boolean has(Serial s) throws NullPointerException {
-		return elements.has(s, s.id());
+	public static int totalProcesses() {
+		return totalProcesses;
 	}
 	
-	@Override
-	public int elementCount() {
-		return elements.size();
+	public static int totalDaemons() {
+		return totalDaemons;
 	}
 	
-	public int processCount() {
-		return processCount;
-	}
-	public int daemonCount() {
-		return daemonCount;
+	public static int totalWorms() {
+		return totalWorms;
 	}
 	
-	public Phase() {
-		this.elements = new IshMap<>();
-		this.id = Moona.generateID();
-		Moona.add(this);
+	private Phase() {
+		
 	}
 }

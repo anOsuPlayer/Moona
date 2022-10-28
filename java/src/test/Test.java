@@ -26,15 +26,7 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Mirror m = new Mirror();
-	
-	static Annotated ann = new Annotated.Type(Deadlined.class, Retention.class);
-	
 	public static void main(String[] args) {
-		Moona.init();
 		
-		m.add(ann);
-		
-		System.out.println();
 	}
 }
