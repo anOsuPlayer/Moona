@@ -1,6 +1,6 @@
 package moonaFramework.process;
 
-import moonaFramework.Phase;
+import moonaFramework.Processor;
 import moonaFramework.ProcessCondition;
 import moonaFramework.relation.Synced;
 import moonaFramework.time.Timer;
@@ -88,7 +88,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 				throw new NullPointerException("You cannot sync null Processes.");
 			}
 			if (!ProcessCondition.DEAD.check(p)) {
-				Phase.terminate(p);
+				Processor.terminate(p);
 			}
 		}
 		this.synced = synced;

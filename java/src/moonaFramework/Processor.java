@@ -8,7 +8,7 @@ import moonaFramework.process.Process;
 import moonaFramework.process.Worm;
 import moonaFramework.annotations.Timeless;
 
-public class Phase {
+public class Processor {
 	
 	private static int totalProcesses = 0;
 	
@@ -376,7 +376,7 @@ public class Phase {
 		return totalWorms;
 	}
 	
-	private Phase() {
+	private Processor() {
 		
 	}
 }

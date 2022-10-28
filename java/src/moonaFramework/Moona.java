@@ -46,7 +46,7 @@ public class Moona {
 	}
 	protected static void addSerial(Serial s) {
 		switch (s.nature()) {
-			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Phase.add((Process) s);
+			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Processor.add((Process) s);
 			case Natural.REFLECTION: Mirror.add((Reflection<?>) s);
 			default: elements.add(s, s.id());
 		}
@@ -63,7 +63,7 @@ public class Moona {
 	}
 	protected static void removeSerial(Serial s) {
 		switch (s.nature()) {
-			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Phase.remove((Process) s);
+			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Processor.remove((Process) s);
 			case Natural.REFLECTION: Mirror.add((Reflection<?>) s);
 			default: elements.remove(s, s.id());
 		}
@@ -81,7 +81,7 @@ public class Moona {
 	}
 	
 	public static int totalElements() {
-		return Phase.totalProcesses() + Mirror.totalReflections();
+		return Processor.totalProcesses() + Mirror.totalReflections();
 	}
 	
 	protected Moona() {
