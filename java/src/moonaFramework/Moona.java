@@ -6,6 +6,7 @@ import moonaFramework.util.IshMap;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.process.Process;
+import moonaFramework.reflection.Reflection;
 
 public class Moona {
 	
@@ -46,6 +47,7 @@ public class Moona {
 	protected static void addSerial(Serial s) {
 		switch (s.nature()) {
 			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Phase.add((Process) s);
+			case Natural.REFLECTION: Mirror.add(s);
 			default: elements.add(s, s.id());
 		}
 	}
@@ -77,15 +79,8 @@ public class Moona {
 		return elements.hasKey(id);
 	}
 	
-	public static boolean isProcess(Serial s) {
-		return s instanceof Process;
-	}
-	public static boolean isProcess(long id) {
-		return elements.valueOf(id) instanceof Process;
-	}
-	
 	public static int totalElements() {
-		return Phase.totalProcesses;
+		return Phase.totalProcesses() + Mirror.totalReflections();
 	}
 	
 	protected Moona() {

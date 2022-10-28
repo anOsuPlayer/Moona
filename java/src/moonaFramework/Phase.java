@@ -1,52 +1,53 @@
 package moonaFramework;
 
 import moonaFramework.essentials.Natural;
+import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Daemon;
 import moonaFramework.process.Process;
 import moonaFramework.process.Worm;
 import moonaFramework.annotations.Timeless;
 
-public class Phase extends Moona {
+public class Phase {
 	
-	protected static int totalProcesses = 0;
+	private static int totalProcesses = 0;
 	
-	protected static int totalDaemons = 0;
+	private static int totalDaemons = 0;
 	
-	protected static int totalWorms = 0;
+	private static int totalWorms = 0;
 	
 	public static void add(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException("You cannot add null elements to Phases.");
 		}
-		if (elements.has(p, p.id())) {
+		if (Moona.elements.has(p, p.id())) {
 			throw new MoonaHandlingException("This element already belongs to this Phase.");
 		}
 		addProcess(p);
 	}
-	protected static void addProcess(Process p) {
+	static void addProcess(Process p) {
 		totalProcesses++;
 		totalDaemons += (p instanceof Daemon) ? 1 : 0;
 		totalWorms += (p instanceof Worm) ? 1 : 0;
 		
-		elements.add(p, p.id());
+		Moona.elements.add(p, p.id());
 	}
 	
 	public static void remove(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException("You cannot a null element.");
 		}
-		if (!elements.has(p, p.id())) {
+		if (!Moona.elements.has(p, p.id())) {
 			throw new MoonaHandlingException("This element is not present in this Phase.");
 		}
 		removeProcess(p);
 	}
-	protected static void removeProcess(Process p) {
+	static void removeProcess(Process p) {
 		totalProcesses--;
 		totalDaemons -= (p instanceof Daemon) ? 1 : 0;
 		totalWorms -= (p instanceof Worm) ? 1 : 0;
 		
-		elements.remove(p, p.id());
+		Moona.elements.remove(p, p.id());
 	}
 	
 	public static void mainStart(Process p) throws MoonaHandlingException, NullPointerException {
@@ -56,17 +57,17 @@ public class Phase extends Moona {
 		if (!ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't mainStart an already running Process.");
 		}
-		addSerial(p);
+		addProcess(p);
 		p.initialize();
 		ProcessCondition.RUNNING.set(p);
 		p.run();
 		ProcessCondition.DEAD.set(p);
 		p.end();
-		removeSerial(p);
+		removeProcess(p);
 	}
 	
 	public static void provide(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			provide(p);
 		}
@@ -74,7 +75,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void provide(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot provide a null Process.");
 		}
@@ -85,12 +86,12 @@ public class Phase extends Moona {
 		if (p.nature() == Natural.DEVIL) {
 			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
-		addSerial(p);
+		addProcess(p);
 		ProcessCondition.AWAITING.set(p);
 	}
 
 	public static void await(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			await(p);
 		}
@@ -98,14 +99,14 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void await(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		provide(p);
 		p.initialize();
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
 	public static void unlock(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			unlock(p);
 		}
@@ -113,7 +114,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void unlock(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot unlock a null Process.");
 		}
@@ -125,7 +126,7 @@ public class Phase extends Moona {
 	}
 
 	public static void initiate(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			initiate(p);
 		}
@@ -133,7 +134,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void initiate(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot initiate a null Process.");
 		}
@@ -147,13 +148,13 @@ public class Phase extends Moona {
 		if (p.nature() == Natural.DEVIL) {
 			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
-		addSerial(p);
+		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
 	public static void start(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			start(p);
 		}
@@ -161,7 +162,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void start(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot start a null Process.");
 		}
@@ -175,14 +176,14 @@ public class Phase extends Moona {
 		if (p.nature() == Natural.DEVIL) {
 			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
-		addSerial(p);
+		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
 		initiator(p);
 		new Thread(p, "Process#" + p.id()).start();
 	}
 
 	public static void flick(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			flick(p);
 		}
@@ -190,7 +191,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void flick(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot flick a null Process.");
 		}
@@ -209,7 +210,7 @@ public class Phase extends Moona {
 	}
 
 	public static void spark(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			spark(p);
 		}
@@ -217,7 +218,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void spark(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot spark a null Process.");
 		}
@@ -242,7 +243,7 @@ public class Phase extends Moona {
 	}
 
 	public static void terminate(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			terminate(p);
 		}
@@ -250,7 +251,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void terminate(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		if (p == null) {
 			throw new NullPointerException("You cannot terminate a null Process.");
 		}
@@ -261,7 +262,7 @@ public class Phase extends Moona {
 			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		boolean wasPaused = p.isPaused().verify();
-		remove(p);
+		removeProcess(p);
 		ProcessCondition.DEAD.set(p);
 		if (wasPaused) {
 			p.getClock().release();
@@ -269,7 +270,7 @@ public class Phase extends Moona {
 	}
 
 	public static void interrupt(long id) throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
 			interrupt(p);
 		}
@@ -277,7 +278,7 @@ public class Phase extends Moona {
 				+ " process.");
 	}
 	public static void interrupt(Process p) throws MoonaHandlingException, NullPointerException {
-		checkOn();
+		Moona.checkOn();
 		terminate(p);
 		synchronized (p.getClock()) {
 			ender(p);
@@ -285,13 +286,13 @@ public class Phase extends Moona {
 	}
 
 	public static void fade() throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0, pc = 0; i < elements.size(); i++) {
+		for (int i = 0, c = 0, pc = 0; i < Moona.elements.size(); i++) {
 			if (procs.length > 0) {
-				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
-						(Process) elements.getValue(i) : procs[c];
-				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
+				procs[c] = (Moona.elements.getValue(i).nature() == Natural.PROCESS) ?
+						(Process) Moona.elements.getValue(i) : procs[c];
+				c += (Moona.elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 		}
 		for (Process p : procs) {
@@ -300,13 +301,13 @@ public class Phase extends Moona {
 		Moona.isOn = false;
 	}
 	public static void collapse() throws MoonaHandlingException {
-		checkOn();
+		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0, pc = 0; i < elements.size(); i++) {
+		for (int i = 0, c = 0, pc = 0; i < Moona.elements.size(); i++) {
 			if (procs.length > 0) {
-				procs[c] = (elements.getValue(i).nature() == Natural.PROCESS) ?
-						(Process) elements.getValue(i) : procs[c];
-				c += (elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
+				procs[c] = (Moona.elements.getValue(i).nature() == Natural.PROCESS) ?
+						(Process) Moona.elements.getValue(i) : procs[c];
+				c += (Moona.elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
 			}
 		}
 		for (Process p : procs) {
@@ -315,7 +316,7 @@ public class Phase extends Moona {
 		Moona.isOn = false;
 	}
 
-	private static final void initiator(Process p) {
+	private static void initiator(Process p) {
 		try {
 			if (p.getClass().getMethod("initialize", new Class<?>[0])
 					.getAnnotation(Timeless.class) != null) {
@@ -334,7 +335,7 @@ public class Phase extends Moona {
 			e.printStackTrace();
 		}
 	}
-	private static final void ender(Process p) {
+	private static void ender(Process p) {
 		try {
 			if (p.getClass().getMethod("end", new Class<?>[0])
 					.getAnnotation(Timeless.class) != null) {
@@ -355,17 +356,22 @@ public class Phase extends Moona {
 	}
 	
 	public static Process get(long id) {
-		return isProcess(id) ? (Process) elements.valueOf(id) : null;
+		return isProcess(id) ? (Process) Moona.elements.valueOf(id) : null;
+	}
+	
+	public static boolean isProcess(Serial s) {
+		return s instanceof Process;
+	}
+	public static boolean isProcess(long id) {
+		return Moona.elements.valueOf(id) instanceof Process;
 	}
 	
 	public static int totalProcesses() {
 		return totalProcesses;
 	}
-	
 	public static int totalDaemons() {
 		return totalDaemons;
 	}
-	
 	public static int totalWorms() {
 		return totalWorms;
 	}

@@ -26,7 +26,9 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
+	static Annotated a = new Annotated.Type(Deadlined.class, Retention.class);
+	
 	public static void main(String[] args) {
-		
+		Mirror.add(a);
 	}
 }
