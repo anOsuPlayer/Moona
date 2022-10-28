@@ -115,6 +115,13 @@ public interface Natural {
 		return n.nature() == MIRROR;
 	}
 	
+	public static boolean isContainer(Natural n) throws NullPointerException {
+		if (n == null) {
+			throw new NullPointerException("Null Naturals do not specify any nature.");
+		}
+		return (n.nature() == PHASE || n.nature() == MIRROR || n.nature() == EVENTSPACE);
+	}
+	
 	/**
 	 * Returns a certain number according to the nature of the given object.
 	 * @return The nature of the type.
