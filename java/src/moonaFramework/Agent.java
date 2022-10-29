@@ -1,6 +1,6 @@
 package moonaFramework;
 
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.ModalEvent;
 
@@ -12,7 +12,7 @@ public final class Agent {
 	
 	public static void add(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
-			throw new NullPointerException("You cannot add null elements to Moona.");
+			throw new NullPointerException("You cannot add null Moona.elements to Moona.");
 		}
 		if (Moona.elements.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event already belongs to Moona.");

@@ -3,7 +3,7 @@ package moonaFramework;
 import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.process.Process;
 import moonaFramework.reflection.Reflection;
@@ -83,7 +83,7 @@ public class Moona {
 	}
 	
 	public static int totalElements() {
-		return Processor.totalProcesses() + Mirror.totalReflections();
+		return Processor.totalProcesses() + Mirror.totalReflections() + Agent.totalEvents();
 	}
 	
 	private Moona() {

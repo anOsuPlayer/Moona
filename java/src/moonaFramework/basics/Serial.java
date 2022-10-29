@@ -1,4 +1,4 @@
-package moonaFramework.essentials;
+package moonaFramework.basics;
 
 /**
  * Serials aim to extend the distinction between objects stated by the Natural Interface. 

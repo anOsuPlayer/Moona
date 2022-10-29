@@ -1,7 +1,7 @@
 package moonaFramework.reflection;
 
 import moonaFramework.Moona;
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 
 public abstract class Reflection<T> implements Serial {
 

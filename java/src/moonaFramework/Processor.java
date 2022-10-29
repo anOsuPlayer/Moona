@@ -1,11 +1,11 @@
 package moonaFramework;
 
-import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Daemon;
 import moonaFramework.process.Process;
 import moonaFramework.process.Worm;
 import moonaFramework.annotations.Timeless;
+import moonaFramework.basics.Serial;
 
 public class Processor {
 	

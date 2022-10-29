@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.annotations.*;
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 import moonaFramework.event.*;
 import moonaFramework.process.*;
 import moonaFramework.process.Process;
@@ -26,9 +26,7 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Annotated a = new Annotated.Type(Deadlined.class, Retention.class);
-	
 	public static void main(String[] args) {
-		Mirror.add(a);
+		
 	}
 }

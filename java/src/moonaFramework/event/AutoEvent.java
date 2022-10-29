@@ -1,7 +1,7 @@
 package moonaFramework.event;
 
 import moonaFramework.Processor;
-import moonaFramework.essentials.Dynamic;
+import moonaFramework.basics.Dynamic;
 import moonaFramework.process.Task;
 
 public abstract class AutoEvent extends Task implements Event, Dynamic {

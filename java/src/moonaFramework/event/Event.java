@@ -1,6 +1,6 @@
 package moonaFramework.event;
 
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 
 public interface Event extends Serial {
 

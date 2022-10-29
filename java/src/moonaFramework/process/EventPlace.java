@@ -5,7 +5,7 @@ import java.util.List;
 
 import moonaFramework.MoonaHandlingException;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;

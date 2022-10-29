@@ -1,4 +1,4 @@
-package moonaFramework.essentials;
+package moonaFramework.basics;
 
 public interface Satellite<E> {
 

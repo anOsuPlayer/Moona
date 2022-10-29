@@ -1,6 +1,6 @@
 package moonaFramework;
 
-import moonaFramework.essentials.Serial;
+import moonaFramework.basics.Serial;
 import moonaFramework.reflection.Reflection;
 
 public class Mirror {
