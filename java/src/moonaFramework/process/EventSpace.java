@@ -1,6 +1,6 @@
 package moonaFramework.process;
 
-import moonaFramework.Moona;
+import moonaFramework.Processor;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
@@ -20,7 +20,7 @@ public class EventSpace extends EventPlace {
 		toAdd.clear();
 		
 		if (events.size() == 0) {
-			Moona.interrupt(this);
+			Processor.interrupt(this);
 		}
 		
 		for (Event e : events.values()) {

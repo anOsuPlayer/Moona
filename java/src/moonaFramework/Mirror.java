@@ -9,10 +9,10 @@ public class Mirror {
 	
 	public static void add(Reflection<?> r) throws NullPointerException, MoonaHandlingException {
 		if (r == null) {
-			throw new NullPointerException("The Property you're trying to add is null.");
+			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
 		if (Moona.elements.has(r, r.id())) {
-			throw new MoonaHandlingException("The Property is already contained in this Mirror.");
+			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
 		}
 		addReflection(r);
 	}
@@ -24,10 +24,10 @@ public class Mirror {
 	
 	public static void remove(Reflection<?> r) throws NullPointerException, MoonaHandlingException {
 		if (r == null) {
-			throw new NullPointerException("The Property you're trying to remove is null.");
+			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
 		if (!Moona.elements.has(r, r.id())) {
-			throw new MoonaHandlingException("The Property is not contained in this Mirror.");
+			throw new MoonaHandlingException("This Reflection is not present in Moona.");
 		}
 		removeReflection(r);
 	}
@@ -35,6 +35,19 @@ public class Mirror {
 		totalReflections--;
 		
 		Moona.elements.remove(r, r.id());
+	}
+	
+	public static void clear() {
+		Moona.checkOn();
+		Reflection<?>[] refls = new Reflection<?>[totalReflections];
+		for (int i = 0, c = 0; i < Moona.elements.size(); i++) {
+			if (Moona.elements.getValue(i) instanceof Reflection<?> r && refls.length > 0) {
+				refls[c++] = r;
+			}
+		}
+		for (Reflection<?> r : refls) {
+			removeReflection(r);
+		}
 	}
 	
 	public static Reflection<?> get(long id) {
@@ -52,7 +65,7 @@ public class Mirror {
 		return totalReflections;
 	}
 	
-	public Mirror() {
+	private Mirror() {
 		
 	}
 }

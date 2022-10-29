@@ -5,12 +5,13 @@ import org.lwjgl.glfw.GLFW;
 import moonaFramework.util.IshMap;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
+import moonaFramework.event.Event;
 import moonaFramework.process.Process;
 import moonaFramework.reflection.Reflection;
 
 public class Moona {
 	
-	protected static boolean isOn = false;
+	static boolean isOn = false;
 	
 	public static boolean isOn() {
 		return isOn;
@@ -33,35 +34,36 @@ public class Moona {
 		return idCounter++;
 	}
 	
-	protected static final IshMap<Serial, Long> elements = new IshMap<>();
+	static final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
-			throw new NullPointerException("The Serial you're trying to add is null.");
+			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
 		if (elements.has(s, s.id())) {
-			throw new MoonaHandlingException("The Serial you're trying to add is already present in Moona");
+			throw new MoonaHandlingException("This Serial already belongs to Moona.");
 		}
 		addSerial(s);
 	}
-	protected static void addSerial(Serial s) {
-		switch (s.nature()) {
-			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Processor.add((Process) s);
-			case Natural.REFLECTION: Mirror.add((Reflection<?>) s);
+	static void addSerial(Serial s) {
+		switch (s) {
+			case Process p: Processor.add(p); break;
+			case Reflection<?> r: Mirror.add(r); break;
+			case Event e: Agent.add(e); break;
 			default: elements.add(s, s.id());
 		}
 	}
 	
 	public static void remove(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
-			throw new NullPointerException("The Serial you're trying to remove is null.");
+			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
 		if (!elements.has(s, s.id())) {
-			throw new MoonaHandlingException("The Serial you're trying to remove is not present in Moona");
+			throw new MoonaHandlingException("This Serial is not present in Moona.");
 		}
 		removeSerial(s);
 	}
-	protected static void removeSerial(Serial s) {
+	static void removeSerial(Serial s) {
 		switch (s.nature()) {
 			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Processor.remove((Process) s);
 			case Natural.REFLECTION: Mirror.add((Reflection<?>) s);
@@ -84,7 +86,7 @@ public class Moona {
 		return Processor.totalProcesses() + Mirror.totalReflections();
 	}
 	
-	protected Moona() {
+	private Moona() {
 		
 	}
 }

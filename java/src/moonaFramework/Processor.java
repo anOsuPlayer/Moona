@@ -18,10 +18,10 @@ public class Processor {
 	
 	public static void add(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
-			throw new NullPointerException("You cannot add null elements to Phases.");
+			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
 		if (Moona.elements.has(p, p.id())) {
-			throw new MoonaHandlingException("This element already belongs to this Phase.");
+			throw new MoonaHandlingException("This Process already belongs to Moona.");
 		}
 		addProcess(p);
 	}
@@ -35,10 +35,10 @@ public class Processor {
 	
 	public static void remove(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
-			throw new NullPointerException("You cannot a null element.");
+			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
 		if (!Moona.elements.has(p, p.id())) {
-			throw new MoonaHandlingException("This element is not present in this Phase.");
+			throw new MoonaHandlingException("This Process is not present in Moona.");
 		}
 		removeProcess(p);
 	}

@@ -7,7 +7,6 @@ import moonaFramework.MoonaHandlingException;
 import moonaFramework.annotations.Deadlined;
 import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
-import moonaFramework.essentials.Container;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
@@ -40,7 +39,6 @@ public class EventPlace extends Task implements Serial {
 		getClock().release();
 	}
 	
-	@Override
 	public void remove(Event e) throws MoonaHandlingException, NullPointerException {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove null Events.");
@@ -101,17 +99,14 @@ public class EventPlace extends Task implements Serial {
 		}
 	}
 	
-	@Override
 	public Event get(long id) {
 		return events.valueOf(id);
 	}
 	
-	@Override
 	public boolean has(Event e) {
 		return events.has(e, e.id());
 	}
 	
-	@Override
 	public int elementCount() {
 		return eventCount;
 	}
