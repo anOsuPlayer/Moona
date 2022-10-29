@@ -5,7 +5,6 @@ import java.util.List;
 
 import moonaFramework.MoonaHandlingException;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.EventMode;
@@ -17,11 +16,6 @@ public class EventPlace extends Task implements Serial {
 	final IshMap<Event, Long> events;
 	
 	private int eventCount = 0;
-	
-	@Override
-	public int nature() {
-		return Natural.EVENTSPACE;
-	}
 	
 	final List<Event> toRemove;
 	

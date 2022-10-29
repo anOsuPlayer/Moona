@@ -1,6 +1,5 @@
 package moonaFramework;
 
-import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Daemon;
@@ -83,9 +82,6 @@ public class Processor {
 			throw new MoonaHandlingException("A process cannot be provided if already running, awaiting,"
 					+ " or paused.");
 		}
-		if (p.nature() == Natural.DEVIL) {
-			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
-		}
 		addProcess(p);
 		ProcessCondition.AWAITING.set(p);
 	}
@@ -145,9 +141,6 @@ public class Processor {
 			throw new MoonaHandlingException("An awaiting process cannot be initiated: you need to"
 					+ " unlock it.");	
 		}
-		if (p.nature() == Natural.DEVIL) {
-			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
-		}
 		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
 		new Thread(p, "Process#" + p.id()).start();
@@ -172,9 +165,6 @@ public class Processor {
 		if (ProcessCondition.AWAITING.check(p)) {
 			throw new MoonaHandlingException("An awaiting process cannot be started: you need to"
 					+ " unlock it.");	
-		}
-		if (p.nature() == Natural.DEVIL) {
-			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
 		}
 		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
@@ -258,9 +248,6 @@ public class Processor {
 		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
 		}
-		if (p.nature() == Natural.DEVIL) {
-			throw new MoonaHandlingException("Devils can exclusively be handled by their owner Phase.");
-		}
 		boolean wasPaused = p.isPaused().verify();
 		removeProcess(p);
 		ProcessCondition.DEAD.set(p);
@@ -289,31 +276,25 @@ public class Processor {
 		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
 		for (int i = 0, c = 0, pc = 0; i < Moona.elements.size(); i++) {
-			if (procs.length > 0) {
-				procs[c] = (Moona.elements.getValue(i).nature() == Natural.PROCESS) ?
-						(Process) Moona.elements.getValue(i) : procs[c];
-				c += (Moona.elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
+			if (Moona.elements.getValue(i) instanceof Process p && procs.length > 0) {
+				procs[c] = p;
 			}
 		}
 		for (Process p : procs) {
 			terminate(p);
 		}
-		Moona.isOn = false;
 	}
 	public static void collapse() throws MoonaHandlingException {
 		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0, pc = 0; i < Moona.elements.size(); i++) {
-			if (procs.length > 0) {
-				procs[c] = (Moona.elements.getValue(i).nature() == Natural.PROCESS) ?
-						(Process) Moona.elements.getValue(i) : procs[c];
-				c += (Moona.elements.getValue(i).nature() == Natural.PROCESS) ? 1 : 0;
+		for (int i = 0, c = 0; i < Moona.elements.size(); i++) {
+			if (Moona.elements.getValue(i) instanceof Process p && procs.length > 0) {
+				procs[c] = p;
 			}
 		}
 		for (Process p : procs) {
 			interrupt(p);
 		}
-		Moona.isOn = false;
 	}
 
 	private static void initiator(Process p) {

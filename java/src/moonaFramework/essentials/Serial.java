@@ -12,7 +12,7 @@ package moonaFramework.essentials;
  * 
  * @author MasterZEr0
  */
-public interface Serial extends Natural {
+public interface Serial {
 
 	/**
 	 * According to the definition of this Interface, every single Serial is required to have a different id.
@@ -22,7 +22,4 @@ public interface Serial extends Natural {
 	 * @return The ID of this serial.
 	 */
 	long id();
-	
-	@Override
-	int nature();
 }

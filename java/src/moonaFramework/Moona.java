@@ -3,7 +3,6 @@ package moonaFramework;
 import org.lwjgl.glfw.GLFW;
 
 import moonaFramework.util.IshMap;
-import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.process.Process;
@@ -64,9 +63,10 @@ public class Moona {
 		removeSerial(s);
 	}
 	static void removeSerial(Serial s) {
-		switch (s.nature()) {
-			case Natural.DAEMON, Natural.PROCESS, Natural.WORM: Processor.remove((Process) s);
-			case Natural.REFLECTION: Mirror.add((Reflection<?>) s);
+		switch (s) {
+			case Process p: Processor.remove(p); break;
+			case Reflection<?> r: Mirror.remove(r); break;
+			case Event e: Agent.remove(e); break;
 			default: elements.remove(s, s.id());
 		}
 	}

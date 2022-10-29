@@ -6,8 +6,6 @@ public interface Event extends Serial {
 
 	@Override
 	long id();
-	@Override
-	int nature();
 	
 	void trigger();
 }

@@ -1,6 +1,5 @@
 package moonaFramework;
 
-import moonaFramework.essentials.Natural;
 import moonaFramework.essentials.Serial;
 
 /**
@@ -25,14 +24,6 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	@Override
 	public final long id() {
 		return serialVersionUID;
-	}
-	
-	/**
-	 * ALL the exceptions return the {@link Moona#EXCEPTION} field to identify an exception's nature.
-	 */
-	@Override
-	public final int nature() {
-		return Natural.EXCEPTION;
 	}
 	
 	/**

@@ -1,7 +1,6 @@
 package moonaFramework.event;
 
 import moonaFramework.Moona;
-import moonaFramework.essentials.Natural;
 
 public abstract class AbstractEvent implements Event {
 
@@ -9,10 +8,6 @@ public abstract class AbstractEvent implements Event {
 	@Override
 	public final long id() {
 		return id;
-	}
-	@Override
-	public int nature() {
-		return Natural.EVENT;
 	}
 	
 	@Override

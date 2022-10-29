@@ -26,8 +26,6 @@ public interface Process extends Runnable, Dynamic, Serial {
 	
 	@Override
 	long id();
-	@Override
-	int nature();
 	
 	/**
 	 * Each class implementing this interface must return a ProcessClock, usually stored in a field.

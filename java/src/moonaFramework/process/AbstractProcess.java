@@ -4,7 +4,6 @@ import moonaFramework.Moona;
 import moonaFramework.ProcessCondition;
 import moonaFramework.Status;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.essentials.Natural;
 
 /**
  * Introducing itself as the simplest process of them all, I am proud to present to you the Abstract Process!
@@ -33,13 +32,6 @@ public abstract class AbstractProcess implements Process {
 	@Override
 	public final long id() {
 		return this.id;
-	}
-	/**
-	 * By default, return the Moona.PROCESS field, which is 0. This method might change for some subclass.
-	 */
-	@Override
-	public int nature() {
-		return Natural.PROCESS;
 	}
 	
 	/**

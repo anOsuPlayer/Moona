@@ -3,14 +3,8 @@ package moonaFramework.process;
 import moonaFramework.Processor;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.essentials.Natural;
 
 public abstract class Daemon extends AbstractProcess {
-	
-	@Override
-	public int nature() {
-		return Natural.DAEMON;
-	}
 	
 	@Deadlined
 	public void initialize() {

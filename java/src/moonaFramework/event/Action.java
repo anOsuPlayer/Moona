@@ -1,15 +1,9 @@
 package moonaFramework.event;
 
-import moonaFramework.essentials.Natural;
 import moonaFramework.util.Conditional;
 
 public abstract class Action extends AbstractEvent implements ModalEvent {
 
-	@Override
-	public int nature() {
-		return Natural.EVENT;
-	}
-	
 	private final EventMode eventMode;
 	@Override
 	public final EventMode getMode() {

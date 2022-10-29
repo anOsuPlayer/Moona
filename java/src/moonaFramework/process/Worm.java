@@ -3,15 +3,9 @@ package moonaFramework.process;
 import moonaFramework.Processor;
 import moonaFramework.ProcessCondition;
 import moonaFramework.annotations.Deadlined;
-import moonaFramework.essentials.Natural;
 import moonaFramework.relation.Bindable;
 
 public abstract class Worm extends Daemon implements Bindable<Process> {
-	
-	@Override
-	public final int nature() {
-		return Natural.WORM;
-	}
 	
 	private Process host;
 	@Override
