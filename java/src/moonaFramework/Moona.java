@@ -2,13 +2,12 @@ package moonaFramework;
 
 import org.lwjgl.glfw.GLFW;
 
-import moonaFramework.util.IshMap;
 import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.process.Process;
 import moonaFramework.reflection.Reflection;
 
-public class Moona {
+public final class Moona extends Core {
 	
 	static boolean isOn = false;
 	
@@ -21,6 +20,7 @@ public class Moona {
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
+		Mirror.fullLoad();
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
@@ -32,8 +32,6 @@ public class Moona {
 	public static final long generateID() {
 		return idCounter++;
 	}
-	
-	static final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullPointerException {
 		if (s == null) {
@@ -69,6 +67,12 @@ public class Moona {
 			case Event e: Agent.remove(e); break;
 			default: elements.remove(s, s.id());
 		}
+	}
+	
+	public static void collapse() {
+		Processor.collapse(); Mirror.wipe(); Agent.collapse();
+		elements.clear();
+		Moona.isOn = false;
 	}
 	
 	public static Serial get(long id) {

@@ -4,7 +4,7 @@ import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.ModalEvent;
 
-public final class Agent {
+public final class Agent extends Core {
 
 	private static int totalEvents = 0;
 	
@@ -12,9 +12,9 @@ public final class Agent {
 	
 	public static void add(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
-			throw new NullPointerException("You cannot add null Moona.elements to Moona.");
+			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (Moona.elements.has(e, e.id())) {
+		if (elements.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event already belongs to Moona.");
 		}
 		addEvent(e);
@@ -23,14 +23,14 @@ public final class Agent {
 		totalEvents++;
 		totalModals += (e instanceof ModalEvent) ? 1 : 0;
 		
-		Moona.elements.add(e, e.id());
+		elements.add(e, e.id());
 	}
 	
 	public static void remove(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!Moona.elements.has(e, e.id())) {
+		if (!elements.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event is not present in Moona.");
 		}
 		removeEvent(e);
@@ -39,11 +39,15 @@ public final class Agent {
 		totalEvents--;
 		totalModals -= (e instanceof ModalEvent) ? 1 : 0;
 		
-		Moona.elements.remove(e, e.id());
+		elements.remove(e, e.id());
 	}
 	
 	public static Event get(long id) {
-		return isEvent(id) ? (Event) Moona.elements.valueOf(id) : null;
+		return isEvent(id) ? (Event) elements.valueOf(id) : null;
+	}
+	
+	public static void collapse() {
+		
 	}
 	
 	public static boolean isEvent(Serial s) {
@@ -54,10 +58,10 @@ public final class Agent {
 	}
 	
 	public static boolean isEvent(long id) {
-		return Moona.elements.valueOf(id) instanceof Event;
+		return elements.valueOf(id) instanceof Event;
 	}
 	public static boolean isModalEvent(long id) {
-		return Moona.elements.valueOf(id) instanceof ModalEvent;
+		return elements.valueOf(id) instanceof ModalEvent;
 	}
 	
 	public static int totalEvents() {
