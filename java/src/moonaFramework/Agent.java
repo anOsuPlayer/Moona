@@ -1,14 +1,22 @@
 package moonaFramework;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
+import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
+import moonaFramework.process.Task;
 
 public final class Agent extends Core {
 
 	private static int totalEvents = 0;
 	
 	private static int totalModals = 0;
+	
+	private static final List<Event> toAdd = new ArrayList<>();
+	private static final List<Event> toRemove = new ArrayList<>();
 	
 	public static void add(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
@@ -42,6 +50,54 @@ public final class Agent extends Core {
 		elements.remove(e, e.id());
 	}
 	
+	private static final List<Event> currentEvents = new ArrayList<>();
+	
+	private static void updateEvents() {
+		elements.forEachValue((s) -> {
+			if (!currentEvents.contains(s) && s instanceof Event e) {
+				currentEvents.add(e);
+			}
+		});
+	}
+	
+	private static void flush() {
+		toAdd.forEach((e) -> elements.add(e, e.id()));
+		toRemove.forEach((e) -> elements.remove(e, e.id()));
+		if (toAdd.size() + toRemove.size() != 0) {
+			updateEvents();
+		}
+		toAdd.clear(); toRemove.clear();
+	}
+	
+	private static final Task handler = new Task() {
+		public void update() {
+			flush();
+			for (Event e : currentEvents) {
+				if (e instanceof ModalEvent me) {
+					if (me.getMode().equals(EventMode.ONCE)) {
+						toRemove.add(e);
+					}
+					if (me.getMode().equals(EventMode.REPEAT)) {
+						if (me.getIterations() - 1 == 0) {
+							toRemove.add(e);
+						}
+						me.setIterations(me.getIterations()-1);
+					}
+					if (me.getMode().equals(EventMode.UNTIL) && me.getCondition() != null) {
+						if (!me.getCondition().verify()) {
+							toRemove.add(me);
+						}
+					}
+				}
+				else {
+					toRemove.add(e);
+				}
+				e.trigger();
+				getClock().sleep(1l);
+			}
+		}
+	};
+	
 	public static Event get(long id) {
 		return isEvent(id) ? (Event) elements.valueOf(id) : null;
 	}
@@ -66,6 +122,10 @@ public final class Agent extends Core {
 	
 	public static int totalEvents() {
 		return totalEvents;
+	}
+	
+	static {
+		Processor.start(handler);
 	}
 	
 	private Agent() {
