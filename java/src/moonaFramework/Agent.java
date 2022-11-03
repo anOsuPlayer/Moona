@@ -1,8 +1,5 @@
 package moonaFramework;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.ModalEvent;
@@ -12,10 +9,6 @@ public final class Agent extends Core {
 	private static int totalEvents = 0;
 	
 	private static int totalModals = 0;
-	
-	private static final List<Event> toAdd = new ArrayList<>();
-	
-	private static final List<Event> toRemove = new ArrayList<>();
 	
 	public static void add(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
