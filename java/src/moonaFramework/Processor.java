@@ -275,7 +275,7 @@ public final class Processor extends Core {
 	public static void fade() throws MoonaHandlingException {
 		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0, pc = 0; i < elements.size(); i++) {
+		for (int i = 0, c = 0; i < elements.size(); i++) {
 			if (elements.getValue(i) instanceof Process p && procs.length > 0) {
 				procs[c] = p;
 			}

@@ -67,6 +67,9 @@ public final class Agent extends Core {
 	public static int totalEvents() {
 		return totalEvents;
 	}
+	public static int totalModals() {
+		return totalModals;
+	}
 	
 	private Agent() {
 		
