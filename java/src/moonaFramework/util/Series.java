@@ -4,18 +4,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Series<T> implements Iterable<T> {
+import moonaFramework.Moona;
+import moonaFramework.basics.Serial;
+
+public abstract class Series<T> implements Iterable<T>, Serial {
 	
 	@Override
 	public String toString() {
-		if (!series.isEmpty()) {
-			String out = "[ ";
-			for (T t : series) {
-				out += String.valueOf(t) + ", ";
-			}
-			return (out.substring(0, out.length()-2) + " ]");
+		if (series.isEmpty()) {
+			return "This Series has not been generated yet!";
 		}
-		return "Series not generated yet!";
+		String out = "[ ";
+		for (T t : series) {
+			out += String.valueOf(t) + ", ";
+		}
+		return (out.substring(0, out.length()-2) + " ]");
+	}
+	
+	private final long id;
+	@Override
+	public final long id() {
+		return this.id;
 	}
 	
 	private final List<T> series;
@@ -62,6 +71,7 @@ public abstract class Series<T> implements Iterable<T> {
 		this.series = new ArrayList<>();
 		this.from = from; this.iterations = until;
 		this.offset = offset;
+		this.id = Moona.generateID();
 	}
 	public Series(T from, long until) throws NullPointerException {
 		this(from, until, 0);
