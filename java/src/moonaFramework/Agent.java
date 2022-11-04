@@ -3,9 +3,12 @@ package moonaFramework;
 import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.event.ModalEvent;
+import moonaFramework.util.IshMap;
 
-public final class Agent extends Core {
+public final class Agent {
 
+	static final IshMap<Event, Long> events = new IshMap<>();
+	
 	private static int totalEvents = 0;
 	
 	private static int totalModals = 0;
@@ -14,7 +17,7 @@ public final class Agent extends Core {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (elements.has(e, e.id())) {
+		if (events.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event already belongs to Moona.");
 		}
 		addEvent(e);
@@ -23,14 +26,14 @@ public final class Agent extends Core {
 		totalEvents++;
 		totalModals += (e instanceof ModalEvent) ? 1 : 0;
 		
-		elements.add(e, e.id());
+		events.add(e, e.id());
 	}
 	
 	public static void remove(Event e) throws NullPointerException, MoonaHandlingException {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!elements.has(e, e.id())) {
+		if (!events.has(e, e.id())) {
 			throw new MoonaHandlingException("This Event is not present in Moona.");
 		}
 		removeEvent(e);
@@ -39,7 +42,7 @@ public final class Agent extends Core {
 		totalEvents--;
 		totalModals -= (e instanceof ModalEvent) ? 1 : 0;
 		
-		elements.remove(e, e.id());
+		events.remove(e, e.id());
 	}
 	
 	public static void collapse() {
@@ -47,7 +50,7 @@ public final class Agent extends Core {
 	}
 	
 	public static Event get(long id) {
-		return isEvent(id) ? (Event) elements.valueOf(id) : null;
+		return isEvent(id) ? (Event) events.valueOf(id) : null;
 	}
 	
 	public static boolean isEvent(Serial s) {
@@ -58,10 +61,20 @@ public final class Agent extends Core {
 	}
 	
 	public static boolean isEvent(long id) {
-		return elements.valueOf(id) instanceof Event;
+		return events.valueOf(id) instanceof Event;
 	}
 	public static boolean isModalEvent(long id) {
-		return elements.valueOf(id) instanceof ModalEvent;
+		return events.valueOf(id) instanceof ModalEvent;
+	}
+	
+	public static boolean contains(Serial s) {
+		return s instanceof Event e ? events.has(e, e.id()) : false;
+	}
+	public static boolean has(long id) {
+		return events.hasKey(id);
+	}
+	public static boolean has(Event e) {
+		return events.has(e, e.id());
 	}
 	
 	public static int totalEvents() {

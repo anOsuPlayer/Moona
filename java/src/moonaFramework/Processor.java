@@ -4,10 +4,13 @@ import moonaFramework.event.AutoEvent;
 import moonaFramework.process.Daemon;
 import moonaFramework.process.Process;
 import moonaFramework.process.Worm;
+import moonaFramework.util.IshMap;
 import moonaFramework.annotations.Timeless;
 import moonaFramework.basics.Serial;
 
-public final class Processor extends Core {
+public final class Processor {
+	
+	private static final IshMap<Process, Long> processes = new IshMap<>();
 	
 	private static int totalProcesses = 0;
 	
@@ -19,7 +22,7 @@ public final class Processor extends Core {
 		if (p == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (elements.has(p, p.id())) {
+		if (processes.has(p, p.id())) {
 			throw new MoonaHandlingException("This Process already belongs to Moona.");
 		}
 		addProcess(p);
@@ -29,14 +32,14 @@ public final class Processor extends Core {
 		totalDaemons += (p instanceof Daemon) ? 1 : 0;
 		totalWorms += (p instanceof Worm) ? 1 : 0;
 		
-		elements.add(p, p.id());
+		processes.add(p, p.id());
 	}
 	
 	public static void remove(Process p) throws MoonaHandlingException, NullPointerException {
 		if (p == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!elements.has(p, p.id())) {
+		if (!processes.has(p, p.id())) {
 			throw new MoonaHandlingException("This Process is not present in Moona.");
 		}
 		removeProcess(p);
@@ -46,7 +49,7 @@ public final class Processor extends Core {
 		totalDaemons -= (p instanceof Daemon) ? 1 : 0;
 		totalWorms -= (p instanceof Worm) ? 1 : 0;
 		
-		elements.remove(p, p.id());
+		processes.remove(p, p.id());
 	}
 	
 	public static void mainStart(Process p) throws MoonaHandlingException, NullPointerException {
@@ -275,9 +278,9 @@ public final class Processor extends Core {
 	public static void fade() throws MoonaHandlingException {
 		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
-			if (elements.getValue(i) instanceof Process p && procs.length > 0) {
-				procs[c] = p;
+		for (int i = 0, c = 0; i < processes.size(); i++) {
+			if (procs.length != 0) {
+				procs[c++] = processes.getValue(i);
 			}
 		}
 		for (Process p : procs) {
@@ -287,9 +290,9 @@ public final class Processor extends Core {
 	public static void collapse() throws MoonaHandlingException {
 		Moona.checkOn();
 		Process[] procs = new Process[totalProcesses];
-		for (int i = 0, c = 0; i < elements.size(); i++) {
-			if (elements.getValue(i) instanceof Process p && procs.length > 0) {
-				procs[c] = p;
+		for (int i = 0, c = 0; i < processes.size(); i++) {
+			if (procs.length != 0) {
+				procs[c++] = processes.getValue(i);
 			}
 		}
 		for (Process p : procs) {
@@ -337,14 +340,24 @@ public final class Processor extends Core {
 	}
 	
 	public static Process get(long id) {
-		return isProcess(id) ? (Process) elements.valueOf(id) : null;
+		return isProcess(id) ? (Process) processes.valueOf(id) : null;
 	}
 	
+	public static boolean isProcess(long id) {
+		return processes.valueOf(id) instanceof Process;
+	}
 	public static boolean isProcess(Serial s) {
 		return s instanceof Process;
 	}
-	public static boolean isProcess(long id) {
-		return elements.valueOf(id) instanceof Process;
+	
+	public static boolean contains(Serial s) {
+		return s instanceof Process p ? processes.has(p, p.id()) : false;
+	}
+	public static boolean has(long id) {
+		return processes.hasKey(id);
+	}
+	public static boolean has(Process p) {
+		return processes.has(p, p.id());
 	}
 	
 	public static int totalProcesses() {

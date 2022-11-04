@@ -6,8 +6,11 @@ import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
 import moonaFramework.process.Process;
 import moonaFramework.reflection.Reflection;
+import moonaFramework.util.IshMap;
 
-public final class Moona extends Core {
+public final class Moona {
+	
+	static final IshMap<Serial, Long> elements = new IshMap<>();
 	
 	static boolean isOn = false;
 	
@@ -76,14 +79,20 @@ public final class Moona extends Core {
 	}
 	
 	public static Serial get(long id) {
-		return elements.valueOf(id);
+		Serial s = elements.valueOf(id);
+		s = (s != null) ? s : Processor.get(id);
+		s = (s != null) ? s : Mirror.get(id);
+		s = (s != null) ? s : Agent.get(id);
+		return s;
 	}
 	
-	public static boolean has(Serial s) {
-		return elements.has(s, s.id());
-	}
 	public static boolean has(long id) {
-		return elements.hasKey(id);
+		return elements.hasKey(id) || Processor.get(id) != null || Mirror.get(id) != null
+				|| Agent.get(id) != null;
+	}
+	public static boolean has(Serial s) {
+		return elements.has(s, s.id()) || Processor.contains(s) || Mirror.contains(s)
+				|| Agent.contains(s);
 	}
 	
 	public static int totalElements() {

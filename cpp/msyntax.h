@@ -66,5 +66,5 @@
      * where "VAR" is the name of your variable.
      */
     #define setter(VAR) void set_##VAR(auto n) { this -> VAR = n; }
-
+    
 #endif
