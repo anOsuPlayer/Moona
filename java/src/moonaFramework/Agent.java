@@ -1,13 +1,21 @@
 package moonaFramework;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import moonaFramework.basics.Serial;
 import moonaFramework.event.Event;
+import moonaFramework.event.EventMode;
 import moonaFramework.event.ModalEvent;
+import moonaFramework.process.Task;
 import moonaFramework.util.IshMap;
 
 public final class Agent {
 
 	static final IshMap<Event, Long> events = new IshMap<>();
+	
+	private static final List<Event> toAdd = new ArrayList<>();
+	private static final List<Event> toRemove = new ArrayList<>();
 	
 	private static int totalEvents = 0;
 	
@@ -23,10 +31,10 @@ public final class Agent {
 		addEvent(e);
 	}
 	static void addEvent(Event e) {
-		totalEvents++;
-		totalModals += (e instanceof ModalEvent) ? 1 : 0;
-		
-		events.add(e, e.id());
+		toAdd.add(e);
+		if (ProcessCondition.AWAITING.check(handler)) {
+			Processor.unlock(handler);
+		}
 	}
 	
 	public static void remove(Event e) throws NullPointerException, MoonaHandlingException {
@@ -39,11 +47,59 @@ public final class Agent {
 		removeEvent(e);
 	}
 	static void removeEvent(Event e) {
-		totalEvents--;
-		totalModals -= (e instanceof ModalEvent) ? 1 : 0;
-		
-		events.remove(e, e.id());
+		toRemove.add(e);
 	}
+	
+	private static void flush() {
+		toRemove.forEach((e) -> {
+			events.remove(e, e.id());
+			totalEvents--;
+			totalModals -= (e instanceof ModalEvent) ? 1 : 0;
+		});
+		toRemove.clear();
+		
+		toAdd.forEach((e) -> {
+			events.add(e, e.id());
+			totalEvents++;
+			totalModals += (e instanceof ModalEvent) ? 1 : 0;
+		});
+		toAdd.clear();
+		
+		if (totalEvents == 0) {
+			Processor.terminate(handler);
+		}
+	}
+	
+	static final Task handler = new Task() {
+		public void update() {
+			synchronized (getClock()) {
+				for (Event e : events.values()) {
+					if (e instanceof ModalEvent me) {
+						if (me.getMode().equals(EventMode.ONCE)) {
+							toRemove.add(e);
+						}
+						if (me.getMode().equals(EventMode.REPEAT)) {
+							if (me.getIterations() - 1 == 0) {
+								toRemove.add(e);
+							}
+							me.setIterations(me.getIterations()-1);
+						}
+						if (me.getMode().equals(EventMode.UNTIL) && me.getCondition() != null) {
+							if (!me.getCondition().verify()) {
+								toRemove.add(me);
+							}
+						}
+					}
+					else {
+						toRemove.add(e);
+					}
+					e.trigger();
+				}
+			}
+			flush();
+			getClock().sleep(1l);
+		}
+	};
 	
 	public static void collapse() {
 		

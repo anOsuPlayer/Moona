@@ -26,7 +26,15 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
+	static Action a = new Action(4) {
+		public void trigger() {
+			System.out.println("a");
+		}
+	};
+	
 	public static void main(String[] args) {
+		Moona.init();
 		
+		Agent.add(a);
 	}
 }
