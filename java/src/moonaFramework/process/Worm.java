@@ -34,17 +34,15 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 		while (!ProcessCondition.DEAD.check(this)) {
 			synchronized (getClock()) {
 				if (host != null) {
-					synchronized (host.getClock()) {
-						if (ProcessCondition.DEAD.check(host)) {
-							Processor.interrupt(this);
-						}
+					if (ProcessCondition.DEAD.check(host)) {
+						Processor.interrupt(this);
 					}
 				}
 				if (Processor.totalProcesses() == 0) {
 					Processor.interrupt(this);
 				}
 				getClock().pauseHolder();
-				if (!ProcessCondition.DEAD.check(this)) {
+				if (ProcessCondition.RUNNING.check(this)) {
 					update();
 				}
 			}

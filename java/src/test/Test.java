@@ -50,7 +50,7 @@ public class Test {
 		
 		Processor.start(s);
 		
-		Benchmark.WAIT(400);
+		Benchmark.WAIT(1000);
 		
 		Processor.spark(s);
 	}

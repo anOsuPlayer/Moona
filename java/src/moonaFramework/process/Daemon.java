@@ -24,7 +24,7 @@ public abstract class Daemon extends AbstractProcess {
 					Processor.interrupt(this);
 				}
 				getClock().pauseHolder();
-				if (!ProcessCondition.DEAD.check(this)) {
+				if (ProcessCondition.RUNNING.check(this)) {
 					update();
 				}
 			}
