@@ -227,11 +227,11 @@ public final class Processor {
 			}
 		}
 		else {
+			ProcessCondition.PAUSED.set(p);
+			p.getClock().stasys();
 			synchronized (p.getClock()) {
 				p.onPause();
 			}
-			ProcessCondition.PAUSED.set(p);
-			p.getClock().stasys();
 		}
 	}
 

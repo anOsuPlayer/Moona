@@ -21,12 +21,16 @@ public class Synchronizer extends Task implements Synced<Process> {
 		this.cooldown = t;
 	}
 	
+	private boolean stopper = false;
+	
 	@Override
 	public void onPause() {
 		for (Process p : synced) {
-			p.onPause();
-			if (cooldown != null) {
-				cooldown.elapse();
+			synchronized (getClock()) {
+				p.onPause();
+				if (cooldown != null) {
+					cooldown.elapse();
+				}
 			}
 		}
 	}
@@ -79,9 +83,6 @@ public class Synchronizer extends Task implements Synced<Process> {
 	}
 	
 	public Synchronizer(Timer t, Process...synced) throws NullPointerException {
-		if (t == null) {
-			throw new NullPointerException("The given Timer is null.");
-		}
 		this.cooldown = t;
 		for (Process p : synced) {
 			if (p == null) {

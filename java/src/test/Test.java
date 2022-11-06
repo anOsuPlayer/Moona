@@ -26,13 +26,32 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Action a = new Action() {
-		public void trigger() {
-			System.out.println("a");
+	static Task t = new Task() {
+		public void onPause() {
+			System.out.println("BBBBBBBBBB");
+		}
+		public void update() {
+			System.out.println("A");
+		}
+	};
+	static Task t2 = new Task() {
+		public void onPause() {
+			System.out.println("AAAAAAAAAA");
+		}
+		public void update() {
+			System.out.println("B");
 		}
 	};
 	
+	static Synchronizer s = new Synchronizer(new Timer(250l), t, t2);
+	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Processor.start(s);
+		
+		Benchmark.WAIT(400);
+		
+		Processor.spark(s);
 	}
 }
