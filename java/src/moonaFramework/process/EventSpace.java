@@ -7,41 +7,16 @@ import moonaFramework.event.ModalEvent;
 
 public class EventSpace extends EventPlace {
 	
-	protected final void flush() {
-		toRemove.forEach((e) -> {
-			events.remove(e, e.id());
-			eventCount--;
-			modalCount -= (e instanceof ModalEvent) ? 1 : 0;
-		});
-		toRemove.clear();
-		
-		toAdd.forEach((e) -> {
-			events.add(e, e.id());
-			eventCount++;
-			modalCount += (e instanceof ModalEvent) ? 1 : 0;
-		});
-		toAdd.clear();
-		
-		if (eventCount == 0) {
+	@Override
+	protected void whenEmpty() {
+		if (eventCount() == 0) {
 			Processor.terminate(this);
 		}
 	}
 	
 	@Override
 	public void update() {
-		for (Event e : toRemove) {
-			events.remove(e, e.id());
-		}
-		for (Event e : toAdd) {
-			events.add(e, e.id());
-		}
-		
-		toRemove.clear();
-		toAdd.clear();
-		
-		if (events.size() == 0) {
-			Processor.interrupt(this);
-		}
+		flush();
 		
 		for (Event e : events.values()) {
 			if (e instanceof ModalEvent me) {

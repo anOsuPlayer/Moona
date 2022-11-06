@@ -15,9 +15,9 @@ public class EventPlace extends Task implements Serial {
 
 	final IshMap<Event, Long> events;
 	
-	protected int eventCount = 0;
+	private int eventCount = 0;
 	
-	protected int modalCount = 0;
+	private int modalCount = 0;
 	
 	final List<Event> toRemove;
 	
@@ -53,7 +53,7 @@ public class EventPlace extends Task implements Serial {
 	public final void end() {
 	}
 	
-	protected void flush() {
+	protected final void flush() {
 		toRemove.forEach((e) -> {
 			events.remove(e, e.id());
 			eventCount--;
@@ -68,6 +68,10 @@ public class EventPlace extends Task implements Serial {
 		});
 		toAdd.clear();
 		
+		whenEmpty();
+	}
+	
+	protected void whenEmpty() {
 		if (eventCount == 0) {
 			getClock().stasys();
 		}
