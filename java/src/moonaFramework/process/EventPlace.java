@@ -15,7 +15,9 @@ public class EventPlace extends Task implements Serial {
 
 	final IshMap<Event, Long> events;
 	
-	private int eventCount = 0;
+	protected int eventCount = 0;
+	
+	protected int modalCount = 0;
 	
 	final List<Event> toRemove;
 	
@@ -51,23 +53,29 @@ public class EventPlace extends Task implements Serial {
 	public final void end() {
 	}
 	
-	@Override
-	public void update() {
-		for (Event e : toRemove) {
+	protected void flush() {
+		toRemove.forEach((e) -> {
 			events.remove(e, e.id());
 			eventCount--;
-		}
-		for (Event e : toAdd) {
+			modalCount -= (e instanceof ModalEvent) ? 1 : 0;
+		});
+		toRemove.clear();
+		
+		toAdd.forEach((e) -> {
 			events.add(e, e.id());
 			eventCount++;
-		}
-		
-		toRemove.clear();
+			modalCount += (e instanceof ModalEvent) ? 1 : 0;
+		});
 		toAdd.clear();
 		
-		if (events.size() == 0) {
+		if (eventCount == 0) {
 			getClock().stasys();
 		}
+	}
+	
+	@Override
+	public void update() {
+		flush();
 		
 		for (Event e : events.values()) {
 			if (e instanceof ModalEvent me) {
@@ -97,12 +105,18 @@ public class EventPlace extends Task implements Serial {
 		return events.valueOf(id);
 	}
 	
+	public boolean has(long id) {
+		return events.hasKey(id);
+	}
 	public boolean has(Event e) {
 		return events.has(e, e.id());
 	}
 	
-	public int elementCount() {
+	public int eventCount() {
 		return eventCount;
+	}
+	public int modalCount() {
+		return modalCount;
 	}
 	
 	public EventPlace() {

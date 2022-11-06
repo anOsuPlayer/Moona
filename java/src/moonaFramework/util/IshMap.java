@@ -389,6 +389,13 @@ public class IshMap<V, K> {
 		return arr;
 	}
 	
+	public List<V> listValues() {
+		return List.copyOf(values);
+	}
+	public List<K> listKeys() {
+		return List.copyOf(keys);
+	}
+	
 	public IshMap() {
 		this.values = new ArrayList<>();
 		this.keys = new ArrayList<>();

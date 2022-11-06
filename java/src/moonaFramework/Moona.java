@@ -24,7 +24,6 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
 		Mirror.fullLoad();
-		Processor.await(Agent.handler);
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {

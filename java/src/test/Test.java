@@ -26,7 +26,7 @@ import moonaFramework.util.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Action a = new Action(4) {
+	static Action a = new Action() {
 		public void trigger() {
 			System.out.println("a");
 		}
@@ -34,7 +34,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Agent.add(a);
 	}
 }

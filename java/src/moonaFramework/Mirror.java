@@ -58,7 +58,7 @@ public final class Mirror {
 	}
 	
 	public static Reflection<?> get(long id) {
-		return isReflection(id) ? (Reflection<?>) reflections.valueOf(id) : null;
+		return isReflection(id) ? reflections.valueOf(id) : null;
 	}
 	
 	public static boolean isReflection(Serial s) {

@@ -31,9 +31,11 @@ public final class Agent {
 		addEvent(e);
 	}
 	static void addEvent(Event e) {
-		toAdd.add(e);
-		if (ProcessCondition.AWAITING.check(handler)) {
-			Processor.unlock(handler);
+		if (!fader && !collapser) {
+			toAdd.add(e);
+			if (ProcessCondition.DEAD.check(handler)) {
+				Processor.start(handler);
+			}
 		}
 	}
 	
@@ -47,10 +49,19 @@ public final class Agent {
 		removeEvent(e);
 	}
 	static void removeEvent(Event e) {
-		toRemove.add(e);
+		if (!fader && !collapser) {
+			toRemove.add(e);
+		}
 	}
 	
 	private static void flush() {
+		if (collapser) {
+			Processor.terminate(handler);
+			toAdd.clear();
+			toRemove.clear();
+			events.clear();
+		}
+		
 		toRemove.forEach((e) -> {
 			events.remove(e, e.id());
 			totalEvents--;
@@ -72,6 +83,7 @@ public final class Agent {
 	
 	static final Task handler = new Task() {
 		public void update() {
+			flush();
 			synchronized (getClock()) {
 				for (Event e : events.values()) {
 					if (e instanceof ModalEvent me) {
@@ -96,17 +108,23 @@ public final class Agent {
 					e.trigger();
 				}
 			}
-			flush();
 			getClock().sleep(1l);
 		}
 	};
 	
+	private static boolean collapser = false;
+	
+	private static boolean fader = false;
+	
+	public static void fade() {
+		fader = true;
+	}
 	public static void collapse() {
-		
+		collapser = true;
 	}
 	
 	public static Event get(long id) {
-		return isEvent(id) ? (Event) events.valueOf(id) : null;
+		return isEvent(id) ? events.valueOf(id) : null;
 	}
 	
 	public static boolean isEvent(Serial s) {

@@ -340,7 +340,7 @@ public final class Processor {
 	}
 	
 	public static Process get(long id) {
-		return isProcess(id) ? (Process) processes.valueOf(id) : null;
+		return isProcess(id) ? processes.valueOf(id) : null;
 	}
 	
 	public static boolean isProcess(long id) {

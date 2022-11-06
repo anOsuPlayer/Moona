@@ -22,6 +22,15 @@ public class Benchmark {
 		return (System.nanoTime() - beginning);
 	}
 	
+	public static final void WAIT(long mills) {
+		try {
+			Thread.sleep(mills);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Private constructor due to forbidden instantiability.
 	 */
