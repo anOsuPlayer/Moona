@@ -40,7 +40,7 @@ public final class Mirror {
 		reflections.remove(r, r.id());
 	}
 	
-	static void fullLoad() {
+	static void loadReflections() {
 		reflections.forEachValue((r) -> r.reflect());
 	}
 	

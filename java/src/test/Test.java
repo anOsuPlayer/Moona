@@ -43,14 +43,14 @@ public class Test {
 		}
 	};
 	
-	static Synchronizer s = new Synchronizer(new Timer(250l), t, t2);
+	static Synchronizer s = new Synchronizer(new Timer(10l), t, t2);
 	
 	public static void main(String[] args) {
 		Moona.init();
 		
 		Processor.start(s);
 		
-		Benchmark.WAIT(1000);
+		Benchmark.WAIT(61);
 		
 		Processor.spark(s);
 	}

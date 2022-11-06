@@ -23,7 +23,7 @@ public final class Moona {
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
-		Mirror.fullLoad();
+		Mirror.loadReflections();
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
