@@ -27,7 +27,7 @@ import moonaFramework.util.*;
 public class Test {
 	
 	static Task t = new Task() {
-		public void onPause() {
+		public void end() {
 			System.out.println("BBBBBBBBBB");
 		}
 		public void update() {
@@ -35,7 +35,7 @@ public class Test {
 		}
 	};
 	static Task t2 = new Task() {
-		public void onPause() {
+		public void end() {
 			System.out.println("AAAAAAAAAA");
 		}
 		public void update() {
@@ -50,8 +50,8 @@ public class Test {
 		
 		Processor.start(s);
 		
-		Benchmark.WAIT(61);
+		Benchmark.WAIT(60);
 		
-		Processor.spark(s);
+		Processor.interrupt(s);
 	}
 }

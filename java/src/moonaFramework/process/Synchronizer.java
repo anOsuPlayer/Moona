@@ -21,8 +21,6 @@ public class Synchronizer extends Task implements Synced<Process> {
 		this.cooldown = t;
 	}
 	
-	private boolean stopper = false;
-	
 	@Override
 	public void onPause() {
 		for (Process p : synced) {
