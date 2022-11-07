@@ -22,36 +22,18 @@ import moonaFramework.process.Process;
 import moonaFramework.reflection.*;
 import moonaFramework.time.*;
 import moonaFramework.util.*;
+import moonaFramework.process.ProcessBuilder;
 
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Task t = new Task() {
-		public void end() {
-			System.out.println("BBBBBBBBBB");
-		}
-		public void update() {
-			System.out.println("A");
-		}
-	};
-	static Task t2 = new Task() {
-		public void end() {
-			System.out.println("AAAAAAAAAA");
-		}
-		public void update() {
-			System.out.println("B");
-		}
-	};
-	
-	static Synchronizer s = new Synchronizer(new Timer(10l), t, t2);
-	
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Processor.start(s);
+		Task t = ProcessBuilder.fromRunnable(() -> {
+			System.out.println("AAAAA");
+		});
 		
-		Benchmark.WAIT(60);
-		
-		Processor.interrupt(s);
+		Processor.start(t);
 	}
 }
