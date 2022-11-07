@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import moonaFramework.*;
 import moonaFramework.annotations.*;
 import moonaFramework.basics.Serial;
+import moonaFramework.basics.Snippet;
 import moonaFramework.event.*;
 import moonaFramework.process.*;
 import moonaFramework.process.Process;
@@ -28,6 +29,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
 	}
 }

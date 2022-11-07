@@ -1,8 +1,10 @@
 package moonaFramework.process;
 
+import moonaFramework.basics.Snippet;
+
 public interface ProcessHandler {
 
-	static Task buildTask(Runnable r) {
+	static Task buildTask(Snippet r) {
 		return new Task() {
 			@Override
 			public void update() {
@@ -11,7 +13,7 @@ public interface ProcessHandler {
 		};
 	}
 
-	static Daemon buildDaemon(Runnable r) {
+	static Daemon buildDaemon(Snippet r) {
 		return new Daemon() {
 			@Override
 			public void update() {
@@ -20,7 +22,7 @@ public interface ProcessHandler {
 		};
 	}
 	
-	static Worm buildWomr(Runnable r) {
+	static Worm buildWomr(Snippet r) {
 		return new Worm() {
 			@Override
 			public void update() {
