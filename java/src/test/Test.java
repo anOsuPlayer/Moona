@@ -22,7 +22,6 @@ import moonaFramework.process.Process;
 import moonaFramework.reflection.*;
 import moonaFramework.time.*;
 import moonaFramework.util.*;
-import moonaFramework.process.ProcessBuilder;
 
 @SuppressWarnings("unused")
 public class Test {
@@ -30,10 +29,5 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Task t = ProcessBuilder.fromRunnable(() -> {
-			System.out.println("AAAAA");
-		});
-		
-		Processor.start(t);
 	}
 }

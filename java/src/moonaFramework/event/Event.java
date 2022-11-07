@@ -8,4 +8,8 @@ public interface Event extends Serial {
 	long id();
 	
 	void trigger();
+	
+	default Runnable asRunnable() {
+		return () -> trigger();
+	}
 }
