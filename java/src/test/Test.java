@@ -14,20 +14,21 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import moonaFramework.*;
-import moonaFramework.annotations.*;
-import moonaFramework.basics.Serial;
-import moonaFramework.event.*;
-import moonaFramework.function.Snippet;
-import moonaFramework.process.*;
-import moonaFramework.process.Process;
-import moonaFramework.reflection.*;
-import moonaFramework.time.*;
-import moonaFramework.util.*;
+import moonaFramework.base.Moona;
+import moonaFramework.dynamic.event.*;
+import moonaFramework.dynamic.process.*;
+import moonaFramework.util.annotations.*;
+import moonaFramework.util.collection.*;
+import moonaFramework.util.function.Snippet;
+import moonaFramework.util.reflection.*;
+import moonaFramework.util.time.*;
 
 @SuppressWarnings("unused")
 public class Test {
 	
 	static int a = 12;
+	
+	static Task t = ProcessHandler.buildTask(() -> { System.out.println("a"); });
 	
 	public static void main(String[] args) {
 		Moona.init();
