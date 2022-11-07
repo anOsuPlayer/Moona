@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 import moonaFramework.*;
 import moonaFramework.annotations.*;
 import moonaFramework.basics.Serial;
-import moonaFramework.basics.Snippet;
 import moonaFramework.event.*;
+import moonaFramework.function.Snippet;
 import moonaFramework.process.*;
 import moonaFramework.process.Process;
 import moonaFramework.reflection.*;
@@ -26,6 +26,8 @@ import moonaFramework.util.*;
 
 @SuppressWarnings("unused")
 public class Test {
+	
+	static int a = 12;
 	
 	public static void main(String[] args) {
 		Moona.init();

@@ -1,32 +1,32 @@
 package moonaFramework.process;
 
-import moonaFramework.basics.Snippet;
+import moonaFramework.function.Snippet;
 
 public interface ProcessHandler {
 
-	static Task buildTask(Snippet r) {
+	static Task buildTask(Snippet s) {
 		return new Task() {
 			@Override
 			public void update() {
-				r.run();
+				s.code();
 			}
 		};
 	}
 
-	static Daemon buildDaemon(Snippet r) {
+	static Daemon buildDaemon(Snippet s) {
 		return new Daemon() {
 			@Override
 			public void update() {
-				r.run();
+				s.code();
 			}
 		};
 	}
 	
-	static Worm buildWomr(Snippet r) {
+	static Worm buildWomr(Snippet s) {
 		return new Worm() {
 			@Override
 			public void update() {
-				r.run();
+				s.code();
 			}
 		};
 	}

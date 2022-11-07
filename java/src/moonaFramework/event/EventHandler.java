@@ -1,44 +1,44 @@
 package moonaFramework.event;
 
-import moonaFramework.basics.Snippet;
+import moonaFramework.function.Snippet;
 import moonaFramework.util.Conditional;
 
 public interface EventHandler {
 
-	static AbstractEvent buildAbstractEvent(Snippet r) {
+	static AbstractEvent buildEvent(Snippet s) {
 		return new AbstractEvent() {			
 			@Override
 			public void trigger() {
-				r.run();
+				s.code();
 			}
 		};
 	}
 	
-	static Action buildAction(Snippet r, EventMode e) {
+	static Action buildAction(Snippet s, EventMode e) {
 		return new Action(e) {
 			@Override
 			public void trigger() {
-				r.run();
+				s.code();
 			}
 		};
 	}
-	static Action buildAction(Snippet r, int iterations) {
+	static Action buildAction(Snippet s, int iterations) {
 		return new Action(iterations) {
 			@Override
 			public void trigger() {
-				r.run();
+				s.code();
 			}
 		};
 	}
-	static Action buildAction(Snippet r, Conditional c) {
+	static Action buildAction(Snippet s, Conditional c) {
 		return new Action(c) {
 			@Override
 			public void trigger() {
-				r.run();
+				s.code();
 			}
 		};
 	}
-	static Action buildAction(Snippet r) {
-		return buildAction(r, EventMode.ONCE);
+	static Action buildAction(Snippet s) {
+		return buildAction(s, EventMode.ONCE);
 	}
 }
