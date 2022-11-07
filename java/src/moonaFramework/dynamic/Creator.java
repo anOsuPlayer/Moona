@@ -3,14 +3,32 @@ package moonaFramework.dynamic;
 import moonaFramework.dynamic.event.AbstractEvent;
 import moonaFramework.dynamic.event.Action;
 import moonaFramework.dynamic.event.EventMode;
+import moonaFramework.dynamic.process.AbstractProcess;
 import moonaFramework.dynamic.process.Daemon;
 import moonaFramework.dynamic.process.Task;
 import moonaFramework.dynamic.process.Worm;
-import moonaFramework.util.conditions.Conditional;
+import moonaFramework.util.annotations.Deadlined;
+import moonaFramework.util.condition.Conditional;
 import moonaFramework.util.function.Snippet;
 
-public interface Builder {
+public interface Creator {
 
+	static AbstractProcess buildProcess(Snippet s) {
+		return new AbstractProcess() {
+			@Override
+			public void update() {
+				s.code();
+			}
+
+			@Deadlined
+			public void initialize() {
+			}
+			@Deadlined
+			public void end() {
+			}
+		};
+	}
+	
 	static Task buildTask(Snippet s) {
 		return new Task() {
 			@Override

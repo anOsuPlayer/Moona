@@ -1,7 +1,7 @@
 package moonaFramework.base;
 
 import moonaFramework.util.annotations.Deadlined;
-import moonaFramework.util.conditions.Condition;
+import moonaFramework.util.condition.Condition;
 
 public class Status extends Condition {
 

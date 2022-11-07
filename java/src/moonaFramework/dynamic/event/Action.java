@@ -1,6 +1,6 @@
 package moonaFramework.dynamic.event;
 
-import moonaFramework.util.conditions.Conditional;
+import moonaFramework.util.condition.Conditional;
 
 public abstract class Action extends AbstractEvent implements ModalEvent {
 

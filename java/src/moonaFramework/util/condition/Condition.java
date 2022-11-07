@@ -1,4 +1,4 @@
-package moonaFramework.util.conditions;
+package moonaFramework.util.condition;
 
 public class Condition implements Conditional {
 
