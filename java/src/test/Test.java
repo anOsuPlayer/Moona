@@ -19,6 +19,7 @@ import moonaFramework.base.Processor;
 import moonaFramework.dynamic.Handler;
 import moonaFramework.dynamic.event.*;
 import moonaFramework.dynamic.process.*;
+import moonaFramework.dynamic.process.Process;
 import moonaFramework.util.Benchmark;
 import moonaFramework.util.annotations.*;
 import moonaFramework.util.collection.*;
@@ -32,7 +33,18 @@ public class Test {
 	
 	static AbstractProcess a = Handler.buildProcess(() -> { System.out.println("a"); });
 	
+	static Cast<Task> cast = (o) -> { 
+		if (o instanceof Process p) {
+			return Handler.buildTask(() -> { a.update(); });
+		}
+		return null;
+	};
+	
+	static CompositeProcess cp = new CompositeProcess();
+	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		cp.update();
 	}
 }

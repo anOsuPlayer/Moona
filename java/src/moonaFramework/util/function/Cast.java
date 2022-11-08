@@ -1,6 +1,6 @@
 package moonaFramework.util.function;
 
-public interface Cast<T, S> {
+public interface Cast<T> {
 	
-	S cast(T object);
+	T cast(Object object);
 }
