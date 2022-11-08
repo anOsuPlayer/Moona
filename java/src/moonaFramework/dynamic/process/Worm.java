@@ -38,7 +38,7 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 						Processor.interrupt(this);
 					}
 				}
-				if (Processor.totalProcesses() == 0) {
+				if (Processor.processCount() == 0) {
 					Processor.interrupt(this);
 				}
 				getClock().pauseHolder();

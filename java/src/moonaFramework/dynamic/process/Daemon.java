@@ -20,7 +20,7 @@ public abstract class Daemon extends AbstractProcess {
 	public void run() {
 		while (!ProcessCondition.DEAD.check(this)) {
 			synchronized (getClock()) {
-				if (Processor.totalProcesses() == 0) {
+				if (Processor.processCount() == 0) {
 					Processor.interrupt(this);
 				}
 				getClock().pauseHolder();

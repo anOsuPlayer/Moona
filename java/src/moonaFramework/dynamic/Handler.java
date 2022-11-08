@@ -11,8 +11,8 @@ import moonaFramework.util.annotations.Deadlined;
 import moonaFramework.util.condition.Conditional;
 import moonaFramework.util.function.Snippet;
 
-public interface Creator {
-
+public interface Handler {
+	
 	static AbstractProcess buildProcess(Snippet s) {
 		return new AbstractProcess() {
 			@Override
@@ -47,7 +47,7 @@ public interface Creator {
 		};
 	}
 	
-	static Worm buildWomr(Snippet s) {
+	static Worm buildWorm(Snippet s) {
 		return new Worm() {
 			@Override
 			public void update() {

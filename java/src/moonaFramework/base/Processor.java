@@ -362,10 +362,14 @@ public final class Processor {
 	public static int totalProcesses() {
 		return totalProcesses;
 	}
-	public static int totalDaemons() {
+	
+	public static int processCount() {
+		return totalProcesses - totalDaemons - totalWorms;
+	}
+	public static int daemonCount() {
 		return totalDaemons;
 	}
-	public static int totalWorms() {
+	public static int wormCount() {
 		return totalWorms;
 	}
 	
