@@ -4,6 +4,7 @@ import moonaFramework.dynamic.event.AbstractEvent;
 import moonaFramework.dynamic.event.Action;
 import moonaFramework.dynamic.event.EventMode;
 import moonaFramework.dynamic.process.AbstractProcess;
+import moonaFramework.dynamic.process.Process;
 import moonaFramework.dynamic.process.Daemon;
 import moonaFramework.dynamic.process.Task;
 import moonaFramework.dynamic.process.Worm;
@@ -12,6 +13,42 @@ import moonaFramework.util.condition.Conditional;
 import moonaFramework.util.function.Snippet;
 
 public final class Handler {
+	
+	public static AbstractProcess cloneProcess(Process p) {
+		return new AbstractProcess() {
+			@Override
+			public void onPause() {
+				p.onPause();
+			}
+			@Override
+			public void onUnpause() {
+				p.onUnpause();
+			}
+			
+			@Override
+			public void initialize() {
+				p.initialize();
+			}
+			@Override
+			public void update() {
+				p.update();
+			}
+			@Override
+			public void end() {
+				p.end();
+			}
+			
+			@Override
+			public void run() {
+				p.run();
+			}
+			
+			{
+				isRunning().imposeSet(p.isRunning().verify());
+				isPaused().imposeSet(p.isPaused().verify());
+			}
+		};
+	}
 	
 	public static AbstractProcess buildProcess(Snippet s) {
 		return new AbstractProcess() {
@@ -47,13 +84,16 @@ public final class Handler {
 		};
 	}
 	
-	public static Worm buildWorm(Snippet s) {
-		return new Worm() {
+	public static Worm buildWorm(Snippet s, Process host) {
+		return new Worm(host) {
 			@Override
 			public void update() {
 				s.code();
 			}
 		};
+	}
+	public static Worm buildWorm(Snippet s) {
+		return buildWorm(s, null);
 	}
 	
 	public static AbstractEvent buildEvent(Snippet s) {

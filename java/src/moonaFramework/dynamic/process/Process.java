@@ -1,8 +1,8 @@
 package moonaFramework.dynamic.process;
 
 import moonaFramework.base.Serial;
-import moonaFramework.base.Status;
 import moonaFramework.dynamic.Dynamic;
+import moonaFramework.dynamic.Status;
 
 /**
  * The Process Interface is the base of all process-like types, it features all the basic methods to make a

@@ -1,9 +1,15 @@
 package moonaFramework.dynamic.event;
 
+import moonaFramework.base.Natural;
 import moonaFramework.util.condition.Conditional;
 
 public interface ModalEvent extends Event {
 
+	@Override
+	default int nature() {
+		return Natural.MODALEVENT;
+	}
+	
 	@Override
 	void trigger();
 	

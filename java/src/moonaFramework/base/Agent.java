@@ -3,6 +3,8 @@ package moonaFramework.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaFramework.dynamic.ProcessCondition;
+import moonaFramework.dynamic.Processor;
 import moonaFramework.dynamic.event.Event;
 import moonaFramework.dynamic.event.EventMode;
 import moonaFramework.dynamic.event.ModalEvent;

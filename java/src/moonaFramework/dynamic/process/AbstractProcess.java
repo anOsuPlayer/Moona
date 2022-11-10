@@ -1,8 +1,9 @@
 package moonaFramework.dynamic.process;
 
 import moonaFramework.base.Moona;
-import moonaFramework.base.ProcessCondition;
-import moonaFramework.base.Status;
+import moonaFramework.base.Natural;
+import moonaFramework.dynamic.ProcessCondition;
+import moonaFramework.dynamic.Status;
 import moonaFramework.util.annotations.Deadlined;
 
 /**
@@ -32,6 +33,10 @@ public abstract class AbstractProcess implements Process {
 	@Override
 	public final long id() {
 		return this.id;
+	}
+	@Override
+	public int nature() {
+		return Natural.PROCESS;
 	}
 	
 	/**

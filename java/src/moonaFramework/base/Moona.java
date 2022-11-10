@@ -2,6 +2,7 @@ package moonaFramework.base;
 
 import org.lwjgl.glfw.GLFW;
 
+import moonaFramework.dynamic.Processor;
 import moonaFramework.dynamic.event.Event;
 import moonaFramework.dynamic.process.Process;
 import moonaFramework.util.collection.IshMap;

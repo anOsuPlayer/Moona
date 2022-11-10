@@ -1,7 +1,7 @@
 package moonaFramework.dynamic.process;
 
-import moonaFramework.base.ProcessCondition;
-import moonaFramework.base.Processor;
+import moonaFramework.dynamic.ProcessCondition;
+import moonaFramework.dynamic.Processor;
 import moonaFramework.util.relation.Synced;
 import moonaFramework.util.time.Timer;
 

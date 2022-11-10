@@ -1,4 +1,4 @@
-package moonaFramework.base;
+package moonaFramework.dynamic;
 
 import moonaFramework.util.annotations.Deadlined;
 import moonaFramework.util.condition.Condition;
@@ -15,7 +15,7 @@ public class Status extends Condition {
 	@Deadlined
 	public void reverse() {
 	}
-	void imposeReverse(boolean value) {
+	void imposeReverse() {
 		super.reverse();
 	}
 	

@@ -15,16 +15,15 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.base.Moona;
-import moonaFramework.base.Processor;
 import moonaFramework.dynamic.Handler;
+import moonaFramework.dynamic.Processor;
 import moonaFramework.dynamic.event.*;
 import moonaFramework.dynamic.process.*;
 import moonaFramework.dynamic.process.Process;
 import moonaFramework.util.Benchmark;
+import moonaFramework.util.Mold;
 import moonaFramework.util.annotations.*;
 import moonaFramework.util.collection.*;
-import moonaFramework.util.function.Cast;
-import moonaFramework.util.function.Mold;
 import moonaFramework.util.function.Snippet;
 import moonaFramework.util.reflection.*;
 import moonaFramework.util.time.*;
@@ -42,7 +41,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		cp.update();
 	}
 }

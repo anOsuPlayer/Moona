@@ -1,6 +1,6 @@
 package moonaFramework.dynamic.process;
 
-import moonaFramework.base.Processor;
+import moonaFramework.dynamic.Processor;
 import moonaFramework.dynamic.event.Event;
 import moonaFramework.dynamic.event.EventMode;
 import moonaFramework.dynamic.event.ModalEvent;

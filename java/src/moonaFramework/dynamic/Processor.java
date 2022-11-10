@@ -1,5 +1,8 @@
-package moonaFramework.base;
+package moonaFramework.dynamic;
 
+import moonaFramework.base.Moona;
+import moonaFramework.base.MoonaHandlingException;
+import moonaFramework.base.Serial;
 import moonaFramework.dynamic.event.AutoEvent;
 import moonaFramework.dynamic.process.Daemon;
 import moonaFramework.dynamic.process.Process;

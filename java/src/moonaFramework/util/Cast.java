@@ -1,4 +1,4 @@
-package moonaFramework.util.function;
+package moonaFramework.util;
 
 public interface Cast<T> extends Mold<T, Object> {
 	

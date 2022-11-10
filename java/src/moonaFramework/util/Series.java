@@ -1,13 +1,24 @@
-package moonaFramework.util.collection;
+package moonaFramework.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import moonaFramework.base.Moona;
+import moonaFramework.base.Natural;
 import moonaFramework.base.Serial;
 
 public abstract class Series<T> implements Iterable<T>, Serial {
+	
+	private final long id;
+	@Override
+	public final long id() {
+		return this.id;
+	}
+	@Override
+	public int nature() {
+		return Natural.OBJECT;
+	}
 	
 	@Override
 	public String toString() {
@@ -19,12 +30,6 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 			out += String.valueOf(t) + ", ";
 		}
 		return (out.substring(0, out.length()-2) + " ]");
-	}
-	
-	private final long id;
-	@Override
-	public final long id() {
-		return this.id;
 	}
 	
 	private final List<T> series;

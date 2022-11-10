@@ -1,4 +1,4 @@
-package moonaFramework.util.collection;
+package moonaFramework.util;
 
 public interface Reviterable<T> extends Iterable<T> {
 

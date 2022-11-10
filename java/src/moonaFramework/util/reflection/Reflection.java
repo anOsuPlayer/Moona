@@ -1,6 +1,7 @@
 package moonaFramework.util.reflection;
 
 import moonaFramework.base.Moona;
+import moonaFramework.base.Natural;
 import moonaFramework.base.Serial;
 
 public abstract class Reflection<T> implements Serial {
@@ -9,6 +10,10 @@ public abstract class Reflection<T> implements Serial {
 	@Override
 	public final long id() {
 		return this.id;
+	}
+	@Override
+	public int nature() {
+		return Natural.REFLECTION;
 	}
 	
 	protected T value;
