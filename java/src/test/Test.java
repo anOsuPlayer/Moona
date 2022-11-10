@@ -21,9 +21,9 @@ import moonaFramework.dynamic.event.*;
 import moonaFramework.dynamic.process.*;
 import moonaFramework.dynamic.process.Process;
 import moonaFramework.util.Benchmark;
-import moonaFramework.util.Mold;
 import moonaFramework.util.annotations.*;
 import moonaFramework.util.collection.*;
+import moonaFramework.util.function.Mold;
 import moonaFramework.util.function.Snippet;
 import moonaFramework.util.reflection.*;
 import moonaFramework.util.time.*;
@@ -31,7 +31,7 @@ import moonaFramework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static AbstractProcess a = Handler.buildProcess(() -> { System.out.println("a"); });
+	static Daemon a = Handler.buildDaemon(() -> { System.out.println("a"); });
 	
 	static Mold<Task, AbstractProcess> cast = (o) -> {
 		return Handler.buildTask(() -> { o.update(); });
@@ -41,5 +41,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Processor.start(cp);
 	}
 }
