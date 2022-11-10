@@ -17,6 +17,11 @@ public final class Handler {
 	public static AbstractProcess cloneProcess(Process p) {
 		return new AbstractProcess() {
 			@Override
+			public int nature() {
+				return p.nature();
+			}
+			
+			@Override
 			public void onPause() {
 				p.onPause();
 			}

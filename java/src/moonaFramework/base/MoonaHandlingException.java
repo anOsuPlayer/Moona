@@ -23,6 +23,10 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	public final long id() {
 		return serialVersionUID;
 	}
+	@Override
+	public final int nature() {
+		return Natural.EXCEPTION;
+	}
 	
 	/**
 	 * The main constructor of this exceptions builds a RuntimeException on top of the given message. Sets
