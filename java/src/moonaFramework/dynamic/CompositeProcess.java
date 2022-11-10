@@ -1,10 +1,18 @@
-package moonaFramework.dynamic.process;
+package moonaFramework.dynamic;
 
+import moonaFramework.base.Natural;
+import moonaFramework.dynamic.process.AbstractProcess;
 import moonaFramework.util.function.Snippet;
 
 public class CompositeProcess extends AbstractProcess {
 
 	private final Snippet[] instructions = new Snippet[5];
+	
+	int variableNature = Natural.PROCESS;
+	@Override
+	public final int nature() {
+		return variableNature;
+	}
 	
 	@Override
 	public void onPause() {

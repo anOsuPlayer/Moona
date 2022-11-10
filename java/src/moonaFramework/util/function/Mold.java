@@ -1,4 +1,4 @@
-package moonaFramework.util;
+package moonaFramework.util.function;
 
 public interface Mold<T, S> {
 
