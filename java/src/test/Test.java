@@ -24,6 +24,7 @@ import moonaFramework.util.Benchmark;
 import moonaFramework.util.annotations.*;
 import moonaFramework.util.collection.*;
 import moonaFramework.util.function.Cast;
+import moonaFramework.util.function.Mold;
 import moonaFramework.util.function.Snippet;
 import moonaFramework.util.reflection.*;
 import moonaFramework.util.time.*;
@@ -33,14 +34,11 @@ public class Test {
 	
 	static AbstractProcess a = Handler.buildProcess(() -> { System.out.println("a"); });
 	
-	static Cast<Task> cast = (o) -> { 
-		if (o instanceof Process p) {
-			return Handler.buildTask(() -> { p.update(); });
-		}
-		return null;
+	static Mold<Task, AbstractProcess> cast = (o) -> {
+		return Handler.buildTask(() -> { o.update(); });
 	};
 	
-	static CompositeProcess cp = new CompositeProcess();
+	static CompositeProcess cp = new CompositeProcess(() -> { System.out.println("BB"); });
 	
 	public static void main(String[] args) {
 		Moona.init();

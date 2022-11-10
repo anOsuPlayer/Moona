@@ -11,9 +11,9 @@ import moonaFramework.util.annotations.Deadlined;
 import moonaFramework.util.condition.Conditional;
 import moonaFramework.util.function.Snippet;
 
-public interface Handler {
+public final class Handler {
 	
-	static AbstractProcess buildProcess(Snippet s) {
+	public static AbstractProcess buildProcess(Snippet s) {
 		return new AbstractProcess() {
 			@Override
 			public void update() {
@@ -29,7 +29,7 @@ public interface Handler {
 		};
 	}
 	
-	static Task buildTask(Snippet s) {
+	public static Task buildTask(Snippet s) {
 		return new Task() {
 			@Override
 			public void update() {
@@ -38,7 +38,7 @@ public interface Handler {
 		};
 	}
 
-	static Daemon buildDaemon(Snippet s) {
+	public static Daemon buildDaemon(Snippet s) {
 		return new Daemon() {
 			@Override
 			public void update() {
@@ -47,7 +47,7 @@ public interface Handler {
 		};
 	}
 	
-	static Worm buildWorm(Snippet s) {
+	public static Worm buildWorm(Snippet s) {
 		return new Worm() {
 			@Override
 			public void update() {
@@ -56,7 +56,7 @@ public interface Handler {
 		};
 	}
 	
-	static AbstractEvent buildEvent(Snippet s) {
+	public static AbstractEvent buildEvent(Snippet s) {
 		return new AbstractEvent() {			
 			@Override
 			public void trigger() {
@@ -65,7 +65,7 @@ public interface Handler {
 		};
 	}
 	
-	static Action buildAction(Snippet s, EventMode e) {
+	public static Action buildAction(Snippet s, EventMode e) {
 		return new Action(e) {
 			@Override
 			public void trigger() {
@@ -73,7 +73,7 @@ public interface Handler {
 			}
 		};
 	}
-	static Action buildAction(Snippet s, int iterations) {
+	public static Action buildAction(Snippet s, int iterations) {
 		return new Action(iterations) {
 			@Override
 			public void trigger() {
@@ -81,7 +81,7 @@ public interface Handler {
 			}
 		};
 	}
-	static Action buildAction(Snippet s, Conditional c) {
+	public static Action buildAction(Snippet s, Conditional c) {
 		return new Action(c) {
 			@Override
 			public void trigger() {
@@ -89,7 +89,10 @@ public interface Handler {
 			}
 		};
 	}
-	static Action buildAction(Snippet s) {
+	public static Action buildAction(Snippet s) {
 		return buildAction(s, EventMode.ONCE);
+	}
+	
+	private Handler() {
 	}
 }
