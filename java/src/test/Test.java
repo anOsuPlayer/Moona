@@ -35,7 +35,7 @@ public class Test {
 	
 	static Cast<Task> cast = (o) -> { 
 		if (o instanceof Process p) {
-			return Handler.buildTask(() -> { a.update(); });
+			return Handler.buildTask(() -> { p.update(); });
 		}
 		return null;
 	};

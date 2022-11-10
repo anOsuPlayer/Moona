@@ -45,4 +45,27 @@ public class CompositeProcess extends AbstractProcess {
 	public void setEnd(Snippet s) {
 		instructions[2] = s;
 	}
+	
+	public CompositeProcess(Snippet...instructions) throws NullPointerException, IllegalArgumentException {
+		if (instructions == null) {
+			throw new NullPointerException("You cannot initialize a CompositeProcess using a null array of"
+					+ " instructions.");
+		}
+		if (instructions.length > 5) {
+			throw new IllegalArgumentException("In order to initialize CompositeProcesses, no more than 5"
+					+ " instructions are allowed.");
+		}
+		for (int i = 0; i < instructions.length; i++) {
+			this.instructions[i] = instructions[i];
+		}
+		for (int i = 0; i < 5; i++) {
+			this.instructions[i] = (this.instructions[i] == null) ? () -> {} : this.instructions[i];
+		}
+	}
+	public CompositeProcess(Snippet updater) {
+		this(new Snippet[] {updater});
+	}
+	public CompositeProcess() {
+		this(new Snippet[5]);
+	}
 }
