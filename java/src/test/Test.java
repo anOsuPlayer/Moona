@@ -38,7 +38,7 @@ public class Test {
 		return Handler.buildTask(() -> { o.update(); });
 	};
 	
-	static CompositeProcess cp = new CompositeProcess(() -> { System.out.println("BB"); });
+	static CompositeProcess cp = Handler.cloneProcess(a);
 	
 	public static void main(String[] args) {
 		Moona.init();
