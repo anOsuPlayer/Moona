@@ -32,17 +32,9 @@ import moonaFramework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Daemon a = Handler.buildDaemon(() -> { System.out.println("a"); });
-	
-	static Mold<Task, AbstractProcess> cast = (o) -> {
-		return Handler.buildTask(() -> { o.update(); });
-	};
-	
-	static CompositeProcess cp = Handler.cloneProcess(a);
+	AbstractProcess p = Handler.buildProcess(() -> { System.out.println("a"); });
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Processor.start(cp);
 	}
 }
