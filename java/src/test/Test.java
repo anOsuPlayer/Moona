@@ -32,9 +32,15 @@ import moonaFramework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	AbstractProcess p = Handler.buildProcess(() -> { System.out.println("a"); });
+	static Daemon d = new Daemon() {
+		public void update() {
+			System.out.println("aaAAAAAAAA");
+		}
+	};
 	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Processor.start(d);
 	}
 }
