@@ -1,5 +1,6 @@
-package moonaFramework.dynamic.process;
+package moonaFramework.dynamic;
 
+import moonaFramework.dynamic.process.AbstractProcess;
 import moonaFramework.util.function.Snippet;
 
 public class CompositeProcess extends AbstractProcess {

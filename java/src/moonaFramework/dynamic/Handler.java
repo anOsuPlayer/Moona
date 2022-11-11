@@ -14,38 +14,11 @@ import moonaFramework.util.function.Snippet;
 
 public final class Handler {
 	
-	public static AbstractProcess cloneProcess(Process p) {
-		return new AbstractProcess() {
+	public static CompositeProcess cloneProcess(Process p) {
+		return new CompositeProcess(p::update, p::initialize, p::end, p::onPause, p::onUnpause) {
 			@Override
 			public int nature() {
 				return p.nature();
-			}
-			
-			@Override
-			public void onPause() {
-				p.onPause();
-			}
-			@Override
-			public void onUnpause() {
-				p.onUnpause();
-			}
-			
-			@Override
-			public void initialize() {
-				p.initialize();
-			}
-			@Override
-			public void update() {
-				p.update();
-			}
-			@Override
-			public void end() {
-				p.end();
-			}
-			
-			@Override
-			public void run() {
-				p.run();
 			}
 			
 			{

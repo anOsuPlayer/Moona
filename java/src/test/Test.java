@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.base.Moona;
+import moonaFramework.dynamic.CompositeProcess;
 import moonaFramework.dynamic.Handler;
 import moonaFramework.dynamic.Processor;
 import moonaFramework.dynamic.event.*;
@@ -37,7 +38,7 @@ public class Test {
 		return Handler.buildTask(() -> { o.update(); });
 	};
 	
-	static CompositeProcess cp = new CompositeProcess(() -> { System.out.println("BB"); });
+	static CompositeProcess cp = Handler.cloneProcess(a);
 	
 	public static void main(String[] args) {
 		Moona.init();
