@@ -40,7 +40,7 @@ public final class Moona {
 		if (s == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (elements.has(s, s.id())) {
+		if (elements.hasKey(s.id()) || Processor.contains(s) || Mirror.contains(s) || Agent.contains(s)) {
 			throw new MoonaHandlingException("This Serial already belongs to Moona.");
 		}
 		addSerial(s);
@@ -58,7 +58,8 @@ public final class Moona {
 		if (s == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!elements.has(s, s.id())) {
+		if (!elements.hasKey(s.id()) && !Processor.contains(s) && !Mirror.contains(s) &
+				!Agent.contains(s)) {
 			throw new MoonaHandlingException("This Serial is not present in Moona.");
 		}
 		removeSerial(s);
@@ -91,7 +92,7 @@ public final class Moona {
 				|| Agent.get(id) != null;
 	}
 	public static boolean has(Serial s) {
-		return elements.has(s, s.id()) || Processor.contains(s) || Mirror.contains(s)
+		return elements.hasKey(s.id()) || Processor.contains(s) || Mirror.contains(s)
 				|| Agent.contains(s);
 	}
 	

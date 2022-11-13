@@ -13,17 +13,21 @@ import moonaFramework.util.function.Snippet;
 public final class Handler {
 	
 	public static CompositeProcess cloneProcess(Process p) {
-		return new CompositeProcess(p::update, p::initialize, p::end, p::onPause, p::onUnpause) {
+		CompositeProcess clone = new CompositeProcess(p::update, p::initialize, p::end, p::onPause,
+				p::onUnpause) {
 			@Override
 			public int nature() {
 				return p.nature();
 			}
 			
-			{
-				isRunning().imposeSet(p.isRunning().verify());
-				isPaused().imposeSet(p.isPaused().verify());
+			@Override
+			public void run() {
+				p.run();
 			}
 		};
+		clone.isRunning().imposeSet(p.isRunning().verify());
+		clone.isPaused().imposeSet(p.isPaused().verify());
+		return clone;
 	}
 	
 	public static Task buildProcess(Snippet s) {

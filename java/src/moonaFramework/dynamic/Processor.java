@@ -23,7 +23,7 @@ public final class Processor {
 		if (p == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (processes.has(p, p.id())) {
+		if (processes.hasKey(p.id())) {
 			throw new MoonaHandlingException("This Process already belongs to Moona.");
 		}
 		addProcess(p);
@@ -40,7 +40,7 @@ public final class Processor {
 		if (p == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!processes.has(p, p.id())) {
+		if (!processes.hasKey(p.id())) {
 			throw new MoonaHandlingException("This Process is not present in Moona.");
 		}
 		removeProcess(p);
@@ -102,7 +102,7 @@ public final class Processor {
 		Moona.checkOn();
 		provide(p);
 		p.initialize();
-		new Thread(p, "Process#" + p.id()).start();
+		new Thread(p).start();
 	}
 
 	public static void unlock(long id) throws MoonaHandlingException {
@@ -173,7 +173,7 @@ public final class Processor {
 		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
 		initiator(p);
-		new Thread(p, "Process#" + p.id()).start();
+		new Thread(p).start();
 	}
 
 	public static void flick(long id) throws MoonaHandlingException {
@@ -345,20 +345,20 @@ public final class Processor {
 	}
 	
 	public static boolean isProcess(long id) {
-		return processes.valueOf(id) instanceof Process;
+		return processes.hasKey(id);
 	}
 	public static boolean isProcess(Serial s) {
 		return s instanceof Process;
 	}
 	
 	public static boolean contains(Serial s) {
-		return s instanceof Process p ? processes.has(p, p.id()) : false;
+		return s instanceof Process p ? processes.hasKey(p.id()) : false;
 	}
 	public static boolean has(long id) {
 		return processes.hasKey(id);
 	}
 	public static boolean has(Process p) {
-		return processes.has(p, p.id());
+		return has(p.id());
 	}
 	
 	public static int totalProcesses() {

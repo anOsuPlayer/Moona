@@ -13,7 +13,7 @@ public final class Mirror {
 		if (r == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (reflections.has(r, r.id())) {
+		if (reflections.hasKey(r.id())) {
 			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
 		}
 		addReflection(r);
@@ -28,7 +28,7 @@ public final class Mirror {
 		if (r == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!reflections.has(r, r.id())) {
+		if (!reflections.hasKey(r.id())) {
 			throw new MoonaHandlingException("This Reflection is not present in Moona.");
 		}
 		removeReflection(r);
@@ -57,24 +57,24 @@ public final class Mirror {
 	}
 	
 	public static Reflection<?> get(long id) {
-		return isReflection(id) ? reflections.valueOf(id) : null;
+		return reflections.valueOf(id);
 	}
 	
+	public static boolean isReflection(long id) {
+		return reflections.hasKey(id);
+	}
 	public static boolean isReflection(Serial s) {
 		return s instanceof Reflection<?>;
 	}
-	public static boolean isReflection(long id) {
-		return reflections.valueOf(id) instanceof Reflection<?>;
-	}
 	
 	public static boolean contains(Serial s) {
-		return s instanceof Reflection<?> r ? reflections.has(r, r.id()) : false;
+		return s instanceof Reflection<?> r ? has(r.id()) : false;
 	}
 	public static boolean has(long id) {
 		return reflections.hasKey(id);
 	}
 	public static boolean has(Reflection<?> r) {
-		return reflections.has(r, r.id());
+		return has(r.id());
 	}
 	
 	public static int totalReflections() {

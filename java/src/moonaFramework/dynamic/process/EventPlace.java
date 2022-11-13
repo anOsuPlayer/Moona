@@ -27,7 +27,7 @@ public class EventPlace extends Task implements Serial {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null Events.");
 		}
-		if (events.has(e, e.id())) {
+		if (events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event is already present in this EventSpace.");
 		}
 		eventCount++;
@@ -39,7 +39,7 @@ public class EventPlace extends Task implements Serial {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove null Events.");
 		}
-		if (!events.has(e, e.id())) {
+		if (!events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event is not present in this EventSpace.");
 		}
 		eventCount--;

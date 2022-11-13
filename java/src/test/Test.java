@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import moonaFramework.*;
+import moonaFramework.base.Agent;
 import moonaFramework.base.Moona;
 import moonaFramework.dynamic.CompositeProcess;
 import moonaFramework.dynamic.Handler;
@@ -32,15 +33,12 @@ import moonaFramework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Daemon d = new Daemon() {
+	static Task t = new Task() {
 		public void update() {
-			System.out.println("aaAAAAAAAA");
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Processor.start(d);
 	}
 }

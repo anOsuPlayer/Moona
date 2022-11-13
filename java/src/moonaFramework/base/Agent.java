@@ -26,7 +26,7 @@ public final class Agent {
 		if (e == null) {
 			throw new NullPointerException("You cannot add null elements to Moona.");
 		}
-		if (events.has(e, e.id())) {
+		if (events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event already belongs to Moona.");
 		}
 		addEvent(e);
@@ -44,7 +44,7 @@ public final class Agent {
 		if (e == null) {
 			throw new NullPointerException("You cannot remove a null element from Moona.");
 		}
-		if (!events.has(e, e.id())) {
+		if (!events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event is not present in Moona.");
 		}
 		removeEvent(e);
@@ -113,19 +113,20 @@ public final class Agent {
 		}
 	};
 	
-	private static boolean collapser = false;
-	
 	private static boolean fader = false;
 	
 	public static void fade() {
 		fader = true;
 	}
+	
+	private static boolean collapser = false;
+	
 	public static void collapse() {
 		collapser = true;
 	}
 	
 	public static Event get(long id) {
-		return isEvent(id) ? events.valueOf(id) : null;
+		return events.valueOf(id);
 	}
 	
 	public static boolean isEvent(Serial s) {
@@ -136,10 +137,10 @@ public final class Agent {
 	}
 	
 	public static boolean isEvent(long id) {
-		return events.valueOf(id) instanceof Event;
+		return events.hasKey(id);
 	}
 	public static boolean isModalEvent(long id) {
-		return events.valueOf(id) instanceof ModalEvent;
+		return events.hasKey(id) && events.valueOf(id) instanceof ModalEvent;
 	}
 	
 	public static boolean contains(Serial s) {
@@ -149,7 +150,7 @@ public final class Agent {
 		return events.hasKey(id);
 	}
 	public static boolean has(Event e) {
-		return events.has(e, e.id());
+		return has(e.id());
 	}
 	
 	public static int totalEvents() {
