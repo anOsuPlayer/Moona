@@ -1,10 +1,13 @@
 package moonaFramework.dynamic.process;
 
+import moonaFramework.base.Mirror;
 import moonaFramework.base.Moona;
 import moonaFramework.base.Natural;
 import moonaFramework.dynamic.ProcessCondition;
 import moonaFramework.dynamic.Status;
 import moonaFramework.util.annotations.Deadlined;
+import moonaFramework.util.annotations.Timeless;
+import moonaFramework.util.reflection.Annotated;
 
 /**
  * Introducing itself as the simplest process of them all, I am proud to present to you the Abstract Process!
@@ -119,6 +122,8 @@ public abstract class AbstractProcess implements Process {
 	 * Standard constructor which initializes the four private fields.
 	 */
 	public AbstractProcess() {
+		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class));
+		
 		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);
 		this.isRunning = new Status(false);
