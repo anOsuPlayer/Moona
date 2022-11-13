@@ -16,6 +16,8 @@ public abstract class Reflection<T> implements Serial {
 		return Natural.REFLECTION;
 	}
 	
+	public abstract Object getTarget();
+	
 	protected T value;
 	
 	public abstract void reflect();
