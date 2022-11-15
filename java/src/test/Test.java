@@ -40,9 +40,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		System.out.println(Benchmark.time(() -> {
-			Processor.start(t);
-		}));
 	}
 }

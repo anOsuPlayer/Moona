@@ -123,6 +123,7 @@ public abstract class AbstractProcess implements Process {
 	 */
 	public AbstractProcess() {
 		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "initialize"));
+		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "end"));
 		
 		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);
