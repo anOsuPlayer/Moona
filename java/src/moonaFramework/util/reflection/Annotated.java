@@ -232,6 +232,8 @@ public abstract class Annotated extends Reflection<Boolean> {
 		}
 	}
 	
+	public static final Class<?>[] NO_ARGS = new Class<?>[0];
+	
 	public abstract void reflect();
 	
 	public abstract ElementType getType();

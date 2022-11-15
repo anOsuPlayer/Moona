@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import moonaFramework.*;
 import moonaFramework.base.Agent;
+import moonaFramework.base.Mirror;
 import moonaFramework.base.Moona;
 import moonaFramework.dynamic.CompositeProcess;
 import moonaFramework.dynamic.Handler;
@@ -34,11 +35,23 @@ import moonaFramework.util.time.*;
 public class Test {
 	
 	static Task t = new Task() {
+		@Timeless
+		public void initialize() {
+			while (true) {
+				System.out.println("BBBBBBBBB");
+				t.getClock().sleep(1000l);
+			}
+		}
+		
 		public void update() {
+			System.out.println("AAAAAAAA");
+			t.getClock().sleep(1000l);
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Processor.start(t);
 	}
 }

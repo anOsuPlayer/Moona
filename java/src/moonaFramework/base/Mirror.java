@@ -229,7 +229,7 @@ public final class Mirror {
 		return annots;
 	}
 	
-	public static Annotated.Field getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String fieldName) {
+	public static Annotated.Field getAnnotatedField(Class<?> type, Class<? extends Annotation> annot, String fieldName) {
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type) &&
 					ann.getAnnotation().equals(annot) && ann.getName().equals(fieldName)) {
@@ -329,7 +329,7 @@ public final class Mirror {
 		return annots;
 	}
 	
-	public static Annotated.Method getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) {
+	public static Annotated.Method getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) {
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot) && ann.getName().equals(methodName)

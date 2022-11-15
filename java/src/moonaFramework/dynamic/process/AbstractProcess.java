@@ -122,8 +122,8 @@ public abstract class AbstractProcess implements Process {
 	 * Standard constructor which initializes the four private fields.
 	 */
 	public AbstractProcess() {
-		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "initialize"));
-		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "end"));
+		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS));
+		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
 		
 		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);

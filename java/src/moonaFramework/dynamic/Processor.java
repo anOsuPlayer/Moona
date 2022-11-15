@@ -1,13 +1,16 @@
 package moonaFramework.dynamic;
 
+import moonaFramework.base.Agent;
+import moonaFramework.base.Mirror;
 import moonaFramework.base.Moona;
 import moonaFramework.base.MoonaHandlingException;
 import moonaFramework.base.Natural;
 import moonaFramework.base.Serial;
-import moonaFramework.dynamic.event.AutoEvent;
+import moonaFramework.dynamic.event.AbstractEvent;
 import moonaFramework.dynamic.process.Process;
 import moonaFramework.util.annotations.Timeless;
 import moonaFramework.util.collection.IshMap;
+import moonaFramework.util.reflection.Annotated;
 
 public final class Processor {
 	
@@ -302,42 +305,26 @@ public final class Processor {
 	}
 
 	private static void initiator(Process p) {
-		try {
-			if (p.getClass().getMethod("initialize", new Class<?>[0])
-					.getAnnotation(Timeless.class) != null) {
-
-				start(new AutoEvent() {
-					public void trigger() {
-						p.initialize();
-					}
-				});
-			}
-			else {
-				p.initialize();
-			}
+		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS).evaluate()) {
+			Agent.add(new AbstractEvent() {
+				public void trigger() {
+					p.end();
+				}
+			});
+			return;
 		}
-		catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
+		p.initialize();
 	}
 	private static void ender(Process p) {
-		try {
-			if (p.getClass().getMethod("end", new Class<?>[0])
-					.getAnnotation(Timeless.class) != null) {
-
-				start(new AutoEvent() {
-					public void trigger() {
-						p.end();
-					}
-				});
-			}
-			else {
-				p.end();
-			}
+		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS).evaluate()) {
+			Agent.add(new AbstractEvent() {
+				public void trigger() {
+					p.end();
+				}
+			});
+			return;
 		}
-		catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
+		p.end();
 	}
 	
 	public static Process get(long id) {
