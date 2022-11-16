@@ -35,11 +35,10 @@ import moonaFramework.util.time.*;
 public class Test {
 	
 	static Task t = new Task() {
-		@Timeless
 		public void initialize() {
 			while (true) {
 				System.out.println("BBBBBBBBB");
-				t.getClock().sleep(1000l);
+				t.getClock().sleep(400l);
 			}
 		}
 		
@@ -51,7 +50,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Processor.start(t);
 	}
 }

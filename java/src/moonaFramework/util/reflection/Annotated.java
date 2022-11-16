@@ -80,7 +80,8 @@ public abstract class Annotated extends Reflection<Boolean> {
 				}
 				else {
 					super.value = con.getAnnotation(annotation) != null;
-					this.args = con.getParameterTypes();
+					Class<?>[] args = con.getParameterTypes();
+					this.args = (args.length == 0) ? Annotated.NO_ARGS : args;
 				}
 				if (super.value) { return; }
 			}
@@ -187,17 +188,19 @@ public abstract class Annotated extends Reflection<Boolean> {
 		@Override
 		public void reflect() {
 			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
+				Class<?>[] params = m.getParameterTypes();
+				params = (params.length == 0) ? Annotated.NO_ARGS : params;
 				if (args != null && methodName != null) {
-					super.value = m.getName().equals(methodName) && m.getParameterTypes().equals(args)
+					super.value = m.getName().equals(methodName) && params.equals(args)
 							&& m.getAnnotation(annotation) != null;
 				}
 				else if (args != null) {
-					super.value = m.getParameterTypes().equals(args) && m.getAnnotation(annotation) != null;
+					super.value = params.equals(args) && m.getAnnotation(annotation) != null;
 					this.methodName = m.getName();
 				}
 				else if (methodName != null) {
 					super.value = m.getName().equals(methodName) && m.getAnnotation(annotation) != null;
-					this.args = m.getParameterTypes();
+					this.args = params;
 				}
 				if (super.value) { return; }
 			}
