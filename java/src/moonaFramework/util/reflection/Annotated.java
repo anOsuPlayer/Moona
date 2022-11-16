@@ -76,12 +76,13 @@ public abstract class Annotated extends Reflection<Boolean> {
 		public void reflect() {
 			for (java.lang.reflect.Constructor<?> con : target.getDeclaredConstructors()) {
 				if (args != null) {
-					super.value = (con.getParameterTypes().equals(args) && con.getAnnotation(annotation) != null);
+					Class<?>[] params = con.getParameterTypes();
+					params = (params.length == 0) ? Annotated.NO_ARGS : params;
+					super.value = (params.equals(args) && con.getAnnotation(annotation) != null);
 				}
 				else {
 					super.value = con.getAnnotation(annotation) != null;
-					Class<?>[] args = con.getParameterTypes();
-					this.args = (args.length == 0) ? Annotated.NO_ARGS : args;
+					this.args = NO_ARGS;
 				}
 				if (super.value) { return; }
 			}
@@ -188,19 +189,21 @@ public abstract class Annotated extends Reflection<Boolean> {
 		@Override
 		public void reflect() {
 			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
-				Class<?>[] params = m.getParameterTypes();
-				params = (params.length == 0) ? Annotated.NO_ARGS : params;
 				if (args != null && methodName != null) {
+					Class<?>[] params = m.getParameterTypes();
+					params = (params.length == 0) ? Annotated.NO_ARGS : params;
 					super.value = m.getName().equals(methodName) && params.equals(args)
 							&& m.getAnnotation(annotation) != null;
 				}
 				else if (args != null) {
+					Class<?>[] params = m.getParameterTypes();
+					params = (params.length == 0) ? Annotated.NO_ARGS : params;
 					super.value = params.equals(args) && m.getAnnotation(annotation) != null;
 					this.methodName = m.getName();
 				}
 				else if (methodName != null) {
 					super.value = m.getName().equals(methodName) && m.getAnnotation(annotation) != null;
-					this.args = params;
+					this.args = NO_ARGS;
 				}
 				if (super.value) { return; }
 			}
