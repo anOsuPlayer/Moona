@@ -52,7 +52,15 @@ public final class Mirror {
 		reflections.forEachValue((r) -> r.reflect());
 	}
 	
+	private static boolean avoidable() {
+		return totalReflections == 0;
+	}
+	private static boolean annotAvoidable() {
+		return totalAnnotations == 0;
+	}
+	
 	public static List<Reflection<?>> getReflections(Object target) {
+		if (avoidable()) { return null; }
 		List<Reflection<?>> refls = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl.getTarget().equals(target)) { refls.add(refl); }
@@ -61,6 +69,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated> getAnnotated(Object target) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated ann && ann.getTarget().equals(target)) {
@@ -70,6 +79,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated> getAnnotatedWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated ann && ann.getAnnotation().equals(annot)) {
@@ -80,6 +90,7 @@ public final class Mirror {
 	}
 	
 	public static Annotated getAnnotated(Object target, Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated ann && ann.getTarget().equals(target) &&
 					ann.getAnnotation().equals(annot)) {
@@ -90,6 +101,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Type> getAnnotatedTypes(Class<?> type) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Type> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Type ann && ann.getTarget().equals(type)) {
@@ -100,6 +112,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Type> getAnnotatedTypesWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Type> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Type ann && ann.getAnnotation().equals(annot)) {
@@ -110,6 +123,7 @@ public final class Mirror {
 	}
 	
 	public static Annotated.Type getAnnotatedType(Class<?> type, Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Type ann && ann.getTarget().equals(type) &&
 					ann.getAnnotation().equals(annot)) {
@@ -120,6 +134,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)) {
@@ -129,6 +144,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
@@ -140,6 +156,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Constructor ann && ann.getAnnotation().equals(annot)) {
@@ -149,6 +166,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<?> type, Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
@@ -159,6 +177,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(annot)
@@ -170,6 +189,7 @@ public final class Mirror {
 	}
 	
 	public static Annotated.Constructor getAnnotatedConstructor(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot) && ann.getArgs().equals(args)) {
@@ -180,6 +200,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Field> getAnnotatedFields(Class<?> type) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Field> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)) {
@@ -189,6 +210,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Field> getAnnotatedFields(Class<?> type, String fieldName) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Field> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)
@@ -200,6 +222,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Field> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Field ann && ann.getAnnotation().equals(annot)) {
@@ -209,6 +232,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<?> type, Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Field> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)
@@ -219,6 +243,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot, String fieldName) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Field> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Field ann && ann.getAnnotation().equals(annot)
@@ -230,6 +255,7 @@ public final class Mirror {
 	}
 	
 	public static Annotated.Field getAnnotatedField(Class<?> type, Class<? extends Annotation> annot, String fieldName) {
+		if (annotAvoidable()) { return null; }
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type) &&
 					ann.getAnnotation().equals(annot) && ann.getName().equals(fieldName)) {
@@ -240,6 +266,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)) {
@@ -249,6 +276,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
@@ -259,6 +287,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
@@ -269,6 +298,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
@@ -280,6 +310,7 @@ public final class Mirror {
 	}
 	
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)) {
@@ -289,6 +320,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
@@ -299,6 +331,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, String methodName) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
@@ -309,6 +342,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
@@ -319,6 +353,7 @@ public final class Mirror {
 		return annots;
 	}
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot, String methodName, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		List<Annotated.Method> annots = new ArrayList<>();
 		reflections.forEachValue((refl) -> {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
@@ -330,6 +365,7 @@ public final class Mirror {
 	}
 	
 	public static Annotated.Method getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) {
+		if (annotAvoidable()) { return null; }
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot) && ann.getName().equals(methodName)
@@ -341,6 +377,7 @@ public final class Mirror {
 	}
 	
 	public static int reflectionsOf(Object target) {
+		if (avoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl.getTarget().equals(target)) ? 1 : 0;
@@ -348,6 +385,7 @@ public final class Mirror {
 		return total;
 	}
 	public static int annotatedWith(Class<? extends Annotation> annot) {
+		if (annotAvoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated ann && ann.getAnnotation().equals(annot)) ? 1 : 0;
@@ -359,6 +397,7 @@ public final class Mirror {
 		return totalAnnotations;
 	}
 	public static int annotatedTypes() {
+		if (annotAvoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated.Type ann) ? 1 : 0;
@@ -366,6 +405,7 @@ public final class Mirror {
 		return total;
 	}
 	public static int annotatedConstructors() {
+		if (annotAvoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated.Constructor ann) ? 1 : 0;
@@ -373,6 +413,7 @@ public final class Mirror {
 		return total;
 	}
 	public static int annotatedFields() {
+		if (annotAvoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated.Field ann) ? 1 : 0;
@@ -380,6 +421,7 @@ public final class Mirror {
 		return total;
 	}
 	public static int annotatedMethods() {
+		if (annotAvoidable()) { return 0; }
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated.Method ann) ? 1 : 0;
