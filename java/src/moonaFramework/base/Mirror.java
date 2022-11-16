@@ -429,7 +429,6 @@ public final class Mirror {
 		return total;
 	}
 	
-	
 	public static void wipe() {
 		Moona.checkOn();
 		Reflection<?>[] refls = new Reflection<?>[totalReflections];
