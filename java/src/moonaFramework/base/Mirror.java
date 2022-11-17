@@ -49,7 +49,7 @@ public final class Mirror {
 	}
 	
 	static void loadReflections() {
-		reflections.forEachValue((r) -> r.reflect());
+		reflections.forEachValue((refl) -> refl.reflect());
 	}
 	
 	private static boolean avoidable() {
@@ -59,38 +59,50 @@ public final class Mirror {
 		return totalAnnotations == 0;
 	}
 	
-	public static List<Reflection<?>> getReflections(Object target) {
+	public static List<Reflection<?>> getReflections(Object target) throws NullPointerException {
 		if (avoidable()) { return null; }
+		if (target == null) {
+			throw new NullPointerException("The target Object is null.");
+		}
 		List<Reflection<?>> refls = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl.getTarget().equals(target)) { refls.add(refl); }
-		});
+		}
 		return refls;
 	}
 	
-	public static List<Annotated> getAnnotated(Object target) {
+	public static List<Annotated> getAnnotated(Object target) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (target == null) {
+			throw new NullPointerException("The target Object is null.");
+		}
 		List<Annotated> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated ann && ann.getTarget().equals(target)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated> getAnnotatedWith(Class<? extends Annotation> annot) {
+	public static List<Annotated> getAnnotatedWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The given Annotation is null.");
+		}
 		List<Annotated> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated ann && ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static Annotated getAnnotated(Object target, Class<? extends Annotation> annot) {
+	public static Annotated getAnnotated(Object target, Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (target == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated ann && ann.getTarget().equals(target) &&
 					ann.getAnnotation().equals(annot)) {
@@ -100,30 +112,39 @@ public final class Mirror {
 		return null;
 	}
 	
-	public static List<Annotated.Type> getAnnotatedTypes(Class<?> type) {
+	public static List<Annotated.Type> getAnnotatedTypes(Class<?> type) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Type> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Type ann && ann.getTarget().equals(type)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static List<Annotated.Type> getAnnotatedTypesWith(Class<? extends Annotation> annot) {
+	public static List<Annotated.Type> getAnnotatedTypesWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The given Annotation is null.");
+		}
 		List<Annotated.Type> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Type ann && ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static Annotated.Type getAnnotatedType(Class<?> type, Class<? extends Annotation> annot) {
+	public static Annotated.Type getAnnotatedType(Class<?> type, Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Type ann && ann.getTarget().equals(type) &&
 					ann.getAnnotation().equals(annot)) {
@@ -133,63 +154,90 @@ public final class Mirror {
 		return null;
 	}
 	
-	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type) {
+	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type, Class<?>...args) {
+	public static List<Annotated.Constructor> getAnnotatedConstructors(Class<?> type, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
 					&& ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot) {
+	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<?> type, Class<? extends Annotation> annot) {
+	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<?> type, Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot, Class<?>...args) {
+	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<? extends Annotation> annot, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The target Annotation is null.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(annot)
 					&& ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static Annotated.Constructor getAnnotatedConstructor(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) {
+	public static Annotated.Constructor getAnnotatedConstructor(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Constructor ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot) && ann.getArgs().equals(args)) {
@@ -199,63 +247,81 @@ public final class Mirror {
 		return null;
 	}
 	
-	public static List<Annotated.Field> getAnnotatedFields(Class<?> type) {
+	public static List<Annotated.Field> getAnnotatedFields(Class<?> type) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Field> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Field> getAnnotatedFields(Class<?> type, String fieldName) {
+	public static List<Annotated.Field> getAnnotatedFields(Class<?> type, String fieldName) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || fieldName == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Field> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)
 					&& ann.getName().equals(fieldName)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot) {
+	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The given Annotation is null.");
+		}
 		List<Annotated.Field> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Field ann && ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<?> type, Class<? extends Annotation> annot) {
+	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<?> type, Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		List<Annotated.Field> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot, String fieldName) {
+	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot, String fieldName) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null || fieldName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		List<Annotated.Field> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Field ann && ann.getAnnotation().equals(annot)
 					&& ann.getName().equals(fieldName)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
 	public static Annotated.Field getAnnotatedField(Class<?> type, Class<? extends Annotation> annot, String fieldName) {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null || fieldName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type) &&
 					ann.getAnnotation().equals(annot) && ann.getName().equals(fieldName)) {
@@ -265,107 +331,152 @@ public final class Mirror {
 		return null;
 	}
 	
-	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type) {
+	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName) {
+	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || methodName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getName().equals(methodName)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, Class<?>...args) {
+	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null) {
+			throw new NullPointerException("The target Class is null.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName, Class<?>...args) {
+	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || methodName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getName().equals(methodName) && ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot) {
+	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null) {
+			throw new NullPointerException("The given Annotation is null.");
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot) {
+	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
 					&& ann.getTarget().equals(type)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, String methodName) {
+	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, String methodName) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null || methodName == null) {
+			throw new NullPointerException();
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
 					&& ann.getTarget().equals(type) && ann.getName().equals(methodName)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) {
+	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
 					&& ann.getTarget().equals(type) && ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
-	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot, String methodName, Class<?>...args) {
+	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot, String methodName, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (annot == null || methodName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		List<Annotated.Method> annots = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
+		for (Reflection<?> refl : reflections.values()) {
 			if (refl instanceof Annotated.Method ann && ann.getAnnotation().equals(annot)
 					&& ann.getName().equals(methodName) && ann.getArgs().equals(args)) {
 				annots.add(ann);
 			}
-		});
+		}
 		return annots;
 	}
 	
-	public static Annotated.Method getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) {
+	public static Annotated.Method getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) throws NullPointerException {
 		if (annotAvoidable()) { return null; }
+		if (type == null || annot == null || methodName == null) {
+			throw new NullPointerException("Null arguments are not allowed.");
+		}
+		if (args == null || args.length == 0) {
+			args = Annotated.NO_ARGS;
+		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Method ann && ann.getTarget().equals(type)
 					&& ann.getAnnotation().equals(annot) && ann.getName().equals(methodName)
@@ -376,16 +487,22 @@ public final class Mirror {
 		return null;
 	}
 	
-	public static int reflectionsOf(Object target) {
+	public static int reflectionsOf(Object target) throws NullPointerException {
 		if (avoidable()) { return 0; }
+		if (target == null) {
+			throw new NullPointerException("The target Object is null.");
+		}
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl.getTarget().equals(target)) ? 1 : 0;
 		}
 		return total;
 	}
-	public static int annotatedWith(Class<? extends Annotation> annot) {
+	public static int annotatedWith(Class<? extends Annotation> annot) throws NullPointerException {
 		if (annotAvoidable()) { return 0; }
+		if (annot == null) {
+			throw new NullPointerException("The given Annotation is null.");
+		}
 		int total = 0;
 		for (Reflection<?> refl : reflections.values()) {
 			total += (refl instanceof Annotated ann && ann.getAnnotation().equals(annot)) ? 1 : 0;

@@ -35,16 +35,16 @@ import moonaFramework.util.time.*;
 public class Test {
 	
 	static Task t = new Task() {
-		public void initialize() {
-			while (true) {
-				System.out.println("BBBBBBBBB");
-				t.getClock().sleep(400l);
-			}
-		}
-		
 		public void update() {
 			System.out.println("AAAAAAAA");
-			t.getClock().sleep(1000l);
+			t.getClock().sleep(500l);
+		}
+	};
+	
+	static Task t2 = new Task() {
+		public void update() {
+			System.out.println("BBBBBBBB");
+			t.getClock().sleep(500l);
 		}
 	};
 	
@@ -52,5 +52,9 @@ public class Test {
 		Moona.init();
 		
 		Processor.start(t);
+		
+		Benchmark.sleep(1000l);
+		
+		Processor.spark(t);
 	}
 }

@@ -316,8 +316,6 @@ public final class Processor {
 		p.initialize();
 	}
 	private static void ender(Process p) {
-		Mirror.add(new Annotated.Method(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
-		
 		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS).evaluate()) {
 			Agent.add(new AbstractEvent() {
 				public void trigger() {
