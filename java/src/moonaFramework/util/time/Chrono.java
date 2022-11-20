@@ -31,7 +31,6 @@ public class Chrono extends Clock {
 			throw new IllegalArgumentException("Time values cannot be negative.");
 		}
 		synchronized (this) {
-			this.notify();
 			try {
 				this.wait(mills, nanos);
 			} catch (InterruptedException e) {
@@ -72,7 +71,6 @@ public class Chrono extends Clock {
 	 */
 	public void stasys() {
 		synchronized (this) {
-			this.notify();
 			try {
 				this.wait();
 			} catch (InterruptedException e) {
