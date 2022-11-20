@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <iostream>
-#include <algorithm>
+
+using std::malloc, std::realloc, std::cout, std::endl;
 
 #ifndef _Included_moonaFramework_util_collection_Array
 #define _Included_moonaFramework_util_collection_Array
@@ -8,24 +9,26 @@
 extern "C" {
 #endif
 
-using std::fill, std::malloc, std::calloc, std::realloc, std::free,
-  std::cout, std::endl;
-
 jobject** arrays = (jobject**) malloc(0);
 int totalArrays = 0;
 
-JNIEXPORT jint JNICALL Java_moonaFramework_util_collection_Array_generate (JNIEnv* env, jobject thisObj, jint length) {
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_generate (JNIEnv* env, jobject thisObj, jint newLength) {
   arrays = (jobject**) realloc(arrays, ++totalArrays * sizeof(jobject*));
-  arrays[totalArrays - 1] = (jobject*) calloc(length, sizeof(jobject));
-  fill(arrays[totalArrays-1], arrays[totalArrays-1]+(length*sizeof(jobject)), nullptr);
-  return totalArrays-1;
+  arrays[totalArrays - 1] = (jobject*) calloc(newLength, sizeof(jobject));
 }
 
-JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_set (JNIEnv* env, jobject thisObj, jobject newObj, jint at, jint arr) {
-  arrays[arr][at] = env->NewGlobalRef(newObj); 
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_set (JNIEnv* env, jobject thisObj, jobject newObj, jint at, jint arr, jint length) {
+  if (at > length) {
+    length = at;
+    arrays[arr] = (jobject*) realloc(arrays[arr], length * sizeof(jobject));
+  }
+  arrays[arr][at] = env->NewGlobalRef(newObj);
 }
 
-JNIEXPORT jobject JNICALL Java_moonaFramework_util_collection_Array_get (JNIEnv* env, jobject thisObj, jint at, jint arr) {
+JNIEXPORT jobject JNICALL Java_moonaFramework_util_collection_Array_get (JNIEnv* env, jobject thisObj, jint at, jint arr, jint length) {
+  if (at >= length) {
+    return nullptr;
+  }
   return arrays[arr][at];
 }
 

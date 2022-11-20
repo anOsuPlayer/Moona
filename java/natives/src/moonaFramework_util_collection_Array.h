@@ -6,14 +6,14 @@
 extern "C" {
 #endif
 
-JNIEXPORT jint JNICALL Java_moonaFramework_util_collection_Array_generate
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_generate
   (JNIEnv*, jobject, jint);
 
-JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_set
-  (JNIEnv*, jobject, jobject, jint, jint);
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_add
+  (JNIEnv*, jobject, jobject, jint, jint, jint);
 
 JNIEXPORT jobject JNICALL Java_moonaFramework_util_collection_Array_get
-  (JNIEnv*, jobject, jint, jint);
+  (JNIEnv*, jobject, jint, jint, jint);
 
 JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_clearAll
   (JNIEnv*, jobject);

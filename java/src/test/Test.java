@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -52,14 +53,9 @@ public class Test {
 		Moona.init();
 		
 		Array<String> arr = new Array<>(12);
+		arr.set(0, "AAAAA");
 		
-		System.out.println(Benchmark.time(() -> {
-			Array<String> arr2 = new Array<>(12);
-			arr.set(0, "AAAAA");
-			arr.set(1, "BBBBB");
-		}));
-		
-		System.out.println(arr.get(1));
+		System.out.println(arr.get(0));
 		
 		Array.clearAll();
 	}
