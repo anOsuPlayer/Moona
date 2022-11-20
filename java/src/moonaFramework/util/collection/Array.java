@@ -7,16 +7,9 @@ public class Array<E> {
 		return length;
 	}
 	
-	private static int generator = 0;
 	private final int id;
 	
-	private native void generate(int lenght);
-	
-	private native void erase(int arr);
-	
-	protected void finalize() {
-		this.erase(id);
-	}
+	private native int generate(int lenght);
 	
 	private native void set(E element, int at, int arr);
 	
@@ -34,8 +27,7 @@ public class Array<E> {
 	
 	public Array(int lenght) {
 		this.length = lenght;
-		this.id = ++generator;
-		generate(lenght);
+		this.id = generate(lenght);
 	}
 	public Array() {
 		this(0);

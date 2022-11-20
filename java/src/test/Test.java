@@ -52,6 +52,15 @@ public class Test {
 		Moona.init();
 		
 		Array<String> arr = new Array<>(12);
-		System.out.println(arr.get(0));
+		
+		System.out.println(Benchmark.time(() -> {
+			Array<String> arr2 = new Array<>(12);
+			arr.set(0, "AAAAA");
+			arr.set(1, "BBBBB");
+		}));
+		
+		System.out.println(arr.get(1));
+		
+		Array.clearAll();
 	}
 }
