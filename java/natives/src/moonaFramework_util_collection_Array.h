@@ -9,6 +9,9 @@ extern "C" {
 JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_generate
   (JNIEnv *, jobject, jint);
 
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_erase
+  (JNIEnv*, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif
