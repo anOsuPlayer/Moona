@@ -22,6 +22,7 @@ JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_set (JNIEnv* en
     length = at;
     arrays[arr] = (jobject*) realloc(arrays[arr], length * sizeof(jobject));
   }
+  if (arrays[arr][at] != nullptr) { env->DeleteGlobalRef(arrays[arr][at]); }
   arrays[arr][at] = env->NewGlobalRef(newObj);
 }
 

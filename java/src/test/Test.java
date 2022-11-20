@@ -53,9 +53,8 @@ public class Test {
 		Moona.init();
 		
 		Array<String> arr = new Array<>(12);
-		arr.set(0, "AAAAA");
 		
-		System.out.println(arr.get(0));
+		System.out.println(arr.get(1));
 		
 		Array.clearAll();
 	}
