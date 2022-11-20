@@ -16,13 +16,25 @@ int totalArrays = 0;
 
 JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_generate (JNIEnv* env, jobject thisObj, jint length) {
   arrays = (jobject**) realloc(arrays, ++totalArrays * sizeof(jobject*));
-  arrays[totalArrays - 1] = (jobject*) calloc(length, sizeof(jobject));
-  fill(arrays[totalArrays-1], arrays[totalArrays-1]+length, nullptr);
+  arrays[totalArrays - 1] = (jobject*) malloc(length * sizeof(jobject));
+}
+
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_set (JNIEnv* env, jobject thisObj, jobject newObj, jint at, jint arr) {
+  env->DeleteGlobalRef(arrays[arr][at]);
+  arrays[arr][at] = env->NewGlobalRef(newObj); 
+}
+
+JNIEXPORT jobject JNICALL Java_moonaFramework_util_collection_Array_get (JNIEnv* env, jobject thisObj, jint at, jint arr) {
+  return arrays[arr][at];
 }
 
 JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_erase (JNIEnv* env, jobject thisObj, jint arr) {
-  free(arrays[arr]);
   memmove(arrays[arr], arrays[arr+1], totalArrays-arr);
+  arrays = (jobject**) realloc(arrays, --totalArrays * sizeof(jobject*));
+}
+
+JNIEXPORT void JNICALL Java_moonaFramework_util_collection_Array_clearAll (JNIEnv* env, jobject thisObj) {
+  free(arrays);
 }
 
 #ifdef __cplusplus
