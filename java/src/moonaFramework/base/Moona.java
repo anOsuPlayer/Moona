@@ -24,6 +24,7 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
 		System.loadLibrary("nativeArrays");
+		System.loadLibrary("nativeBenchmark");
 		Mirror.loadReflections();
 	}
 	

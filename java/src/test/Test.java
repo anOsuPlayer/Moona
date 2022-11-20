@@ -52,9 +52,9 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Array<String> arr = new Array<>(12);
-		
-		System.out.println(arr.get(1));
+		System.out.println(Benchmark.time(() -> {
+			
+		}));
 		
 		Array.clearAll();
 	}
