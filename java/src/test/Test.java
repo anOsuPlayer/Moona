@@ -50,11 +50,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Processor.start(t);
-		
-		Benchmark.sleep(1000l);
-		
-		Processor.spark(t);
 	}
 }
