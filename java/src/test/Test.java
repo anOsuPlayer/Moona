@@ -42,15 +42,7 @@ public class Test {
 		}
 	};
 	
-	static Task t2 = new Task() {
-		public void update() {
-			System.out.println("BBBBBBBB");
-			t.getClock().sleep(500l);
-		}
-	};
-	
-	
 	public static void main(String[] args) {
-		
+		Moona.init();
 	}
 }

@@ -25,9 +25,38 @@ public final class Handler {
 				p.run();
 			}
 		};
-		clone.isRunning().imposeSet(p.isRunning().verify());
-		clone.isPaused().imposeSet(p.isPaused().verify());
+		ProcessCondition.cloneCondition(p, clone);
 		return clone;
+	}
+	
+	public static Task castTask(Process p) {
+		if (Processor.has(p)) { Processor.terminate(p); }
+		Task newTask = new Task() {
+			@Override
+			public void onPause() {
+				p.onPause();
+			}
+			@Override
+			public void onUnpause() {
+				p.onUnpause();
+			}
+			
+			@Override
+			public void initialize() {
+				p.initialize();
+			}
+			@Override
+			public void update() {
+				p.update();
+			}
+			@Override
+			public void end() {
+				p.end();
+			}
+		};
+		ProcessCondition.cloneCondition(p, newTask);
+		Processor.add(newTask);
+		return newTask;
 	}
 	
 	public static Task buildProcess(Snippet s) {

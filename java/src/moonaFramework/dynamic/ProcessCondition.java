@@ -17,15 +17,23 @@ public enum ProcessCondition {
 	
 	protected void set(Process p) throws NullPointerException {
 		if (p == null) {
-			throw new NullPointerException("The given process is null.");
+			throw new NullPointerException("The given Process is null.");
 		}
 		p.isRunning().imposeSet(isRunning);
 		p.isPaused().imposeSet(isPaused);
 	}
 	
+	protected static void cloneCondition(Process from, Process at) throws NullPointerException {
+		if (from == null || at == null) {
+			throw new NullPointerException("The given Process is null.");
+		}
+		at.isRunning().imposeSet(from.isRunning().verify());
+		at.isPaused().imposeSet(from.isPaused().verify());
+	}
+	
 	public boolean check(Process p) throws NullPointerException {
 		if (p == null) {
-			throw new NullPointerException("The given process is null.");
+			throw new NullPointerException("The given Process is null.");
 		}
 		return p.isRunning().verify() == isRunning && p.isPaused().verify() == isPaused;
 	}
