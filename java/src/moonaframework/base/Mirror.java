@@ -102,7 +102,7 @@ public final class Mirror {
 	public static Annotated getAnnotated(Object target, Class<? extends Annotation> annot) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (target == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated ann && ann.getTarget().equals(target) &&
@@ -144,7 +144,7 @@ public final class Mirror {
 	public static Annotated.Type getAnnotatedType(Class<?> type, Class<? extends Annotation> annot) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Type ann && ann.getTarget().equals(type) &&
@@ -202,7 +202,7 @@ public final class Mirror {
 	public static List<Annotated.Constructor> getAnnotatedConstructorsWith(Class<?> type, Class<? extends Annotation> annot) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Constructor> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -234,7 +234,7 @@ public final class Mirror {
 	public static Annotated.Constructor getAnnotatedConstructor(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		if (args == null || args.length == 0) {
 			args = Annotated.NO_ARGS;
@@ -292,7 +292,7 @@ public final class Mirror {
 	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<?> type, Class<? extends Annotation> annot) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Field> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -306,7 +306,7 @@ public final class Mirror {
 	public static List<Annotated.Field> getAnnotatedFieldsWith(Class<? extends Annotation> annot, String fieldName) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (annot == null || fieldName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Field> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -321,7 +321,7 @@ public final class Mirror {
 	public static Annotated.Field getAnnotatedField(Class<?> type, Class<? extends Annotation> annot, String fieldName) {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null || fieldName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		for (Reflection<?> refl : reflections.values()) {	
 			if (refl instanceof Annotated.Field ann && ann.getTarget().equals(type) &&
@@ -348,7 +348,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || methodName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Method> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -379,7 +379,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethods(Class<?> type, String methodName, Class<?>...args) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || methodName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		if (args == null || args.length == 0) {
 			args = Annotated.NO_ARGS;
@@ -410,7 +410,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Method> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -424,7 +424,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, String methodName) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null || methodName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		List<Annotated.Method> annots = new ArrayList<>();
 		for (Reflection<?> refl : reflections.values()) {
@@ -438,7 +438,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<?> type, Class<? extends Annotation> annot, Class<?>...args) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		if (args == null || args.length == 0) {
 			args = Annotated.NO_ARGS;
@@ -455,7 +455,7 @@ public final class Mirror {
 	public static List<Annotated.Method> getAnnotatedMethodsWith(Class<? extends Annotation> annot, String methodName, Class<?>...args) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (annot == null || methodName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		if (args == null || args.length == 0) {
 			args = Annotated.NO_ARGS;
@@ -473,7 +473,7 @@ public final class Mirror {
 	public static Annotated.Method getAnnotatedMethod(Class<?> type, Class<? extends Annotation> annot, String methodName, Class<?>...args) throws NullArgumentException {
 		if (annotAvoidable()) { return null; }
 		if (type == null || annot == null || methodName == null) {
-			throw new NullArgumentException("Null arguments are not allowed.");
+			throw new NullArgumentException();
 		}
 		if (args == null || args.length == 0) {
 			args = Annotated.NO_ARGS;

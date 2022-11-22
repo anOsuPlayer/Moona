@@ -19,4 +19,7 @@ public class NullArgumentException extends RuntimeException implements Serial {
 	public NullArgumentException(String message) {
 		super(message);
 	}
+	public NullArgumentException() {
+		super("Null arguments are not allowed.");
+	}
 }

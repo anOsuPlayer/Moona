@@ -66,14 +66,10 @@ public abstract class AbstractProcess implements Process {
 		}
 	}
 	
-	private void loadReflections() {
+	public AbstractProcess() {
 		Mirror.add(new Annotated.Type(this.getClass(), Unique.class));
 		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS));
 		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
-	}
-	
-	public AbstractProcess() {
-		this.loadReflections();
 		
 		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);
