@@ -30,7 +30,6 @@ public final class Handler {
 	}
 	
 	public static Task castTask(Process p) {
-		if (Processor.has(p)) { Processor.terminate(p); }
 		Task newTask = new Task() {
 			@Override
 			public void onPause() {
@@ -55,10 +54,11 @@ public final class Handler {
 			}
 		};
 		ProcessCondition.cloneCondition(p, newTask);
+		ProcessCondition.DEAD.set(p);
 		Processor.add(newTask);
+		Processor.buildProcess(newTask);
 		return newTask;
 	}
-	
 	public static Task buildProcess(Snippet s) {
 		return new Task() {
 			@Override
@@ -68,6 +68,36 @@ public final class Handler {
 		};
 	}
 
+	public static Daemon castDaemon(Process p) {
+		Daemon newDaemon = new Daemon() {
+			@Override
+			public void onPause() {
+				p.onPause();
+			}
+			@Override
+			public void onUnpause() {
+				p.onUnpause();
+			}
+			
+			@Override
+			public void initialize() {
+				p.initialize();
+			}
+			@Override
+			public void update() {
+				p.update();
+			}
+			@Override
+			public void end() {
+				p.end();
+			}
+		};
+		ProcessCondition.cloneCondition(p, newDaemon);
+		ProcessCondition.DEAD.set(p);
+		Processor.add(newDaemon);
+		Processor.buildProcess(newDaemon);
+		return newDaemon;
+	}
 	public static Daemon buildDaemon(Snippet s) {
 		return new Daemon() {
 			@Override
@@ -77,6 +107,37 @@ public final class Handler {
 		};
 	}
 	
+	public static Worm castWorm(Process p) {
+		Worm newWorm = new Worm() {
+			@Override
+			public void onPause() {
+				p.onPause();
+			}
+			@Override
+			public void onUnpause() {
+				p.onUnpause();
+			}
+			
+			@Override
+			public void initialize() {
+				p.initialize();
+			}
+			@Override
+			public void update() {
+				p.update();
+			}
+			@Override
+			public void end() {
+				p.end();
+			}
+		};
+		ProcessCondition.cloneCondition(p, newWorm);
+		if (p instanceof Worm w) { newWorm.setHost(w.getHost()); }
+		ProcessCondition.DEAD.set(p);
+		Processor.add(newWorm);
+		Processor.buildProcess(newWorm);
+		return newWorm;
+	}
 	public static Worm buildWorm(Snippet s, Process host) {
 		return new Worm(host) {
 			@Override

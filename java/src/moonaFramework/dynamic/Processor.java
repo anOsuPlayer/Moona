@@ -72,6 +72,10 @@ public final class Processor {
 		removeProcess(p);
 	}
 	
+	static void buildProcess(Process p) {
+		new Thread(p).start();
+	}
+	
 	public static void provide(long id) throws MoonaHandlingException {
 		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
@@ -105,7 +109,7 @@ public final class Processor {
 		Moona.checkOn();
 		provide(p);
 		p.initialize();
-		new Thread(p).start();
+		buildProcess(p);
 	}
 
 	public static void unlock(long id) throws MoonaHandlingException {
@@ -150,7 +154,7 @@ public final class Processor {
 		}
 		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
-		new Thread(p, "Process#" + p.id()).start();
+		buildProcess(p);
 	}
 
 	public static void start(long id) throws MoonaHandlingException {
@@ -176,7 +180,7 @@ public final class Processor {
 		addProcess(p);
 		ProcessCondition.RUNNING.set(p);
 		initiator(p);
-		new Thread(p).start();
+		buildProcess(p);
 	}
 
 	public static void flick(long id) throws MoonaHandlingException {

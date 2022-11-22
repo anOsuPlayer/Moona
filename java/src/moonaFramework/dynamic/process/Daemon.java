@@ -1,5 +1,6 @@
 package moonaFramework.dynamic.process;
 
+import moonaFramework.base.Moona;
 import moonaFramework.base.Natural;
 import moonaFramework.dynamic.ProcessCondition;
 import moonaFramework.dynamic.Processor;
@@ -24,7 +25,7 @@ public abstract class Daemon extends AbstractProcess {
 	
 	@Override
 	public void run() {
-		while (!ProcessCondition.DEAD.check(this)) {
+		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
 			synchronized (getClock()) {
 				if (Processor.processCount() == 0) {
 					Processor.interrupt(this);
