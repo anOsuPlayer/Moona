@@ -73,7 +73,7 @@ public final class Processor {
 	}
 	
 	static void buildProcess(Process p) {
-		new Thread(p).start();
+		new Thread(p, p.toString()).start();
 	}
 	
 	public static void provide(long id) throws MoonaHandlingException {

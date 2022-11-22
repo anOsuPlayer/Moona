@@ -13,4 +13,8 @@ public abstract class Task extends AbstractProcess {
 	
 	@Override
 	public abstract void update();
+	
+	public Task() {
+		super();
+	}
 }

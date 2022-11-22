@@ -35,12 +35,9 @@ import moonaFramework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	static Task t = new Task() {
-		public void update() {
-			System.out.println("AAAAAAAA");
-			t.getClock().sleep(500l);
-		}
-	};
+	@Unique
+	static Task t = Handler.buildProcess(() -> { System.out.println("AAAAAAAAAAAAAa"); });
+	
 	static Task t2 = new Task() {
 		public void update() {
 			System.out.println("BBBBBBBB");
