@@ -358,13 +358,12 @@ public class IshMap<V, K> {
 	
 	public IshMap<V, K> subMap(int from, int to) throws IllegalArgumentException, IndexOutOfBoundsException {
 		requireInRange(from); requireInRange(to);
-		to++;
-		if (from == 0 && to == size()) {
+		if (from == 0 && to+1 == size()) {
 			return clone();
 		}
-		if (from > to) { throw new IllegalArgumentException("The beginning index of the sub-IshMap"
+		if (from > to+1) { throw new IllegalArgumentException("The beginning index of the sub-IshMap"
 				+ " cannot be less than the end index."); }
-		return new IshMap<>(values.subList(from, to), keys.subList(from, to));
+		return new IshMap<>(values.subList(from, to+1), keys.subList(from, to+1));
 	}
 	public IshMap<V, K> subMap(int from) throws IllegalArgumentException {
 		return subMap(from, size()-1);

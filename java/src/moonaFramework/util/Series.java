@@ -72,10 +72,9 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 		if (offset > until) {
 			throw new IllegalArgumentException("The offset cannot be greater than the Series's length.");
 		}
-		offset += offset == 0 ? 1 : 0;
 		this.series = new ArrayList<>();
 		this.from = from; this.iterations = until;
-		this.offset = offset;
+		this.offset = offset + ((offset == 0) ? 1 : 0);
 		this.id = Moona.generateID();
 	}
 	public Series(T from, long until) throws NullPointerException {
