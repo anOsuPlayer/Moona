@@ -146,7 +146,7 @@ public final class Processor {
 		if (p == null) {
 			throw new NullArgumentException("You cannot initiate a null Process.");
 		}
-		if (p.isRunning().verify()) {
+		if (p.isRunning()) {
 			throw new MoonaHandlingException("The Process is already running.");
 		}
 		if (ProcessCondition.AWAITING.check(p)) {
@@ -171,7 +171,7 @@ public final class Processor {
 		if (p == null) {
 			throw new NullArgumentException("You cannot start a null Process.");
 		}
-		if (p.isRunning().verify()) {
+		if (p.isRunning()) {
 			throw new MoonaHandlingException("The Process is already running.");
 		}
 		if (ProcessCondition.AWAITING.check(p)) {
@@ -201,7 +201,7 @@ public final class Processor {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
 					+ " it.");
 		}
-		if (p.isPaused().verify()) {
+		if (p.isPaused()) {
 			ProcessCondition.RUNNING.set(p);
 			p.getClock().release();
 		}
@@ -228,7 +228,7 @@ public final class Processor {
 			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
 					+ " it.");
 		}
-		if (p.isPaused().verify()) {
+		if (p.isPaused()) {
 			ProcessCondition.RUNNING.set(p);
 			p.getClock().release();
 			synchronized (p.getClock()) {
@@ -260,7 +260,7 @@ public final class Processor {
 		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
 		}
-		boolean wasPaused = p.isPaused().verify();
+		boolean wasPaused = p.isPaused();
 		removeProcess(p);
 		ProcessCondition.DEAD.set(p);
 		if (wasPaused) {

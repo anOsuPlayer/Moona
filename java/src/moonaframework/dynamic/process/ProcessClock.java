@@ -22,7 +22,7 @@ public class ProcessClock extends Chrono implements Attached<Process> {
 	}
 	
 	public void pauseHolder() {
-		if (host.isPaused().verify()) {
+		if (host.isPaused()) {
 			stasys();
 		}
 		else {

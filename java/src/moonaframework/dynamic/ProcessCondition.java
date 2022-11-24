@@ -5,42 +5,35 @@ import moonaframework.util.exceptions.NullArgumentException;
 
 public enum ProcessCondition {
 	
-	RUNNING (true, false),
+	RUNNING,
 	
-	PAUSED (true, true),
+	PAUSED,
 	
-	AWAITING (false, true),
+	AWAITING,
 	
-	DEAD (false, false);
-	
-	private boolean isRunning;
-	private boolean isPaused;
+	DEAD;
 	
 	protected void set(Process p) throws NullArgumentException {
 		if (p == null) {
 			throw new NullArgumentException("The given Process is null.");
 		}
-		p.isRunning().imposeSet(isRunning);
-		p.isPaused().imposeSet(isPaused);
+		p.getStatus().set(this);
 	}
 	
 	protected static void cloneCondition(Process from, Process at) throws NullArgumentException {
 		if (from == null || at == null) {
 			throw new NullArgumentException("The given Process is null.");
 		}
-		at.isRunning().imposeSet(from.isRunning().verify());
-		at.isPaused().imposeSet(from.isPaused().verify());
+		from.getStatus().replace(at);
 	}
 	
 	public boolean check(Process p) throws NullArgumentException {
 		if (p == null) {
 			throw new NullArgumentException("The given Process is null.");
 		}
-		return p.isRunning().verify() == isRunning && p.isPaused().verify() == isPaused;
+		return p.getStatus().getValue().equals(this);
 	}
 	
-	private ProcessCondition(boolean isRunning, boolean isPaused) {
-		this.isRunning = isRunning;
-		this.isPaused = isPaused;
+	private ProcessCondition() {
 	}
 }

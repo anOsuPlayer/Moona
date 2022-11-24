@@ -18,7 +18,6 @@ import moonaframework.*;
 import moonaframework.base.Agent;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
-import moonaframework.dynamic.CompositeProcess;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;
@@ -35,7 +34,7 @@ import moonaframework.util.time.*;
 public class Test {
 	
 	@Unique
-	static Task t = Handler.buildProcess(() -> { System.out.println("AAAAAAAAAAAAAa"); });
+	static Task t = Handler.buildProcess(() -> { System.out.println("AAAAAAAAAAAAA"); });
 	
 	static Task t2 = new Task() {
 		public void update() {
@@ -45,7 +44,10 @@ public class Test {
 	};
 	
 	public static void main(String[] args) {
+		Moona.init();
 		
-		
+		System.out.println(Benchmark.time(() -> {
+			Processor.start(t2);
+		}));
 	}
 }
