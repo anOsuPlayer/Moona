@@ -24,12 +24,12 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		@Deadlined
 		public String getName() {
-			return null;
+			return "";
 		}
 		
 		@Deadlined
 		public Class<?>[] getArgs() {
-			return null;
+			return NO_ARGS;
 		}
 		
 		@Override
@@ -140,7 +140,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		@Deadlined
 		public Class<?>[] getArgs() {
-			return null;
+			return NO_ARGS;
 		}
 		
 		@Override
