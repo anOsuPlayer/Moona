@@ -3,8 +3,9 @@ package moonaframework.util.reflection;
 import moonaframework.base.Moona;
 import moonaframework.base.Natural;
 import moonaframework.base.Serial;
+import moonaframework.util.function.Property;
 
-public abstract class Reflection<T> implements Serial {
+public abstract class Reflection<T> implements Property<T>, Serial {
 
 	private final long id;
 	@Override

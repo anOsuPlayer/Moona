@@ -1,7 +1,7 @@
 package moonaframework.dynamic;
 
+import moonaframework.util.Status;
 import moonaframework.util.annotations.Deadlined;
-import moonaframework.util.condition.Status;
 import moonaframework.dynamic.process.Process;
 
 public class ProcessStatus extends Status<ProcessCondition> {
@@ -11,7 +11,7 @@ public class ProcessStatus extends Status<ProcessCondition> {
 	}
 	
 	protected void replace(Process p) {
-		super.setValue(p.getStatus().getValue());
+		super.setValue(p.getStatus().evaluate());
 	}
 	
 	@Deadlined

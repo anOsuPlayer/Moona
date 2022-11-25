@@ -15,12 +15,12 @@ public interface Process extends Runnable, Dynamic, Serial {
 	ProcessStatus getStatus();
 	
 	default boolean isRunning() {
-		return getStatus().getValue().equals(ProcessCondition.PAUSED) ||
-				getStatus().getValue().equals(ProcessCondition.RUNNING);
+		return getStatus().evaluate().equals(ProcessCondition.PAUSED) ||
+				getStatus().evaluate().equals(ProcessCondition.RUNNING);
 	}
 	default boolean isPaused() {
-		return getStatus().getValue().equals(ProcessCondition.AWAITING) ||
-				getStatus().getValue().equals(ProcessCondition.PAUSED);
+		return getStatus().evaluate().equals(ProcessCondition.AWAITING) ||
+				getStatus().evaluate().equals(ProcessCondition.PAUSED);
 	}
 	
 	void onPause();

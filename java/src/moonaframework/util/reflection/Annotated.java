@@ -11,11 +11,13 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Type extends Annotated {
 		
 		private final Class<?> target;
+		@Override
 		public Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
+		@Override
 		public Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
@@ -54,11 +56,13 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Constructor extends Annotated {
 		
 		private final Class<?> target;
+		@Override
 		public Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
+		@Override
 		public Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
@@ -69,6 +73,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		}
 		
 		private Class<?>[] args;
+		@Override
 		public Class<?>[] getArgs() {
 			return args;
 		}
@@ -112,16 +117,19 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Field extends Annotated {
 		
 		private final Class<?> target;
+		@Override
 		public Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
+		@Override
 		public Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
 		private String fieldName;
+		@Override
 		public String getName() {
 			return fieldName;
 		}
@@ -168,21 +176,25 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Method extends Annotated {
 		
 		private final Class<?> target;
+		@Override
 		public Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
+		@Override
 		public Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
 		private String methodName;
+		@Override
 		public String getName() {
 			return methodName;
 		}
 		
 		private Class<?>[] args;
+		@Override
 		public Class<?>[] getArgs() {
 			return args;
 		}

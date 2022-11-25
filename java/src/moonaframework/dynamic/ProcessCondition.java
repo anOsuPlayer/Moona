@@ -31,7 +31,7 @@ public enum ProcessCondition {
 		if (p == null) {
 			throw new NullArgumentException("The given Process is null.");
 		}
-		return p.getStatus().getValue().equals(this);
+		return p.getStatus().evaluate().equals(this);
 	}
 	
 	private ProcessCondition() {

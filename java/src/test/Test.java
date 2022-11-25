@@ -34,20 +34,17 @@ import moonaframework.util.time.*;
 public class Test {
 	
 	@Unique
-	static Task t = Handler.buildProcess(() -> { System.out.println("AAAAAAAAAAAAA"); });
-	
 	static Task t2 = new Task() {
 		public void update() {
 			System.out.println("BBBBBBBB");
-			t.getClock().sleep(500l);
+			t2.getClock().sleep(500l);
 		}
 	};
 	
 	public static void main(String[] args) {
 		Moona.init();
 		
-		System.out.println(Benchmark.time(() -> {
-			Processor.start(t2);
-		}));
+		Annotated.Type ann = new Annotated.Type(t2.getClass(), Unique.class);
+		System.out.println(ann.evaluate());
 	}
 }
