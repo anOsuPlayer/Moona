@@ -7,6 +7,7 @@ import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 import moonaframework.util.annotations.Deadlined;
 import moonaframework.util.annotations.Timeless;
+import moonaframework.util.annotations.Unique;
 import moonaframework.util.reflection.Annotated;
 
 public abstract class AbstractProcess implements Process {
@@ -60,7 +61,7 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
-//		Mirror.add(new Annotated.Type(this.getClass(), Unique.class));
+		Mirror.add(new Annotated.Type(this.getClass(), Unique.class));
 		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS));
 		Mirror.add(new Annotated.Method(this.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
 		

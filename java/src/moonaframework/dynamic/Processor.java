@@ -1,5 +1,8 @@
 package moonaframework.dynamic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import moonaframework.base.Agent;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
@@ -9,6 +12,7 @@ import moonaframework.base.Serial;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.annotations.Timeless;
+import moonaframework.util.annotations.Unique;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.Annotated;
@@ -16,6 +20,8 @@ import moonaframework.util.reflection.Annotated;
 public final class Processor {
 	
 	private static final IshMap<Process, Long> processes = new IshMap<>();
+	
+	private static final List<Long> uniques = new ArrayList<>();
 	
 	private static int totalProcesses = 0;
 	
@@ -33,6 +39,13 @@ public final class Processor {
 		addProcess(p);
 	}
 	static void addProcess(Process p) {
+		if (Mirror.getAnnotated(p.getClass(), Unique.class).evaluate()) {
+			if (uniques.contains(p.id())) {
+				throw new MoonaHandlingException("Elements marked as Unique can be processed just once.");
+			}
+			uniques.add(p.id());
+		}
+		
 		totalProcesses++;
 		totalDaemons += (p.nature() == Natural.DAEMON) ? 1 : 0;
 		totalWorms += (p.nature() == Natural.WORM) ? 1 : 0;

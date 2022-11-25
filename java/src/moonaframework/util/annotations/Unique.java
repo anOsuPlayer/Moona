@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
-@Target({ TYPE, FIELD, TYPE_USE })
+@Target({ TYPE, FIELD, TYPE_USE, ANNOTATION_TYPE })
 @SuppressWarnings("all")
 public @interface Unique {
 }

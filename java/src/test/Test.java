@@ -33,17 +33,11 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	@Unique
-	static Task t2 = new Task() {
-		public void update() {
-			System.out.println("BBBBBBBB");
-			t2.getClock().sleep(500l);
-		}
-	};
+	static Task t2 = Handler.buildProcess(() -> {
+		System.out.println("AAAAAAAAAAa");
+	});
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		Moona.init();
-		
-		System.out.println(new Annotated.Type(t2.getClass(), Unique.class).evaluate());
 	}
 }

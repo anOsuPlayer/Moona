@@ -73,7 +73,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		@Deadlined
 		public String getName() {
-			return null;
+			return "";
 		}
 		
 		private Class<?>[] args;
@@ -88,10 +88,10 @@ public abstract class Annotated extends Reflection<Boolean> {
 				if (args != null) {
 					Class<?>[] params = con.getParameterTypes();
 					params = (params.length == 0) ? Annotated.NO_ARGS : params;
-					super.value = (params.equals(args) && con.getAnnotation(annotation) != null);
+					super.value = (params.equals(args) && con.isAnnotationPresent(annotation));
 				}
 				else {
-					super.value = con.getAnnotation(annotation) != null;
+					super.value = con.isAnnotationPresent(annotation);
 					this.args = NO_ARGS;
 				}
 				if (super.value) { return; }
@@ -147,10 +147,10 @@ public abstract class Annotated extends Reflection<Boolean> {
 		public void reflect() {
 			for (java.lang.reflect.Field f : target.getDeclaredFields()) {
 				if (fieldName != null) {
-					super.value = (f.getName().equals(fieldName) && f.getAnnotation(annotation) != null);
+					super.value = (f.getName().equals(fieldName) && f.isAnnotationPresent(annotation));
 				}
 				else {
-					super.value = f.getAnnotation(annotation) != null;
+					super.value = f.isAnnotationPresent(annotation);
 					this.fieldName = f.getName();
 				}
 				if (super.value) { return; }
@@ -210,16 +210,16 @@ public abstract class Annotated extends Reflection<Boolean> {
 					Class<?>[] params = m.getParameterTypes();
 					params = (params.length == 0) ? Annotated.NO_ARGS : params;
 					super.value = m.getName().equals(methodName) && params.equals(args)
-							&& m.getAnnotation(annotation) != null;
+							&& m.isAnnotationPresent(annotation);
 				}
 				else if (args != null) {
 					Class<?>[] params = m.getParameterTypes();
 					params = (params.length == 0) ? Annotated.NO_ARGS : params;
-					super.value = params.equals(args) && m.getAnnotation(annotation) != null;
+					super.value = params.equals(args) && m.isAnnotationPresent(annotation);
 					this.methodName = m.getName();
 				}
 				else if (methodName != null) {
-					super.value = m.getName().equals(methodName) && m.getAnnotation(annotation) != null;
+					super.value = m.getName().equals(methodName) && m.isAnnotationPresent(annotation);
 					this.args = NO_ARGS;
 				}
 				if (super.value) { return; }
