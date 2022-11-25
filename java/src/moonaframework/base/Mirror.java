@@ -4,10 +4,13 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.util.annotations.Timeless;
+import moonaframework.util.annotations.Unique;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.Annotated;
 import moonaframework.util.reflection.Reflection;
+import moonaframework.dynamic.process.Process;
 
 public final class Mirror {
 	
@@ -486,6 +489,20 @@ public final class Mirror {
 			}
 		}
 		return null;
+	}
+	
+	public static void reflectProcess(Process p) {
+		add(new Annotated.Type(p.getClass(), Unique.class));
+		add(new Annotated.Method(p.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS));
+		add(new Annotated.Method(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
+	}
+	
+	public static void reflectUnique(Serial s) {
+		add(new Annotated.Type(s.getClass(), Unique.class));
+	}
+	public static void reflectTimeless(Process p) {
+		add(new Annotated.Method(p.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS));
+		add(new Annotated.Method(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS));
 	}
 	
 	public static int reflectionsOf(Object target) throws NullArgumentException {
