@@ -1,12 +1,15 @@
 package moonaframework.dynamic.process;
 
+import moonaframework.base.Natural;
 import moonaframework.base.Serial;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 
-public interface Process extends Runnable, Dynamic, Serial {
+public interface Process extends Natural, Runnable, Dynamic, Serial {
 	
+	@Override
+	int nature();
 	@Override
 	long id();
 	
@@ -27,8 +30,10 @@ public interface Process extends Runnable, Dynamic, Serial {
 	void onUnpause();
 	
 	void initialize();
-	void update();
 	void end();
+	
+	@Override
+	void update();
 	
 	@Override
 	void run();
