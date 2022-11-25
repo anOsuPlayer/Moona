@@ -15,6 +15,7 @@ import moonaframework.util.annotations.Timeless;
 import moonaframework.util.annotations.Unique;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exceptions.UniqueObjectException;
 import moonaframework.util.reflection.Annotated;
 
 public final class Processor {
@@ -29,7 +30,8 @@ public final class Processor {
 	
 	private static int totalWorms = 0;
 	
-	public static void add(Process p) throws MoonaHandlingException, NullArgumentException {
+	public static void add(Process p) throws MoonaHandlingException, NullArgumentException,
+			UniqueObjectException {
 		if (p == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
@@ -38,10 +40,10 @@ public final class Processor {
 		}
 		addProcess(p);
 	}
-	static void addProcess(Process p) {
-		if (Mirror.getAnnotated(p.getClass(), Unique.class).evaluate()) {
+	static void addProcess(Process p) throws UniqueObjectException {
+		if (Mirror.getAnnotatedType(p.getClass(), Unique.class).evaluate()) {
 			if (uniques.contains(p.id())) {
-				throw new MoonaHandlingException("Elements marked as Unique can be processed just once.");
+				throw new UniqueObjectException("Elements marked as Unique can be processed just once.");
 			}
 			uniques.add(p.id());
 		}
