@@ -44,7 +44,6 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Annotated.Type ann = new Annotated.Type(t2.getClass(), Unique.class);
-		System.out.println(ann.evaluate());
+		System.out.println(new Annotated.Type(t2.getClass(), Unique.class).evaluate());
 	}
 }

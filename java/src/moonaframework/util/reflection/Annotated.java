@@ -34,7 +34,11 @@ public abstract class Annotated extends Reflection<Boolean> {
 		
 		@Override
 		public void reflect() {
-			super.value = target.getAnnotation(annotation) != null;
+			if (getType().equals(ElementType.TYPE_USE)) {
+				super.value = new Field(getTarget().getEnclosingClass(), annotation).evaluate();
+				return;
+			}
+			super.value = target.isAnnotationPresent(annotation);
 		}
 		
 		@Override
