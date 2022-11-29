@@ -3,6 +3,7 @@ package moonaframework.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 import moonaframework.base.Moona;
 import moonaframework.base.Natural;
