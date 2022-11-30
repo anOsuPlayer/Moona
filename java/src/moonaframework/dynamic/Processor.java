@@ -20,9 +20,9 @@ import moonaframework.util.reflection.Annotated;
 
 public final class Processor {
 	
-	private static final IshMap<Process, Long> processes = new IshMap<>();
+	static final IshMap<Process, Long> processes = new IshMap<>();
 	
-	private static final List<Long> uniques = new ArrayList<>();
+	static final List<Long> uniques = new ArrayList<>();
 	
 	private static int totalProcesses = 0;
 	
@@ -30,8 +30,7 @@ public final class Processor {
 	
 	private static int totalWorms = 0;
 	
-	public static void add(Process p) throws MoonaHandlingException, NullArgumentException,
-			UniqueObjectException {
+	public static void add(Process p) throws MoonaHandlingException, NullArgumentException {
 		if (p == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
@@ -40,14 +39,7 @@ public final class Processor {
 		}
 		addProcess(p);
 	}
-	static void addProcess(Process p) throws UniqueObjectException {
-		if (Mirror.getAnnotatedType(p.getClass(), Unique.class).evaluate()) {
-			if (uniques.contains(p.id())) {
-				throw new UniqueObjectException("Elements marked as Unique can be processed just once.");
-			}
-			uniques.add(p.id());
-		}
-		
+	static void addProcess(Process p) {
 		totalProcesses++;
 		totalDaemons += (p.nature() == Natural.DAEMON) ? 1 : 0;
 		totalWorms += (p.nature() == Natural.WORM) ? 1 : 0;
