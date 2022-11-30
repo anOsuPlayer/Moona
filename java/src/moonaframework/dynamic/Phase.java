@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
+import moonaframework.base.Natural;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -24,7 +25,54 @@ public class Phase {
 		if (processes.contains(p.id())) {
 			throw new MoonaHandlingException("This Process already belongs to this Phase.");
 		}
+		addProcess(p);
+	}
+	void addProcess(Process p) {
+		processCount++;
+		daemonCount += (p.nature() == Natural.DAEMON) ? 1 : 0; 
+		wormCount += (p.nature() == Natural.WORM) ? 1 : 0;
 		
+		Processor.filteredAdd(p);
+		processes.add(p.id());
+	}
+	
+	public void remove(Process p) throws NullArgumentException, MoonaHandlingException {
+		if (p == null) {
+			throw new NullArgumentException("You cannot remove null elements from a Phase.");
+		}
+		if (processes.contains(p.id())) {
+			throw new MoonaHandlingException("This Process does not belong to this Phase.");
+		}
+		removeProcess(p);
+		processes.remove(p.id());
+	}
+	void removeProcess(Process p) {
+		processCount--;
+		daemonCount -= (p.nature() == Natural.DAEMON) ? 1 : 0; 
+		wormCount -= (p.nature() == Natural.WORM) ? 1 : 0;
+		
+		Processor.filteredRemove(p);
+	}
+	
+	public boolean has(Process p) {
+		return processes.contains(p.id());
+	}
+	public boolean has(long id) {
+		return processes.contains(id);
+	}
+	
+	public int totalProcesses() {
+		return processCount;
+	}
+	
+	public int processCount() {
+		return processCount - daemonCount - wormCount;
+	}
+	public int totalDaemons() {
+		return daemonCount;
+	}
+	public int totalWorms() {
+		return wormCount;
 	}
 	
 	public Phase() {

@@ -12,10 +12,8 @@ import moonaframework.base.Serial;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.annotations.Timeless;
-import moonaframework.util.annotations.Unique;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.exceptions.UniqueObjectException;
 import moonaframework.util.reflection.Annotated;
 
 public final class Processor {
@@ -39,6 +37,11 @@ public final class Processor {
 		}
 		addProcess(p);
 	}
+	static void filteredAdd(Process p) {
+		if (!processes.hasKey(p.id())) {
+			addProcess(p);
+		}
+	}
 	static void addProcess(Process p) {
 		totalProcesses++;
 		totalDaemons += (p.nature() == Natural.DAEMON) ? 1 : 0;
@@ -55,6 +58,11 @@ public final class Processor {
 			throw new MoonaHandlingException("This Process is not present in Moona.");
 		}
 		removeProcess(p);
+	}
+	static void filteredRemove(Process p) {
+		if (processes.hasKey(p.id())) {
+			removeProcess(p);
+		}
 	}
 	static void removeProcess(Process p) {
 		totalProcesses--;
@@ -367,10 +375,10 @@ public final class Processor {
 	public static int processCount() {
 		return totalProcesses - totalDaemons - totalWorms;
 	}
-	public static int daemonCount() {
+	public static int totalDaemons() {
 		return totalDaemons;
 	}
-	public static int wormCount() {
+	public static int totalWorms() {
 		return totalWorms;
 	}
 	
