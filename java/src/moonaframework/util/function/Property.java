@@ -1,6 +1,13 @@
 package moonaframework.util.function;
 
-public interface Property<T> {
+import java.util.function.Supplier;
+import moonaframework.base.Satellite;
 
+public interface Property<T> extends Satellite<Supplier<T>> {
+
+	default Supplier<T> translate() {
+		return () -> evaluate();
+	}
+	
 	T evaluate();
 }
