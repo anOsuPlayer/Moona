@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.stream.Stream;
 
 import moonaframework.*;

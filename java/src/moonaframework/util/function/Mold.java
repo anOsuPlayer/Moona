@@ -1,6 +1,13 @@
 package moonaframework.util.function;
 
-public interface Mold<T, S> {
+import java.util.function.Function;
+import moonaframework.base.Satellite;
 
-	T cast(S s);
+public interface Mold<T, S> extends Satellite<Function<T, S>> {
+
+	default Function<T, S> translate() {
+		return (T t) -> cast(t);
+	}
+	
+	S cast(T s);
 }
