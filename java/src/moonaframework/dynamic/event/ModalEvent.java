@@ -6,13 +6,11 @@ import moonaframework.util.exceptions.NullArgumentException;
 
 public interface ModalEvent extends Event {
 
-	@Override
-	default int nature() {
+	default @Override int nature() {
 		return Natural.MODALEVENT;
 	}
 	
-	@Override
-	void trigger();
+	@Override void trigger();
 	
 	EventMode getMode();
 	

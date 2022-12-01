@@ -44,9 +44,6 @@ public class Timer extends Clock {
 	public Timer(long mills) throws IllegalArgumentException {
 		this(mills, 0);
 	}
-	public Timer(int micros) throws IllegalArgumentException {
-		this(micros / 1000, ((micros * 1000) % 1000000));
-	}
 	public Timer(double seconds) throws IllegalArgumentException {
 		this((long) seconds * 1000 + ((int) ((seconds - ((int) seconds)) * 1000)),
 				(int) (((seconds - ((int) seconds)) * 1000000000)) % 1000000);

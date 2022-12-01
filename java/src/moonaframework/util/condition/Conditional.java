@@ -1,6 +1,14 @@
 package moonaframework.util.condition;
 
-public interface Conditional {
+import java.util.function.Supplier;
+
+import moonaframework.base.Satellite;
+
+public interface Conditional extends Satellite<Supplier<Boolean>> {
+	
+	default @Override Supplier<Boolean> translate() {
+		return () -> verify();
+	}
 
 	boolean verify();
 	

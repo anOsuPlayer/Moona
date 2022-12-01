@@ -12,17 +12,14 @@ import moonaframework.util.exceptions.NullArgumentException;
 public abstract class Series<T> implements Iterable<T>, Serial {
 	
 	private final long id;
-	@Override
-	public final long id() {
+	public @Override final long id() {
 		return this.id;
 	}
-	@Override
-	public int nature() {
+	public @Override int nature() {
 		return Natural.OBJECT;
 	}
 	
-	@Override
-	public String toString() {
+	public @Override String toString() {
 		if (series.isEmpty()) {
 			return "[ - ]";
 		}
@@ -50,8 +47,7 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 		}
 	}
 
-	@Override
-	public Iterator<T> iterator() {
+	public @Override Iterator<T> iterator() {
 	   return this.series.iterator();
 	}
 	

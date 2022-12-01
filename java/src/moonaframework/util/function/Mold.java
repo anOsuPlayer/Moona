@@ -5,7 +5,7 @@ import moonaframework.base.Satellite;
 
 public interface Mold<T, S> extends Satellite<Function<T, S>> {
 
-	default Function<T, S> translate() {
+	default @Override Function<T, S> translate() {
 		return (T t) -> cast(t);
 	}
 	

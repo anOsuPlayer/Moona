@@ -14,8 +14,7 @@ public class ProcessStatus extends Status<ProcessCondition> {
 		super.setValue(p.getStatus().evaluate());
 	}
 	
-	@Deadlined
-	protected void reverse() {
+	protected @Deadlined void reverse() {
 	}
 	
 	public ProcessStatus(ProcessCondition pc) {

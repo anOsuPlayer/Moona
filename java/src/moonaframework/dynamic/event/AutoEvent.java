@@ -7,16 +7,13 @@ import moonaframework.dynamic.process.Task;
 
 public abstract class AutoEvent extends Task implements Event, Dynamic {
 	
-	@Override
-	public int nature() {
+	public @Override int nature() {
 		return Natural.AUTOEVENT;
 	}
 	
-	@Override
-	public abstract void trigger();
+	public @Override abstract void trigger();
 	
-	@Override
-	public void update() {
+	public @Override void update() {
 		trigger();
 		Processor.interrupt(this);
 	}

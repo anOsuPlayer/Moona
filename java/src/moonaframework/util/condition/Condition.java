@@ -4,21 +4,17 @@ public class Condition implements Conditional {
 
 	private boolean value;
 	
-	@Override
-	public boolean verify() {
+	public @Override boolean verify() {
 		return value;
 	}
-	@Override
-	public void reverse() {
+	public @Override void reverse() {
 		this.value = !value;
 	}
-	@Override
-	public void setValue(boolean value) {
+	public @Override void setValue(boolean value) {
 		this.value = value;
 	}
 	
-	@Override
-	public Conditional opposite() {
+	public @Override Conditional opposite() {
 		return new Condition(!value);
 	}
 	

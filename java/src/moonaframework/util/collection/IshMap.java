@@ -20,16 +20,14 @@ public class IshMap<V, K> {
 		return values.size();
 	}
 	
-	@Override
-	public String toString() {
+	public @Override String toString() {
 		String str = "[ ";
 		for (int i = 0; i < size(); i++) {
 			str += (values.get(i) + " - " + keys.get(i) + ((i == size()-1 ? " ]" : " ]\n[ ")));
 		}
 		return str;
 	}
-	@Override
-	public IshMap<V, K> clone() {
+	public @Override IshMap<V, K> clone() {
 		return new IshMap<>(values, keys);
 	}
 	
@@ -264,26 +262,22 @@ public class IshMap<V, K> {
 		private final Iterator<V> reverse = new Iterator<V>() {
 			private int index = -2;
 			
-			@Override
-			public boolean hasNext() {
+			public @Override boolean hasNext() {
 				return index >= 0 || index == -2;
 			}
-			@Override
-			public V next() {
+			public @Override V next() {
 				if (index == -1 || index == -2) { index = size()-1; }
 				return values.get(index--);
 			}
 		};
 		
-		@Override
-		public Iterator<V> iterator() {
+		public @Override Iterator<V> iterator() {
 			return values.iterator();
 		}
-		@Override
-		public Iterable<V> reverse() {
+		public @Override Iterable<V> reverse() {
 			return new Iterable<V>() {
-				@Override
-				public Iterator<V> iterator() {
+				
+				public @Override Iterator<V> iterator() {
 					return reverse;
 				}
 			};
@@ -296,27 +290,23 @@ public class IshMap<V, K> {
 	private final Reviterable<K> keysIterator = new Reviterable<K>() {
 		private final Iterator<K> reverse = new Iterator<K>() {
 			private int index = -2;
-			
-			@Override
-			public boolean hasNext() {
+
+			public @Override boolean hasNext() {
 				return index >= 0 || index == -2;
 			}
-			@Override
-			public K next() {
+			public @Override K next() {
 				if (index == -1 || index == -2) { index = size()-1; }
 				return keys.get(index--);
 			}
 		};
 		
-		@Override
-		public Iterator<K> iterator() {
+		public @Override Iterator<K> iterator() {
 			return keys.iterator();
 		}
-		@Override
-		public Iterable<K> reverse() {
+		public @Override Iterable<K> reverse() {
 			return new Iterable<K>() {
-				@Override
-				public Iterator<K> iterator() {
+				
+				public @Override Iterator<K> iterator() {
 					return reverse;
 				}
 			};

@@ -36,12 +36,8 @@ import moonaframework.util.time.*;
 
 @SuppressWarnings("unused")
 public class Test {
-
+	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Delegate<Integer> i = new Delegate<>(Mirror::totalReflections);
-		
-		System.out.println(i.evaluate());
 	}
 }

@@ -8,6 +8,6 @@ public interface Cast<T> extends Mold<Object, T> {
 		return (Object o) -> cast(o);
 	}
 	
-	@Override
-	T cast(Object object);
+	
+	@Override T cast(Object object);
 }

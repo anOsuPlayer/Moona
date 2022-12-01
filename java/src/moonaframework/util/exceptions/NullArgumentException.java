@@ -7,12 +7,10 @@ public class NullArgumentException extends RuntimeException implements Serial {
 
 	private static final long serialVersionUID = -2;
 
-	@Override
-	public long id() {
+	public @Override long id() {
 		return serialVersionUID;
 	}
-	@Override
-	public int nature() {
+	public @Override int nature() {
 		return Natural.EXCEPTION;
 	}
 

@@ -7,7 +7,7 @@ public class Status<T> implements Property<T> {
 
 	private T value;
 	
-	public T evaluate() {
+	public @Override T evaluate() {
 		return this.value;
 	}
 	
@@ -15,8 +15,7 @@ public class Status<T> implements Property<T> {
 		this.value = value;
 	}
 	
-	@Deadlined
-	protected void reverse() {
+	protected @Deadlined void reverse() {
 	}
 	
 	protected Status(T value) {

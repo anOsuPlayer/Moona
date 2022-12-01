@@ -4,7 +4,7 @@ import moonaframework.base.Satellite;
 
 public interface Snippet extends Satellite<Runnable> {
 
-	default Runnable translate() {
+	default @Override Runnable translate() {
 		return () -> code();
 	}
 	

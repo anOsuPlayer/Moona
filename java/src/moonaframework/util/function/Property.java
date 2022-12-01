@@ -5,7 +5,7 @@ import moonaframework.base.Satellite;
 
 public interface Property<T> extends Satellite<Supplier<T>> {
 
-	default Supplier<T> translate() {
+	default @Override Supplier<T> translate() {
 		return () -> evaluate();
 	}
 	

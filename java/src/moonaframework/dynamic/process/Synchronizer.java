@@ -9,8 +9,7 @@ import moonaframework.util.time.Timer;
 public class Synchronizer extends Task implements Synced<Process> {
 
 	private final Process[] synced;
-	@Override
-	public final Process[] getSynced() {
+	public @Override final Process[] getSynced() {
 		return synced;
 	}
 	
@@ -22,8 +21,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 		this.cooldown = t;
 	}
 	
-	@Override
-	public void onPause() {
+	public @Override void onPause() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
 				p.onPause();
@@ -33,8 +31,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 			}
 		}
 	}
-	@Override
-	public void onUnpause() {
+	public @Override void onUnpause() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
 				p.onUnpause();
@@ -45,8 +42,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 		}
 	}
 	
-	@Override
-	public void initialize() {
+	public @Override void initialize() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
 				p.initialize();
@@ -57,8 +53,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 		}
 	}
 	
-	@Override
-	public void update() {
+	public @Override void update() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
 				p.update();
@@ -69,8 +64,7 @@ public class Synchronizer extends Task implements Synced<Process> {
 		}
 	}
 	
-	@Override
-	public void end() {
+	public @Override void end() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
 				p.end();

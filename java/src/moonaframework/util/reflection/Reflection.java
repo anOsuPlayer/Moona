@@ -8,12 +8,10 @@ import moonaframework.util.function.Property;
 public abstract class Reflection<T> implements Property<T>, Serial {
 
 	private final long id;
-	@Override
-	public final long id() {
+	public @Override final long id() {
 		return this.id;
 	}
-	@Override
-	public int nature() {
+	public @Override int nature() {
 		return Natural.REFLECTION;
 	}
 	
@@ -23,7 +21,7 @@ public abstract class Reflection<T> implements Property<T>, Serial {
 	
 	public abstract void reflect();
 	
-	public final T evaluate() {
+	public @Override final T evaluate() {
 		if (value == null) {
 			reflect();
 		}

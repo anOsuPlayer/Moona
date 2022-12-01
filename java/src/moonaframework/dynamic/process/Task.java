@@ -4,15 +4,12 @@ import moonaframework.util.annotations.Deadlined;
 
 public abstract class Task extends AbstractProcess {
 
-	@Deadlined
-	public void initialize() {
+	public @Deadlined void initialize() {
 	}
-	@Deadlined
-	public void end() {
+	public @Deadlined void end() {
 	}
 	
-	@Override
-	public abstract void update();
+	public @Override abstract void update();
 	
 	public Task() {
 		super();

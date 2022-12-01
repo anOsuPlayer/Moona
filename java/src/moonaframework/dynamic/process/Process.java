@@ -8,13 +8,10 @@ import moonaframework.dynamic.ProcessStatus;
 
 public interface Process extends Natural, Runnable, Dynamic, Serial {
 	
-	@Override
-	int nature();
-	@Override
-	long id();
+	@Override int nature();
+	@Override long id();
 	
 	ProcessClock getClock();
-	
 	ProcessStatus getStatus();
 	
 	default boolean isRunning() {
@@ -32,9 +29,7 @@ public interface Process extends Natural, Runnable, Dynamic, Serial {
 	void initialize();
 	void end();
 	
-	@Override
-	void update();
-	
-	@Override
-	void run();
+	@Override void update();
+
+	@Override void run();
 }

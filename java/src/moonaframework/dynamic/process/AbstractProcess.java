@@ -10,43 +10,35 @@ import moonaframework.util.annotations.Deadlined;
 public abstract class AbstractProcess implements Process {
 	
 	private final long id;
-	@Override
-	public final long id() {
+	public @Override final long id() {
 		return this.id;
 	}
-	@Override
-	public int nature() {
+	public @Override int nature() {
 		return Natural.PROCESS;
 	}
 
 	private final ProcessClock clock;
-	@Override
-	public final ProcessClock getClock() {
+	public @Override final ProcessClock getClock() {
 		return clock;
 	}
 	
 	private final ProcessStatus status;
-	@Override
-	public final ProcessStatus getStatus() {
+	public @Override final ProcessStatus getStatus() {
 		return this.status;
 	}
 	
-	@Deadlined
-	public void onPause() {
+	public @Deadlined void onPause() {
 	}
-	@Deadlined
-	public void onUnpause() {
+	public @Deadlined void onUnpause() {
 	}
 	
-	@Override
-	public abstract void initialize();
-	@Override
-	public abstract void update();
-	@Override
-	public abstract void end();
+	public @Override abstract void initialize();
+	
+	public @Override abstract void update();
+	
+	public @Override abstract void end();
 
-	@Override
-	public void run() {
+	public @Override void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
 			synchronized (clock) {
 				clock.pauseHolder();

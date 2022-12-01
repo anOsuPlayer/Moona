@@ -15,13 +15,11 @@ public final class Handler {
 	public static CompositeProcess cloneProcess(Process p) {
 		CompositeProcess clone = new CompositeProcess(p::update, p::initialize, p::end, p::onPause,
 				p::onUnpause) {
-			@Override
-			public int nature() {
+			public @Override int nature() {
 				return p.nature();
 			}
 			
-			@Override
-			public void run() {
+			public @Override void run() {
 				p.run();
 			}
 		};
@@ -31,25 +29,21 @@ public final class Handler {
 	
 	public static Task castTask(Process p) {
 		Task newTask = new Task() {
-			@Override
-			public void onPause() {
+			public @Override void onPause() {
 				p.onPause();
 			}
-			@Override
-			public void onUnpause() {
+			public @Override void onUnpause() {
 				p.onUnpause();
 			}
 			
-			@Override
-			public void initialize() {
+			
+			public @Override void initialize() {
 				p.initialize();
 			}
-			@Override
-			public void update() {
+			public @Override void update() {
 				p.update();
 			}
-			@Override
-			public void end() {
+			public @Override void end() {
 				p.end();
 			}
 		};
@@ -61,8 +55,7 @@ public final class Handler {
 	}
 	public static Task buildProcess(Snippet s) {
 		return new Task() {
-			@Override
-			public void update() {
+			public @Override void update() {
 				s.code();
 			}
 		};
@@ -70,25 +63,20 @@ public final class Handler {
 
 	public static Daemon castDaemon(Process p) {
 		Daemon newDaemon = new Daemon() {
-			@Override
-			public void onPause() {
+			public @Override void onPause() {
 				p.onPause();
 			}
-			@Override
-			public void onUnpause() {
+			public @Override void onUnpause() {
 				p.onUnpause();
 			}
 			
-			@Override
-			public void initialize() {
+			public @Override void initialize() {
 				p.initialize();
 			}
-			@Override
-			public void update() {
+			public @Override void update() {
 				p.update();
 			}
-			@Override
-			public void end() {
+			public @Override void end() {
 				p.end();
 			}
 		};
@@ -100,8 +88,7 @@ public final class Handler {
 	}
 	public static Daemon buildDaemon(Snippet s) {
 		return new Daemon() {
-			@Override
-			public void update() {
+			public @Override void update() {
 				s.code();
 			}
 		};
@@ -109,25 +96,20 @@ public final class Handler {
 	
 	public static Worm castWorm(Process p) {
 		Worm newWorm = new Worm() {
-			@Override
-			public void onPause() {
+			public @Override void onPause() {
 				p.onPause();
 			}
-			@Override
-			public void onUnpause() {
+			public @Override void onUnpause() {
 				p.onUnpause();
 			}
 			
-			@Override
-			public void initialize() {
+			public @Override void initialize() {
 				p.initialize();
 			}
-			@Override
-			public void update() {
+			public @Override void update() {
 				p.update();
 			}
-			@Override
-			public void end() {
+			public @Override void end() {
 				p.end();
 			}
 		};
@@ -140,8 +122,7 @@ public final class Handler {
 	}
 	public static Worm buildWorm(Snippet s, Process host) {
 		return new Worm(host) {
-			@Override
-			public void update() {
+			public @Override void update() {
 				s.code();
 			}
 		};
@@ -151,9 +132,8 @@ public final class Handler {
 	}
 	
 	public static AbstractEvent buildEvent(Snippet s) {
-		return new AbstractEvent() {			
-			@Override
-			public void trigger() {
+		return new AbstractEvent() {
+			public @Override void trigger() {
 				s.code();
 			}
 		};
@@ -161,24 +141,21 @@ public final class Handler {
 	
 	public static Action buildAction(Snippet s, EventMode e) {
 		return new Action(e) {
-			@Override
-			public void trigger() {
+			public @Override void trigger() {
 				s.code();
 			}
 		};
 	}
 	public static Action buildAction(Snippet s, int iterations) {
 		return new Action(iterations) {
-			@Override
-			public void trigger() {
+			public @Override void trigger() {
 				s.code();
 			}
 		};
 	}
 	public static Action buildAction(Snippet s, Conditional c) {
 		return new Action(c) {
-			@Override
-			public void trigger() {
+			public @Override void trigger() {
 				s.code();
 			}
 		};

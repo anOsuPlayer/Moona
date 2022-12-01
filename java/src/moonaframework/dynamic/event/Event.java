@@ -11,10 +11,9 @@ public interface Event extends Serial, Satellite<Snippet> {
 		return () -> trigger();
 	}
 	
-	
 	@Override long id();
 	
-	@Override default int nature() {
+	default @Override int nature() {
 		return Natural.EVENT;
 	}
 	

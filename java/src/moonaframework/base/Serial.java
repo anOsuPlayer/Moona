@@ -4,5 +4,5 @@ public interface Serial extends Natural {
 	
 	long id();
 	
-	int nature();
+	@Override int nature();
 }
