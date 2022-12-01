@@ -25,6 +25,7 @@ import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;
 import moonaframework.dynamic.process.*;
 import moonaframework.util.Benchmark;
+import moonaframework.util.Delegate;
 import moonaframework.util.annotations.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.function.Cast;
@@ -35,12 +36,12 @@ import moonaframework.util.time.*;
 
 @SuppressWarnings("unused")
 public class Test {
-	
-	static Task t2 = Handler.buildProcess(() -> {
-		System.out.println("AAAAAAAAAAa");
-	});
-	
+
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Delegate<Integer> i = new Delegate<>(Mirror::totalReflections);
+		
+		System.out.println(i.evaluate());
 	}
 }
