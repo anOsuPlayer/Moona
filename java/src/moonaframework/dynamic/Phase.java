@@ -3,8 +3,8 @@ package moonaframework.dynamic;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
-import moonaframework.base.Natural;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -29,8 +29,8 @@ public class Phase {
 	}
 	void addProcess(Process p) {
 		processCount++;
-		daemonCount += (p.nature() == Natural.DAEMON) ? 1 : 0; 
-		wormCount += (p.nature() == Natural.WORM) ? 1 : 0;
+		daemonCount += (p.nature() == Moona.DAEMON) ? 1 : 0; 
+		wormCount += (p.nature() == Moona.WORM) ? 1 : 0;
 		
 		Processor.filteredAdd(p);
 		processes.add(p.id());
@@ -48,8 +48,8 @@ public class Phase {
 	}
 	void removeProcess(Process p) {
 		processCount--;
-		daemonCount -= (p.nature() == Natural.DAEMON) ? 1 : 0; 
-		wormCount -= (p.nature() == Natural.WORM) ? 1 : 0;
+		daemonCount -= (p.nature() == Moona.DAEMON) ? 1 : 0; 
+		wormCount -= (p.nature() == Moona.WORM) ? 1 : 0;
 		
 		Processor.filteredRemove(p);
 	}

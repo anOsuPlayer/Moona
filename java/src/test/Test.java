@@ -20,6 +20,7 @@ import moonaframework.*;
 import moonaframework.base.Agent;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
+import moonaframework.dynamic.CompositeProcess;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;

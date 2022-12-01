@@ -15,6 +15,24 @@ public final class Moona {
 	
 	static boolean isOn = false;
 	
+	public static final int EXCEPTION = -1;
+	
+	public static final int OBJECT = 0;
+	
+	public static final int PROCESS = 1;
+	
+	public static final int DAEMON = 2;
+	
+	public static final int WORM = 5;
+	
+	public static final int EVENT = 10;
+	
+	public static final int MODALEVENT = 11;
+	
+	public static final int AUTOEVENT = 12;
+	
+	public static final int REFLECTION = 15;
+	
 	public static boolean isOn() {
 		return isOn;
 	}

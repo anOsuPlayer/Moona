@@ -1,13 +1,13 @@
 package moonaframework.util.exceptions;
 
-import moonaframework.base.Natural;
+import moonaframework.base.Moona;
 import moonaframework.base.Serial;
 
 public class UniqueObjectException extends RuntimeException implements Serial {
 
 	private static final long serialVersionUID = -3L;
 	public @Override final int nature() {
-		return Natural.EXCEPTION;
+		return Moona.EXCEPTION;
 	}
 	public @Override final long id() {
 		return serialVersionUID;

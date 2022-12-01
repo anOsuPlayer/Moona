@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import moonaframework.base.Moona;
-import moonaframework.base.Natural;
 import moonaframework.base.Serial;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -16,7 +15,7 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 		return this.id;
 	}
 	public @Override int nature() {
-		return Natural.OBJECT;
+		return Moona.OBJECT;
 	}
 	
 	public @Override String toString() {

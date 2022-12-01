@@ -1,7 +1,6 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.base.Moona;
-import moonaframework.base.Natural;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
 import moonaframework.util.annotations.Deadlined;
@@ -9,35 +8,28 @@ import moonaframework.util.relation.Bindable;
 
 public abstract class Worm extends Daemon implements Bindable<Process> {
 	
-	@Override
-	public int nature() {
-		return Natural.WORM;
+	public @Override int nature() {
+		return Moona.WORM;
 	}
 	
 	private Process host;
-	@Override
-	public Process getHost() {
+	public @Override Process getHost() {
 		return host;
 	}
 	
-	@Override
-	public void setHost(Process newHost) {
+	public @Override void setHost(Process newHost) {
 		this.host = newHost;
 	}
-	@Override
-	public void unbind() {
+	public @Override void unbind() {
 		setHost(null);
 	}
 	
-	@Deadlined
-	public void initialize() {
+	public @Deadlined void initialize() {
 	}
-	@Deadlined
-	public void end() {
+	public @Deadlined void end() {
 	}
 	
-	@Override
-	public void run() {
+	public @Override void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
 			synchronized (getClock()) {
 				if (host != null) {
