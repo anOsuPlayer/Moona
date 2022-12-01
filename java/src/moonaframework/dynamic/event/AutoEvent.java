@@ -4,8 +4,9 @@ import moonaframework.base.Natural;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.process.Task;
+import moonaframework.util.annotations.Functional;
 
-public abstract class AutoEvent extends Task implements Event, Dynamic {
+public @Functional abstract class AutoEvent extends Task implements Event, Dynamic {
 	
 	public @Override int nature() {
 		return Natural.AUTOEVENT;

@@ -1,6 +1,6 @@
 package moonaframework.base;
 
-public interface Satellite<E> {
+public @FunctionalInterface interface Satellite<E> {
 
 	E translate();
 }

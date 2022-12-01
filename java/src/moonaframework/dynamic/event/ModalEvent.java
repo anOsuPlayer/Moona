@@ -1,10 +1,11 @@
 package moonaframework.dynamic.event;
 
 import moonaframework.base.Natural;
+import moonaframework.util.annotations.Functional;
 import moonaframework.util.condition.Conditional;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public interface ModalEvent extends Event {
+public @Functional interface ModalEvent extends Event {
 
 	default @Override int nature() {
 		return Natural.MODALEVENT;

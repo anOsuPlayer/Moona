@@ -3,9 +3,10 @@ package moonaframework.dynamic.event;
 import moonaframework.base.Natural;
 import moonaframework.base.Satellite;
 import moonaframework.base.Serial;
+import moonaframework.util.annotations.Functional;
 import moonaframework.util.function.Snippet;
 
-public interface Event extends Serial, Satellite<Snippet> {
+public @Functional interface Event extends Serial, Satellite<Snippet> {
 
 	default @Override Snippet translate() {
 		return () -> trigger();

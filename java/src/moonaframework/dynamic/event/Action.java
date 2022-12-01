@@ -1,9 +1,10 @@
 package moonaframework.dynamic.event;
 
+import moonaframework.util.annotations.Functional;
 import moonaframework.util.condition.Conditional;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public abstract class Action extends AbstractEvent implements ModalEvent {
+public @Functional abstract class Action extends AbstractEvent implements ModalEvent {
 
 	private final EventMode eventMode;
 	public @Override final EventMode getMode() {

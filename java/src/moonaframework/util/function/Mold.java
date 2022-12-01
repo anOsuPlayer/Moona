@@ -3,7 +3,7 @@ package moonaframework.util.function;
 import java.util.function.Function;
 import moonaframework.base.Satellite;
 
-public interface Mold<T, S> extends Satellite<Function<T, S>> {
+public @FunctionalInterface interface Mold<T, S> extends Satellite<Function<T, S>> {
 
 	default @Override Function<T, S> translate() {
 		return (T t) -> cast(t);

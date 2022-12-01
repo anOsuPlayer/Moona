@@ -3,10 +3,11 @@ package moonaframework.util;
 import java.util.function.Supplier;
 
 import moonaframework.base.Satellite;
+import moonaframework.util.annotations.Functional;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.function.Property;
 
-public class Delegate<T> implements Property<T>, Satellite<Supplier<T>> {
+public @Functional class Delegate<T> implements Property<T>, Satellite<Supplier<T>> {
 	
 	private Supplier<T> method;
 	
