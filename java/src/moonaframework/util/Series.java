@@ -24,7 +24,7 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 	@Override
 	public String toString() {
 		if (series.isEmpty()) {
-			return "This Series has not been generated yet!";
+			return "[ - ]";
 		}
 		String out = "[ ";
 		for (T t : series) {
