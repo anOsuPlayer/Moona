@@ -1,4 +1,4 @@
-package moonaframework.util.function;
+package moonaframework.util.functional;
 
 import moonaframework.base.Satellite;
 

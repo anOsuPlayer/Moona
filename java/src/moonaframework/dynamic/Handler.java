@@ -10,7 +10,7 @@ import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Task;
 import moonaframework.dynamic.process.Worm;
 import moonaframework.util.condition.Conditional;
-import moonaframework.util.function.Snippet;
+import moonaframework.util.functional.Snippet;
 
 public final class Handler {
 	

@@ -2,7 +2,7 @@ package moonaframework.util.reflection;
 
 import moonaframework.base.Moona;
 import moonaframework.base.Serial;
-import moonaframework.util.function.Property;
+import moonaframework.util.functional.Property;
 
 public abstract class Reflection<T> implements Property<T>, Serial {
 

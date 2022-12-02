@@ -1,6 +1,6 @@
 package moonaframework.util;
 
-import moonaframework.util.function.Snippet;
+import moonaframework.util.functional.Snippet;
 
 public class Benchmark {
 

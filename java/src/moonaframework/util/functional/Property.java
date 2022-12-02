@@ -1,4 +1,4 @@
-package moonaframework.util.function;
+package moonaframework.util.functional;
 
 import java.util.function.Supplier;
 import moonaframework.base.Satellite;

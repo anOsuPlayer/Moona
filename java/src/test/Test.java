@@ -30,9 +30,9 @@ import moonaframework.util.Delegate;
 import moonaframework.util.annotations.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
-import moonaframework.util.function.Cast;
-import moonaframework.util.function.Mold;
-import moonaframework.util.function.Snippet;
+import moonaframework.util.functional.Cast;
+import moonaframework.util.functional.Mold;
+import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
 import moonaframework.util.time.*;
 

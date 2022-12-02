@@ -4,7 +4,7 @@ import moonaframework.base.Moona;
 import moonaframework.base.Satellite;
 import moonaframework.base.Serial;
 import moonaframework.util.annotations.Functional;
-import moonaframework.util.function.Snippet;
+import moonaframework.util.functional.Snippet;
 
 public @Functional interface Event extends Serial, Satellite<Snippet> {
 

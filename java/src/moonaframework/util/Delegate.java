@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import moonaframework.base.Satellite;
 import moonaframework.util.annotations.Functional;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.function.Property;
+import moonaframework.util.functional.Property;
 
 public @Functional class Delegate<T> implements Property<T>, Satellite<Supplier<T>> {
 	
