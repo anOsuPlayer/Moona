@@ -6,7 +6,6 @@ import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.process.Daemon;
-import moonaframework.dynamic.process.EventPlace;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Task;
 import moonaframework.dynamic.process.Worm;
