@@ -309,7 +309,7 @@ public final class Processor {
 
 	private static void initiator(Process p) {
 		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS).evaluate()) {
-			Agent.add(new AbstractEvent() {
+			Agent.include(new AbstractEvent() {
 				public void trigger() {
 					p.initialize();
 				}
@@ -320,7 +320,7 @@ public final class Processor {
 	}
 	private static void ender(Process p) {
 		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS).evaluate()) {
-			Agent.add(new AbstractEvent() {
+			Agent.exclude(new AbstractEvent() {
 				public void trigger() {
 					p.end();
 				}
