@@ -17,13 +17,14 @@ public final class Agent {
 	static final IshMap<Event, Long> events = new IshMap<>();
 	
 	private static final List<Event> toAdd = new ArrayList<>();
+	
 	private static final List<Event> toRemove = new ArrayList<>();
 	
 	private static int totalEvents = 0;
 	
 	private static int totalModals = 0;
 	
-	public static void add(Event e) throws NullArgumentException, MoonaHandlingException {
+	public static void include(Event e) throws NullArgumentException, MoonaHandlingException {
 		if (e == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
@@ -41,7 +42,7 @@ public final class Agent {
 		}
 	}
 	
-	public static void remove(Event e) throws NullArgumentException, MoonaHandlingException {
+	public static void exclude(Event e) throws NullArgumentException, MoonaHandlingException {
 		if (e == null) {
 			throw new NullArgumentException("You cannot remove a null element from Moona.");
 		}

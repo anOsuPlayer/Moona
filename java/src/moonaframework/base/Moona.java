@@ -69,7 +69,7 @@ public final class Moona {
 		switch (s) {
 			case Process p: Processor.add(p); break;
 			case Reflection<?> r: Mirror.add(r); break;
-			case Event e: Agent.add(e); break;
+			case Event e: Agent.include(e); break;
 			default: elements.add(s, s.id());
 		}
 	}
@@ -88,7 +88,7 @@ public final class Moona {
 		switch (s) {
 			case Process p: Processor.remove(p); break;
 			case Reflection<?> r: Mirror.remove(r); break;
-			case Event e: Agent.remove(e); break;
+			case Event e: Agent.exclude(e); break;
 			default: elements.remove(s, s.id());
 		}
 	}

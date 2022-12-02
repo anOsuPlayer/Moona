@@ -7,15 +7,13 @@ import moonaframework.dynamic.event.ModalEvent;
 
 public class EventSpace extends EventPlace {
 	
-	@Override
-	protected void whenEmpty() {
+	protected @Override void whenEmpty() {
 		if (eventCount() == 0) {
 			Processor.terminate(this);
 		}
 	}
 	
-	@Override
-	public void update() {
+	public @Override void update() {
 		flush();
 		
 		for (Event e : events.values()) {

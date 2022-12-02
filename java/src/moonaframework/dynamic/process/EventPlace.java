@@ -24,7 +24,7 @@ public class EventPlace extends Task implements Serial {
 	
 	final List<Event> toAdd;
 	
-	public void add(Event e) throws MoonaHandlingException, NullArgumentException {
+	public void include(Event e) throws MoonaHandlingException, NullArgumentException {
 		if (e == null) {
 			throw new NullArgumentException("You cannot add null Events.");
 		}
@@ -36,7 +36,7 @@ public class EventPlace extends Task implements Serial {
 		getClock().release();
 	}
 	
-	public void remove(Event e) throws MoonaHandlingException, NullArgumentException {
+	public void exclude(Event e) throws MoonaHandlingException, NullArgumentException {
 		if (e == null) {
 			throw new NullArgumentException("You cannot remove null Events.");
 		}
@@ -47,11 +47,11 @@ public class EventPlace extends Task implements Serial {
 		toRemove.add(e);
 	}
 	
-	@Deadlined
-	public final void initialize() {
+	public @Deadlined final void initialize() {
+	
 	}
-	@Deadlined
-	public final void end() {
+	public @Deadlined final void end() {
+	
 	}
 	
 	protected final void flush() {
@@ -78,8 +78,7 @@ public class EventPlace extends Task implements Serial {
 		}
 	}
 	
-	@Override
-	public void update() {
+	public @Override void update() {
 		flush();
 		
 		for (Event e : events.values()) {
