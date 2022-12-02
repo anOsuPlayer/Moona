@@ -2,18 +2,20 @@ package moonaframework.dynamic.process;
 
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
+import moonaframework.util.Packable;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.functional.Packable;
 import moonaframework.util.time.Timer;
 
 public class Synchronizer extends Task implements Packable<Process> {
 
 	private final Process[] synced;
+	
 	public @Override final Process[] unpack() {
 		return synced;
 	}
 	
 	private Timer cooldown;
+	
 	public Timer getTimer() {
 		return cooldown;
 	}
@@ -52,7 +54,6 @@ public class Synchronizer extends Task implements Packable<Process> {
 			}
 		}
 	}
-	
 	public @Override void update() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
@@ -63,7 +64,6 @@ public class Synchronizer extends Task implements Packable<Process> {
 			}
 		}
 	}
-	
 	public @Override void end() {
 		for (Process p : synced) {
 			synchronized (getClock()) {
