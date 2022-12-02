@@ -14,8 +14,8 @@ import moonaframework.util.function.Snippet;
 
 public final class Handler {
 	
-	public static CompositeProcess cloneProcess(Process p) {
-		CompositeProcess clone = new CompositeProcess(p::update, p::initialize, p::end, p::onPause,
+	public static Synthetized cloneProcess(Process p) {
+		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause,
 				p::onUnpause) {
 			public @Override int nature() {
 				return p.nature();

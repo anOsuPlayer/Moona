@@ -4,7 +4,7 @@ import moonaframework.dynamic.process.AbstractProcess;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.function.Snippet;
 
-public class CompositeProcess extends AbstractProcess {
+public class Synthetized extends AbstractProcess {
 
 	private final Snippet[] instructions = new Snippet[5];
 	
@@ -43,7 +43,7 @@ public class CompositeProcess extends AbstractProcess {
 		instructions[2] = s;
 	}
 
-	public CompositeProcess(Snippet...instructions) throws NullArgumentException, IllegalArgumentException {
+	public Synthetized(Snippet...instructions) throws NullArgumentException, IllegalArgumentException {
 		if (instructions == null) {
 			throw new NullArgumentException("You cannot initialize a CompositeProcess using a null array of"
 					+ " instructions.");
@@ -57,10 +57,10 @@ public class CompositeProcess extends AbstractProcess {
 			this.instructions[i] = (this.instructions[i] == null) ? () -> {} : this.instructions[i];
 		}
 	}
-	public CompositeProcess(Snippet updater) {
+	public Synthetized(Snippet updater) {
 		this(new Snippet[] {updater});
 	}
-	public CompositeProcess() {
+	public Synthetized() {
 		this(new Snippet[5]);
 	}
 }

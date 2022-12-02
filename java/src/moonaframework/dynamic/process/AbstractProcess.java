@@ -2,6 +2,8 @@ package moonaframework.dynamic.process;
 
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
+import moonaframework.dynamic.Synthetized;
+import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 import moonaframework.util.annotations.Deadlined;
@@ -15,7 +17,11 @@ public abstract class AbstractProcess implements Process {
 	public @Override int nature() {
 		return Moona.PROCESS;
 	}
-
+	
+	public Synthetized clone() {
+		return Handler.cloneProcess(this);
+	}
+	
 	private final ProcessClock clock;
 	public @Override final ProcessClock getClock() {
 		return clock;
