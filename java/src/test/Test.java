@@ -39,6 +39,8 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
+	private static String s = null;
+	
 	public static void main(String[] args) {
 		Moona.init();
 	}

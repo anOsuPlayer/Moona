@@ -75,6 +75,22 @@ public final class Processor {
 		new Thread(p, p.toString()).start();
 	}
 	
+	public @Deprecated static void mainStart(Process p) throws MoonaHandlingException, NullArgumentException {
+		if (p == null) {
+			throw new NullArgumentException("The Process you're trying to start is null.");
+		}
+		if (!ProcessCondition.DEAD.check(p)) {
+			throw new MoonaHandlingException("You can't mainStart an already running Process.");
+		}
+		addProcess(p);
+		p.initialize();
+		ProcessCondition.RUNNING.set(p);
+		p.run();
+		ProcessCondition.DEAD.set(p);
+		p.end();
+		removeProcess(p);
+	}
+	
 	public static void provide(long id) throws MoonaHandlingException {
 		Moona.checkOn();
 		if (Moona.get(id) instanceof Process p) {
