@@ -1,10 +1,12 @@
 package moonaframework.dynamic;
 
+import moonaframework.base.Agent;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.process.Daemon;
+import moonaframework.dynamic.process.EventPlace;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Task;
 import moonaframework.dynamic.process.Worm;
@@ -49,7 +51,7 @@ public final class Handler {
 		};
 		ProcessCondition.cloneCondition(p, newTask);
 		ProcessCondition.DEAD.set(p);
-		Processor.add(newTask);
+		Processor.addProcess(newTask);
 		Processor.buildProcess(newTask);
 		return newTask;
 	}
@@ -82,7 +84,7 @@ public final class Handler {
 		};
 		ProcessCondition.cloneCondition(p, newDaemon);
 		ProcessCondition.DEAD.set(p);
-		Processor.add(newDaemon);
+		Processor.addProcess(newDaemon);
 		Processor.buildProcess(newDaemon);
 		return newDaemon;
 	}
@@ -116,7 +118,7 @@ public final class Handler {
 		ProcessCondition.cloneCondition(p, newWorm);
 		if (p instanceof Worm w) { newWorm.setHost(w.getHost()); }
 		ProcessCondition.DEAD.set(p);
-		Processor.add(newWorm);
+		Processor.addProcess(newWorm);
 		Processor.buildProcess(newWorm);
 		return newWorm;
 	}
@@ -139,7 +141,12 @@ public final class Handler {
 		};
 	}
 	public static AbstractEvent castEvent(Event e) {
-		return buildEvent(e.translate());
+		AbstractEvent newEv = buildEvent(e.translate());
+		if (Agent.has(e)) {
+			Agent.exclude(e);
+			Agent.include(newEv);
+		}
+		return newEv;
 	}
 	
 	public static Action buildAction(Snippet s, EventMode e) {
@@ -150,7 +157,12 @@ public final class Handler {
 		};
 	}
 	public static Action castAction(Event e, EventMode em) {
-		return buildAction(e.translate(), em);
+		Action newAct = buildAction(e.translate(), em);
+		if (Agent.has(e)) {
+			Agent.exclude(e);
+			Agent.include(newAct);
+		}
+		return newAct;
 	}
 	
 	public static Action buildAction(Snippet s, int iterations) {
@@ -161,7 +173,12 @@ public final class Handler {
 		};
 	}
 	public static Action castAction(Event e, int iterations) {
-		return buildAction(e.translate(), iterations);
+		Action newAct = buildAction(e.translate(), iterations);
+		if (Agent.has(e)) {
+			Agent.exclude(e);
+			Agent.include(newAct);
+		}
+		return newAct;
 	}
 	
 	public static Action buildAction(Snippet s, Conditional c) {
@@ -172,14 +189,24 @@ public final class Handler {
 		};
 	}
 	public static Action castAction(Event e, Conditional c) {
-		return buildAction(e.translate(), c);
+		Action newAct = buildAction(e.translate(), c);
+		if (Agent.has(e)) {
+			Agent.exclude(e);
+			Agent.include(newAct);
+		}
+		return newAct;
 	}
 	
 	public static Action buildAction(Snippet s) {
 		return buildAction(s, EventMode.ONCE);
 	}
 	public static Action castAction(Event e) {
-		return buildAction(e.translate());
+		Action newAct = buildAction(e.translate());
+		if (Agent.has(e)) {
+			Agent.exclude(e);
+			Agent.include(newAct);
+		}
+		return newAct;
 	}
 	
 	private Handler() {

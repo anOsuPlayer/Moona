@@ -31,9 +31,14 @@ public final class Agent {
 		if (events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event already belongs to Moona.");
 		}
-		addEvent(e);
+		includeEvent(e);
 	}
-	static void addEvent(Event e) {
+	static void filteredInclude(Event e) {
+		if (!events.hasKey(e.id())) {
+			includeEvent(e);
+		}
+	}
+	static void includeEvent(Event e) {
 		if (!fader && !collapser) {
 			toAdd.add(e);
 			if (ProcessCondition.DEAD.check(handler)) {
@@ -49,9 +54,14 @@ public final class Agent {
 		if (!events.hasKey(e.id())) {
 			throw new MoonaHandlingException("This Event is not present in Moona.");
 		}
-		removeEvent(e);
+		excludeEvent(e);
 	}
-	static void removeEvent(Event e) {
+	static void filteredExclude(Event e) {
+		if (events.hasKey(e.id())) {
+			excludeEvent(e);
+		}
+	}
+	static void excludeEvent(Event e) {
 		if (!fader && !collapser) {
 			toRemove.add(e);
 		}
