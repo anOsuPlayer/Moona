@@ -39,10 +39,7 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	private static Task t = Handler.buildProcess(() -> {
-		System.out.println("AAAAA");
-		Benchmark.sleep(1000);
-	});
+	private static Task t = Handler.buildProcess(() -> { System.out.println("AAAAA"); });
 	
 	public static void main(String[] args) {
 		Moona.init();

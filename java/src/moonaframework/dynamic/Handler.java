@@ -2,6 +2,7 @@ package moonaframework.dynamic;
 
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
+import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.process.Daemon;
 import moonaframework.dynamic.process.Process;
@@ -35,7 +36,6 @@ public final class Handler {
 			public @Override void onUnpause() {
 				p.onUnpause();
 			}
-			
 			
 			public @Override void initialize() {
 				p.initialize();
@@ -138,6 +138,9 @@ public final class Handler {
 			}
 		};
 	}
+	public static AbstractEvent castEvent(Event e) {
+		return buildEvent(e.translate());
+	}
 	
 	public static Action buildAction(Snippet s, EventMode e) {
 		return new Action(e) {
@@ -146,6 +149,10 @@ public final class Handler {
 			}
 		};
 	}
+	public static Action castAction(Event e, EventMode em) {
+		return buildAction(e.translate(), em);
+	}
+	
 	public static Action buildAction(Snippet s, int iterations) {
 		return new Action(iterations) {
 			public @Override void trigger() {
@@ -153,6 +160,10 @@ public final class Handler {
 			}
 		};
 	}
+	public static Action castAction(Event e, int iterations) {
+		return buildAction(e.translate(), iterations);
+	}
+	
 	public static Action buildAction(Snippet s, Conditional c) {
 		return new Action(c) {
 			public @Override void trigger() {
@@ -160,8 +171,15 @@ public final class Handler {
 			}
 		};
 	}
+	public static Action castAction(Event e, Conditional c) {
+		return buildAction(e.translate(), c);
+	}
+	
 	public static Action buildAction(Snippet s) {
 		return buildAction(s, EventMode.ONCE);
+	}
+	public static Action castAction(Event e) {
+		return buildAction(e.translate());
 	}
 	
 	private Handler() {
