@@ -2,6 +2,7 @@ package moonaframework.base;
 
 import org.lwjgl.glfw.GLFW;
 
+import moonaframework.base.Natural.Nature;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;
@@ -15,23 +16,23 @@ public final class Moona {
 	
 	static boolean isOn = false;
 	
-	public static final int EXCEPTION = -1;
+	public static final @Nature int EXCEPTION = -1;
 	
-	public static final int OBJECT = 0;
+	public static final @Nature int OBJECT = 0;
 	
-	public static final int PROCESS = 1;
+	public static final @Nature int PROCESS = 1;
 	
-	public static final int DAEMON = 2;
+	public static final @Nature int DAEMON = 2;
 	
-	public static final int WORM = 5;
+	public static final @Nature int WORM = 5;
 	
-	public static final int EVENT = 10;
+	public static final @Nature int EVENT = 10;
 	
-	public static final int MODALEVENT = 11;
+	public static final @Nature int MODALEVENT = 11;
 	
-	public static final int AUTOEVENT = 12;
+	public static final @Nature int AUTOEVENT = 12;
 	
-	public static final int REFLECTION = 15;
+	public static final @Nature int REFLECTION = 15;
 	
 	public static boolean isOn() {
 		return isOn;

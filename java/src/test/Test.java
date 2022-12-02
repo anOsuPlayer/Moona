@@ -29,6 +29,7 @@ import moonaframework.util.Benchmark;
 import moonaframework.util.Delegate;
 import moonaframework.util.annotations.*;
 import moonaframework.util.collection.*;
+import moonaframework.util.condition.Condition;
 import moonaframework.util.function.Cast;
 import moonaframework.util.function.Mold;
 import moonaframework.util.function.Snippet;
