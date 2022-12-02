@@ -2,11 +2,16 @@ package moonaframework.dynamic;
 
 import moonaframework.dynamic.process.AbstractProcess;
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.functional.Packable;
 import moonaframework.util.functional.Snippet;
 
-public class Synthetized extends AbstractProcess {
+public class Synthetized extends AbstractProcess implements Packable<Snippet> {
 
 	private final Snippet[] instructions = new Snippet[5];
+	
+	public @Override Snippet[] unpack() {
+		return instructions;
+	}
 	
 	public @Override void onPause() {
 		instructions[3].code();

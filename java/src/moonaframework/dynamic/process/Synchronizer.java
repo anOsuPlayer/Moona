@@ -3,13 +3,13 @@ package moonaframework.dynamic.process;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.relation.Synced;
+import moonaframework.util.functional.Packable;
 import moonaframework.util.time.Timer;
 
-public class Synchronizer extends Task implements Synced<Process> {
+public class Synchronizer extends Task implements Packable<Process> {
 
 	private final Process[] synced;
-	public @Override final Process[] getSynced() {
+	public @Override final Process[] unpack() {
 		return synced;
 	}
 	
