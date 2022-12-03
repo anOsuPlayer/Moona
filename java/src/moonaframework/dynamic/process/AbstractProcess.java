@@ -18,7 +18,7 @@ public abstract class AbstractProcess implements Process {
 		return Moona.PROCESS;
 	}
 	
-	public Synthetized clone() {
+	public @Override Synthetized clone() {
 		return Handler.cloneProcess(this);
 	}
 	

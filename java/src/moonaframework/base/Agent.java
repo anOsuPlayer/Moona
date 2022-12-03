@@ -25,6 +25,7 @@ public final class Agent {
 	private static int totalModals = 0;
 	
 	public static void include(Event e) throws NullArgumentException, MoonaHandlingException {
+		Moona.checkOn();
 		if (e == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
@@ -48,6 +49,7 @@ public final class Agent {
 	}
 	
 	public static void exclude(Event e) throws NullArgumentException, MoonaHandlingException {
+		Moona.checkOn();
 		if (e == null) {
 			throw new NullArgumentException("You cannot remove a null element from Moona.");
 		}

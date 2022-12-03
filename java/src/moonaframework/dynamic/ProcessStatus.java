@@ -6,6 +6,10 @@ import moonaframework.dynamic.process.Process;
 
 public class ProcessStatus extends Status<ProcessCondition> {
 	
+	public @Override String toString() {
+		return evaluate().toString();
+	}
+	
 	protected void set(ProcessCondition pc) {
 		super.setValue(pc);
 	}

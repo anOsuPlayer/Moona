@@ -39,9 +39,18 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	private static Task t = Handler.buildProcess(() -> { System.out.println("AAAAA"); });
+	private static Task t = Handler.buildProcess(() -> {
+		System.out.println("AAAAA");
+		Benchmark.sleep(1000);
+	});
 	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		// try to understand why this mf dont work
+		
+		Synthetized s = Handler.cloneProcess(t);
+		
+		Processor.start(s);
 	}
 }
