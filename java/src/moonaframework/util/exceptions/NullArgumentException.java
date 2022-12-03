@@ -1,6 +1,6 @@
 package moonaframework.util.exceptions;
 
-import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 
 public class NullArgumentException extends RuntimeException implements Serial {
@@ -10,8 +10,8 @@ public class NullArgumentException extends RuntimeException implements Serial {
 	public @Override long id() {
 		return serialVersionUID;
 	}
-	public @Override int nature() {
-		return Moona.EXCEPTION;
+	public @Override Nature nature() {
+		return Nature.EXCEPTION;
 	}
 
 	public NullArgumentException(String message) {

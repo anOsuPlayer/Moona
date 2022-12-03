@@ -7,6 +7,7 @@ import moonaframework.base.Agent;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
+import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.process.Process;
@@ -43,8 +44,8 @@ public final class Processor {
 	}
 	static void addProcess(Process p) {
 		totalProcesses++;
-		totalDaemons += (p.nature() == Moona.DAEMON) ? 1 : 0;
-		totalWorms += (p.nature() == Moona.WORM) ? 1 : 0;
+		totalDaemons += (p.nature() == Nature.DAEMON) ? 1 : 0;
+		totalWorms += (p.nature() == Nature.WORM) ? 1 : 0;
 		
 		processes.add(p, p.id());
 	}
@@ -65,8 +66,8 @@ public final class Processor {
 	}
 	static void removeProcess(Process p) {
 		totalProcesses--;
-		totalDaemons -= (p.nature() == Moona.DAEMON) ? 1 : 0;
-		totalWorms -= (p.nature() == Moona.WORM) ? 1 : 0;
+		totalDaemons -= (p.nature() == Nature.DAEMON) ? 1 : 0;
+		totalWorms -= (p.nature() == Nature.WORM) ? 1 : 0;
 		
 		processes.remove(p, p.id());
 	}

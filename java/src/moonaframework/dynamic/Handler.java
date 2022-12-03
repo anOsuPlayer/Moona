@@ -1,6 +1,7 @@
 package moonaframework.dynamic;
 
 import moonaframework.base.Agent;
+import moonaframework.base.Nature;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;
@@ -17,7 +18,7 @@ public final class Handler {
 	public static Synthetized cloneProcess(Process p) {
 		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause,
 				p::onUnpause) {
-			public @Override int nature() {
+			public @Override Nature nature() {
 				return p.nature();
 			}
 			

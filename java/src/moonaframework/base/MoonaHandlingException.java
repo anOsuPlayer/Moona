@@ -7,8 +7,8 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 	public @Override final long id() {
 		return serialVersionUID;
 	}
-	public @Override final int nature() {
-		return Moona.EXCEPTION;
+	public @Override final Nature nature() {
+		return Nature.EXCEPTION;
 	}
 	
 	public MoonaHandlingException(String message) {

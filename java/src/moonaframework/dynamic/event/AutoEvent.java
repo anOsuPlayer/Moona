@@ -1,6 +1,6 @@
 package moonaframework.dynamic.event;
 
-import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.process.Task;
@@ -8,8 +8,8 @@ import moonaframework.util.annotations.Functional;
 
 public @Functional abstract class AutoEvent extends Task implements Event, Dynamic {
 	
-	public @Override int nature() {
-		return Moona.AUTOEVENT;
+	public @Override Nature nature() {
+		return Nature.AUTOEVENT;
 	}
 	
 	public @Override abstract void trigger();

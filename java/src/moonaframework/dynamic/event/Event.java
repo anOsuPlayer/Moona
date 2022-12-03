@@ -1,6 +1,6 @@
 package moonaframework.dynamic.event;
 
-import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.base.Satellite;
 import moonaframework.base.Serial;
 import moonaframework.util.annotations.Functional;
@@ -14,8 +14,8 @@ public @Functional interface Event extends Serial, Satellite<Snippet> {
 	
 	@Override long id();
 	
-	default @Override int nature() {
-		return Moona.EVENT;
+	default @Override Nature nature() {
+		return Nature.EVENT;
 	}
 	
 	void trigger();

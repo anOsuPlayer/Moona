@@ -1,6 +1,7 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.base.Natural;
+import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.ProcessCondition;
@@ -8,7 +9,7 @@ import moonaframework.dynamic.ProcessStatus;
 
 public interface Process extends Natural, Runnable, Dynamic, Serial {
 	
-	@Override int nature();
+	@Override Nature nature();
 	@Override long id();
 	
 	ProcessClock getClock();

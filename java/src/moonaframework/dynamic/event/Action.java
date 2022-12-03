@@ -7,11 +7,13 @@ import moonaframework.util.exceptions.NullArgumentException;
 public @Functional abstract class Action extends AbstractEvent implements ModalEvent {
 
 	private final EventMode eventMode;
+	
 	public @Override final EventMode getMode() {
 		return eventMode;
 	}
 	
 	private Conditional condition;
+	
 	public @Override Conditional getCondition() {
 		return this.condition;
 	}
@@ -27,6 +29,7 @@ public @Functional abstract class Action extends AbstractEvent implements ModalE
 	}
 	
 	private int iterations = -1;
+	
 	public @Override int getIterations() {
 		return this.iterations;
 	}

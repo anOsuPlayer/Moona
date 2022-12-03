@@ -1,6 +1,7 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
 import moonaframework.util.annotations.Deadlined;
@@ -8,8 +9,8 @@ import moonaframework.util.annotations.Deadlined;
 public abstract class Daemon extends AbstractProcess {
 	
 	@Override
-	public int nature() {
-		return Moona.DAEMON;
+	public Nature nature() {
+		return Nature.DAEMON;
 	}
 	
 	@Deadlined

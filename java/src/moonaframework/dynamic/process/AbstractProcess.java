@@ -2,6 +2,7 @@ package moonaframework.dynamic.process;
 
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.dynamic.Synthetized;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
@@ -14,8 +15,8 @@ public abstract class AbstractProcess implements Process {
 	public @Override final long id() {
 		return this.id;
 	}
-	public @Override int nature() {
-		return Moona.PROCESS;
+	public @Override Nature nature() {
+		return Nature.PROCESS;
 	}
 	
 	public @Override Synthetized clone() {
