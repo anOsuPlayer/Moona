@@ -10,7 +10,7 @@ public class Synchronizer extends Task implements Packable<Process> {
 
 	private final Process[] synced;
 	
-	public @Override final Process[] unpack() {
+	public @Override final Process[] pack() {
 		return synced;
 	}
 	

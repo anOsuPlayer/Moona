@@ -9,7 +9,7 @@ public class Synthetized extends AbstractProcess implements Packable<Snippet> {
 
 	private final Snippet[] instructions = new Snippet[5];
 	
-	public @Override Snippet[] unpack() {
+	public @Override Snippet[] pack() {
 		return instructions;
 	}
 	
@@ -47,7 +47,7 @@ public class Synthetized extends AbstractProcess implements Packable<Snippet> {
 	public void setEnd(Snippet s) {
 		instructions[2] = s;
 	}
-
+	
 	public Synthetized(Snippet...instructions) throws NullArgumentException, IllegalArgumentException {
 		if (instructions == null) {
 			throw new NullArgumentException("You cannot initialize a CompositeProcess using a null array of"

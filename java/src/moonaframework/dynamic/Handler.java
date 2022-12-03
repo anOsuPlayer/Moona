@@ -16,8 +16,7 @@ import moonaframework.util.functional.Snippet;
 public final class Handler {
 	
 	public static Synthetized cloneProcess(Process p) {
-		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause,
-				p::onUnpause) {
+		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause, p::onUnpause) {
 			public @Override Nature nature() {
 				return p.nature();
 			}
