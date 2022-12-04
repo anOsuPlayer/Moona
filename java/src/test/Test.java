@@ -46,11 +46,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Task t2 = (Task) Handler.cloneProcess(t);
-		
-		Benchmark.showTime(() -> {
-			Task t3 = (Task) Handler.cloneProcess(t2);
-		});
 	}
 }

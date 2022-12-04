@@ -19,11 +19,11 @@ public final class Handler {
 		return switch (p.nature()) {
 			case WORM: yield forgeWorm(p);
 			case DAEMON: yield forgeDaemon(p);
-			default: yield forgeTask(p);
+			default: yield forgeProcess(p);
 		};
 	}
 	
-	private static Task forgeTask(Process p) {
+	private static Task forgeProcess(Process p) {
 		Task newTask = new Task() {
 			public @Override void onPause() {
 				p.onPause();
@@ -45,7 +45,7 @@ public final class Handler {
 		return newTask;
 	}
 	public static Task castTask(Process p) {
-		Task newTask = forgeTask(p);
+		Task newTask = forgeProcess(p);
 		ProcessCondition.cloneCondition(p, newTask);
 		ProcessCondition.DEAD.set(p);
 		Processor.addProcess(newTask);

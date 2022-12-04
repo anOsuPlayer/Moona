@@ -2,29 +2,31 @@ package moonaframework.dynamic.process;
 
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
+import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
 import moonaframework.util.annotations.Deadlined;
 
 public abstract class Daemon extends AbstractProcess {
 	
-	@Override
-	public Nature nature() {
+	public @Override Nature nature() {
 		return Nature.DAEMON;
 	}
 	
-	@Deadlined
-	public void initialize() {
-	}
-	@Deadlined
-	public void end() {
+	public @Override Daemon clone() {
+		return (Daemon) Handler.cloneProcess(this);
 	}
 	
-	@Override
-	public abstract void update();
+	public @Deadlined void initialize() {
 	
-	@Override
-	public void run() {
+	}
+	public @Deadlined void end() {
+	
+	}
+	
+	public @Override abstract void update();
+	
+	public @Override void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
 			synchronized (getClock()) {
 				if (Processor.processCount() == 0) {
@@ -39,5 +41,6 @@ public abstract class Daemon extends AbstractProcess {
 	}
 	
 	public Daemon() {
+		
 	}
 }

@@ -1,9 +1,14 @@
 package moonaframework.dynamic.process;
 
+import moonaframework.dynamic.Handler;
 import moonaframework.util.annotations.Deadlined;
 
 public abstract class Task extends AbstractProcess {
 
+	public @Override Task clone() {
+		return (Task) Handler.cloneProcess(this);
+	}
+	
 	public @Deadlined void initialize() {
 		
 	}
