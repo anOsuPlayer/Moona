@@ -47,9 +47,7 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
-		// try to understand why this mf dont work
-		
-		Synthetized s = Handler.cloneProcess(t);
+		Task s = (Task) Handler.cloneProcess(t);
 		
 		Processor.start(s);
 	}

@@ -7,7 +7,7 @@ import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.time.Timer;
 
 public class Synchronizer extends Task implements Packable<Process> {
-
+	
 	private final Process[] synced;
 	
 	public @Override final Process[] pack() {

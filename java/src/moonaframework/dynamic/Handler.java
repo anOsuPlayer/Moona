@@ -1,11 +1,11 @@
 package moonaframework.dynamic;
 
 import moonaframework.base.Agent;
-import moonaframework.base.Nature;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
+import moonaframework.dynamic.process.AbstractProcess;
 import moonaframework.dynamic.process.Daemon;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Task;
@@ -15,18 +15,14 @@ import moonaframework.util.functional.Snippet;
 
 public final class Handler {
 	
-	public static Synthetized cloneProcess(Process p) {
-		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause, p::onUnpause) {
-			public @Override Nature nature() {
-				return p.nature();
-			}
-			
-			public @Override void run() {
-				p.run();
-			}
+	public static AbstractProcess cloneProcess(Process p) {
+		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause, p::onUnpause);
+		ProcessCondition.cloneCondition(clone, p);
+		return switch (p.nature()) {
+			case WORM: yield castWorm(clone);
+			case DAEMON: yield castDaemon(clone);
+			default: yield castTask(clone);
 		};
-		ProcessCondition.cloneCondition(p, clone);
-		return clone;
 	}
 	
 	public static Task castTask(Process p) {
