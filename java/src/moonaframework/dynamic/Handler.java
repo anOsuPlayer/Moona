@@ -17,15 +17,14 @@ public final class Handler {
 	
 	public static AbstractProcess cloneProcess(Process p) {
 		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause, p::onUnpause);
-		ProcessCondition.cloneCondition(clone, p);
 		return switch (p.nature()) {
-			case WORM: yield castWorm(clone);
-			case DAEMON: yield castDaemon(clone);
-			default: yield castTask(clone);
+			case WORM: yield forgeWorm(clone);
+			case DAEMON: yield forgeDaemon(clone);
+			default: yield forgeTask(clone);
 		};
 	}
 	
-	public static Task castTask(Process p) {
+	private static Task forgeTask(Process p) {
 		Task newTask = new Task() {
 			public @Override void onPause() {
 				p.onPause();
@@ -44,6 +43,10 @@ public final class Handler {
 				p.end();
 			}
 		};
+		return newTask;
+	}
+	public static Task castTask(Process p) {
+		Task newTask = forgeTask(p);
 		ProcessCondition.cloneCondition(p, newTask);
 		ProcessCondition.DEAD.set(p);
 		Processor.addProcess(newTask);
@@ -58,7 +61,7 @@ public final class Handler {
 		};
 	}
 
-	public static Daemon castDaemon(Process p) {
+	private static Daemon forgeDaemon(Process p) {
 		Daemon newDaemon = new Daemon() {
 			public @Override void onPause() {
 				p.onPause();
@@ -77,6 +80,10 @@ public final class Handler {
 				p.end();
 			}
 		};
+		return newDaemon;
+	}
+	public static Daemon castDaemon(Process p) {
+		Daemon newDaemon = forgeDaemon(p);
 		ProcessCondition.cloneCondition(p, newDaemon);
 		ProcessCondition.DEAD.set(p);
 		Processor.addProcess(newDaemon);
@@ -91,7 +98,7 @@ public final class Handler {
 		};
 	}
 	
-	public static Worm castWorm(Process p) {
+	private static Worm forgeWorm(Process p) {
 		Worm newWorm = new Worm() {
 			public @Override void onPause() {
 				p.onPause();
@@ -110,6 +117,10 @@ public final class Handler {
 				p.end();
 			}
 		};
+		return newWorm;
+	}
+	public static Worm castWorm(Process p) {
+		Worm newWorm = forgeWorm(p);
 		ProcessCondition.cloneCondition(p, newWorm);
 		if (p instanceof Worm w) { newWorm.setHost(w.getHost()); }
 		ProcessCondition.DEAD.set(p);

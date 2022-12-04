@@ -49,6 +49,10 @@ public class Test {
 		
 		Task s = (Task) Handler.cloneProcess(t);
 		
+		Benchmark.showTime(() -> {
+			Task s2 = (Task) Handler.cloneProcess(t);
+		});
+		
 		Processor.start(s);
 	}
 }
