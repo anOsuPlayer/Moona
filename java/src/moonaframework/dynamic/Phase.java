@@ -27,13 +27,16 @@ public class Phase {
 		}
 		addProcess(p);
 	}
-	void addProcess(Process p) {
+	private void countProcess(Process p) {
 		processCount++;
 		daemonCount += (p.nature() == Nature.DAEMON) ? 1 : 0; 
 		wormCount += (p.nature() == Nature.WORM) ? 1 : 0;
 		
-		Processor.filteredAdd(p);
 		processes.add(p.id());
+	}
+	void addProcess(Process p) {
+		countProcess(p);
+		Processor.filteredAdd(p);
 	}
 	
 	public void remove(Process p) throws NullArgumentException, MoonaHandlingException {
@@ -45,16 +48,133 @@ public class Phase {
 		}
 		removeProcess(p);
 	}
-	void removeProcess(Process p) {
+	private void uncountProcess(Process p) {
 		processCount--;
 		daemonCount -= (p.nature() == Nature.DAEMON) ? 1 : 0; 
 		wormCount -= (p.nature() == Nature.WORM) ? 1 : 0;
-		
-		Processor.filteredRemove(p);
 		processes.remove(p.id());
 	}
+	void removeProcess(Process p) {
+		uncountProcess(p);
+		Processor.filteredRemove(p);
+	}
 	
+	public void provide(long id) {
+		Processor.provide(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void provide(Process p) {
+		Processor.provide(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
 	
+	public void await(long id) {
+		Processor.await(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void await(Process p) {
+		Processor.await(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void unlock(long id) {
+		Processor.await(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void unlock(Process p) {
+		Processor.await(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void initiate(long id) {
+		Processor.initiate(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void initiate(Process p) {
+		Processor.initiate(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void start(long id) {
+		Processor.start(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void start(Process p) {
+		Processor.start(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void flick(long id) {
+		Processor.flick(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void flick(Process p) {
+		Processor.flick(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void spark(long id) {
+		Processor.spark(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void spark(Process p) {
+		Processor.spark(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void terminate(long id) {
+		Processor.terminate(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void terminate(Process p) {
+		Processor.terminate(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
+	
+	public void interrupt(long id) {
+		Processor.interrupt(id);
+		if (!processes.contains(id)) {
+			countProcess(Processor.get(id));
+		}
+	}
+	public void interrupt(Process p) {
+		Processor.interrupt(p);
+		if (!processes.contains(p.id())) {
+			countProcess(p);
+		}
+	}
 	
 	public void fade() {
 		for (long p : processes) {
