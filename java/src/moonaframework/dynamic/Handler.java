@@ -16,11 +16,10 @@ import moonaframework.util.functional.Snippet;
 public final class Handler {
 	
 	public static AbstractProcess cloneProcess(Process p) {
-		Synthetized clone = new Synthetized(p::update, p::initialize, p::end, p::onPause, p::onUnpause);
 		return switch (p.nature()) {
-			case WORM: yield forgeWorm(clone);
-			case DAEMON: yield forgeDaemon(clone);
-			default: yield forgeTask(clone);
+			case WORM: yield forgeWorm(p);
+			case DAEMON: yield forgeDaemon(p);
+			default: yield forgeTask(p);
 		};
 	}
 	
