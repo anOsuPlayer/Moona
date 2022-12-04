@@ -44,7 +44,6 @@ public class Phase {
 			throw new MoonaHandlingException("This Process does not belong to this Phase.");
 		}
 		removeProcess(p);
-		processes.remove(p.id());
 	}
 	void removeProcess(Process p) {
 		processCount--;
@@ -52,6 +51,22 @@ public class Phase {
 		wormCount -= (p.nature() == Nature.WORM) ? 1 : 0;
 		
 		Processor.filteredRemove(p);
+		processes.remove(p.id());
+	}
+	
+	
+	
+	public void fade() {
+		for (long p : processes) {
+			Processor.terminate(p);
+		}
+		processes.clear();
+	}
+	public void collapse() {
+		for (long p : processes) {
+			Processor.interrupt(p);
+		}
+		processes.clear();
 	}
 	
 	public boolean has(Process p) {
