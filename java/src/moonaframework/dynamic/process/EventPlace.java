@@ -48,10 +48,8 @@ public class EventPlace extends Task implements Serial {
 	}
 	
 	public @Deadlined final void initialize() {
-	
 	}
 	public @Deadlined final void end() {
-	
 	}
 	
 	protected final void flush() {

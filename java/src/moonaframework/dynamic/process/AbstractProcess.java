@@ -10,6 +10,7 @@ import moonaframework.util.annotations.Deadlined;
 public abstract class AbstractProcess implements Process {
 	
 	private final long id;
+	
 	public @Override final long id() {
 		return this.id;
 	}
@@ -18,18 +19,22 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	private final ProcessClock clock;
+	
 	public @Override final ProcessClock getClock() {
 		return clock;
 	}
 	
 	private final ProcessStatus status;
+	
 	public @Override final ProcessStatus getStatus() {
 		return this.status;
 	}
 	
 	public @Deadlined void onPause() {
+		
 	}
 	public @Deadlined void onUnpause() {
+		
 	}
 	
 	public @Override abstract void initialize();

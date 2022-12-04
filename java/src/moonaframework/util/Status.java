@@ -16,6 +16,7 @@ public class Status<T> implements Property<T> {
 	}
 	
 	protected @Deadlined void reverse() {
+		
 	}
 	
 	protected Status(T value) {

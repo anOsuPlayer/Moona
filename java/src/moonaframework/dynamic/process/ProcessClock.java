@@ -7,11 +7,13 @@ import moonaframework.util.time.Chrono;
 public class ProcessClock extends Chrono implements Attached<Process> {
 
 	private Process host;
+	
 	public @Override Process getHost() {
 		return host;
 	}
 	
 	private final long beginning;
+	
 	public final long getBeginning() {
 		return beginning;
 	}

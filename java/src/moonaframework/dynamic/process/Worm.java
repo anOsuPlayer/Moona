@@ -14,6 +14,7 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 	}
 	
 	private Process host;
+	
 	public @Override Process getHost() {
 		return host;
 	}
@@ -26,8 +27,10 @@ public abstract class Worm extends Daemon implements Bindable<Process> {
 	}
 	
 	public @Deadlined void initialize() {
+		
 	}
 	public @Deadlined void end() {
+		
 	}
 	
 	public @Override void run() {
