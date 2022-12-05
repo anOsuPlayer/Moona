@@ -2,8 +2,8 @@ package moonaframework.util.condition;
 
 import java.util.function.Supplier;
 
-import moonaframework.base.Satellite;
 import moonaframework.util.annotations.Functional;
+import moonaframework.util.functional.Satellite;
 
 public @Functional interface Conditional extends Satellite<Supplier<Boolean>> {
 	

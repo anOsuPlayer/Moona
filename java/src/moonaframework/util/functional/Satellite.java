@@ -1,4 +1,4 @@
-package moonaframework.base;
+package moonaframework.util.functional;
 
 public @FunctionalInterface interface Satellite<E> {
 	
