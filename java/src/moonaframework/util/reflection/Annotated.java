@@ -11,29 +11,26 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Type extends Annotated {
 		
 		private final Class<?> target;
-		@Override
-		public Class<?> getTarget() {
+		
+		public @Override Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
-		@Override
-		public Class<? extends Annotation> getAnnotation() {
+		
+		public @Override Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
-		@Deadlined
-		public String getName() {
-			return "";
+		public @Deadlined String getName() {
+			return target.getSimpleName();
 		}
 		
-		@Deadlined
-		public Class<?>[] getArgs() {
+		public @Deadlined Class<?>[] getArgs() {
 			return NO_ARGS;
 		}
 		
-		@Override
-		public void reflect() {
+		public @Override void reflect() {
 			if (getType().equals(ElementType.TYPE_USE)) {
 				super.value = new Field(getTarget().getEnclosingClass(), annotation).evaluate();
 				return;
@@ -41,10 +38,8 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = target.isAnnotationPresent(annotation);
 		}
 		
-		@Override
-		public ElementType getType() {
+		public @Override ElementType getType() {
 			if (target.isAnnotation()) { return ElementType.ANNOTATION_TYPE; }
-			if (target.isAnonymousClass()) { return ElementType.TYPE_USE; }
 			return ElementType.TYPE;
 		}
 		
@@ -60,30 +55,28 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Constructor extends Annotated {
 		
 		private final Class<?> target;
-		@Override
-		public Class<?> getTarget() {
+		
+		public @Override Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
-		@Override
-		public Class<? extends Annotation> getAnnotation() {
+		
+		public @Override Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
-		@Deadlined
-		public String getName() {
+		public @Deadlined String getName() {
 			return "";
 		}
 		
 		private Class<?>[] args;
-		@Override
-		public Class<?>[] getArgs() {
+
+		public @Override Class<?>[] getArgs() {
 			return args;
 		}
 		
-		@Override
-		public void reflect() {
+		public @Override void reflect() {
 			for (java.lang.reflect.Constructor<?> con : target.getDeclaredConstructors()) {
 				if (args != null) {
 					Class<?>[] params = con.getParameterTypes();
@@ -99,8 +92,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
-		@Override
-		public ElementType getType() {
+		public @Override ElementType getType() {
 			return ElementType.CONSTRUCTOR;
 		}
 		
@@ -121,30 +113,28 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Field extends Annotated {
 		
 		private final Class<?> target;
-		@Override
-		public Class<?> getTarget() {
+		
+		public @Override Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
-		@Override
-		public Class<? extends Annotation> getAnnotation() {
+		
+		public @Override Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
 		private String fieldName;
-		@Override
-		public String getName() {
+		
+		public @Override String getName() {
 			return fieldName;
 		}
 		
-		@Deadlined
-		public Class<?>[] getArgs() {
+		public @Deadlined Class<?>[] getArgs() {
 			return NO_ARGS;
 		}
 		
-		@Override
-		public void reflect() {
+		public @Override void reflect() {
 			for (java.lang.reflect.Field f : target.getDeclaredFields()) {
 				if (fieldName != null) {
 					super.value = (f.getName().equals(fieldName) && f.isAnnotationPresent(annotation));
@@ -158,8 +148,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
-		@Override
-		public ElementType getType() {
+		public @Override ElementType getType() {
 			return ElementType.FIELD;
 		}
 		
@@ -180,31 +169,30 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public static final class Method extends Annotated {
 		
 		private final Class<?> target;
-		@Override
-		public Class<?> getTarget() {
+		
+		public @Override Class<?> getTarget() {
 			return target;
 		}
 		
 		private final Class<? extends Annotation> annotation;
-		@Override
-		public Class<? extends Annotation> getAnnotation() {
+		
+		public @Override Class<? extends Annotation> getAnnotation() {
 			return annotation;
 		}
 		
 		private String methodName;
-		@Override
-		public String getName() {
+		
+		public @Override String getName() {
 			return methodName;
 		}
 		
 		private Class<?>[] args;
-		@Override
-		public Class<?>[] getArgs() {
+		
+		public @Override Class<?>[] getArgs() {
 			return args;
 		}
 		
-		@Override
-		public void reflect() {
+		public @Override void reflect() {
 			for (java.lang.reflect.Method m : target.getDeclaredMethods()) {
 				if (args != null && methodName != null) {
 					Class<?>[] params = m.getParameterTypes();
@@ -227,8 +215,7 @@ public abstract class Annotated extends Reflection<Boolean> {
 			super.value = false;
 		}
 		
-		@Override
-		public ElementType getType() {
+		public @Override ElementType getType() {
 			return ElementType.METHOD;
 		}
 		
@@ -257,13 +244,16 @@ public abstract class Annotated extends Reflection<Boolean> {
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
-	public abstract void reflect();
+	public @Override abstract void reflect();
 	
 	public abstract ElementType getType();
 	
-	public abstract Class<?> getTarget();
+	public @Override abstract Object getTarget();
+	
 	public abstract Class<? extends Annotation> getAnnotation();
+	
 	public abstract String getName();
+	
 	public abstract Class<?>[] getArgs();
 	
 	private Annotated() {

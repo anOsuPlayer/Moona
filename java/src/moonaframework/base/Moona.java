@@ -47,10 +47,10 @@ public final class Moona {
 		addSerial(s);
 	}
 	static void addSerial(Serial s) {
-		switch (s) {
-			case Process p: Processor.add(p); break;
-			case Reflection<?> r: Mirror.add(r); break;
-			case Event e: Agent.include(e); break;
+		switch (s.nature()) {
+			case PROCESS, DAEMON, WORM: Processor.add((Process) s); break;
+			case REFLECTION: Mirror.add((Reflection<?>) s); break;
+			case EVENT, MODALEVENT: Agent.include((Event) s); break;
 			default: elements.add(s, s.id());
 		}
 	}
@@ -66,10 +66,10 @@ public final class Moona {
 		removeSerial(s);
 	}
 	static void removeSerial(Serial s) {
-		switch (s) {
-			case Process p: Processor.remove(p); break;
-			case Reflection<?> r: Mirror.remove(r); break;
-			case Event e: Agent.exclude(e); break;
+		switch (s.nature()) {
+			case PROCESS, DAEMON, WORM: Processor.add((Process) s); break;
+			case REFLECTION: Mirror.remove((Reflection<?>) s); break;
+			case EVENT, MODALEVENT: Agent.exclude((Event) s); break;
 			default: elements.remove(s, s.id());
 		}
 	}
@@ -89,8 +89,7 @@ public final class Moona {
 	}
 	
 	public static boolean has(long id) {
-		return elements.hasKey(id) || Processor.get(id) != null || Mirror.get(id) != null
-				|| Agent.get(id) != null;
+		return elements.hasKey(id) || Processor.has(id) || Mirror.has(id) || Agent.has(id);
 	}
 	public static boolean has(Serial s) {
 		return elements.hasKey(s.id()) || Processor.contains(s) || Mirror.contains(s)
