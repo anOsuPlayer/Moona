@@ -46,10 +46,12 @@ public final class Handler {
 	}
 	public static Task castTask(Process p) {
 		Task newTask = forgeProcess(p);
-		ProcessCondition.cloneCondition(p, newTask);
-		ProcessCondition.DEAD.set(p);
-		Processor.addProcess(newTask);
-		Processor.buildProcess(newTask);
+		if (!ProcessCondition.DEAD.check(p)) {
+			ProcessCondition.cloneCondition(p, newTask);
+			ProcessCondition.DEAD.set(p);
+			Processor.addProcess(newTask);
+			Processor.buildProcess(newTask);
+		}
 		return newTask;
 	}
 	public static Task buildProcess(Snippet s) {
@@ -83,10 +85,12 @@ public final class Handler {
 	}
 	public static Daemon castDaemon(Process p) {
 		Daemon newDaemon = forgeDaemon(p);
-		ProcessCondition.cloneCondition(p, newDaemon);
-		ProcessCondition.DEAD.set(p);
-		Processor.addProcess(newDaemon);
-		Processor.buildProcess(newDaemon);
+		if (!ProcessCondition.DEAD.check(p)) {
+			ProcessCondition.cloneCondition(p, newDaemon);
+			ProcessCondition.DEAD.set(p);
+			Processor.addProcess(newDaemon);
+			Processor.buildProcess(newDaemon);
+		}
 		return newDaemon;
 	}
 	public static Daemon buildDaemon(Snippet s) {
@@ -120,11 +124,13 @@ public final class Handler {
 	}
 	public static Worm castWorm(Process p) {
 		Worm newWorm = forgeWorm(p);
-		ProcessCondition.cloneCondition(p, newWorm);
-		if (p instanceof Worm w) { newWorm.setHost(w.getHost()); }
-		ProcessCondition.DEAD.set(p);
-		Processor.addProcess(newWorm);
-		Processor.buildProcess(newWorm);
+		if (!ProcessCondition.DEAD.check(p)) {
+			ProcessCondition.cloneCondition(p, newWorm);
+			if (p instanceof Worm w) { newWorm.setHost(w.getHost()); }
+			ProcessCondition.DEAD.set(p);
+			Processor.addProcess(newWorm);
+			Processor.buildProcess(newWorm);
+		}
 		return newWorm;
 	}
 	public static Worm buildWorm(Snippet s, Process host) {
