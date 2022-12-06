@@ -20,6 +20,7 @@ import moonaframework.*;
 import moonaframework.base.Agent;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 import moonaframework.dynamic.Synthetized;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.Processor;
@@ -44,7 +45,11 @@ public class Test {
 		Benchmark.sleep(1000);
 	});
 	
+	static Event e = Handler.buildEvent(() -> {});
+	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		System.out.println(Nature.isProcessLike(t));
 	}
 }
