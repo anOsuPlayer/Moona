@@ -2,39 +2,37 @@ package moonaframework.base;
 
 public enum Nature {
 	
-	EXCEPTION(0b00000000),
+	EXCEPTION,
 	
-	OBJECT(0b00000000),
+	OBJECT,
 	
-	PROCESS(0b00000010),
+	PROCESS,
 	
-	DAEMON(0b00000010),
+	DAEMON,
 	
-	WORM(0b00000010),
+	WORM,
 	
-	EVENT(0b00000100),
+	EVENT,
 	
-	MODALEVENT(0b00000100),
+	MODALEVENT,
 	
-	AUTOEVENT(0b00000110),
+	AUTOEVENT,
 	
-	REFLECTION(0b00001000);
+	REFLECTION;
 	
 	public static final boolean isProcessLike(Natural n) {
-		return (n.nature().essence & PROCESS.essence) >> 1 == 1;
+		return n.nature().equals(PROCESS) || n.nature().equals(DAEMON) || n.nature().equals(WORM);
 	}
 	
 	public static final boolean isEventLike(Natural n) {
-		return (n.nature().essence & EVENT.essence) >> 2 == 1;
+		return n.nature().equals(EVENT) || n.nature().equals(MODALEVENT);
 	}
 	
 	public static final boolean isReflectionLike(Natural n) {
-		return (n.nature().essence & REFLECTION.essence) >> 3 == 1;
+		return n.nature().equals(REFLECTION);
 	}
 	
-	private final int essence;
+	private Nature() {
 	
-	private Nature(int essence) {
-		this.essence = essence;
 	}
 }
