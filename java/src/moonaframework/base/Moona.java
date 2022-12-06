@@ -47,12 +47,16 @@ public final class Moona {
 		addSerial(s);
 	}
 	static void addSerial(Serial s) {
-		switch (s.nature()) {
-			case PROCESS, DAEMON, WORM: Processor.add((Process) s); break;
-			case REFLECTION: Mirror.add((Reflection<?>) s); break;
-			case EVENT, MODALEVENT: Agent.include((Event) s); break;
-			default: elements.add(s, s.id());
+		if (Nature.isProcessLike(s)) {
+			Processor.add((Process) s); return;
 		}
+		if (Nature.isEventLike(s)) {
+			Agent.include((Event) s); return;
+		}
+		if (Nature.isReflectionLike(s)) {
+			Mirror.add((Reflection<?>) s); return;
+		}
+		elements.add(s, s.id());
 	}
 	
 	public static void remove(Serial s) throws MoonaHandlingException, NullArgumentException {
@@ -66,12 +70,16 @@ public final class Moona {
 		removeSerial(s);
 	}
 	static void removeSerial(Serial s) {
-		switch (s.nature()) {
-			case PROCESS, DAEMON, WORM: Processor.add((Process) s); break;
-			case REFLECTION: Mirror.remove((Reflection<?>) s); break;
-			case EVENT, MODALEVENT: Agent.exclude((Event) s); break;
-			default: elements.remove(s, s.id());
+		if (Nature.isProcessLike(s)) {
+			Processor.remove((Process) s); return;
 		}
+		if (Nature.isEventLike(s)) {
+			Agent.exclude((Event) s); return;
+		}
+		if (Nature.isReflectionLike(s)) {
+			Mirror.remove((Reflection<?>) s); return;
+		}
+		elements.remove(s, s.id());
 	}
 	
 	public static void collapse() {

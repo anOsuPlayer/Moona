@@ -45,33 +45,7 @@ public class Test {
 		Benchmark.sleep(1000);
 	});
 	
-	static Event e = Handler.buildEvent(() -> {});
-	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Benchmark.showTime(() -> {
-			if (Nature.isProcessLike(t)) {
-				System.out.println("proc");
-			}
-			else if (Nature.isEventLike(t)) {
-				System.out.println("ev");
-			}
-			else if (Nature.isReflectionLike(t)) {
-				System.out.println("ref");
-			}
-		});
-		
-		Benchmark.showStress(() -> {
-			if (Nature.isProcessLike(t)) {
-				System.out.println("proc");
-			}
-			else if (Nature.isEventLike(t)) {
-				System.out.println("ev");
-			}
-			else if (Nature.isReflectionLike(t)) {
-				System.out.println("ref");
-			}
-		}, 100000);
 	}
 }
