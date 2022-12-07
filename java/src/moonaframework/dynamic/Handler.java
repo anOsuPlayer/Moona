@@ -61,7 +61,7 @@ public final class Handler {
 			}
 		};
 	}
-
+	
 	private static Daemon forgeDaemon(Process p) {
 		Daemon newDaemon = new Daemon() {
 			public @Override void onPause() {

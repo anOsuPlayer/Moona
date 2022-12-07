@@ -46,13 +46,16 @@ public class Test {
 		Benchmark.sleep(500);
 	});
 	
+	private static Task t2 = Handler.buildProcess(() -> {
+		System.out.println("BBBBB");
+		Benchmark.sleep(500);
+	});
+	
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Processor.start(t);
+		Synchronizer s = new Synchronizer(t, t2);
 		
-		Benchmark.sleep(1000);
-		
-		Processor.collapse();
+		Processor.start(s);
 	}
 }

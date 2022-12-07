@@ -6,8 +6,9 @@ import moonaframework.base.Serial;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
+import moonaframework.util.annotations.Functional;
 
-public interface Process extends Natural, Runnable, Dynamic, Serial {
+public @Functional interface Process extends Natural, Runnable, Dynamic, Serial {
 	
 	@Override Nature nature();
 	@Override long id();
