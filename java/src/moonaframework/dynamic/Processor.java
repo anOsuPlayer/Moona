@@ -266,7 +266,7 @@ public final class Processor {
 		}
 	}
 
-	static void breakProcess(Process p) {
+	static void terminateProcess(Process p) {
 		boolean wasPaused = p.isPaused();
 		removeProcess(p);
 		ProcessCondition.DEAD.set(p);
@@ -292,7 +292,7 @@ public final class Processor {
 		if (ProcessCondition.DEAD.check(p)) {
 			throw new MoonaHandlingException("You can't interrupt Processes which are not running or awaiting");
 		}
-		breakProcess(p);
+		terminateProcess(p);
 	}
 
 	public static void interrupt(long id) throws MoonaHandlingException {
@@ -321,7 +321,7 @@ public final class Processor {
 			}
 		}
 		for (Process p : procs) {
-			breakProcess(p);
+			terminateProcess(p);
 		}
 	}
 	public static void collapse() throws MoonaHandlingException {
@@ -333,7 +333,7 @@ public final class Processor {
 			}
 		}
 		for (Process p : procs) {
-			breakProcess(p);
+			terminateProcess(p);
 			synchronized (p.getClock()) {
 				ender(p);
 			}
