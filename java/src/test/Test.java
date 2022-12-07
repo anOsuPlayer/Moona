@@ -23,6 +23,7 @@ import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.dynamic.Synthetized;
 import moonaframework.dynamic.Handler;
+import moonaframework.dynamic.Phase;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;
 import moonaframework.dynamic.process.*;
@@ -42,10 +43,16 @@ public class Test {
 	
 	private static Task t = Handler.buildProcess(() -> {
 		System.out.println("AAAAA");
-		Benchmark.sleep(1000);
+		Benchmark.sleep(500);
 	});
 	
 	public static void main(String[] args) {
 		Moona.init();
+	
+		Processor.start(t);
+		
+		Benchmark.sleep(1000);
+		
+		Processor.interrupt(t.id());
 	}
 }

@@ -252,10 +252,10 @@ public class IshMap<V, K> {
 		return values.contains(value) && keys.contains(key) && indexOf(value, key) >= 0; 
 	}
 	public boolean hasValue(V value) {
-		return values.indexOf(value) >= 0;
+		return values.contains(value);
 	}
 	public boolean hasKey(K key) {
-		return keys.indexOf(key) >= 0;
+		return keys.contains(key);
 	}
 	
 	private final Reviterable<V> valuesIterator = new Reviterable<V>() {	
