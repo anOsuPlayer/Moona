@@ -96,6 +96,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			provide(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -117,6 +118,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			await(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -132,6 +134,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			unlock(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -152,6 +155,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			initiate(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -177,6 +181,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			start(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -203,6 +208,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			flick(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -230,6 +236,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			spark(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -263,6 +270,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			terminate(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
@@ -287,6 +295,7 @@ public final class Processor {
 		Moona.checkOn();
 		if (has(id)) {
 			interrupt(processes.valueOf(id));
+			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
 				+ " process.");
