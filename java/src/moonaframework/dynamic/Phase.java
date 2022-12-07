@@ -59,117 +59,117 @@ public class Phase {
 		Processor.filteredRemove(p);
 	}
 	
-	public void provide(long id) {
+	public void provide(long id) throws MoonaHandlingException {
 		Processor.provide(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void provide(Process p) {
+	public void provide(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.provide(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void await(long id) {
+	public void await(long id) throws MoonaHandlingException {
 		Processor.await(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void await(Process p) {
+	public void await(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.await(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void unlock(long id) {
+	public void unlock(long id) throws MoonaHandlingException {
 		Processor.await(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void unlock(Process p) {
+	public void unlock(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.await(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void initiate(long id) {
+	public void initiate(long id) throws MoonaHandlingException {
 		Processor.initiate(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void initiate(Process p) {
+	public void initiate(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.initiate(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void start(long id) {
+	public void start(long id) throws MoonaHandlingException {
 		Processor.start(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void start(Process p) {
+	public void start(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.start(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void flick(long id) {
+	public void flick(long id) throws MoonaHandlingException {
 		Processor.flick(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void flick(Process p) {
+	public void flick(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.flick(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void spark(long id) {
+	public void spark(long id) throws MoonaHandlingException {
 		Processor.spark(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void spark(Process p) {
+	public void spark(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.spark(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void terminate(long id) {
+	public void terminate(long id) throws MoonaHandlingException {
 		Processor.terminate(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void terminate(Process p) {
+	public void terminate(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.terminate(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
 		}
 	}
 	
-	public void interrupt(long id) {
+	public void interrupt(long id) throws MoonaHandlingException {
 		Processor.interrupt(id);
 		if (!processes.contains(id)) {
 			countProcess(Processor.get(id));
 		}
 	}
-	public void interrupt(Process p) {
+	public void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
 		Processor.interrupt(p);
 		if (!processes.contains(p.id())) {
 			countProcess(p);
