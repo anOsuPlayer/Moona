@@ -57,9 +57,8 @@ public class Synthetized extends AbstractProcess implements Packable<Snippet> {
 			throw new IllegalArgumentException("In order to initialize CompositeProcesses, no more than 5"
 					+ " instructions are allowed.");
 		}
-		System.arraycopy(instructions, 0, this.instructions, 0, instructions.length);
 		for (int i = 0; i < 5; i++) {
-			this.instructions[i] = (this.instructions[i] == null) ? () -> {} : this.instructions[i];
+			this.instructions[i] = (instructions[i] == null) ? () -> {} : instructions[i];
 		}
 	}
 	public Synthetized(Snippet updater) {

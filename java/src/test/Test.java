@@ -53,9 +53,5 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Synchronizer s = new Synchronizer(t, t2);
-		
-		Processor.start(s);
 	}
 }
