@@ -62,7 +62,7 @@ public class Phase {
 	public void provide(long id) throws MoonaHandlingException {
 		Processor.provide(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void provide(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -75,7 +75,7 @@ public class Phase {
 	public void await(long id) throws MoonaHandlingException {
 		Processor.await(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void await(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -88,7 +88,7 @@ public class Phase {
 	public void unlock(long id) throws MoonaHandlingException {
 		Processor.await(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void unlock(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -101,7 +101,7 @@ public class Phase {
 	public void initiate(long id) throws MoonaHandlingException {
 		Processor.initiate(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void initiate(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -114,7 +114,7 @@ public class Phase {
 	public void start(long id) throws MoonaHandlingException {
 		Processor.start(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void start(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -127,7 +127,7 @@ public class Phase {
 	public void flick(long id) throws MoonaHandlingException {
 		Processor.flick(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void flick(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -140,7 +140,7 @@ public class Phase {
 	public void spark(long id) throws MoonaHandlingException {
 		Processor.spark(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			countProcess(Processor.processes.valueOf(id));
 		}
 	}
 	public void spark(Process p) throws MoonaHandlingException, NullArgumentException {
@@ -151,29 +151,37 @@ public class Phase {
 	}
 	
 	public void terminate(long id) throws MoonaHandlingException {
-		Processor.terminate(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			throw new MoonaHandlingException("The Process you're trying to terminate does not belong to this"
+					+ " Phase");
 		}
+		Processor.terminate(id);
+		countProcess(Processor.processes.valueOf(id));
 	}
 	public void terminate(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.terminate(p);
 		if (!processes.contains(p.id())) {
-			countProcess(p);
+			throw new MoonaHandlingException("The Process you're trying to terminate does not belong to this"
+					+ " Phase");
 		}
+		Processor.terminate(p);
+		countProcess(p);
 	}
 	
 	public void interrupt(long id) throws MoonaHandlingException {
-		Processor.interrupt(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.get(id));
+			throw new MoonaHandlingException("The Process you're trying to interrupt does not belong to this"
+					+ " Phase");
 		}
+		Processor.interrupt(id);
+		countProcess(Processor.processes.valueOf(id));
 	}
 	public void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.interrupt(p);
 		if (!processes.contains(p.id())) {
-			countProcess(p);
+			throw new MoonaHandlingException("The Process you're trying to interrupt does not belong to this"
+					+ " Phase");
 		}
+		Processor.interrupt(p);
+		countProcess(p);
 	}
 	
 	public void fade() {

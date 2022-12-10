@@ -46,12 +46,15 @@ public class Test {
 		Benchmark.sleep(500);
 	});
 	
-	private static Task t2 = Handler.buildProcess(() -> {
-		System.out.println("BBBBB");
-		Benchmark.sleep(500);
-	});
-	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Phase ph = new Phase(t);
+		
+		Processor.start(t);
+		
+		Benchmark.sleep(1000);
+		
+		ph.interrupt(t.id());
 	}
 }
