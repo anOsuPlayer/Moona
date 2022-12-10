@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## early_dev-0.0.4.1 - The Phases-Improving Patch
+
+* **Corrected Providing Methods**: Methods such as *.start(Process p)* and *.provide(Process p)* were improved. They now check beforehand if the ID of the provided Process is already in their IDs list. This was made because of the fact that involving the Processor, which would perform *tons of extra useless checks* other than this made no sense.
+* **Fixed .unlock(Process p) method**: Because of my *overly notable lack of attention*, I forgot to *make my copy-paste seamless* by forgetting to edit a "small detail" in the .unlock(Process p) methods of the Phase. Basically, *it did the same things as the .await(Process p) method*... yeah...
+* **Fixed .spark(Process p) and .flick(Process p) methods**: These ones *actually did their job*... slight issue: *they increased the number of Processes* inside the Phase *every time they were called*... mind blowing.
+* **Fixed .interrupt(Process p) and .terminate(Process p) methods**: Flying over the fact that *they increased Process counters instead of decreasing them*, which would be funny enough, these ones where the most hilarious to fix. Apart from that... *small detail*, they received a much more significant improvement: they now proceed by *firstly erasing the Process from the Phase* and only then *they call the Processor* to remove it from the main IshMap.
+* **Fixed Processor's IDs references**: Added *return* to prevent fall-through when reverse-searching the wanted Process, which would have triggered a MoonaHandlingException otherwise... I haven't got *the slightest clue* on how on earth I couldn't spot this issue before...
+
 ## early_dev-0.0.4 - The Functional Update
 
 * **Making functions... MORE FUNCTIONAL!**: I tried my best to integrate my Functional Interfaces with the ones already implemented in Java. To do this, I used the Satellite\<T\> Interface, native to Moona, which purpose is to *translate certain framework's elements* into a Java counterpart. This is the case of Moona's Functional Interfaces: they now implement Satellite\<T\>, where T corresponds to an analogue Functional in java.lang.function. 
