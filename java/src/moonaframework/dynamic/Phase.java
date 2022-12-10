@@ -156,7 +156,7 @@ public class Phase {
 					+ " Phase");
 		}
 		Processor.terminate(id);
-		countProcess(Processor.processes.valueOf(id));
+		uncountProcess(Processor.processes.valueOf(id));
 	}
 	public void terminate(Process p) throws MoonaHandlingException, NullArgumentException {
 		if (!processes.contains(p.id())) {
@@ -164,7 +164,7 @@ public class Phase {
 					+ " Phase");
 		}
 		Processor.terminate(p);
-		countProcess(p);
+		uncountProcess(p);
 	}
 	
 	public void interrupt(long id) throws MoonaHandlingException {
@@ -173,7 +173,7 @@ public class Phase {
 					+ " Phase");
 		}
 		Processor.interrupt(id);
-		countProcess(Processor.processes.valueOf(id));
+		uncountProcess(Processor.processes.valueOf(id));
 	}
 	public void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
 		if (!processes.contains(p.id())) {
@@ -181,7 +181,7 @@ public class Phase {
 					+ " Phase");
 		}
 		Processor.interrupt(p);
-		countProcess(p);
+		uncountProcess(p);
 	}
 	
 	public void fade() {
