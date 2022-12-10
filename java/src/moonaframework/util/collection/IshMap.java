@@ -376,7 +376,7 @@ public class IshMap<V, K> {
 	}
 	
 	public Object[][] toArray() {
-		var arr = new Object[size()][size()];
+		var arr = new Object[2][size()];
 		arr[0] = values.toArray(); arr[1] = keys.toArray();
 		return arr;
 	}

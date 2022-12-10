@@ -55,6 +55,6 @@ public class Test {
 		
 		Benchmark.sleep(1000);
 		
-		ph.interrupt(t.id());
+		ph.collapse();
 	}
 }
