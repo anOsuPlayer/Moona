@@ -60,29 +60,37 @@ public class Phase {
 	}
 	
 	public void provide(long id) throws MoonaHandlingException {
-		Processor.provide(id);
-		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+		if (processes.contains(id)) {
+			throw new MoonaHandlingException("The Process you're trying to provide already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(Processor.processes.valueOf(id));
+		Processor.provide(id);
 	}
 	public void provide(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.provide(p);
-		if (!processes.contains(p.id())) {
-			countProcess(p);
+		if (processes.contains(p.id())) {
+			throw new MoonaHandlingException("The Process you're trying to provide already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(p);
+		Processor.provide(p);
 	}
 	
 	public void await(long id) throws MoonaHandlingException {
-		Processor.await(id);
-		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+		if (processes.contains(id)) {
+			throw new MoonaHandlingException("The Process you're trying to await already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(Processor.processes.valueOf(id));
+		Processor.await(id);
 	}
 	public void await(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.await(p);
-		if (!processes.contains(p.id())) {
-			countProcess(p);
+		if (processes.contains(p.id())) {
+			throw new MoonaHandlingException("The Process you're trying to await already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(p);
+		Processor.await(p);
 	}
 	
 	public void unlock(long id) throws MoonaHandlingException {
@@ -101,29 +109,37 @@ public class Phase {
 	}
 	
 	public void initiate(long id) throws MoonaHandlingException {
-		Processor.initiate(id);
-		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+		if (processes.contains(id)) {
+			throw new MoonaHandlingException("The Process you're trying to initiate already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(Processor.processes.valueOf(id));
+		Processor.initiate(id);
 	}
 	public void initiate(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.initiate(p);
-		if (!processes.contains(p.id())) {
-			countProcess(p);
+		if (processes.contains(p.id())) {
+			throw new MoonaHandlingException("The Process you're trying to initiate already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(p);
+		Processor.initiate(p);
 	}
 	
 	public void start(long id) throws MoonaHandlingException {
-		Processor.start(id);
-		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+		if (processes.contains(id)) {
+			throw new MoonaHandlingException("The Process you're trying to start already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(Processor.processes.valueOf(id));
+		Processor.start(id);
 	}
 	public void start(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.start(p);
-		if (!processes.contains(p.id())) {
-			countProcess(p);
+		if (processes.contains(p.id())) {
+			throw new MoonaHandlingException("The Process you're trying to start already belongs to this"
+					+ " Phase.");
 		}
+		countProcess(p);
+		Processor.start(p);
 	}
 	
 	public void flick(long id) throws MoonaHandlingException {
