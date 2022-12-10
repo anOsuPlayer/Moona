@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## eraly_dev-0.0.4.2 - The Phases-Improving Patch (Part 2)
+
+* **Fixed Phase's .interrupt(Process p) and .terminate(Process p)**: These two methods used to firstly discard the given Process from the processor and, only then, they'd kick it out of the Phase itself. When passing Processes instead of IDs references, though, the Processor gets involved to return the Process associated with that ID... so removing the Process from the Processor *before* removing it from the Phase.. wasn't a great idea
+* **Removed NotNull and Nullable Annotations**: I am not fully sure on how to integrate them in the framework, so, for now, they'll not be part of it. They might get back once I'll find a decent use for them.
+
 ## early_dev-0.0.4.1 - The Phases-Improving Patch
 
 * **Corrected Providing Methods**: Methods such as *.start(Process p)* and *.provide(Process p)* were improved. They now check beforehand if the ID of the provided Process is already in their IDs list. This was made because of the fact that involving the Processor, which would perform *tons of extra useless checks* other than this made no sense.
