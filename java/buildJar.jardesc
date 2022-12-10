@@ -11,7 +11,6 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <folder path="/java/lwjgl"/>
         <javaElement handleIdentifier="=java/src"/>
     </selectedElements>
 </jardesc>
