@@ -177,16 +177,16 @@ public class Phase {
 			throw new MoonaHandlingException("The Process you're trying to terminate does not belong to this"
 					+ " Phase");
 		}
-		Processor.terminate(id);
 		uncountProcess(Processor.processes.valueOf(id));
+		Processor.terminate(id);
 	}
 	public void terminate(Process p) throws MoonaHandlingException, NullArgumentException {
 		if (!processes.contains(p.id())) {
 			throw new MoonaHandlingException("The Process you're trying to terminate does not belong to this"
 					+ " Phase");
 		}
-		Processor.terminate(p);
 		uncountProcess(p);
+		Processor.terminate(p);
 	}
 	
 	public void interrupt(long id) throws MoonaHandlingException {
@@ -194,16 +194,16 @@ public class Phase {
 			throw new MoonaHandlingException("The Process you're trying to interrupt does not belong to this"
 					+ " Phase");
 		}
-		Processor.interrupt(id);
 		uncountProcess(Processor.processes.valueOf(id));
+		Processor.interrupt(id);
 	}
 	public void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
 		if (!processes.contains(p.id())) {
 			throw new MoonaHandlingException("The Process you're trying to interrupt does not belong to this"
 					+ " Phase");
 		}
-		Processor.interrupt(p);
 		uncountProcess(p);
+		Processor.interrupt(p);
 	}
 	
 	public void fade() {

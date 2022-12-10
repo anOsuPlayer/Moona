@@ -49,7 +49,7 @@ public class Test {
 	public static void main(String[] args) {
 		Moona.init();
 		
-		Phase ph = new Phase(t);
+		Phase ph = new Phase();
 		
 		Processor.start(t);
 		
