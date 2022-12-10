@@ -125,29 +125,33 @@ public class Phase {
 	}
 	
 	public void flick(long id) throws MoonaHandlingException {
-		Processor.flick(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+			throw new MoonaHandlingException("The Process you're trying to flick does not belong to this"
+					+ " Phase");
 		}
+		Processor.flick(id);
 	}
 	public void flick(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.flick(p);
 		if (!processes.contains(p.id())) {
-			countProcess(p);
+			throw new MoonaHandlingException("The Process you're trying to flick does not belong to this"
+					+ " Phase");
 		}
+		Processor.flick(p);
 	}
 	
 	public void spark(long id) throws MoonaHandlingException {
-		Processor.spark(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+			throw new MoonaHandlingException("The Process you're trying to spark does not belong to this"
+					+ " Phase");
 		}
+		Processor.spark(id);
 	}
 	public void spark(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.spark(p);
 		if (!processes.contains(p.id())) {
-			countProcess(p);
+			throw new MoonaHandlingException("The Process you're trying to spark does not belong to this"
+					+ " Phase");
 		}
+		Processor.spark(p);
 	}
 	
 	public void terminate(long id) throws MoonaHandlingException {
