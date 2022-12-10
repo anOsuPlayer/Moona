@@ -86,16 +86,18 @@ public class Phase {
 	}
 	
 	public void unlock(long id) throws MoonaHandlingException {
-		Processor.await(id);
 		if (!processes.contains(id)) {
-			countProcess(Processor.processes.valueOf(id));
+			throw new MoonaHandlingException("The Process you're trying to unlock does not belong to this"
+					+ " Phase");
 		}
+		Processor.unlock(id);
 	}
 	public void unlock(Process p) throws MoonaHandlingException, NullArgumentException {
-		Processor.await(p);
 		if (!processes.contains(p.id())) {
-			countProcess(p);
+			throw new MoonaHandlingException("The Process you're trying to unlock does not belong to this"
+					+ " Phase");
 		}
+		Processor.unlock(p);
 	}
 	
 	public void initiate(long id) throws MoonaHandlingException {
