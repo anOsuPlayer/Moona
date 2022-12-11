@@ -24,6 +24,11 @@ public final class Moona {
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
 		}
+		for (Serial s : elements.values()) {
+			if (s instanceof Constexpr cx) {
+				cx.instructions.code();
+			}
+		}
 		Mirror.loadReflections();
 	}
 	

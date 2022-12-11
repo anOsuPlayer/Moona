@@ -18,9 +18,11 @@ import java.util.stream.Stream;
 
 import moonaframework.*;
 import moonaframework.base.Agent;
+import moonaframework.base.Constexpr;
 import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
+import moonaframework.base.Serial;
 import moonaframework.dynamic.Synthetized;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.Phase;
@@ -41,20 +43,13 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	private static Task t = Handler.buildProcess(() -> {
-		System.out.println("AAAAA");
-		Benchmark.sleep(500);
-	});
+	private List<Integer> t;
 	
 	public static void main(String[] args) {
+		Constexpr.evaluate(() -> {
+			
+		});
+		
 		Moona.init();
-		
-		Phase ph = new Phase();
-		
-		Processor.start(t);
-		
-		Benchmark.sleep(1000);
-		
-		ph.collapse();
 	}
 }
