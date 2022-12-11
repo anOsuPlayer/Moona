@@ -5,6 +5,7 @@
  * others.
  */
 
+#pragma once
 #ifndef moona_h
 
     #define moona_h

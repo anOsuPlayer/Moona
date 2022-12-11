@@ -4,6 +4,7 @@
  * @brief This header contains some special loops that might fit well in some scenarios.
  */
 
+#pragma once
 #ifndef mloops
 
     #define mloops

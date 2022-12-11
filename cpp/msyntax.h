@@ -5,6 +5,7 @@
  * and easy to understand.
  */
 
+#pragma once
 #ifndef msyntax
 
     #define msyntax
