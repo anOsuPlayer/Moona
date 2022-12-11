@@ -97,31 +97,30 @@ public final class Agent {
 	}
 	
 	static final Task handler = new Task() {
-		public void update() {
+		public @Override void update() {
 			flush();
-			synchronized (getClock()) {
-				for (Event e : events.values()) {
-					if (e instanceof ModalEvent me) {
-						if (me.getMode().equals(EventMode.ONCE)) {
-							toRemove.add(e);
-						}
-						if (me.getMode().equals(EventMode.REPEAT)) {
-							if (me.getIterations() - 1 == 0) {
-								toRemove.add(e);
-							}
-							me.setIterations(me.getIterations()-1);
-						}
-						if (me.getMode().equals(EventMode.UNTIL) && me.getCondition() != null) {
-							if (!me.getCondition().verify()) {
-								toRemove.add(me);
-							}
-						}
-					}
-					else {
+			
+			for (Event e : events.values()) {
+				if (e instanceof ModalEvent me) {
+					if (me.getMode().equals(EventMode.ONCE)) {
 						toRemove.add(e);
 					}
-					e.trigger();
+					if (me.getMode().equals(EventMode.REPEAT)) {
+						if (me.getIterations() - 1 == 0) {
+							toRemove.add(e);
+						}
+						me.setIterations(me.getIterations()-1);
+					}
+					if (me.getMode().equals(EventMode.UNTIL) && me.getCondition() != null) {
+						if (!me.getCondition().verify()) {
+							toRemove.add(me);
+						}
+					}
 				}
+				else {
+					toRemove.add(e);
+				}
+				e.trigger();
 			}
 			getClock().sleep(1l);
 		}
