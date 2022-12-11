@@ -43,13 +43,7 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 public class Test {
 	
-	private List<Integer> t;
-	
 	public static void main(String[] args) {
-		Constexpr.evaluate(() -> {
-			
-		});
-		
 		Moona.init();
 	}
 }

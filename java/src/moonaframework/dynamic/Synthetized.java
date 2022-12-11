@@ -14,35 +14,35 @@ public class Synthetized extends AbstractProcess implements Packable<Snippet> {
 	}
 	
 	public @Override void onPause() {
-		instructions[3].code();
+		instructions[3].execute();
 	}
 	public void setPause(Snippet s) {
 		instructions[3] = s;
 	}
 	
 	public @Override void onUnpause() {
-		instructions[4].code();
+		instructions[4].execute();
 	}
 	public void setUnpause(Snippet s) {
 		instructions[4] = s;
 	}
 	
 	public @Override void initialize() {
-		instructions[1].code();
+		instructions[1].execute();
 	}
 	public void setInitialize(Snippet s) {
 		instructions[1] = s;
 	}
 	
 	public @Override void update() {
-		instructions[0].code();
+		instructions[0].execute();
 	}
 	public void setUpdate(Snippet s) {
 		instructions[0] = s;
 	}
 	
 	public @Override void end() {
-		instructions[2].code();
+		instructions[2].execute();
 	}
 	public void setEnd(Snippet s) {
 		instructions[2] = s;

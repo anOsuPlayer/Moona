@@ -13,7 +13,7 @@ public final class Constexpr implements Serial {
 		return Nature.OBJECT;
 	}
 	
-	final Snippet instructions;
+	final Snippet code;
 	
 	{
 		Moona.add(this);
@@ -27,7 +27,7 @@ public final class Constexpr implements Serial {
 		if (code == null) {
 			throw new NullArgumentException("A null Constexpr cannot be initialized.");
 		}
-		this.instructions = code;
+		this.code = code;
 		this.id = Moona.generateID();
 	}
 }

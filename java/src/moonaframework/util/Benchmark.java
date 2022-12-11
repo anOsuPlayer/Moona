@@ -6,7 +6,7 @@ public class Benchmark {
 
 	public static final long time(Snippet s) {
 		long beg = System.nanoTime();
-		s.code();
+		s.execute();
 		return System.nanoTime()-beg;
 	}
 	public static final void showTime(Snippet s) {

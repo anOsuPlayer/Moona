@@ -57,7 +57,7 @@ public final class Handler {
 	public static Task buildProcess(Snippet s) {
 		return new Task() {
 			public @Override void update() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -96,7 +96,7 @@ public final class Handler {
 	public static Daemon buildDaemon(Snippet s) {
 		return new Daemon() {
 			public @Override void update() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -136,7 +136,7 @@ public final class Handler {
 	public static Worm buildWorm(Snippet s, Process host) {
 		return new Worm(host) {
 			public @Override void update() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -147,7 +147,7 @@ public final class Handler {
 	public static AbstractEvent buildEvent(Snippet s) {
 		return new AbstractEvent() {
 			public @Override void trigger() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -163,7 +163,7 @@ public final class Handler {
 	public static Action buildAction(Snippet s, EventMode e) {
 		return new Action(e) {
 			public @Override void trigger() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -179,7 +179,7 @@ public final class Handler {
 	public static Action buildAction(Snippet s, int iterations) {
 		return new Action(iterations) {
 			public @Override void trigger() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
@@ -195,7 +195,7 @@ public final class Handler {
 	public static Action buildAction(Snippet s, Conditional c) {
 		return new Action(c) {
 			public @Override void trigger() {
-				s.code();
+				s.execute();
 			}
 		};
 	}
