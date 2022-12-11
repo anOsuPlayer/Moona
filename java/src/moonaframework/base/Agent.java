@@ -40,7 +40,7 @@ public final class Agent {
 		}
 	}
 	static void includeEvent(Event e) {
-		if (!fader && !collapser) {
+		if (!collapser) {
 			toAdd.add(e);
 			if (ProcessCondition.DEAD.check(handler)) {
 				Processor.start(handler);
@@ -64,19 +64,12 @@ public final class Agent {
 		}
 	}
 	static void excludeEvent(Event e) {
-		if (!fader && !collapser) {
+		if (!collapser) {
 			toRemove.add(e);
 		}
 	}
 	
 	private static void flush() {
-		if (collapser) {
-			Processor.terminate(handler);
-			toAdd.clear();
-			toRemove.clear();
-			events.clear();
-		}
-		
 		toRemove.forEach((e) -> {
 			events.remove(e, e.id());
 			totalEvents--;
@@ -98,6 +91,13 @@ public final class Agent {
 	
 	static final Task handler = new Task() {
 		public @Override void update() {
+			if (collapser) {
+				Processor.terminate(handler);
+				toRemove.clear(); toAdd.clear(); events.clear();
+				collapser = false;
+				return;
+			}
+			
 			flush();
 			
 			for (Event e : events.values()) {
@@ -122,15 +122,10 @@ public final class Agent {
 				}
 				e.trigger();
 			}
+			
 			getClock().sleep(1l);
 		}
 	};
-	
-	private static boolean fader = false;
-	
-	public static void fade() {
-		fader = true;
-	}
 	
 	private static boolean collapser = false;
 	
