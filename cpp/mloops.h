@@ -18,7 +18,7 @@
      * @brief It's a loop which, for a given variable "VAR", starting from the value of the variable "from",
      * iterates until reaching the value of the third parameter "to".
      */
-    #define range(VAR, from, to) for (ssize_t VAR = from; VAR < to;  VAR++)
+    #define range(VAR, from, to) for (ssize_t VAR = from; VAR < to; VAR++)
     /**
      * @brief Basically, the opposite of a while loop. Executes the given block of code until it's proven
      * false (it wouldn't be called "until loop" otherwise, would it?). 
