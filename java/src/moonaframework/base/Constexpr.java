@@ -15,12 +15,12 @@ public final class Constexpr implements Serial {
 	
 	final Snippet code;
 	
-	{
-		Moona.add(this);
-	}
-	
 	public static void evaluate(Snippet code) throws NullArgumentException {
 		new Constexpr(code);
+	}
+	
+	{
+		Moona.add(this);
 	}
 	
 	private Constexpr(Snippet code) throws NullArgumentException {

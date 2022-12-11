@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import moonaframework.*;
@@ -36,6 +37,7 @@ import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
 import moonaframework.util.functional.Cast;
 import moonaframework.util.functional.Mold;
+import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
 import moonaframework.util.time.*;

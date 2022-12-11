@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public @FunctionalInterface interface Cast<T> extends Mold<Object, T> {
 	
-	default Function<Object, T> translate() {
+	default @Override Function<Object, T> translate() {
 		return (Object o) -> cast(o);
 	}
 	

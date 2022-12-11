@@ -26,7 +26,7 @@ public final class Moona {
 		}
 		for (Serial s : elements.values()) {
 			if (s instanceof Constexpr cx) {
-				cx.code.execute();
+				cx.code.run();
 			}
 		}
 		Mirror.loadReflections();

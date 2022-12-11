@@ -1,10 +1,6 @@
 package moonaframework.util.functional;
 
-public @FunctionalInterface interface Snippet extends Satellite<Runnable> {
+public @FunctionalInterface interface Snippet extends Runnable {
 
-	default @Override Runnable translate() {
-		return () -> execute();
-	}
-	
-	void execute();
+	@Override void run();
 }
