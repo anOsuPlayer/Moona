@@ -31,11 +31,8 @@ public class ProcessClock extends Chrono implements Attached<Process> {
 		}
 	}
 	
-	public ProcessClock(Process host) throws NullArgumentException {
+	ProcessClock(Process host) throws NullArgumentException {
 		this.beginning = System.nanoTime();
-		if (host == null) {
-			throw new NullArgumentException("A ProcessClock's host cannot be null.");
-		}
 		this.host = host;
 	}
 }
