@@ -1,11 +1,16 @@
 package moonaframework.dynamic.event;
 
+import moonaframework.base.Nature;
 import moonaframework.util.annotations.Functional;
 import moonaframework.util.condition.Conditional;
 import moonaframework.util.exceptions.NullArgumentException;
 
 public @Functional abstract class Action extends AbstractEvent implements ModalEvent {
 
+	public @Override final Nature nature() {
+		return Nature.MODALEVENT;
+	}
+	
 	private final EventMode eventMode;
 	
 	public @Override final EventMode getMode() {

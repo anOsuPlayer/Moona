@@ -1,7 +1,5 @@
 package moonaframework.base;
 
-import org.lwjgl.glfw.GLFW;
-
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;
@@ -23,16 +21,15 @@ public final class Moona {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
-		isOn = true;
-		if (!GLFW.glfwInit()) {
-			throw new MoonaHandlingException("Moona could not be initialized.");
-		}
 		for (Serial s : elements.values()) {
 			if (s instanceof Constexpr cx) {
 				cx.code.run();
 			}
 		}
+		
 		Mirror.loadReflections();
+		
+		isOn = true;
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
@@ -56,13 +53,16 @@ public final class Moona {
 	}
 	static void addSerial(Serial s) {
 		if (Nature.isProcessLike(s)) {
-			Processor.add((Process) s); return;
+			Processor.add((Process) s);
+			return;
 		}
 		if (Nature.isEventLike(s)) {
-			Agent.include((Event) s); return;
+			Agent.include((Event) s);
+			return;
 		}
 		if (Nature.isReflectionLike(s)) {
-			Mirror.add((Reflection<?>) s); return;
+			Mirror.add((Reflection<?>) s);
+			return;
 		}
 		elements.add(s, s.id());
 	}

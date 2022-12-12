@@ -175,9 +175,12 @@ public final class Agent {
 	}
 	
 	public static int totalEvents() {
+		return totalEvents + totalModals;
+	}
+	public static int eventCount() {
 		return totalEvents;
 	}
-	public static int totalModals() {
+	public static int modalCount() {
 		return totalModals;
 	}
 	
