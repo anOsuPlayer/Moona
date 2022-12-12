@@ -23,9 +23,9 @@ public class IshMap<V, K> {
 	public @Override String toString() {
 		String str = "[ ";
 		for (int i = 0; i < size(); i++) {
-			str += (values.get(i) + " - " + keys.get(i) + ((i == size()-1 ? " ]" : " ]\n[ ")));
+			str += (values.get(i) + " - " + keys.get(i) + ((i == size()-1 ? "" : " ]\n[ ")));
 		}
-		return str;
+		return str + " ]";
 	}
 	public @Override IshMap<V, K> clone() {
 		return new IshMap<>(values, keys);

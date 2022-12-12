@@ -43,7 +43,6 @@ public final class Moona {
 	}
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullArgumentException {
-		System.out.println(elements);
 		if (s == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
@@ -80,13 +79,16 @@ public final class Moona {
 	}
 	static void removeSerial(Serial s) {
 		if (Nature.isProcessLike(s)) {
-			Processor.remove((Process) s); return;
+			Processor.remove((Process) s);
+			return;
 		}
 		if (Nature.isEventLike(s)) {
-			Agent.exclude((Event) s); return;
+			Agent.exclude((Event) s);
+			return;
 		}
 		if (Nature.isReflectionLike(s)) {
-			Mirror.remove((Reflection<?>) s); return;
+			Mirror.remove((Reflection<?>) s);
+			return;
 		}
 		elements.remove(s, s.id());
 	}
