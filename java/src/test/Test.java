@@ -46,11 +46,14 @@ import moonaframework.util.time.*;
 
 public class Test {
 	
+	static Action ae = new Action(EventMode.REPEAT) {
+		public @Override void trigger() {
+			System.out.println("AAAAAAAaa");
+			Benchmark.sleep(1000);
+		}
+	};
+	
 	public static void main(String[] args) {
-		Constexpr.evaluate(() -> {
-			System.out.println("A");
-		});
-		
 		Moona.init();
 	}
 }

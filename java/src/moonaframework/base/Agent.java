@@ -52,13 +52,15 @@ public final class Agent {
 	
 	public static void exclude(Event e) throws NullArgumentException, MoonaHandlingException {
 		Moona.checkOn();
-		if (e == null) {
-			throw new NullArgumentException("You cannot remove a null element from Moona.");
+		if (!fader) {
+			if (e == null) {
+				throw new NullArgumentException("You cannot remove a null element from Moona.");
+			}
+			if (!events.hasKey(e.id())) {
+				throw new MoonaHandlingException("This Event is not present in Moona.");
+			}
+			excludeEvent(e);
 		}
-		if (!events.hasKey(e.id())) {
-			throw new MoonaHandlingException("This Event is not present in Moona.");
-		}
-		excludeEvent(e);
 	}
 	static void filteredExclude(Event e) {
 		if (events.hasKey(e.id())) {
@@ -96,7 +98,6 @@ public final class Agent {
 			if (collapser) {
 				Processor.terminate(handler);
 				toRemove.clear(); toAdd.clear(); events.clear();
-				collapser = false;
 				return;
 			}
 			
@@ -126,6 +127,10 @@ public final class Agent {
 			}
 			
 			getClock().sleep(1l);
+		}
+		
+		public @Override void end() {
+			collapser = false; fader = false;
 		}
 	};
 	
