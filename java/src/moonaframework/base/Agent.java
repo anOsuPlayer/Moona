@@ -26,13 +26,15 @@ public final class Agent {
 	
 	public static void include(Event e) throws NullArgumentException, MoonaHandlingException {
 		Moona.checkOn();
-		if (e == null) {
-			throw new NullArgumentException("You cannot add null elements to Moona.");
+		if (!fader) {
+			if (e == null) {
+				throw new NullArgumentException("You cannot add null elements to Moona.");
+			}
+			if (events.hasKey(e.id())) {
+				throw new MoonaHandlingException("This Event already belongs to Moona.");
+			}
+			includeEvent(e);
 		}
-		if (events.hasKey(e.id())) {
-			throw new MoonaHandlingException("This Event already belongs to Moona.");
-		}
-		includeEvent(e);
 	}
 	static void filteredInclude(Event e) {
 		if (!events.hasKey(e.id())) {
@@ -131,6 +133,12 @@ public final class Agent {
 	
 	public static void collapse() {
 		collapser = true;
+	}
+	
+	private static boolean fader = false;
+	
+	public static void fade() {
+		fader = true;
 	}
 	
 	public static Event get(long id) {

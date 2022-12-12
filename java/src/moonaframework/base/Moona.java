@@ -20,6 +20,9 @@ public final class Moona {
 	}
 	
 	public static void init() throws MoonaHandlingException {
+		if (isOn) {
+			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
+		}
 		isOn = true;
 		if (!GLFW.glfwInit()) {
 			throw new MoonaHandlingException("Moona could not be initialized.");
