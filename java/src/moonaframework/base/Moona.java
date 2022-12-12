@@ -39,10 +39,11 @@ public final class Moona {
 	private static long idCounter = 0;
 	
 	public static final long generateID() {
-		return idCounter++;
+		return ++idCounter;
 	}
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullArgumentException {
+		System.out.println(elements);
 		if (s == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}

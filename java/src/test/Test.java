@@ -54,10 +54,6 @@ public class Test {
 	};
 	
 	public static void main(String[] args) {
-		Constexpr.evaluate(() -> {
-			Moona.add(ae);
-		});
-		
 		Moona.init();
 	}
 }
