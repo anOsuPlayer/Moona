@@ -137,13 +137,17 @@ public final class Agent {
 	private static boolean collapser = false;
 	
 	public static void collapse() {
-		collapser = true;
+		if (handler.isRunning()) {
+			collapser = true; fader = false;
+		}
 	}
 	
 	private static boolean fader = false;
 	
 	public static void fade() {
-		fader = true;
+		if (handler.isRunning()) {
+			fader = true; collapser = false;
+		}
 	}
 	
 	public static Event get(long id) {

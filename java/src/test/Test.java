@@ -9,6 +9,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -46,14 +47,27 @@ import moonaframework.util.time.*;
 
 public class Test {
 	
-	static Action ae = new Action(EventMode.REPEAT) {
+	static Action a = new Action(10) {
 		public @Override void trigger() {
 			System.out.println("AAAAAAAaa");
 			Benchmark.sleep(1000);
 		}
 	};
 	
+	static AbstractEvent ae = new AbstractEvent() {
+		public @Override void trigger() {
+			System.out.println("BBBBBBBBBBBB");
+		}
+	};
+	
 	public static void main(String[] args) {
 		Moona.init();
+		
+		Agent.include(a);
+		Agent.fade();
+		
+		Benchmark.sleep(1000);
+		
+		Agent.include(ae);
 	}
 }
