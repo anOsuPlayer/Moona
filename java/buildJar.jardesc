@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
     <jar path="C:/Users/pelle/Desktop/Moona.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/java/buildJar.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="true"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Moona/buildJar.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="true"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" manifestLocation="/Moona/Manifest" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
@@ -11,6 +11,18 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <javaElement handleIdentifier="=java/src"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.collection"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.reflection"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.condition"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.dynamic"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.dynamic.process"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.time"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.annotations"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.base"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.dynamic.event"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.exceptions"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.functional"/>
+        <javaElement handleIdentifier="=Moona/src&lt;moonaframework.util.relation"/>
     </selectedElements>
 </jardesc>

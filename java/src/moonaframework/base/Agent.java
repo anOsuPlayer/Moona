@@ -42,7 +42,7 @@ public final class Agent {
 		}
 	}
 	static void includeEvent(Event e) {
-		if (!collapser) {
+		if (!fader) {
 			toAdd.add(e);
 			if (ProcessCondition.DEAD.check(handler)) {
 				Processor.start(handler);
@@ -68,7 +68,7 @@ public final class Agent {
 		}
 	}
 	static void excludeEvent(Event e) {
-		if (!collapser) {
+		if (!fader) {
 			toRemove.add(e);
 		}
 	}
