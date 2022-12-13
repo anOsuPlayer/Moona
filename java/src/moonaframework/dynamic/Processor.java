@@ -99,7 +99,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void provide(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -121,7 +121,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void await(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -137,7 +137,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void unlock(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -158,7 +158,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void initiate(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -184,7 +184,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void start(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -211,7 +211,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void flick(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -219,7 +219,7 @@ public final class Processor {
 			throw new NullArgumentException("You cannot flick a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
+			throw new MoonaHandlingException("The Process needs to be running in order to be able to pause"
 					+ " it.");
 		}
 		if (p.isPaused()) {
@@ -239,7 +239,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void spark(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -247,7 +247,7 @@ public final class Processor {
 			throw new NullArgumentException("You cannot spark a null Process.");
 		}
 		if (ProcessCondition.DEAD.check(p) || ProcessCondition.AWAITING.check(p)) {
-			throw new MoonaHandlingException("The process needs to be running in order to be able to pause"
+			throw new MoonaHandlingException("The Process needs to be running in order to be able to pause"
 					+ " it.");
 		}
 		if (p.isPaused()) {
@@ -282,7 +282,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void terminate(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
@@ -302,7 +302,7 @@ public final class Processor {
 			return;
 		}
 		throw new MoonaHandlingException("The given ID either doesn't exist or does not correspond to a"
-				+ " process.");
+				+ " Process.");
 	}
 	public static void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
 		Moona.checkOn();
