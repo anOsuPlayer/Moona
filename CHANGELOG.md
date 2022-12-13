@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## early_dev-0.0.4.3 - The Event Fixing Patch
+
+* **Meet the Constexpressions**: For this feature I took inspiration from C++'s compile time operations. I thought that having a similar thing in Moona would have been very cool... *so I added them*. They're just code Snippets which *Moona runs as soon as the Moona.init() method gets called*.
+* **Added Constexpr Class**: In order to manage the aforementioned constexpressions, you need to interact with the *Constexpr Class*. This special Class is very similar to an Object Handler: it uses *a static method* that accepts *a Snippet* (usually passed as a lambda expression) and then *builds the Constexpr Object* which, being a Serial, can be handler by Moona itself. Once the Moona.init() method is called, the first operation performed will be *cycling through Moona's IshMap* in order to *find and execute* all the Constexpressions.
+* **Fixed IshMap's .toArray() Method**: It now declares the returned array with *length 2* as first dimension and *the size of the IshMap* as second dimension
+* **Fixed IshMap's .toString() Method**: It now prints square brackets properly when the IshMap is empty.
+* **Improved Snippets**: In order to improve Snippet's efficiency, they're no longer supposed to be translated into Runnables, but they *directly extend them*.
+* **Modified ProcessClock Class**: The visibility of its constructor was *lowered to package*. This is due to the fact that the only case in which ProcessClocks are useful is *when an AbstractProcess gets instantiated*. Furthermore, it helps avoiding *useless null checks*
+* **Fixed Agent Class' Collapsing**: Both the collapsing and fading procedures were revisited for the Agent Class. Now the .collapse() method directly terminates the handler Task inside the Agent Class, meanwhile the .fade() method doesn't allow any new Events to be added to the Agent until all the others cease to execute.
+* **Improved Handler Task in Agent Class**: The handler Task was provided with an *.end() method* which will *set back to false* both the collapser and the fader booleans.
+* **Fixed Agent Class' Counters**: Added a *new counter* to keep track of ModalEvents and added the .eventCount() method, which returns the quantity of regular Events.
+* **Improved Agent Class' Methods**: .include(Event e) and .exclude(Event e) methods will now check for *the fader boolean to be set to false* before moving on and performing all the checks required.
+* **Added FailSafe to Moona.init() Method**: Because of Constexpressions, calling the Moona.init() method more than once would lead to them  being invoked multiple times.. which is wrong. This is because Constexpressions are designed to be called *just once* when running a program with the framework and since the same applies for *all the instructions inside the Moona.init() method* I decided to make this change.
+* **Fixed Moona IDs' assignment**: The Moona.generateID() method used to *glitch out* when multiple static-declared Serials (such as Constexpressions) were trying to acquire their ID at the same time. It was fixed by replacing a *postfix increment* with a *prefix increment*, which, *for sure*, changes the idCounter before returning it to assign the new requested ID, avoiding a lot of bad issues.
+* **Removed C++ Headers**: *They'll come back, I promise*.
+* **Removed .test Package from Jar File**: The .test Package is a small side-package which contains the *Test Class*, which I use to test the framework. I removed it because.. *you'd make absolutely no use of such a useless Class*.
+
 ## eraly_dev-0.0.4.2 - The Phases-Improving Patch (Part 2)
 
 * **Fixed Phase's .interrupt(Process p) and .terminate(Process p)**: These two methods used to firstly discard the given Process from the processor and, only then, they'd kick it out of the Phase itself. When passing Processes instead of IDs references, though, the Processor gets involved to return the Process associated with that ID... so removing the Process from the Processor *before* removing it from the Phase.. wasn't a great idea
