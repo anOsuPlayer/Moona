@@ -88,7 +88,7 @@ public final class Agent {
 		});
 		toAdd.clear();
 		
-		if (totalEvents == 0) {
+		if (totalEvents() == 0) {
 			Processor.terminate(handler);
 		}
 	}
