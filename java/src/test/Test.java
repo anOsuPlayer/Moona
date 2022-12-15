@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -54,20 +55,7 @@ public class Test {
 		}
 	};
 	
-	static AbstractEvent ae = new AbstractEvent() {
-		public @Override void trigger() {
-			System.out.println("BBBBBBBBBBBB");
-		}
-	};
-	
 	public static void main(String[] args) {
 		Moona.init();
-		
-		Agent.include(a);
-		Agent.fade();
-		
-		Benchmark.sleep(1000);
-		
-		Agent.include(ae);
 	}
 }

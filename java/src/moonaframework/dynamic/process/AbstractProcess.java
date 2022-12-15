@@ -60,8 +60,6 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
-		Mirror.reflectProcess(this);
-		
 		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);
 		this.status = new ProcessStatus(ProcessCondition.DEAD);
