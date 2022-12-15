@@ -14,6 +14,8 @@ public abstract class AbstractReflection<T> implements Reflection<T> {
 	
 	protected T value;
 	
+	public @Override abstract void reflect();
+	
 	public @Override final T evaluate() {
 		if (value == null) {
 			reflect();
