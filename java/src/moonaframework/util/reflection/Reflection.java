@@ -15,5 +15,6 @@ public interface Reflection<T> extends Property<T>, Serial {
 	Object getTarget();
 	
 	void reflect();
+	
 	@Override T evaluate();
 }
