@@ -27,7 +27,7 @@ public final class Moona {
 			}
 		}
 		
-//		Mirror.loadReflections();
+		Mirror.loadReflections();
 		
 		isOn = true;
 	}

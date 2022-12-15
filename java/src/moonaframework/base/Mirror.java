@@ -44,7 +44,7 @@ public final class Mirror {
 	}
 	
 	public static void loadReflections() {
-		reflections.forEachValue((refl) -> refl.reflect());
+		reflections.forEachValue((refl) -> refl.evaluate());
 	}
 	
 	
