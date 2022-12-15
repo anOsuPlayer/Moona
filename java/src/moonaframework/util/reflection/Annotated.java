@@ -6,9 +6,7 @@ import java.lang.annotation.ElementType;
 import moonaframework.util.annotations.Deadlined;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public abstract class Annotated extends Reflection<Boolean> {
-	
-	
+public abstract class Annotated extends AbstractReflection<Boolean> {
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
@@ -19,12 +17,4 @@ public abstract class Annotated extends Reflection<Boolean> {
 	public @Override abstract Object getTarget();
 	
 	public abstract Class<? extends Annotation> getAnnotation();
-	
-	public abstract String getName();
-	
-	public abstract Class<?>[] getArgs();
-	
-	private Annotated() {
-		
-	}
 }

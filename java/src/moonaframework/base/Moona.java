@@ -5,7 +5,7 @@ import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.Reflection;
+import moonaframework.util.reflection.AbstractReflection;
 
 public final class Moona {
 	
@@ -61,7 +61,7 @@ public final class Moona {
 			return;
 		}
 		if (Nature.isReflectionLike(s)) {
-			Mirror.add((Reflection<?>) s);
+			Mirror.add((AbstractReflection<?>) s);
 			return;
 		}
 		elements.add(s, s.id());
@@ -87,7 +87,7 @@ public final class Moona {
 			return;
 		}
 		if (Nature.isReflectionLike(s)) {
-			Mirror.remove((Reflection<?>) s);
+			Mirror.remove((AbstractReflection<?>) s);
 			return;
 		}
 		elements.remove(s, s.id());
