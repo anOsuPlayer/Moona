@@ -21,6 +21,9 @@ public final class Moona {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
+		
+		isOn = true;
+		
 		for (Serial s : elements.values()) {
 			if (s instanceof Constexpr cx) {
 				cx.code.run();
@@ -28,8 +31,6 @@ public final class Moona {
 		}
 		
 		Mirror.loadReflections();
-		
-		isOn = true;
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {

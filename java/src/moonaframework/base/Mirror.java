@@ -13,6 +13,8 @@ public final class Mirror {
 	
 	private static int totalAnnotations = 0;
 	
+	public static final Class<?>[] NO_ARGS = new Class<?>[0];
+	
 	public static void add(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
 		if (refl == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
