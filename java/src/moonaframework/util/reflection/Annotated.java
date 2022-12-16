@@ -2,9 +2,10 @@ package moonaframework.util.reflection;
 
 import java.lang.annotation.Annotation;
 
+import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public sealed abstract class Annotated extends AbstractReflection<Boolean> permits Annotated.Method {
+public sealed abstract class Annotated extends AbstractReflection<Boolean> implements Namespace permits Annotated.Method {
 
 	public static final class Method extends Annotated {
 		
@@ -37,6 +38,12 @@ public sealed abstract class Annotated extends AbstractReflection<Boolean> permi
 	public @Override abstract Reference getTarget();
 	
 	public @Override abstract void reflect();
+	
+	private final Class<?>[] namespace = new Class<?>[] { Annotated.Method.class };
+	
+	public @Override Class<?>[] getClasses() {
+		return namespace;
+	}
 	
 	private Annotated() {
 		

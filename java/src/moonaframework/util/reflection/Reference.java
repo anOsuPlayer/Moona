@@ -3,14 +3,19 @@ package moonaframework.util.reflection;
 import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.base.Mirror;
+import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> permits Reference.Method {
+public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace permits Reference.Method {
 	
 	public static final class Method extends Reference {
 		
 		public @Override java.lang.reflect.Method getTarget() {
 			return (java.lang.reflect.Method) super.value;
+		}
+		
+		public boolean equals(Reference.Method ref) {
+			return clazz.equals(ref.clazz) && name.equals(ref.name) && args.equals(ref.args);
 		}
 		
 		private final Class<?> clazz;
@@ -43,6 +48,12 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 	public @Override abstract AnnotatedElement getTarget();
 	
 	public @Override abstract void reflect();
+	
+	private static final Class<?>[] namespace = new Class<?>[] { Reference.Method.class };
+	
+	public @Override final Class<?>[] getClasses() {
+		return namespace;
+	}
 	
 	private Reference() {
 		
