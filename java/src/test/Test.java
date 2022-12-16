@@ -65,6 +65,15 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
+		Reference.Method m = new Reference.Method(Test.class, "a");
+		Annotated ann = new Annotated.Method(m, Timeless.class);
+		
+		Mirror.add(ann);
+		
 		Moona.init();
+		
+		Benchmark.showTime(() -> {
+			ann.evaluate();
+		});
 	}
 }
