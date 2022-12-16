@@ -3,15 +3,11 @@ package moonaframework.dynamic;
 import java.util.ArrayList;
 import java.util.List;
 
-import moonaframework.base.Agent;
-import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
-import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.process.Process;
-import moonaframework.util.annotations.Timeless;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -36,6 +32,11 @@ public final class Processor {
 		}
 		addProcess(p);
 	}
+	public static void add(Process...processes) throws MoonaHandlingException, NullArgumentException {
+		for (Process p : processes) {
+			add(p);
+		}
+	}
 	static void filteredAdd(Process p) {
 		if (!processes.hasKey(p.id())) {
 			addProcess(p);
@@ -57,6 +58,11 @@ public final class Processor {
 			throw new MoonaHandlingException("This Process is not present in Moona.");
 		}
 		removeProcess(p);
+	}
+	public static void remove(Process...processes) throws MoonaHandlingException, NullArgumentException {
+		for (Process p : processes) {
+			remove(p);
+		}
 	}
 	static void filteredRemove(Process p) {
 		if (processes.hasKey(p.id())) {

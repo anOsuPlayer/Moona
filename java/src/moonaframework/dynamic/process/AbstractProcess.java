@@ -1,6 +1,5 @@
 package moonaframework.dynamic.process;
 
-import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.dynamic.Handler;

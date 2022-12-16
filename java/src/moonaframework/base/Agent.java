@@ -25,7 +25,6 @@ public final class Agent {
 	private static int totalModals = 0;
 	
 	public static void include(Event e) throws NullArgumentException, MoonaHandlingException {
-		Moona.checkOn();
 		if (!fader) {
 			if (e == null) {
 				throw new NullArgumentException("You cannot add null elements to Moona.");
@@ -34,6 +33,11 @@ public final class Agent {
 				throw new MoonaHandlingException("This Event already belongs to Moona.");
 			}
 			includeEvent(e);
+		}
+	}
+	public static void inlcude(Event...events) throws NullArgumentException, MoonaHandlingException {
+		for (Event e : events) {
+			include(e);
 		}
 	}
 	static void filteredInclude(Event e) {
@@ -51,7 +55,6 @@ public final class Agent {
 	}
 	
 	public static void exclude(Event e) throws NullArgumentException, MoonaHandlingException {
-		Moona.checkOn();
 		if (!fader) {
 			if (e == null) {
 				throw new NullArgumentException("You cannot remove a null element from Moona.");
@@ -60,6 +63,11 @@ public final class Agent {
 				throw new MoonaHandlingException("This Event is not present in Moona.");
 			}
 			excludeEvent(e);
+		}
+	}
+	public static void exclude(Event...events) throws NullArgumentException, MoonaHandlingException {
+		for (Event e : events) {
+			exclude(e);
 		}
 	}
 	static void filteredExclude(Event e) {

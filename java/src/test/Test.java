@@ -68,7 +68,7 @@ public class Test {
 		Reference.Method m = new Reference.Method(Test.class, "a");
 		Annotated ann = new Annotated.Method(m, Timeless.class);
 		
-		Mirror.add(ann);
+		Mirror.add(m, ann);
 		
 		Moona.init();
 		

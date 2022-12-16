@@ -24,6 +24,11 @@ public final class Mirror {
 		}
 		addReflection(refl);
 	}
+	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
+		for (Reflection<?> refl : reflections) {
+			add(refl);
+		}
+	}
 	static void addReflection(Reflection<?> refl) {
 		totalReflections++;
 		
@@ -38,6 +43,11 @@ public final class Mirror {
 			throw new MoonaHandlingException("This Reflection is not present in Moona.");
 		}
 		addReflection(refl);
+	}
+	public static void remove(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
+		for (Reflection<?> refl : reflections) {
+			remove(refl);
+		}
 	}
 	static void removeReflection(Reflection<?> refl) {
 		totalReflections--;
