@@ -7,7 +7,31 @@ import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
 public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace
-		permits Reference.Method, Reference.Field {
+		permits Reference.Type, Reference.Method, Reference.Field {
+	
+	public static final class Type extends Reference {
+		
+		private final Class<?> clazz;
+		
+		public @Override java.lang.reflect.Method getTarget() {
+			return (java.lang.reflect.Method) super.value;
+		}
+		
+		public boolean equals(Reference.Type ref) {
+			return clazz.equals(ref.clazz);
+		}
+		
+		public @Override final void reflect() {
+			super.value = clazz;
+		}
+		
+		public Type(Class<?> clazz) throws NullArgumentException {
+			if (clazz == null) {
+				throw new NullArgumentException("The type cannot be null.");
+			}
+			this.clazz = clazz;
+		}
+	}
 	
 	public static final class Method extends Reference {
 		
@@ -82,7 +106,8 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 	
 	public @Override abstract void reflect();
 	
-	private static final Class<?>[] namespace = new Class<?>[] { Reference.Method.class, Reference.Field.class };
+	private static final Class<?>[] namespace = new Class<?>[] { Reference.Type.class, Reference.Method.class,
+		Reference.Field.class };
 	
 	public @Override final Class<?>[] getClasses() {
 		return namespace;

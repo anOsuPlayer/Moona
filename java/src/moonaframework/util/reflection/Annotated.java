@@ -1,51 +1,30 @@
 package moonaframework.util.reflection;
 
 import java.lang.annotation.Annotation;
-
-import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public sealed abstract class Annotated extends AbstractReflection<Boolean> implements Namespace permits Annotated.Method {
-
-	public static final class Method extends Annotated {
-		
-		private final Class<? extends Annotation> annot;
-		
-		public @Override Class<? extends Annotation> getAnnotation() {
-			return this.annot;
-		}
-		
-		private final Reference.Method target;
-		
-		public @Override Reference.Method getTarget() {
-			return this.target;
-		}
-		
-		public @Override void reflect() {
-			super.value = target.evaluate().isAnnotationPresent(annot);
-		}
-		
-		public Method(Reference.Method target, Class<? extends Annotation> annot) throws NullArgumentException {
-			if (target == null || annot == null) {
-				throw new NullArgumentException("The target method and the Annotation cannot be null.");
-			}
-			this.target = target; this.annot = annot;
-		}
+public class Annotated extends AbstractReflection<Boolean> {
+	
+	private final Class<? extends Annotation> annot;
+	
+	public Class<? extends Annotation> getAnnotation() {
+		return this.annot;
 	}
 	
-	public abstract Class<? extends Annotation> getAnnotation();
+	private final Reference target;
 	
-	public @Override abstract Reference getTarget();
-	
-	public @Override abstract void reflect();
-	
-	private final Class<?>[] namespace = new Class<?>[] { Annotated.Method.class };
-	
-	public @Override Class<?>[] getClasses() {
-		return namespace;
+	public @Override Reference getTarget() {
+		return this.target;
 	}
 	
-	private Annotated() {
-		
+	public @Override void reflect() {
+		super.value = target.evaluate().isAnnotationPresent(annot);
+	}
+	
+	public Annotated(Reference ref, Class<? extends Annotation> annot) throws NullArgumentException {
+		if (ref == null || annot == null) {
+			throw new NullArgumentException("The Reference and the Annotation cannot be null.");
+		}
+		this.target = ref; this.annot = annot;
 	}
 }
