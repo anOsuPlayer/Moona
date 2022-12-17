@@ -65,10 +65,9 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Reference.Method m = new Reference.Method(Test.class, "a");
-		Annotated ann = new Annotated.Method(m, Timeless.class);
+		Annotated ann = new Annotated.Method(new Reference.Method(Test.class, "a"), Timeless.class);
 		
-		Mirror.add(m, ann);
+		Mirror.add(ann);
 		
 		Moona.init();
 		
