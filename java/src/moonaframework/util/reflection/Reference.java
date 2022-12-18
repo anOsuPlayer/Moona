@@ -10,7 +10,7 @@ import moonaframework.util.exceptions.NullArgumentException;
 public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace
 		permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field {
 	
-	public static final class Type extends Reference {
+	public static final class Type extends Reference implements Generic {
 		
 		private final Class<?> clazz;
 		
@@ -34,7 +34,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Method extends Reference {
+	public static final class Method extends Reference implements Nominal, Parameterized, Generic {
 		
 		private final Class<?> clazz;
 		
@@ -71,7 +71,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Constructor extends Reference {
+	public static final class Constructor extends Reference implements Parameterized, Generic {
 		
 		private final Class<?> clazz;
 		
@@ -109,7 +109,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Field extends Reference {
+	public static final class Field extends Reference implements Nominal, Generic {
 		
 		private final Class<?> clazz;
 		
