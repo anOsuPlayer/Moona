@@ -3,7 +3,7 @@ package moonaframework.util.reflection;
 import java.lang.annotation.Annotation;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public class Annotated extends AbstractReflection<Boolean> {
+public final class Annotated extends AbstractReflection<Boolean> {
 	
 	private final Class<? extends Annotation> annot;
 	

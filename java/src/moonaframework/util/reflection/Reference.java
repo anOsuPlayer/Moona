@@ -6,8 +6,8 @@ import java.util.Arrays;
 import moonaframework.base.Mirror;
 import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
-public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace
-		permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field {
+
+public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field {
 	
 	public static final class Type extends Reference {
 		
