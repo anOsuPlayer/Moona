@@ -6,12 +6,10 @@ import java.util.Arrays;
 import moonaframework.base.Mirror;
 import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.identifiers.*;
-
 public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace
 		permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field {
 	
-	public static final class Type extends Reference implements Accessible, Generic {
+	public static final class Type extends Reference {
 		
 		private final Class<?> clazz;
 		
@@ -38,7 +36,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Constructor extends Reference implements Accessible, Parameterized, Generic {
+	public static final class Constructor extends Reference {
 		
 		private final Class<?> clazz;
 		
@@ -79,7 +77,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Method extends Reference implements Accessible, Nominal, Parameterized, Generic {
+	public static final class Method extends Reference {
 		
 		private final Class<?> clazz;
 		
@@ -119,7 +117,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Field extends Reference implements Accessible, Nominal, DerivableGeneric {
+	public static final class Field extends Reference {
 		
 		private final Class<?> clazz;
 		
