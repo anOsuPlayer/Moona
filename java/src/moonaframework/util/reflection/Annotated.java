@@ -27,4 +27,7 @@ public class Annotated extends AbstractReflection<Boolean> {
 		}
 		this.target = ref; this.annot = annot;
 	}
+	public Annotated(Class<?> target, Class<? extends Annotation> annot) throws NullArgumentException {
+		this(new Reference.Type(target), annot);
+	}
 }

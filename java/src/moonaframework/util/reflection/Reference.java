@@ -60,7 +60,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			throw new UnresolvedReflectionException("There is no Method " + name + " in Class " + clazz.getName() + ".");
 		}
 		
-		public Method(Class<?> clazz, String name, Class<?>[] args) throws NullArgumentException {
+		public Method(Class<?> clazz, String name, Class<?>...args) throws NullArgumentException {
 			if (clazz == null || name == null) {
 				throw new NullArgumentException("The declaring Class and the Method's name cannot be null.");
 			}
@@ -98,7 +98,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 					+ " accepting those parameters.");
 		}
 		
-		public Constructor(Class<?> clazz, Class<?>[] args) throws NullArgumentException {
+		public Constructor(Class<?> clazz, Class<?>...args) throws NullArgumentException {
 			if (clazz == null) {
 				throw new NullArgumentException("The declaring Class cannot be null.");
 			}

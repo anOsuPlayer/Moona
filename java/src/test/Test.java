@@ -71,7 +71,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Annotated ann = new Annotated(new Reference.Constructor(Test.class, new Class<?>[] {int.class}), Annot.class);
+		Annotated ann = new Annotated(new Reference.Constructor(Test.class, Mirror.NO_ARGS), Annot.class);
 		
 		Mirror.add(ann);
 		
@@ -82,7 +82,7 @@ public class Test {
 		});
 	}
 	
-	public @Annot Test(int a) {
+	public @Annot Test() {
 		
 	}
 }
