@@ -52,12 +52,11 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(ElementType.CONSTRUCTOR)
 @interface Annot {
 	
 }
 
-@Annot
 public class Test {
 	
 	static Action a = new Action(10) {
@@ -72,7 +71,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Annotated ann = new Annotated(new Reference.Method(Test.class, "a"), Timeless.class);
+		Annotated ann = new Annotated(new Reference.Constructor(Test.class, new Class<?>[] {int.class}), Annot.class);
 		
 		Mirror.add(ann);
 		
@@ -81,5 +80,9 @@ public class Test {
 		Benchmark.showTime(() -> {
 			ann.evaluate();
 		});
+	}
+	
+	public @Annot Test(int a) {
+		
 	}
 }
