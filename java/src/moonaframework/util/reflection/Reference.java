@@ -109,7 +109,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Field extends Reference implements Nominal, Generic {
+	public static final class Field extends Reference implements Nominal, DerivableGeneric {
 		
 		private final Class<?> clazz;
 		
