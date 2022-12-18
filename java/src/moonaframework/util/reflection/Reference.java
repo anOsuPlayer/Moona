@@ -18,7 +18,10 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Method) super.value;
 		}
 		
-		public boolean equals(Reference.Type ref) {
+		public boolean equals(Reference.Type ref) throws NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The Reference to compare cannot be null.");
+			}
 			return clazz.equals(ref.clazz);
 		}
 		
@@ -34,44 +37,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Method extends Reference implements Nominal, Parameterized, Generic {
-		
-		private final Class<?> clazz;
-		
-		private final String name;
-		
-		private final Class<?>[] args;
-		
-		public @Override java.lang.reflect.Method getTarget() {
-			return (java.lang.reflect.Method) super.value;
-		}
-		
-		public boolean equals(Reference.Method ref) {
-			return clazz.equals(ref.clazz) && name.equals(ref.name) && args.equals(ref.args);
-		}
-		
-		public @Override final void reflect() throws UnresolvedReflectionException {
-			for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-				if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(args, m.getParameterTypes())) {
-					super.value = m;
-					return;
-				}
-			}
-			throw new UnresolvedReflectionException("There is no Method " + name + " in Class " + clazz.getName() + ".");
-		}
-		
-		public Method(Class<?> clazz, String name, Class<?>...args) throws NullArgumentException {
-			if (clazz == null || name == null) {
-				throw new NullArgumentException("The declaring Class and the Method's name cannot be null.");
-			}
-			this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
-		}
-		public Method(Class<?> clazz, String name) throws NullArgumentException {
-			this(clazz, name, Mirror.NO_ARGS);
-		}
-	}
-	
-	public static final class Constructor extends Reference implements Parameterized, Generic {
+public static final class Constructor extends Reference implements Parameterized, Generic {
 		
 		private final Class<?> clazz;
 		
@@ -81,7 +47,10 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Constructor<?>) super.value;
 		}
 		
-		public boolean equals(Reference.Constructor ref) {
+		public boolean equals(Reference.Constructor ref) throws NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The Reference to compare cannot be null.");
+			}
 			return clazz.equals(ref.clazz) && args.equals(ref.args);
 		}
 		
@@ -109,6 +78,46 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
+	public static final class Method extends Reference implements Nominal, Parameterized, Generic {
+		
+		private final Class<?> clazz;
+		
+		private final String name;
+		
+		private final Class<?>[] args;
+		
+		public @Override java.lang.reflect.Method getTarget() {
+			return (java.lang.reflect.Method) super.value;
+		}
+		
+		public boolean equals(Reference.Method ref) throws NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The Reference to compare cannot be null.");
+			}
+			return clazz.equals(ref.clazz) && name.equals(ref.name) && args.equals(ref.args);
+		}
+		
+		public @Override final void reflect() throws UnresolvedReflectionException {
+			for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
+				if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(args, m.getParameterTypes())) {
+					super.value = m;
+					return;
+				}
+			}
+			throw new UnresolvedReflectionException("There is no Method " + name + " in Class " + clazz.getName() + ".");
+		}
+		
+		public Method(Class<?> clazz, String name, Class<?>...args) throws NullArgumentException {
+			if (clazz == null || name == null) {
+				throw new NullArgumentException("The declaring Class and the Method's name cannot be null.");
+			}
+			this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
+		}
+		public Method(Class<?> clazz, String name) throws NullArgumentException {
+			this(clazz, name, Mirror.NO_ARGS);
+		}
+	}
+	
 	public static final class Field extends Reference implements Nominal, DerivableGeneric {
 		
 		private final Class<?> clazz;
@@ -119,7 +128,10 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Field) super.value;
 		}
 		
-		public boolean equals(Reference.Method ref) {
+		public boolean equals(Reference.Method ref) throws NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The Reference to compare cannot be null.");
+			}
 			return clazz.equals(ref.clazz) && name.equals(ref.name);
 		}
 		
