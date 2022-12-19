@@ -7,7 +7,7 @@ import moonaframework.base.Mirror;
 import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
-public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field {
+public sealed abstract class Reference extends AbstractReflection<AnnotatedElement> implements Namespace permits Reference.Type, Reference.Constructor, Reference.Method, Reference.Field, Reference.Parameter {
 	
 	public static final class Type extends Reference {
 		
@@ -36,7 +36,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Constructor extends Reference implements Modifiable {
+	public static final class Constructor extends Reference implements Modifiable, Parameterized {
 		
 		private final Class<?> clazz;
 		
@@ -77,7 +77,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Method extends Reference implements Modifiable {
+	public static final class Method extends Reference implements Modifiable, Parameterized {
 		
 		private final Class<?> clazz;
 		
@@ -158,12 +158,19 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
+	public static final class Parameter extends Reference {
+		
+		private final Parameterized ref;
+		
+		private final String name;
+	}
+	
 	public @Override abstract AnnotatedElement getTarget();
 	
 	public @Override abstract void reflect();
 	
 	private static final Class<?>[] namespace = new Class<?>[] { Reference.Type.class, Reference.Constructor.class,
-		Reference.Method.class, Reference.Field.class };
+		Reference.Method.class, Reference.Field.class, Reference.Parameter.class };
 	
 	public @Override final Class<?>[] getClasses() {
 		return namespace;
