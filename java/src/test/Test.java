@@ -71,7 +71,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Annotated ann = new Annotated(new Reference.Constructor(Test.class, Mirror.NO_ARGS), Annot.class);
+		Annotated ann = new Annotated(new Reference.Field(Test.class, "A"), Annot.class);
 		
 		Mirror.add(ann);
 		

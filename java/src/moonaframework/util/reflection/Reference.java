@@ -106,9 +106,12 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			throw new UnresolvedReflectionException("There is no Method " + name + " in Class " + clazz.getName() + ".");
 		}
 		
-		public Method(Class<?> clazz, String name, Class<?>...args) throws NullArgumentException {
+		public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 			if (clazz == null || name == null) {
 				throw new NullArgumentException("The declaring Class and the Method's name cannot be null.");
+			}
+			if (name.equals("")) {
+				throw new IllegalArgumentException("Empty strings cannot be accepted to generate a Method Reference.");
 			}
 			this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
 		}
@@ -144,9 +147,12 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			throw new UnresolvedReflectionException("There is no field " + name + " in class " + clazz.getName() + ".");
 		}
 		
-		public Field(Class<?> clazz, String name) throws NullArgumentException {
+		public Field(Class<?> clazz, String name) throws IllegalArgumentException, NullArgumentException {
 			if (clazz == null || name == null) {
 				throw new NullArgumentException("The declaring class and the method's name cannot be null.");
+			}
+			if (name.equals("")) {
+				throw new IllegalArgumentException("Empty strings cannot be accepted to generate a Field Reference.");
 			}
 			this.clazz = clazz; this.name = name;
 		}
