@@ -76,7 +76,7 @@ public class Test {
 		
 		Moona.init();
 		
-		System.out.println(mod.evaluate().isDefault());
+		System.out.println();
 	}
 	
 	public @Annot Test() {

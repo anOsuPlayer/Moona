@@ -15,7 +15,7 @@ public class Modifier extends AbstractReflection<Modifiers> {
 		public boolean isProtected() {
 			return java.lang.reflect.Modifier.isProtected(mod);
 		}
-		public boolean isDefault() {
+		public boolean isPackage() {
 			return !isPublic() && !isProtected() && !isPrivate();
 		}
 		public boolean isPrivate() {
