@@ -52,7 +52,7 @@ import moonaframework.util.time.*;
 @SuppressWarnings("unused")
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.CONSTRUCTOR)
+@Target(ElementType.PARAMETER)
 @interface Annot {
 	
 }
@@ -71,15 +71,15 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Modifier mod = new Modifier(new Reference.Field(Test.class, "a"));
-		Mirror.add(mod);
+		Reference.Parameter ref = new Reference.Parameter(new Reference.Constructor(Test.class, int.class), 0);
+		Annotated ann = new Annotated(ref, Annot.class);
 		
 		Moona.init();
 		
-		System.out.println();
+		System.out.println(ann.evaluate());
 	}
 	
-	public @Annot Test() {
+	public Test(@Annot int param1) {
 		
 	}
 }

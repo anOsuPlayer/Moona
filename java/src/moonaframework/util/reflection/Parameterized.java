@@ -1,4 +1,6 @@
 package moonaframework.util.reflection;
 
-public interface Parameterized {
+import java.lang.reflect.AnnotatedElement;
+
+public interface Parameterized extends Reflection<AnnotatedElement> {
 }

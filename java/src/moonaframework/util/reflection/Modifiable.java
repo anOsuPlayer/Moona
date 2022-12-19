@@ -1,4 +1,6 @@
 package moonaframework.util.reflection;
 
-public interface Modifiable {
+import java.lang.reflect.AnnotatedElement;
+
+public interface Modifiable extends Reflection<AnnotatedElement> {
 }

@@ -1,6 +1,7 @@
 package moonaframework.util.reflection;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Executable;
 import java.util.Arrays;
 
 import moonaframework.base.Mirror;
@@ -30,7 +31,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		
 		public Type(Class<?> clazz) throws NullArgumentException {
 			if (clazz == null) {
-				throw new NullArgumentException("The Type cannot be null.");
+				throw new NullArgumentException("The type cannot be null.");
 			}
 			this.clazz = clazz;
 		}
@@ -62,13 +63,13 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 					return;
 				}
 			}
-			throw new UnresolvedReflectionException("There is no Constructor in Class " + clazz.getName()
+			throw new UnresolvedReflectionException("There is no constructor in class " + clazz.getName()
 					+ " accepting those parameters.");
 		}
 		
 		public Constructor(Class<?> clazz, Class<?>...args) throws NullArgumentException {
 			if (clazz == null) {
-				throw new NullArgumentException("The declaring Class cannot be null.");
+				throw new NullArgumentException("The declaring class cannot be null.");
 			}
 			this.clazz = clazz; this.args = (args == null) ? Mirror.NO_ARGS : args;
 		}
@@ -103,12 +104,12 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 					return;
 				}
 			}
-			throw new UnresolvedReflectionException("There is no Method " + name + " in Class " + clazz.getName() + ".");
+			throw new UnresolvedReflectionException("There is no method " + name + " in class " + clazz.getName() + ".");
 		}
 		
 		public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 			if (clazz == null || name == null) {
-				throw new NullArgumentException("The declaring Class and the Method's name cannot be null.");
+				throw new NullArgumentException("The declaring class and the method's name cannot be null.");
 			}
 			if (name.equals("")) {
 				throw new IllegalArgumentException("Empty strings cannot be accepted to generate a Method Reference.");
@@ -162,7 +163,31 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		
 		private final Parameterized ref;
 		
-		private final String name;
+		private final int argc;
+		
+		public @Override java.lang.reflect.Parameter getTarget() {
+			return (java.lang.reflect.Parameter) super.value;
+		}
+		
+		public @Override final void reflect() throws UnresolvedReflectionException {
+			java.lang.reflect.Parameter[] params = ((Executable) ref.evaluate()).getParameters();
+			if (argc >= params.length) {
+				throw new UnresolvedReflectionException("Parameter number " + argc + " could not be found in this Parameterized Reference.");
+			}
+			super.value = params[argc];
+			return;
+		}
+		
+		public Parameter(Parameterized ref, int argc) throws IllegalArgumentException, NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The reference and the parameter's name cannot be null.");
+			}
+			if (argc < 0) {
+				throw new IllegalArgumentException("Negative parameter count cannot be accepted to generate a"
+						+ " Parameter Reference.");
+			}
+			this.ref = ref; this.argc = argc;
+		}
 	}
 	
 	public @Override abstract AnnotatedElement getTarget();
