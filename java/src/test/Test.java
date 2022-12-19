@@ -13,7 +13,6 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -47,6 +46,7 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
+import moonaframework.util.reflection.Modifier;
 import moonaframework.util.time.*;
 
 @SuppressWarnings("unused")
@@ -71,15 +71,12 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Annotated ann = new Annotated(new Reference.Field(Test.class, "A"), Annot.class);
-		
-		Mirror.add(ann);
+		Modifier mod = new Modifier(new Reference.Field(Test.class, "a"));
+		Mirror.add(mod);
 		
 		Moona.init();
 		
-		Benchmark.showTime(() -> {
-			ann.evaluate();
-		});
+		System.out.println(mod.evaluate().isDefault());
 	}
 	
 	public @Annot Test() {

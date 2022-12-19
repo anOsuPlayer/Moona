@@ -13,8 +13,8 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		
 		private final Class<?> clazz;
 		
-		public @Override java.lang.reflect.Method getTarget() {
-			return (java.lang.reflect.Method) super.value;
+		public @Override Class<?> getTarget() {
+			return (Class<?>) super.value;
 		}
 		
 		public boolean equals(Reference.Type ref) throws NullArgumentException {
@@ -36,7 +36,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Constructor extends Reference {
+	public static final class Constructor extends Reference implements Modifiable {
 		
 		private final Class<?> clazz;
 		
@@ -77,7 +77,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Method extends Reference {
+	public static final class Method extends Reference implements Modifiable {
 		
 		private final Class<?> clazz;
 		
@@ -120,7 +120,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 		}
 	}
 	
-	public static final class Field extends Reference {
+	public static final class Field extends Reference implements Modifiable {
 		
 		private final Class<?> clazz;
 		
