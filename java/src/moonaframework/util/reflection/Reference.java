@@ -169,6 +169,13 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Parameter) super.value;
 		}
 		
+		public boolean equals(Reference.Parameter ref) throws NullArgumentException {
+			if (ref == null) {
+				throw new NullArgumentException("The Reference to compare cannot be null.");
+			}
+			return this.ref.equals(ref.ref) && argc == ref.argc;
+		}
+		
 		public @Override final void reflect() throws UnresolvedReflectionException {
 			java.lang.reflect.Parameter[] params = ((Executable) ref.evaluate()).getParameters();
 			if (argc >= params.length) {

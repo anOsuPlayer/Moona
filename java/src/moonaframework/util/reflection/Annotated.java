@@ -5,10 +5,10 @@ import moonaframework.util.exceptions.NullArgumentException;
 
 public final class Annotated extends AbstractReflection<Boolean> {
 	
-	private final Class<? extends Annotation> annot;
+	private final Class<? extends Annotation>[] annots;
 	
-	public Class<? extends Annotation> getAnnotation() {
-		return this.annot;
+	public Class<? extends Annotation>[] getAnnotations() {
+		return this.annots;
 	}
 	
 	private final Reference target;
@@ -18,16 +18,19 @@ public final class Annotated extends AbstractReflection<Boolean> {
 	}
 	
 	public @Override void reflect() {
-		super.value = target.evaluate().isAnnotationPresent(annot);
+		super.value = true;
+		for (Class<? extends Annotation> ann : annots) {
+			super.value &= target.evaluate().isAnnotationPresent(ann);
+		}
 	}
 	
-	public Annotated(Reference ref, Class<? extends Annotation> annot) throws NullArgumentException {
-		if (ref == null || annot == null) {
+	public @SafeVarargs Annotated(Reference ref, Class<? extends Annotation>...annots) throws NullArgumentException {
+		if (ref == null || annots == null) {
 			throw new NullArgumentException("The Reference and the Annotation cannot be null.");
 		}
-		this.target = ref; this.annot = annot;
+		this.target = ref; this.annots = annots;
 	}
-	public Annotated(Class<?> target, Class<? extends Annotation> annot) throws NullArgumentException {
-		this(new Reference.Type(target), annot);
+	public @SafeVarargs Annotated(Class<?> target, Class<? extends Annotation>...annots) throws NullArgumentException {
+		this(new Reference.Type(target), annots);
 	}
 }
