@@ -4,7 +4,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.util.Arrays;
 
-import moonaframework.base.Mirror;
 import moonaframework.util.Namespace;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -18,11 +17,11 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (Class<?>) super.value;
 		}
 		
-		public boolean equals(Reference.Type ref) throws NullArgumentException {
+		public boolean equals(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return clazz.equals(ref.clazz);
+			return clazz.equals(((Reference.Type) ref).clazz);
 		}
 		
 		public @Override final void reflect() {
@@ -47,11 +46,11 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Constructor<?>) super.value;
 		}
 		
-		public boolean equals(Reference.Constructor ref) throws NullArgumentException {
+		public @Override boolean equals(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return clazz.equals(ref.clazz) && args.equals(ref.args);
+			return clazz.equals(((Reference.Constructor) ref).clazz) && args.equals(((Reference.Constructor) ref).args);
 		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
@@ -90,11 +89,12 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Method) super.value;
 		}
 		
-		public boolean equals(Reference.Method ref) throws NullArgumentException {
+		public @Override boolean equals(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return clazz.equals(ref.clazz) && name.equals(ref.name) && args.equals(ref.args);
+			return clazz.equals(((Reference.Method) ref).clazz) && name.equals(((Reference.Method) ref).name) 
+					&& args.equals(((Reference.Method) ref).args);
 		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
@@ -131,11 +131,11 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Field) super.value;
 		}
 		
-		public boolean equals(Reference.Method ref) throws NullArgumentException {
+		public @Override boolean equals(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return clazz.equals(ref.clazz) && name.equals(ref.name);
+			return clazz.equals(((Reference.Method) ref).clazz) && name.equals(((Reference.Method) ref).name);
 		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
@@ -169,11 +169,11 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Parameter) super.value;
 		}
 		
-		public boolean equals(Reference.Parameter ref) throws NullArgumentException {
+		public @Override boolean equals(Reference otherRef) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return this.ref.equals(ref.ref) && argc == ref.argc;
+			return ref.equals(((Reference.Parameter) otherRef).ref) && argc == ((Reference.Parameter) otherRef).argc;
 		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
@@ -200,6 +200,8 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 	public @Override abstract AnnotatedElement getTarget();
 	
 	public @Override abstract void reflect();
+	
+	public abstract boolean equals(Reference ref);
 	
 	private static final Class<?>[] namespace = new Class<?>[] { Reference.Type.class, Reference.Constructor.class,
 		Reference.Method.class, Reference.Field.class, Reference.Parameter.class };

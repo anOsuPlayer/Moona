@@ -26,7 +26,6 @@ import java.util.stream.Stream;
 import moonaframework.*;
 import moonaframework.base.Agent;
 import moonaframework.base.Constexpr;
-import moonaframework.base.Mirror;
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
@@ -46,7 +45,6 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
-import moonaframework.util.reflection.Modifier;
 import moonaframework.util.time.*;
 
 @SuppressWarnings("unused")

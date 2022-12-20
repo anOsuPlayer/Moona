@@ -5,6 +5,7 @@ import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
 
 public final class Moona {
