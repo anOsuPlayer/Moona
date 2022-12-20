@@ -17,7 +17,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (Class<?>) super.value;
 		}
 		
-		public boolean equals(Reference ref) throws NullArgumentException {
+		public boolean isSame(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
@@ -46,7 +46,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Constructor<?>) super.value;
 		}
 		
-		public @Override boolean equals(Reference ref) throws NullArgumentException {
+		public @Override boolean isSame(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
@@ -89,7 +89,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Method) super.value;
 		}
 		
-		public @Override boolean equals(Reference ref) throws NullArgumentException {
+		public @Override boolean isSame(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
@@ -131,7 +131,7 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Field) super.value;
 		}
 		
-		public @Override boolean equals(Reference ref) throws NullArgumentException {
+		public @Override boolean isSame(Reference ref) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
@@ -169,11 +169,11 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 			return (java.lang.reflect.Parameter) super.value;
 		}
 		
-		public @Override boolean equals(Reference otherRef) throws NullArgumentException {
+		public @Override boolean isSame(Reference otherRef) throws NullArgumentException {
 			if (ref == null) {
 				throw new NullArgumentException("The Reference to compare cannot be null.");
 			}
-			return ref.equals(((Reference.Parameter) otherRef).ref) && argc == ((Reference.Parameter) otherRef).argc;
+			return ref == ((Reference.Parameter) otherRef).ref && argc == ((Reference.Parameter) otherRef).argc;
 		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
@@ -201,7 +201,14 @@ public sealed abstract class Reference extends AbstractReflection<AnnotatedEleme
 	
 	public @Override abstract void reflect();
 	
-	public abstract boolean equals(Reference ref);
+	public abstract boolean isSame(Reference ref);
+	
+	public @Override AnnotatedElement evaluate() {
+		if (super.value == null) {
+			reflect();
+		}
+		return super.value;
+	}
 	
 	private static final Class<?>[] namespace = new Class<?>[] { Reference.Type.class, Reference.Constructor.class,
 		Reference.Method.class, Reference.Field.class, Reference.Parameter.class };

@@ -69,12 +69,14 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Reference.Parameter ref = new Reference.Parameter(new Reference.Constructor(Test.class, int.class), 0);
-		Annotated ann = new Annotated(ref, Annot.class);
+		Reference.Constructor ref = new Reference.Constructor(Test.class, int.class);
+		Reference.Constructor ref2 = new Reference.Constructor(Test.class, int.class);
+		
+		Mirror.add(ref, ref2);
 		
 		Moona.init();
 		
-		System.out.println(ann.evaluate());
+		System.out.println(ref.evaluate());
 	}
 	
 	public Test(@Annot int param1) {
