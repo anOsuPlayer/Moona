@@ -69,7 +69,16 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
+		Reference.Method ref = new Reference.Method(Test.class, "a");
+		Annotated ann = new Annotated(ref);
+		
+		Mirror.add(ann);
+		
 		Moona.init();
+		
+		Benchmark.showTime(() -> {
+			ann.isAnnotatedWith(Timeless.class);
+		});
 	}
 	
 	public Test(@Annot int param1) {
