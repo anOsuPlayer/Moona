@@ -69,14 +69,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Reference.Constructor ref = new Reference.Constructor(Test.class, int.class);
-		Reference.Constructor ref2 = new Reference.Constructor(Test.class, int.class);
-		
-		Mirror.add(ref, ref2);
-		
 		Moona.init();
-		
-		System.out.println(ref.evaluate());
 	}
 	
 	public Test(@Annot int param1) {

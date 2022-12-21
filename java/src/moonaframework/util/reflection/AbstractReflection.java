@@ -1,6 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.base.Moona;
+import moonaframework.base.Nature;
 
 public abstract class AbstractReflection<T> implements Reflection<T> {
 
@@ -8,6 +9,9 @@ public abstract class AbstractReflection<T> implements Reflection<T> {
 	
 	public @Override final long id() {
 		return this.id;
+	}
+	public @Override final Nature nature() {
+		return Nature.REFLECTION;
 	}
 	
 	protected T value;
@@ -23,8 +27,7 @@ public abstract class AbstractReflection<T> implements Reflection<T> {
 		return value;
 	}
 	
-	public AbstractReflection() {
-		this.value = null;
+	protected AbstractReflection() {
 		this.id = Moona.generateID();
 	}
 }
