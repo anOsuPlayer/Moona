@@ -13,8 +13,12 @@ public class Annotated extends Reflection<Annotation[]> {
 		return this.target;
 	}
 	
-	public @Override final void reflect() {
+	protected @Override final void reflect() {
 		super.value = target.evaluate().getAnnotations();
+	}
+	
+	public @Override final Annotation[] evaluate() {
+		return super.evaluate();
 	}
 	
 	public final boolean isAnnotatedWith(Class<? extends Annotation> annot) {
