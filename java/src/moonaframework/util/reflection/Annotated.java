@@ -1,14 +1,15 @@
 package moonaframework.util.reflection;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.util.exceptions.NullArgumentException;
 
 public class Annotated extends AbstractReflection<Annotation[]> {
 
-	private final Reference<?> target;
+	private final Reference<? extends AnnotatedElement> target;
 	
-	public @Override final Reference<?> getTarget() {
+	public @Override final Reference<? extends AnnotatedElement> getTarget() {
 		return this.target;
 	}
 	
@@ -25,7 +26,7 @@ public class Annotated extends AbstractReflection<Annotation[]> {
 		return false;
 	}
 	
-	public Annotated(Reference<?> ref) throws NullArgumentException {
+	public Annotated(Reference<? extends AnnotatedElement> ref) throws NullArgumentException {
 		if (ref == null) {
 			throw new NullArgumentException("Cannot build an Annotated over a null Reference.");
 		}
