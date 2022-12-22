@@ -1,4 +1,4 @@
-package moonaframework.util;
+package moonaframework.util.relation;
 
 import java.util.function.Supplier;
 

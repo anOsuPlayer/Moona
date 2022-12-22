@@ -36,7 +36,6 @@ import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;
 import moonaframework.dynamic.process.*;
 import moonaframework.util.Benchmark;
-import moonaframework.util.Delegate;
 import moonaframework.util.annotations.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
@@ -45,6 +44,7 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
+import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 
 @SuppressWarnings("unused")
