@@ -1,20 +1,34 @@
 package moonaframework.util.reflection;
 
+import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
-import moonaframework.util.functional.Property;
 
-public interface Reflection<T> extends Property<T>, Serial {
+public abstract class Reflection<T> implements Serial {
+
+	private final long id;
 	
-	default @Override Nature nature() {
+	public @Override final long id() {
+		return this.id;
+	}
+	public @Override final Nature nature() {
 		return Nature.REFLECTION;
 	}
 	
-	@Override long id();
+	protected T value;
 	
-	Object getTarget();
+	public abstract Object getTarget();
 	
-	void reflect();
+	public abstract void reflect();
 	
-	@Override T evaluate();
+	protected T evaluate() {
+		if (value == null) {
+			reflect();
+		}
+		return value;
+	}
+	
+	protected Reflection() {
+		this.id = Moona.generateID();
+	}
 }
