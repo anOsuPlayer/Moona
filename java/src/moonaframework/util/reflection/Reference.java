@@ -4,7 +4,7 @@ import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.util.exceptions.NullArgumentException;
 
-public sealed abstract class Reference<T extends AnnotatedElement> extends Reflection<T> permits Reference.Type, Reference.Method, Reference.Constructor, Reference.Field {
+public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Reference.Type, Reference.Method, Reference.Constructor, Reference.Field {
 
 	public static final class Type extends Reference<Class<?>> {
 		
