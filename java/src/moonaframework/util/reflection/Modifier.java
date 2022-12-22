@@ -4,7 +4,7 @@ import java.lang.reflect.Member;
 
 import moonaframework.util.exceptions.NullArgumentException;
 
-public class Modifier extends Reflection<Integer> {
+public final class Modifier extends Reflection<Integer> {
 
 	private final Reference<? extends Member> target;
 	

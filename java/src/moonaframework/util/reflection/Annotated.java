@@ -5,7 +5,7 @@ import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.util.exceptions.NullArgumentException;
 
-public class Annotated extends Reflection<Annotation[]> {
+public final class Annotated extends Reflection<Annotation[]> {
 
 	private final Reference<? extends AnnotatedElement> target;
 	
