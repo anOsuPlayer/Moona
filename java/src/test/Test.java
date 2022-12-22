@@ -69,6 +69,9 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
+		Reference.Method ref = new Reference.Method(Test.class, "a");
+		Mirror.add(ref);
+		
 		Moona.init();
 	}
 	

@@ -17,9 +17,9 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected T value;
 	
-	public abstract Object getTarget();
+	protected abstract Object getTarget();
 	
-	public abstract void reflect();
+	protected abstract void reflect();
 	
 	protected T evaluate() {
 		if (value == null) {

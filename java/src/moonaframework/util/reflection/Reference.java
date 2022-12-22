@@ -10,10 +10,6 @@ public sealed abstract class Reference<T extends AnnotatedElement> extends Refle
 		
 		private final Class<?> clazz;
 		
-		public @Override final Class<?> getTarget() {
-			return super.value;
-		}
-		
 		public @Override final void reflect() {
 			super.value = this.clazz;
 		}
@@ -31,10 +27,6 @@ public sealed abstract class Reference<T extends AnnotatedElement> extends Refle
 		private final Class<?> clazz;
 		
 		private final Class<?>[] args;
-		
-		public @Override final java.lang.reflect.Constructor<?> getTarget() {
-			return super.value;
-		}
 		
 		public @Override final void reflect() throws UnresolvedReflectionException {
 			for (java.lang.reflect.Constructor<?> m : clazz.getDeclaredConstructors()) {
@@ -65,10 +57,6 @@ public sealed abstract class Reference<T extends AnnotatedElement> extends Refle
 		
 		private final Class<?>[] args;
 		
-		public @Override final java.lang.reflect.Method getTarget() {
-			return super.value;
-		}
-		
 		public @Override final void reflect() throws UnresolvedReflectionException {
 			for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 				if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : m.getParameterTypes().equals(args)) {
@@ -97,10 +85,6 @@ public sealed abstract class Reference<T extends AnnotatedElement> extends Refle
 		
 		private final String name;
 		
-		public @Override final java.lang.reflect.Field getTarget() {
-			return (java.lang.reflect.Field) super.value;
-		}
-		
 		public @Override final void reflect() throws UnresolvedReflectionException {
 			for (java.lang.reflect.Field m : clazz.getDeclaredFields()) {
 				if (m.getName().equals(name)) {
@@ -120,9 +104,15 @@ public sealed abstract class Reference<T extends AnnotatedElement> extends Refle
 		}
 	}
 	
-	public @Override abstract AnnotatedElement getTarget();
+	protected @Override final AnnotatedElement getTarget() {
+		return super.value;
+	}
 	
 	public @Override abstract void reflect();
+	
+	public @Override T evaluate() {
+		return super.evaluate();
+	}
 	
 	private Reference() {
 		super();
