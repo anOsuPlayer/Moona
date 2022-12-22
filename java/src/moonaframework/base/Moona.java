@@ -1,5 +1,7 @@
 package moonaframework.base;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;
@@ -38,10 +40,10 @@ public final class Moona {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
-	private static long idCounter = 0;
+	private static AtomicLong idCounter = new AtomicLong(0);
 	
 	public static final long generateID() {
-		return ++idCounter;
+		return idCounter.incrementAndGet();
 	}
 	
 	public static void add(Serial s) throws MoonaHandlingException, NullArgumentException {

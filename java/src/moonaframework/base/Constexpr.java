@@ -27,7 +27,7 @@ public final class Constexpr implements Serial {
 		if (code == null) {
 			throw new NullArgumentException("A null Constexpr cannot be initialized.");
 		}
-		this.code = code;
 		this.id = Moona.generateID();
+		this.code = code;
 	}
 }
