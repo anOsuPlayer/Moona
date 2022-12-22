@@ -32,7 +32,7 @@ public class Annotated extends Reflection<Annotation[]> {
 	
 	public Annotated(Reference<? extends AnnotatedElement> ref) throws NullArgumentException {
 		if (ref == null) {
-			throw new NullArgumentException("Cannot build an Annotated over a null Reference.");
+			throw new NullArgumentException("Cannot build an Annotated Reflection over a null Reference.");
 		}
 		this.target = ref;
 	}
