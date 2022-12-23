@@ -14,7 +14,7 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 		return super.evaluate();
 	}
 	
-	Reference() {
+	protected Reference() {
 		super();
 	}
 }
