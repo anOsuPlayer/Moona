@@ -6,7 +6,15 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	private final Class<?> clazz;
 	
+	public Class<?> getDeclaringClass() {
+		return this.clazz;
+	}
+	
 	private final Class<?>[] args;
+	
+	public Class<?>[] getParameterTypes() {
+		return this.args;
+	}
 	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Constructor<?> m : clazz.getDeclaredConstructors()) {

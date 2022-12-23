@@ -6,7 +6,15 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 	
 	private final Class<?> clazz;
 	
+	public Class<?> getDeclaringClass() {
+		return clazz;
+	}
+	
 	private final String name;
+	
+	public String getName() {
+		return this.name;
+	}
 	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Field m : clazz.getDeclaredFields()) {
