@@ -37,6 +37,6 @@ public final class Annotated extends Reflection<Annotation[]> {
 		this.target = ref;
 	}
 	public Annotated(Class<?> clazz) throws NullArgumentException {
-		this(new Reference.Type(clazz));
+		this(new Type(clazz));
 	}
 }

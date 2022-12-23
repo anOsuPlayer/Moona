@@ -69,8 +69,10 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Reference.Method ref = new Reference.Method(Test.class, "a");
+		Method ref = new Method(Test.class, "a");
 		Modifier mod = new Modifier(ref);
+		
+		java.lang.reflect.Parameter p;
 		
 		Mirror.add(mod);
 		
