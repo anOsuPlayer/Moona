@@ -16,6 +16,10 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		return this.args;
 	}
 	
+	public @Override final String toString() {
+		return evaluate().getName();
+	}
+	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Constructor<?> m : clazz.getDeclaredConstructors()) {
 			if ((args.equals(Mirror.NO_ARGS)) ? m.getParameterTypes().length == 0 : m.getParameterTypes().equals(args)) {

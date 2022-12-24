@@ -22,6 +22,10 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		return this.args;
 	}
 	
+	public @Override final String toString() {
+		return evaluate().getName();
+	}
+	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : m.getParameterTypes().equals(args)) {

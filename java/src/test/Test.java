@@ -72,11 +72,11 @@ public class Test {
 		Method ref = new Method(Test.class, "a");
 		Modifier mod = new Modifier(ref);
 		
-		java.lang.reflect.Parameter p;
-		
 		Mirror.add(mod);
 		
 		Moona.init();
+		
+		System.out.println(mod.isPublic());
 	}
 	
 	public Test(@Annot int param1) {
