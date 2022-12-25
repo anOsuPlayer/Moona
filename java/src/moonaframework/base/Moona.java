@@ -2,6 +2,7 @@ package moonaframework.base;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Process;

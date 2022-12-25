@@ -1,6 +1,5 @@
 package moonaframework.dynamic;
 
-import moonaframework.base.Agent;
 import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;

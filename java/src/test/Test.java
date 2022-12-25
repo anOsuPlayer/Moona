@@ -24,12 +24,12 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import moonaframework.*;
-import moonaframework.base.Agent;
 import moonaframework.base.Constexpr;
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.dynamic.Synthetized;
+import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.Phase;
 import moonaframework.dynamic.Processor;
