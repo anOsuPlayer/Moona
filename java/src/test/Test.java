@@ -64,19 +64,19 @@ public class Test {
 		}
 	};
 	
-	public @Timeless void a() {
+	public @Timeless void a(final int a) {
 		
 	}
 	
 	public static void main(String[] args) throws Throwable {
 		Method ref = new Method(Test.class, "a");
-		Modifier mod = new Modifier(ref);
+		Parameter par = new Parameter(ref, 0);
 		
-		Mirror.add(mod);
+		Mirror.add(par);
 		
 		Moona.init();
 		
-		System.out.println(mod.isPublic());
+		System.out.println();
 	}
 	
 	public Test(@Annot int param1) {
