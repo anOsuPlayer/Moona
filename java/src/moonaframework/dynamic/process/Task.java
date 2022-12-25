@@ -1,7 +1,7 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.dynamic.Handler;
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 
 public abstract class Task extends AbstractProcess {
 

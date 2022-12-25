@@ -8,7 +8,7 @@ import moonaframework.base.Serial;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.event.ModalEvent;
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
 

@@ -6,7 +6,7 @@ import moonaframework.base.Serial;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
-import moonaframework.util.annotations.Functional;
+import moonaframework.util.annotation.Functional;
 
 public @Functional interface Process extends Natural, Runnable, Dynamic, Serial {
 	

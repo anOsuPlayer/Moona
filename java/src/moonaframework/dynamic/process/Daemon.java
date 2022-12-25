@@ -5,7 +5,7 @@ import moonaframework.base.Nature;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 
 public abstract class Daemon extends AbstractProcess {
 	

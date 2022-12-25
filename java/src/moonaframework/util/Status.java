@@ -1,6 +1,6 @@
 package moonaframework.util;
 
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.functional.Property;
 
 public class Status<T> implements Property<T> {

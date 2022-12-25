@@ -4,7 +4,7 @@ import moonaframework.base.Nature;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.process.Task;
-import moonaframework.util.annotations.Functional;
+import moonaframework.util.annotation.Functional;
 
 public @Functional abstract class AutoEvent extends Task implements Event, Dynamic {
 	

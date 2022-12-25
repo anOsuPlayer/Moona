@@ -1,7 +1,7 @@
 package moonaframework.dynamic.event;
 
 import moonaframework.base.Nature;
-import moonaframework.util.annotations.Functional;
+import moonaframework.util.annotation.Functional;
 import moonaframework.util.condition.Conditional;
 import moonaframework.util.exceptions.NullArgumentException;
 

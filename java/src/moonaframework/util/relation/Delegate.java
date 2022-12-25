@@ -2,7 +2,7 @@ package moonaframework.util.relation;
 
 import java.util.function.Supplier;
 
-import moonaframework.util.annotations.Functional;
+import moonaframework.util.annotation.Functional;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Satellite;

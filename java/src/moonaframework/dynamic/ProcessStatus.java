@@ -1,7 +1,7 @@
 package moonaframework.dynamic;
 
 import moonaframework.util.Status;
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 import moonaframework.dynamic.process.Process;
 
 public class ProcessStatus extends Status<ProcessCondition> {

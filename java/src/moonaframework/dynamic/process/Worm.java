@@ -5,7 +5,7 @@ import moonaframework.base.Nature;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
-import moonaframework.util.annotations.Deadlined;
+import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.relation.Bindable;
 
 public abstract class Worm extends Daemon implements Bindable<Process> {

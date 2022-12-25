@@ -1,4 +1,4 @@
-package moonaframework.util.annotations;
+package moonaframework.util.annotation;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;

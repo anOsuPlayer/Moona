@@ -36,7 +36,7 @@ import moonaframework.dynamic.Processor;
 import moonaframework.dynamic.event.*;
 import moonaframework.dynamic.process.*;
 import moonaframework.util.Benchmark;
-import moonaframework.util.annotations.*;
+import moonaframework.util.annotation.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
 import moonaframework.util.functional.Cast;
@@ -64,7 +64,7 @@ public class Test {
 		}
 	};
 	
-	public @Timeless void a(final int a) {
+	public @Timeless void a(int a) {
 		
 	}
 	
@@ -75,8 +75,6 @@ public class Test {
 		Mirror.add(par);
 		
 		Moona.init();
-		
-		System.out.println();
 	}
 	
 	public Test(@Annot int param1) {
