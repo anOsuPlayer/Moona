@@ -37,4 +37,12 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 		}
 		this.clazz = clazz; this.name = name;
 	}
+	
+	public Field(java.lang.reflect.Field field) throws NullArgumentException {
+		if (field == null) {
+			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
+		}
+		super.value = field;
+		this.clazz = field.getDeclaringClass(); this.name = field.getName();
+	}
 }

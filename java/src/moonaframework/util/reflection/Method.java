@@ -46,4 +46,12 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	public Method(Class<?> clazz, String name) {
 		this(clazz, name, Mirror.NO_ARGS);
 	}
+	
+	public Method(java.lang.reflect.Method method) throws NullArgumentException {
+		if (method == null) {
+			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
+		}
+		super.value = method;
+		this.clazz = method.getDeclaringClass(); this.name = method.getName(); this.args = method.getParameterTypes();
+	}
 }
