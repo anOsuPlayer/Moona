@@ -8,11 +8,11 @@ import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Type;
 
-public final class TypeContent implements Cluster<Reference<? extends AnnotatedElement>> {
+public final class TypeContent extends Cluster<Reference<? extends AnnotatedElement>> {
 
 	private final Type source;
 	
-	public Type getSource() {
+	public Type getTarget() {
 		return this.source;
 	}
 	

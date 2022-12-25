@@ -6,11 +6,11 @@ public final class Type extends Reference<Class<?>> {
 	
 	private final Class<?> clazz;
 	
-	public @Override final String toString() {
+	public @Override String toString() {
 		return clazz.getName();
 	}
 	
-	public @Override final void reflect() {
+	public @Override void reflect() {
 		super.value = this.clazz;
 	}
 	

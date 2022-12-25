@@ -13,7 +13,7 @@ public final class Annotated extends Reflection<Annotation[]> {
 		return this.target;
 	}
 	
-	protected @Override final void reflect() {
+	public @Override final void reflect() {
 		super.value = target.evaluate().getAnnotations();
 	}
 	
