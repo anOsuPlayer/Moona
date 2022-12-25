@@ -1,5 +1,6 @@
 package moonaframework.util.reflection;
 
+import java.lang.reflect.Executable;
 import java.lang.reflect.Member;
 
 import moonaframework.util.exceptions.NullArgumentException;
@@ -67,5 +68,13 @@ public final class Modifier extends Reflection<Integer> {
 			throw new NullArgumentException("Cannot build a Modifier Reflection over a null Reference.");
 		}
 		this.target = ref;
+	}
+	
+	protected Modifier(Reference<? extends Member> source, int modifiers) throws IllegalArgumentException {
+		this(source);
+		if (modifiers < 0) {
+			throw new NullArgumentException("The value which states the modifiers cannot be null.");
+		}
+		super.value = modifiers;
 	}
 }
