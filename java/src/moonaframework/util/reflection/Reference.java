@@ -2,6 +2,9 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.AnnotatedElement;
 
+import moonaframework.util.annotation.Deadlined;
+import moonaframework.util.reflection.cluster.Cluster;
+
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter {
 	
 	protected @Override final AnnotatedElement getTarget() {
@@ -12,6 +15,10 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	
 	public @Override T evaluate() {
 		return super.evaluate();
+	}
+	
+	public @Deadlined Cluster<?> derive() {
+		return Cluster.EMPTY_CLUSTER;
 	}
 	
 	protected Reference() {
