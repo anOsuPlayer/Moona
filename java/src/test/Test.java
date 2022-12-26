@@ -71,18 +71,13 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Type t = new Type(Test.class);
-		TypeContent tc = t.derive();
+		MethodProperties mp = new MethodProperties(new Method(Test.class, "a", Mirror.NO_ARGS));
 		
-		MethodProperties mp = tc.getMethods().get(0).derive();
-		
-		Mirror.add(t, tc, mp);
+		Mirror.add(mp);
 		
 		Moona.init();
 		
-		Benchmark.showTime(() -> {
-			mp.getModifiers().isPublic();
-		});
+		System.out.println(new Modifier(mp.getTarget()).isPublic());
 	}
 	
 	public Test(@Annot int param1) {

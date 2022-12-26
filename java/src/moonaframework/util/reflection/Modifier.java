@@ -24,44 +24,77 @@ public final class Modifier extends Reflection<Integer> {
 	}
 	
 	public boolean isPublic() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.PUBLIC) != 0;
 	}
 	public boolean isProtected() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.PROTECTED) != 0;
 	}
 	public boolean isPackage() {
 		return !isPublic() && !isProtected() && !isPrivate();
 	}
 	public boolean isPrivate() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.PRIVATE) != 0;
 	}
 	
 	public boolean isStatic() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.STATIC) != 0;
 	}
 	public boolean isFinal() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.FINAL) != 0;
 	}
 	public boolean isConstant() {
 		return isStatic() && isFinal();
 	}
 	public boolean isAbstract() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.ABSTRACT) != 0;
 	}
 	
 	public boolean isTransient() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.TRANSIENT) != 0;
 	}
 	public boolean isVolatile() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.VOLATILE) != 0;
 	}
 	public boolean isSynchronized() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.SYNCHRONIZED) != 0;
 	}
 	public boolean isNative() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.NATIVE) != 0;
 	}
 	public boolean isStrict() {
+		if (super.value == null) {
+			reflect();
+		}
 		return (super.value & java.lang.reflect.Modifier.STRICT) != 0;
 	}
 	
