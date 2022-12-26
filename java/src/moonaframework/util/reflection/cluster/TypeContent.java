@@ -11,7 +11,7 @@ import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Type;
 
-public final class TypeContent extends Cluster<Reference<? extends AnnotatedElement>> {
+public final class TypeContent extends Beacon<Reference<? extends AnnotatedElement>> {
 
 	private final Type source;
 	

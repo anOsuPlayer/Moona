@@ -76,10 +76,6 @@ public class Test {
 		Mirror.add(t, tc);
 		
 		Moona.init();
-		
-		Benchmark.showTime(() -> {
-			tc.getMethods();
-		});
 	}
 	
 	public Test(@Annot int param1) {

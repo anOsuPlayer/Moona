@@ -6,9 +6,9 @@ import java.util.List;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.reflection.Reflection;
 
-public abstract class Cluster<R extends Reflection<?>> extends Reflection<List<R>> {
+public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>> {
 
-	public static final Cluster<Reflection<?>> EMPTY_CLUSTER = new Cluster<>() {
+	public static final Beacon<Reflection<?>> EMPTY_CLUSTER = new Beacon<>() {
 		public @Deadlined Object getTarget() {
 			return null;
 		}
@@ -32,7 +32,7 @@ public abstract class Cluster<R extends Reflection<?>> extends Reflection<List<R
 		return super.value;
 	}
 	
-	protected Cluster() {
+	protected Beacon() {
 		super(); super.value = new ArrayList<>();
 	}
 }

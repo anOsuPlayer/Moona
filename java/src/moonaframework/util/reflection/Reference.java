@@ -3,7 +3,7 @@ package moonaframework.util.reflection;
 import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.util.annotation.Deadlined;
-import moonaframework.util.reflection.cluster.Cluster;
+import moonaframework.util.reflection.cluster.Beacon;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter {
 	
@@ -20,8 +20,8 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 		return super.evaluate();
 	}
 	
-	public @Deadlined Cluster<?> derive() {
-		return Cluster.EMPTY_CLUSTER;
+	public @Deadlined Beacon<?> derive() {
+		return Beacon.EMPTY_CLUSTER;
 	}
 	
 	protected Reference() {
