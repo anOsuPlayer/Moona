@@ -15,7 +15,7 @@ public final class TypeContent extends Cluster<Reference<? extends AnnotatedElem
 
 	private final Type source;
 	
-	public Type getTarget() {
+	public @Override Type getTarget() {
 		return this.source;
 	}
 	
@@ -62,20 +62,17 @@ public final class TypeContent extends Cluster<Reference<? extends AnnotatedElem
 		 Class<?> clazz = source.evaluate();
 		 
 		 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-			 Method newRef = new Method(m);
-			 super.value.add(newRef);
+			 super.value.add(new Method(m));
 			 methodCount++;
 		 }
 		 
 		 for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
-			 Constructor newRef = new Constructor(con);
-			 super.value.add(newRef);
+			 super.value.add(new Constructor(con));
 			 constructorCount++;
 		 }
 		 
 		 for (java.lang.reflect.Field f : clazz.getDeclaredFields()) {
-			 Field newRef = new Field(f);
-			 super.value.add(newRef);
+			 super.value.add(new Field(f));
 			 fieldCount++;
 		 }
 		 
