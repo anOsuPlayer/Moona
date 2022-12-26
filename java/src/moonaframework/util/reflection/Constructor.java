@@ -40,7 +40,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		this(clazz, Mirror.NO_ARGS);
 	}
 	
-	protected Constructor(java.lang.reflect.Constructor<?> constr) throws NullArgumentException {
+	public Constructor(java.lang.reflect.Constructor<?> constr) throws NullArgumentException {
 		if (constr == null) {
 			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
 		}

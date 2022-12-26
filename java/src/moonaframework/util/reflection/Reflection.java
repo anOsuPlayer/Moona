@@ -17,11 +17,11 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected T value;
 	
-	protected abstract Object getTarget();
+	public abstract Object getTarget();
 	
 	public abstract void reflect();
 	
-	protected T evaluate() {
+	public T evaluate() {
 		if (value == null) {
 			reflect();
 		}

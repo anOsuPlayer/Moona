@@ -16,7 +16,10 @@ public final class Modifier extends Reflection<Integer> {
 		super.value = target.evaluate().getModifiers();
 	}
 	
-	protected @Override final Integer evaluate() {
+	public @Override final Integer evaluate() {
+		if (super.value == null) {
+			reflect();
+		}
 		return super.evaluate();
 	}
 	

@@ -7,13 +7,16 @@ import moonaframework.util.reflection.cluster.Cluster;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter {
 	
-	protected @Override final AnnotatedElement getTarget() {
+	public @Override final AnnotatedElement getTarget() {
 		return super.value;
 	}
 	
 	public @Override abstract void reflect();
 	
 	public @Override T evaluate() {
+		if (super.value == null) {
+			reflect();
+		}
 		return super.evaluate();
 	}
 	

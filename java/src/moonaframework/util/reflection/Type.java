@@ -1,6 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.reflection.cluster.TypeContent;
 
 public final class Type extends Reference<Class<?>> {
 	
@@ -12,6 +13,10 @@ public final class Type extends Reference<Class<?>> {
 	
 	public @Override void reflect() {
 		super.value = this.clazz;
+	}
+	
+	public @Override TypeContent derive() {
+		return new TypeContent(clazz);
 	}
 	
 	public Type(Class<?> clazz) throws NullArgumentException {

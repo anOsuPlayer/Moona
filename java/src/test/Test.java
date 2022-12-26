@@ -44,6 +44,7 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
+import moonaframework.util.reflection.cluster.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 
@@ -69,12 +70,16 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Method ref = new Method(Test.class, "a");
-		Parameter par = new Parameter(ref, 0);
+		Type t = new Type(Test.class);
+		TypeContent tc = t.derive();
 		
-		Mirror.add(par);
+		Mirror.add(t, tc);
 		
 		Moona.init();
+		
+		Benchmark.showTime(() -> {
+			tc.evaluate();
+		});
 	}
 	
 	public Test(@Annot int param1) {
