@@ -15,8 +15,13 @@ public final class Type extends Reference<Class<?>> {
 		super.value = this.clazz;
 	}
 	
+	private TypeContent tc;
+	
 	public @Override TypeContent derive() {
-		return new TypeContent(clazz);
+		if (tc == null) {
+			tc = new TypeContent(this);
+		}
+		return tc;
 	}
 	
 	public Type(Class<?> clazz) throws NullArgumentException {

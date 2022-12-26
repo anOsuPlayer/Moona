@@ -21,7 +21,7 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	}
 	
 	public @Deadlined Beacon<?> derive() {
-		return Beacon.EMPTY_CLUSTER;
+		return Beacon.EMPTY_BEACON;
 	}
 	
 	protected Reference() {

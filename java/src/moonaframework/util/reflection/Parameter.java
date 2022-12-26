@@ -44,7 +44,7 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 		this.source = source; this.index = index;
 	}
 	
-	protected Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws IllegalArgumentException {
+	public Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws IllegalArgumentException {
 		this(source, index);
 		if (param == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");

@@ -44,6 +44,7 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
+import moonaframework.util.reflection.cluster.MethodProperties;
 import moonaframework.util.reflection.cluster.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
@@ -58,7 +59,7 @@ import moonaframework.util.time.*;
 
 public class Test {
 	
-	static Action a = new Action(10) {
+	static Action action = new Action(10) {
 		public @Override void trigger() {
 			System.out.println("AAAAAAAaa");
 			Benchmark.sleep(1000);
@@ -73,9 +74,15 @@ public class Test {
 		Type t = new Type(Test.class);
 		TypeContent tc = t.derive();
 		
-		Mirror.add(t, tc);
+		MethodProperties mp = tc.getMethods().get(0).derive();
+		
+		Mirror.add(t, tc, mp);
 		
 		Moona.init();
+		
+		Benchmark.showTime(() -> {
+			mp.getModifiers().isPublic();
+		});
 	}
 	
 	public Test(@Annot int param1) {

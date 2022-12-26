@@ -8,15 +8,15 @@ public final class Modifier extends Reflection<Integer> {
 
 	private final Reference<? extends Member> target;
 	
-	public @Override final Reference<? extends Member> getTarget() {
+	public @Override Reference<? extends Member> getTarget() {
 		return this.target;
 	}
 	
-	public @Override final void reflect() {
+	public @Override void reflect() {
 		super.value = target.evaluate().getModifiers();
 	}
 	
-	public @Override final Integer evaluate() {
+	public @Override Integer evaluate() {
 		if (super.value == null) {
 			reflect();
 		}
@@ -24,45 +24,45 @@ public final class Modifier extends Reflection<Integer> {
 	}
 	
 	public boolean isPublic() {
-		return java.lang.reflect.Modifier.isPublic(super.value);
+		return (super.value & java.lang.reflect.Modifier.PUBLIC) != 0;
 	}
 	public boolean isProtected() {
-		return java.lang.reflect.Modifier.isPublic(super.value);
+		return (super.value & java.lang.reflect.Modifier.PROTECTED) != 0;
 	}
 	public boolean isPackage() {
 		return !isPublic() && !isProtected() && !isPrivate();
 	}
 	public boolean isPrivate() {
-		return java.lang.reflect.Modifier.isPublic(super.value);
+		return (super.value & java.lang.reflect.Modifier.PRIVATE) != 0;
 	}
 	
 	public boolean isStatic() {
-		return java.lang.reflect.Modifier.isStatic(super.value);
+		return (super.value & java.lang.reflect.Modifier.STATIC) != 0;
 	}
 	public boolean isFinal() {
-		return java.lang.reflect.Modifier.isFinal(super.value);
+		return (super.value & java.lang.reflect.Modifier.FINAL) != 0;
 	}
 	public boolean isConstant() {
 		return isStatic() && isFinal();
 	}
 	public boolean isAbstract() {
-		return java.lang.reflect.Modifier.isAbstract(super.value);
+		return (super.value & java.lang.reflect.Modifier.ABSTRACT) != 0;
 	}
 	
 	public boolean isTransient() {
-		return java.lang.reflect.Modifier.isTransient(super.value);
+		return (super.value & java.lang.reflect.Modifier.TRANSIENT) != 0;
 	}
 	public boolean isVolatile() {
-		return java.lang.reflect.Modifier.isVolatile(super.value);
+		return (super.value & java.lang.reflect.Modifier.VOLATILE) != 0;
 	}
 	public boolean isSynchronized() {
-		return java.lang.reflect.Modifier.isSynchronized(super.value);
+		return (super.value & java.lang.reflect.Modifier.SYNCHRONIZED) != 0;
 	}
 	public boolean isNative() {
-		return java.lang.reflect.Modifier.isNative(super.value);
+		return (super.value & java.lang.reflect.Modifier.NATIVE) != 0;
 	}
 	public boolean isStrict() {
-		return java.lang.reflect.Modifier.isStrict(super.value);
+		return (super.value & java.lang.reflect.Modifier.STRICT) != 0;
 	}
 	
 	public Modifier(Reference<? extends Member> ref) throws NullArgumentException {
@@ -72,7 +72,7 @@ public final class Modifier extends Reflection<Integer> {
 		this.target = ref;
 	}
 	
-	protected Modifier(Reference<? extends Member> source, int modifiers) throws IllegalArgumentException {
+	public Modifier(Reference<? extends Member> source, int modifiers) throws IllegalArgumentException {
 		this(source);
 		if (modifiers < 0) {
 			throw new NullArgumentException("The value which states the modifiers cannot be null.");

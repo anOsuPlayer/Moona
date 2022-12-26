@@ -8,7 +8,7 @@ import moonaframework.util.reflection.Reflection;
 
 public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>> {
 
-	public static final Beacon<Reflection<?>> EMPTY_CLUSTER = new Beacon<>() {
+	public static final Beacon<Reflection<?>> EMPTY_BEACON = new Beacon<>() {
 		public @Deadlined Object getTarget() {
 			return null;
 		}
@@ -16,7 +16,7 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 	
 	public @Override abstract Object getTarget();
 	
-	private boolean hasGenerated = false;
+	protected boolean hasGenerated = false;
 	
 	public @Override void reflect() {
 		for (R refl : super.value) {

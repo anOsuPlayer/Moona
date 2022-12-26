@@ -25,6 +25,9 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return this.methodCount;
 	}
 	public List<Method> getMethods() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
 		final List<Method> list = new ArrayList<>();
 		for (int i = 0; i < methodCount; i++) {
 			list.add((Method) super.value.get(i));
@@ -38,8 +41,11 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return this.fieldCount;
 	}
 	public List<Constructor> getConstructors() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
 		final List<Constructor> list = new ArrayList<>();
-		for (int i = methodCount; i < constructorCount; i++) {
+		for (int i = methodCount; i < methodCount+constructorCount; i++) {
 			list.add((Constructor) super.value.get(i));
 		}
 		return list;
@@ -51,11 +57,18 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return this.fieldCount;
 	}
 	public List<Field> getFields() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
 		final List<Field> list = new ArrayList<>();
-		for (int i = fieldCount; i < fieldCount; i++) {
+		for (int i = constructorCount+methodCount; i < totalReflections(); i++) {
 			list.add((Field) super.value.get(i));
 		}
 		return list;
+	}
+	
+	public int totalReflections() {
+		return methodCount + constructorCount + fieldCount;
 	}
 	
 	public @Override void reflect() {
