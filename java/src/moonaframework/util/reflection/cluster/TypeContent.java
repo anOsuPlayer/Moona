@@ -32,7 +32,7 @@ public final class TypeContent extends Cluster<Reference<? extends AnnotatedElem
 		return list;
 	}
 	
-	private int constructorCount;
+	private int constructorCount = 0;
 	
 	public int constructorCount() {
 		return this.fieldCount;
