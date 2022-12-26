@@ -78,7 +78,7 @@ public class Test {
 		Moona.init();
 		
 		Benchmark.showTime(() -> {
-			tc.evaluate();
+			tc.getMethods();
 		});
 	}
 	
