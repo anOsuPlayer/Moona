@@ -3,7 +3,7 @@ package moonaframework.util.reflection;
 import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.util.annotation.Deadlined;
-import moonaframework.util.reflection.cluster.Beacon;
+import moonaframework.util.reflection.beacon.Beacon;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter {
 	

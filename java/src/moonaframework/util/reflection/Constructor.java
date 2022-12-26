@@ -1,7 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.cluster.ConstructorProperty;
+import moonaframework.util.reflection.beacon.ConstructorProperty;
 
 public final class Constructor extends Reference<java.lang.reflect.Constructor<?>> {
 	

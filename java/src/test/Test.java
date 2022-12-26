@@ -44,8 +44,8 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
-import moonaframework.util.reflection.cluster.MethodProperty;
-import moonaframework.util.reflection.cluster.TypeContent;
+import moonaframework.util.reflection.beacon.MethodProperty;
+import moonaframework.util.reflection.beacon.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 

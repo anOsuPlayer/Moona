@@ -1,7 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.cluster.MethodProperty;
+import moonaframework.util.reflection.beacon.MethodProperty;
 
 public final class Method extends Reference<java.lang.reflect.Method> {
 	

@@ -1,4 +1,4 @@
-package moonaframework.util.reflection.cluster;
+package moonaframework.util.reflection.beacon;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;

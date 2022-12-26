@@ -1,19 +1,19 @@
-package moonaframework.util.reflection.cluster;
+package moonaframework.util.reflection.beacon;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.Method;
+import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.Reflection;
 
-public class MethodProperty extends Beacon<Reflection<?>> {
+public class ConstructorProperty extends Beacon<Reflection<?>> {
 
-	private final Method source;
+	private final Constructor source;
 	
-	public @Override Method getTarget() {
+	public @Override Constructor getTarget() {
 		return this.source;
 	}
 	
@@ -45,7 +45,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 	}
 	
 	public @Override void reflect() {
-		java.lang.reflect.Method method = source.evaluate();
+		java.lang.reflect.Constructor<?> method = source.evaluate();
 		
 		super.value.add(new Modifier(source, method.getModifiers()));
 		
@@ -57,7 +57,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 		super.reflect();
 	}
 	
-	public MethodProperty(Method source) throws NullArgumentException {
+	public ConstructorProperty(Constructor source) throws NullArgumentException {
 		if (source == null) {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}
