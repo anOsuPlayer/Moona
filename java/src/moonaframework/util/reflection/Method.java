@@ -1,7 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
-import moonaframework.util.reflection.cluster.MethodProperties;
+import moonaframework.util.reflection.cluster.MethodProperty;
 
 public final class Method extends Reference<java.lang.reflect.Method> {
 	
@@ -37,11 +37,11 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		throw new UnresolvedReflectionException("No Method References could be generated from the given arguments.");
 	}
 	
-	private MethodProperties mp;
+	private MethodProperty mp;
 	
-	public @Override MethodProperties derive() {
+	public @Override MethodProperty derive() {
 		if (mp == null) {
-			mp = new MethodProperties(this);
+			mp = new MethodProperty(this);
 		}
 		return mp;
 	}

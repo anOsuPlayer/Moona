@@ -1,6 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.reflection.cluster.ConstructorProperty;
 
 public final class Constructor extends Reference<java.lang.reflect.Constructor<?>> {
 	
@@ -16,11 +17,11 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		return this.args;
 	}
 	
-	public @Override final String toString() {
+	public @Override String toString() {
 		return evaluate().getName();
 	}
 	
-	public @Override final void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Constructor<?> m : clazz.getDeclaredConstructors()) {
 			if ((args.equals(Mirror.NO_ARGS)) ? m.getParameterTypes().length == 0 : m.getParameterTypes().equals(args)) {
 				super.value = m;
@@ -28,6 +29,15 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 			}
 		}
 		throw new UnresolvedReflectionException("No Constructor References could be generated from the given arguments.");
+	}
+	
+	private ConstructorProperty cp;
+	
+	public @Override ConstructorProperty derive() {
+		if (cp == null) {
+			cp = new ConstructorProperty(this);
+		}
+		return cp;
 	}
 	
 	public Constructor(Class<?> clazz, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
