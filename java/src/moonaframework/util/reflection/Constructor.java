@@ -1,5 +1,7 @@
 package moonaframework.util.reflection;
 
+import java.util.Arrays;
+
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.beacon.ConstructorProperty;
 
@@ -22,9 +24,9 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	}
 	
 	public @Override void reflect() throws UnresolvedReflectionException {
-		for (java.lang.reflect.Constructor<?> m : clazz.getDeclaredConstructors()) {
-			if ((args.equals(Mirror.NO_ARGS)) ? m.getParameterTypes().length == 0 : m.getParameterTypes().equals(args)) {
-				super.value = m;
+		for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
+			if ((args.equals(Mirror.NO_ARGS)) ? con.getParameterTypes().length == 0 : Arrays.equals(con.getParameterTypes(), args)) {
+				super.value = con;
 				return;
 			}
 		}
@@ -55,6 +57,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
 		}
 		super.value = constr;
-		this.clazz = constr.getDeclaringClass(); this.args = constr.getParameterTypes();
+		this.clazz = constr.getDeclaringClass();
+		this.args = (constr.getParameterTypes().length == 0) ? Mirror.NO_ARGS : constr.getParameterTypes();
 	}
 }

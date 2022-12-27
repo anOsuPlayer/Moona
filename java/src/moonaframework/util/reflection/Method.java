@@ -1,5 +1,7 @@
 package moonaframework.util.reflection;
 
+import java.util.Arrays;
+
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.beacon.MethodProperty;
 
@@ -29,7 +31,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : m.getParameterTypes().equals(args)) {
+			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(m.getParameterTypes(), args)) {
 				super.value = m;
 				return;
 			}
