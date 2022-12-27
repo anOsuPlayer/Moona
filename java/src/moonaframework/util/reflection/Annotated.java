@@ -9,22 +9,22 @@ public final class Annotated extends Reflection<Annotation[]> {
 
 	private final Reference<? extends AnnotatedElement> target;
 	
-	public @Override final Reference<? extends AnnotatedElement> getTarget() {
+	public @Override Reference<? extends AnnotatedElement> getTarget() {
 		return this.target;
 	}
 	
-	public @Override final void reflect() {
+	public @Override void reflect() {
 		super.value = target.evaluate().getAnnotations();
 	}
 	
-	public @Override final Annotation[] evaluate() {
+	public @Override Annotation[] evaluate() {
 		if (super.value == null) {
 			reflect();
 		}
 		return super.evaluate();
 	}
 	
-	public final boolean isAnnotatedWith(Class<? extends Annotation> annot) {
+	public boolean isAnnotatedWith(Class<? extends Annotation> annot) {
 		if (super.value == null) {
 			reflect();
 		}
