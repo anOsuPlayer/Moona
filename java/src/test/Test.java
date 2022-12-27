@@ -11,8 +11,6 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -49,10 +47,12 @@ import moonaframework.util.reflection.beacon.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 
+import static java.lang.annotation.ElementType.*;
+
 @SuppressWarnings("unused")
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target({ CONSTRUCTOR, FIELD, PARAMETER })
 @interface Annot {
 	
 }
@@ -71,14 +71,13 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		TypeContent tc = new TypeContent(Test.class);
-		
-		Mirror.add(tc);
+		Annotated ann = new Annotated(new Constructor(Type.class));
 		
 		Moona.init();
 	}
 	
-	public Test(@Annot int param1) {
+	@Annot
+	public Test(int param1) {
 		
 	}
 }

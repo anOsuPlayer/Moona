@@ -18,10 +18,16 @@ public final class Annotated extends Reflection<Annotation[]> {
 	}
 	
 	public @Override final Annotation[] evaluate() {
+		if (super.value == null) {
+			reflect();
+		}
 		return super.evaluate();
 	}
 	
 	public final boolean isAnnotatedWith(Class<? extends Annotation> annot) {
+		if (super.value == null) {
+			reflect();
+		}
 		for (Annotation a : super.value) {
 			if (a.annotationType().equals(annot)) {
 				return true;
