@@ -2,10 +2,12 @@ package moonaframework.util.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.Arrays;
+import java.util.List;
 
 import moonaframework.util.exceptions.NullArgumentException;
 
-public final class Annotated extends Reflection<Annotation[]> {
+public final class Annotated extends Reflection<List<Annotation>> {
 
 	private final Reference<? extends AnnotatedElement> target;
 	
@@ -14,10 +16,10 @@ public final class Annotated extends Reflection<Annotation[]> {
 	}
 	
 	public @Override void reflect() {
-		super.value = target.evaluate().getAnnotations();
+		super.value = Arrays.asList(target.evaluate().getAnnotations());
 	}
 	
-	public @Override Annotation[] evaluate() {
+	public @Override List<Annotation> evaluate() {
 		if (super.value == null) {
 			reflect();
 		}
@@ -34,6 +36,12 @@ public final class Annotated extends Reflection<Annotation[]> {
 			}
 		}
 		return false;
+	}
+	public int annotationCount() {
+		if (super.value == null) {
+			reflect();
+		}
+		return super.value.size();
 	}
 	
 	public Annotated(Reference<? extends AnnotatedElement> ref) throws NullArgumentException {

@@ -73,13 +73,11 @@ public class Test {
 	public static void main(String[] args) throws Throwable {
 		Moona.setAutoReflections(true);
 		
-		Annotated ann = new Annotated(new Constructor(Test.class, int.class).derive().getParameter(0));
+		Annotated ann = new Annotated(Test.class);
+		
+		TypeContent tc = (TypeContent) ann.getTarget().derive();
 		
 		Moona.init();
-		
-		Benchmark.showTime(() -> {
-			ann.isAnnotatedWith(Annot.class);
-		});
 	}
 	
 	public Test(@Annot int a) {
