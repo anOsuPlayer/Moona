@@ -30,5 +30,8 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected Reflection() {
 		this.id = Moona.generateID();
+		if (Moona.hasAutoReflections()) {
+			Mirror.add(this);
+		}
 	}
 }

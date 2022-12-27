@@ -41,9 +41,18 @@ public final class Moona {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
+	private static boolean autoReflections = false;
+	
+	public static void setAutoReflections(boolean value) {
+		autoReflections = value;
+	}
+	public static boolean hasAutoReflections() {
+		return autoReflections;
+	}
+	
 	private static AtomicLong idCounter = new AtomicLong(0);
 	
-	public static final long generateID() {
+	public static long generateID() {
 		return idCounter.incrementAndGet();
 	}
 	

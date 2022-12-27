@@ -71,17 +71,18 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Annotated ann = new Annotated(new Constructor(Test.class, int.class));
-				
-		boolean a = ann.isAnnotatedWith(Annot.class);
+		Moona.setAutoReflections(true);
+		
+		Annotated ann = new Annotated(new Constructor(Test.class, int.class).derive().getParameter(0));
 		
 		Moona.init();
 		
-		System.out.println(a);
+		Benchmark.showTime(() -> {
+			ann.isAnnotatedWith(Annot.class);
+		});
 	}
 	
-	@Annot
-	public Test(int a) {
+	public Test(@Annot int a) {
 		
 	}
 }
