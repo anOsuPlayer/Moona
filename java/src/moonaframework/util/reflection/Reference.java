@@ -13,13 +13,6 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	
 	public @Override abstract void reflect();
 	
-	public @Override T evaluate() {
-		if (super.value == null) {
-			reflect();
-		}
-		return super.evaluate();
-	}
-	
 	public @Deadlined Beacon<?> derive() {
 		return Beacon.EMPTY_BEACON;
 	}

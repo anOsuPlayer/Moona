@@ -2,6 +2,7 @@ package moonaframework.util.reflection;
 
 import java.util.Arrays;
 
+import moonaframework.base.Moona;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.beacon.MethodProperty;
 
@@ -54,6 +55,9 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 					+ " method name.");
 		}
 		this.clazz = clazz; this.name = name; this.args = args;
+		if (Moona.hasAutoReflections()) {
+			derive();
+		}
 	}
 	public Method(Class<?> clazz, String name) {
 		this(clazz, name, Mirror.NO_ARGS);

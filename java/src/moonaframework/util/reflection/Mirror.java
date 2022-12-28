@@ -9,7 +9,16 @@ import moonaframework.util.exceptions.NullArgumentException;
 
 public final class Mirror {
 	
-	static final IshMap<Reflection<?>, Long> reflections = new IshMap<>();
+	private static final IshMap<Reflection<?>, Long> reflections = new IshMap<>();
+	
+	private static final IshMap<Reflection<?>, Long> queue = new IshMap<>();
+	
+	static void queue(Reflection<?> refl) throws NullArgumentException {
+		if (refl == null) {
+			throw new NullArgumentException("You cannot queue null Reflections.");
+		}
+		queue.add(refl, refl.id());
+	}
 	
 	private static int totalReflections = 0;
 	
@@ -58,7 +67,11 @@ public final class Mirror {
 	}
 	
 	public static void loadReflections() {
-		reflections.forEachValue((refl) -> refl.evaluate());
+		if (!queue.isEmpty()) {
+			reflections.join(queue);
+			reflections.forEachValue((refl) -> refl.evaluate());
+			loadReflections();
+		}
 	}
 	
 	
