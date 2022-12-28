@@ -66,22 +66,20 @@ public class Test {
 		}
 	};
 	
-	public @Timeless void a(int a) {
+	public @Timeless void a(@Annot int a) {
 		
 	}
 	
 	public static void main(String[] args) throws Throwable {
 		Moona.setAutoReflections(true);
 		
-		Type t = new Type(Test.class);
+		Method m = new Method(Test.class, "a");
 		
-		Annotated ann = new Annotated(t.derive().getMethods().get(0));
+		Annotated ann = new Annotated(m);
 		
 		Moona.init();
-		
-		Benchmark.showTime(() -> {
-			ann.isAnnotatedWith(Timeless.class);
-		});
+
+		System.out.println(ann.annotationCount());
 	}
 	
 	public Test(@Annot int a) {

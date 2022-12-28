@@ -67,9 +67,9 @@ public final class Mirror {
 	}
 	
 	public static void loadReflections() {
+		reflections.forEachValue((refl) -> refl.evaluate());
 		if (!queue.isEmpty()) {
 			reflections.join(queue);
-			reflections.forEachValue((refl) -> refl.evaluate());
 			loadReflections();
 		}
 	}
