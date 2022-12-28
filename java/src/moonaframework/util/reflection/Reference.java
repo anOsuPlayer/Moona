@@ -2,6 +2,7 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.AnnotatedElement;
 
+import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.reflection.beacon.Beacon;
 
@@ -19,5 +20,9 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	
 	protected Reference() {
 		super();
+		
+		if (Moona.hasAutoReflections()) {
+			derive();
+		}
 	}
 }

@@ -2,7 +2,6 @@ package moonaframework.util.reflection;
 
 import java.util.Arrays;
 
-import moonaframework.base.Moona;
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.beacon.ConstructorProperty;
 
@@ -20,8 +19,9 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		return this.args;
 	}
 	
-	public @Override String toString() {
-		return evaluate().getName();
+	public @Override final String toString() {
+		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + "."
+				+ ((args.equals(Mirror.NO_ARGS)) ? "No parameters." : " Parameters: " + Arrays.toString(args)) + ".";
 	}
 	
 	public @Override void reflect() throws UnresolvedReflectionException {
@@ -48,9 +48,6 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 			throw new NullArgumentException("Cannot build a Constructor Reference with a null class.");
 		}
 		this.clazz = clazz; this.args = args;
-		if (Moona.hasAutoReflections()) {
-			derive();
-		}
 	}
 	public Constructor(Class<?> clazz) {
 		this(clazz, Mirror.NO_ARGS);

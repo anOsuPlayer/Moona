@@ -75,12 +75,12 @@ public class Test {
 		
 		Type t = new Type(Test.class);
 		
-		TypeContent tc = new TypeContent(t);
+		Annotated ann = new Annotated(t.derive().getMethods().get(0));
 		
 		Moona.init();
 		
 		Benchmark.showTime(() -> {
-			tc.getMethods().get(0).derive().getModifiers();
+			ann.isAnnotatedWith(Timeless.class);
 		});
 	}
 	

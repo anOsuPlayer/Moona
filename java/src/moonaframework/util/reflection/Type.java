@@ -8,7 +8,7 @@ public final class Type extends Reference<Class<?>> {
 	private final Class<?> clazz;
 	
 	public @Override String toString() {
-		return clazz.getName();
+		return (clazz == null) ? "Non-generated Reflection." : clazz.getName();
 	}
 	
 	public @Override void reflect() {
