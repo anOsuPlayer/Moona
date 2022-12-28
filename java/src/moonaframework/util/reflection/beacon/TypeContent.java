@@ -35,6 +35,17 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return list;
 	}
 	
+	public Method getMethod(int index) throws IndexOutOfBoundsException {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		if (index >= methodCount) {
+			throw new IndexOutOfBoundsException("There are only " + methodCount + " Method References, index "
+					+ index + " is out of range.");
+		}
+		return (Method) super.value.get(index);
+	}
+	
 	private int constructorCount = 0;
 	
 	public int constructorCount() {
@@ -51,6 +62,17 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return list;
 	}
 	
+	public Constructor getConstructor(int index) throws IndexOutOfBoundsException {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		if (index >= methodCount) {
+			throw new IndexOutOfBoundsException("There are only " + constructorCount + " Constructor References,"
+					+ "index " + index + " is out of range.");
+		}
+		return (Constructor) super.value.get(methodCount+index);
+	}
+	
 	private int fieldCount = 0;
 	
 	public int fieldCount() {
@@ -65,6 +87,17 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			list.add((Field) super.value.get(i));
 		}
 		return list;
+	}
+	
+	public Field getField(int index) throws IndexOutOfBoundsException {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		if (index >= methodCount) {
+			throw new IndexOutOfBoundsException("There are only " + fieldCount + " Field References, index "
+					+ index + " is out of range.");
+		}
+		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
 	
 	public int totalReflections() {

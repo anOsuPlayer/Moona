@@ -19,5 +19,5 @@ public class UnresolvedReflectionException extends RuntimeException implements S
 	}
 	public UnresolvedReflectionException() {
 		super("The given arguments could not generate any Reflection.");
-	}	
+	}
 }

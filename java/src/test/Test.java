@@ -73,13 +73,11 @@ public class Test {
 	public static void main(String[] args) throws Throwable {
 		Moona.setAutoReflections(true);
 		
-		Method m = new Method(Test.class, "a");
+		Type t = new Type(Test.class);
 		
-		Annotated ann = new Annotated(m);
+		System.out.println(t.derive().getMethod(2));
 		
 		Moona.init();
-
-		System.out.println(ann.annotationCount());
 	}
 	
 	public Test(@Annot int a) {
