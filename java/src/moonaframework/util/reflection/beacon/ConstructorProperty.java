@@ -39,7 +39,8 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 			reflect();
 		}
 		if (index + 1 >= super.value.size()) {
-			throw new IllegalArgumentException("Parameter n." + index + " does not exist.");
+			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Parameter "
+					+ "References, index " + index + " is out of range.");
 		}
 		return (Parameter) super.value.get(index+1);
 	}
