@@ -75,7 +75,7 @@ public class Test {
 		
 		Type t = new Type(Test.class);
 		
-		System.out.println(t.derive().getMethod(2));
+		System.out.println(t.derive().getMethod(1));
 		
 		Moona.init();
 	}

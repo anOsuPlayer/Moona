@@ -1,6 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.reflection.beacon.FieldProperty;
 
 public final class Field extends Reference<java.lang.reflect.Field> {
 	
@@ -29,6 +30,15 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 			}
 		}
 		throw new UnresolvedReflectionException("No Field References could be generated from the given arguments.");
+	}
+	
+	private FieldProperty fp;
+	
+	public @Override FieldProperty derive() {
+		if (fp == null) {
+			fp = new FieldProperty(this);
+		}
+		return fp;
 	}
 	
 	public Field(Class<?> clazz, String name) throws IllegalArgumentException, NullArgumentException {
