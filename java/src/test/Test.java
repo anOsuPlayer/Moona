@@ -71,13 +71,13 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Moona.setAutoReflections(true);
+		Moona.enableAutoReflections();
 		
 		Type t = new Type(Test.class);
 		
-		System.out.println(t.derive().getMethod(1));
-		
 		Moona.init();
+		
+		System.out.println(Mirror.totalReflections());
 	}
 	
 	public Test(@Annot int a) {

@@ -30,7 +30,9 @@ public final class Mirror {
 		if (reflections.hasKey(refl.id())) {
 			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
 		}
-		addReflection(refl);
+		if (!has(refl)) {
+			addReflection(refl);
+		}
 	}
 	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
 		for (Reflection<?> refl : reflections) {
@@ -50,7 +52,9 @@ public final class Mirror {
 		if (!reflections.hasKey(refl.id())) {
 			throw new MoonaHandlingException("This Reflection is not present in Moona.");
 		}
-		addReflection(refl);
+		if (has(refl)) {
+			removeReflection(refl);
+		}
 	}
 	public static void remove(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
 		for (Reflection<?> refl : reflections) {
@@ -66,7 +70,12 @@ public final class Mirror {
 	public static void loadReflections() {
 		reflections.forEachValue((refl) -> refl.evaluate());
 		if (!queue.isEmpty()) {
-			reflections.join(queue);
+			for (Reflection<?> refl : queue.values()) {
+				if (!has(refl)) {
+					addReflection(refl);
+				}
+			}
+			queue.clear();
 			loadReflections();
 		}
 	}
@@ -95,7 +104,10 @@ public final class Mirror {
 		return reflections.hasKey(id);
 	}
 	public static boolean has(Reflection<?> refl) {
-		return has(refl.id());
+		for (Reflection<?> r : reflections.values()) {
+			if (r.equals(refl)) { return true; };
+		}
+		return false;
 	}
 	
 	public static int totalReflections() {

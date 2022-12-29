@@ -11,6 +11,12 @@ public final class Type extends Reference<Class<?>> {
 		return (clazz == null) ? "Non-generated Reflection." : clazz.getName();
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof Type t) ?
+				this.clazz.equals(t.clazz)
+				: false;
+	}
+	
 	public @Override void reflect() {
 		super.value = this.clazz;
 	}

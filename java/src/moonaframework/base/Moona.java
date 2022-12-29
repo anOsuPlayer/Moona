@@ -43,9 +43,13 @@ public final class Moona {
 	
 	private static boolean autoReflections = false;
 	
-	public static void setAutoReflections(boolean value) {
-		autoReflections = value;
+	public static void enableAutoReflections() {
+		autoReflections = true;
 	}
+	public static void disableAutoReflections() {
+		autoReflections = false;
+	}
+	
 	public static boolean hasAutoReflections() {
 		return autoReflections;
 	}
