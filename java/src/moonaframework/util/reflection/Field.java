@@ -17,12 +17,18 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 		return this.name;
 	}
 	
-	public @Override final String toString() {
+	public @Override boolean equals(Object o) {
+		return (o instanceof Field field) ?
+				this.name.equals(field.name) && this.clazz.equals(field.clazz)
+				: false;
+	}
+	
+	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in class "
 				+ clazz.getSimpleName() + ".";
 	}
 	
-	public @Override final void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Field m : clazz.getDeclaredFields()) {
 			if (m.getName().equals(name)) {
 				super.value = m;

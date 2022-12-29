@@ -3,7 +3,6 @@ package moonaframework.util.reflection;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
-import moonaframework.dynamic.process.Process;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exceptions.NullArgumentException;
 
@@ -21,8 +20,6 @@ public final class Mirror {
 	}
 	
 	private static int totalReflections = 0;
-	
-	private static int totalAnnotations = 0;
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
@@ -92,20 +89,20 @@ public final class Mirror {
 	}
 	
 	public static boolean contains(Serial s) {
-		return s instanceof Process p ? reflections.hasKey(p.id()) : false;
+		return s instanceof Reflection<?> refl ? reflections.hasKey(refl.id()) : false;
 	}
 	public static boolean has(long id) {
 		return reflections.hasKey(id);
 	}
-	public static boolean has(Process p) {
-		return has(p.id());
+	public static boolean has(Reflection<?> refl) {
+		return has(refl.id());
 	}
 	
 	public static int totalReflections() {
 		return totalReflections;
 	}
 	
-	public static int totalAnnotations() {
-		return totalAnnotations;
+	private Mirror() {
+		
 	}
 }

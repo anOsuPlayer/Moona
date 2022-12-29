@@ -26,13 +26,20 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		return this.args;
 	}
 	
-	public @Override final String toString() {
+	public @Override boolean equals(Object o) {
+		return (o instanceof Method method) ?
+				this.name.equals(method.name) && this.clazz.equals(method.clazz)
+				&& Arrays.equals(this.args, method.args)
+				: false;
+	}
+	
+	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Method " + name + " in class "
 				+ clazz.getSimpleName() + "."
 				+ ((args.equals(Mirror.NO_ARGS)) ? "No parameters" : " Parameters: " + Arrays.toString(args)) + ".";
 	}
 	
-	public @Override final void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UnresolvedReflectionException {
 		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(m.getParameterTypes(), args)) {
 				super.value = m;

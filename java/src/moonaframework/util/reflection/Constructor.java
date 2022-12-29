@@ -19,7 +19,13 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		return this.args;
 	}
 	
-	public @Override final String toString() {
+	public @Override boolean equals(Object o) {
+		return (o instanceof Constructor con) ?
+				this.clazz.equals(con.clazz) && Arrays.equals(this.args, con.args)
+				: false;
+	}
+	
+	public @Override String toString() {
 		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + "."
 				+ ((args.equals(Mirror.NO_ARGS)) ? "No parameters." : " Parameters: " + Arrays.toString(args)) + ".";
 	}

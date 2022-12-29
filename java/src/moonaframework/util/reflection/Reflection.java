@@ -15,6 +15,12 @@ public abstract class Reflection<T> implements Serial {
 		return Nature.REFLECTION;
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof Reflection<?> refl) ?
+				this.value.equals(refl.value) && this.getTarget().equals(refl.getTarget())
+				: false;
+	}
+	
 	protected T value;
 	
 	public abstract Object getTarget();
