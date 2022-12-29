@@ -76,8 +76,6 @@ public class Test {
 		Type t = new Type(Test.class);
 		
 		Moona.init();
-		
-		System.out.println(Mirror.totalReflections());
 	}
 	
 	public Test(@Annot int a) {

@@ -45,8 +45,17 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
+	public @Override List<Reflection<?>> evaluate() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		return super.value;
+	}
+	
 	public @Override void reflect() {
 		java.lang.reflect.Method method = source.evaluate();
+		
+		enableStrictContext();
 		
 		super.value.add(new Modifier(source, method.getModifiers()));
 		
@@ -54,6 +63,8 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 		for (int i = 0; i < params.length; i++) {
 			super.value.add(new Parameter(source, i, params[i]));
 		}
+		
+		disableStrictContext();
 		
 		super.reflect();
 	}

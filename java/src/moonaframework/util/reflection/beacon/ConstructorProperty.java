@@ -48,6 +48,8 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 	public @Override void reflect() {
 		java.lang.reflect.Constructor<?> method = source.evaluate();
 		
+		enableStrictContext();
+		
 		super.value.add(new Modifier(source, method.getModifiers()));
 		
 		java.lang.reflect.Parameter[] params = method.getParameters();
@@ -55,7 +57,16 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 			super.value.add(new Parameter(source, i, params[i]));
 		}
 		
+		disableStrictContext();
+		
 		super.reflect();
+	}
+	
+	public @Override List<Reflection<?>> evaluate() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		return super.value;
 	}
 	
 	public ConstructorProperty(Constructor source) throws NullArgumentException {

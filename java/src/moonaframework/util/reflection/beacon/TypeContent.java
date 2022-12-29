@@ -107,6 +107,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	public @Override void reflect() {
 		 Class<?> clazz = source.evaluate();
 		 
+		 enableStrictContext();
+		 
 		 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 			 super.value.add(new Method(m));
 			 methodCount++;
@@ -122,7 +124,16 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			 fieldCount++;
 		 }
 		 
+		 disableStrictContext();
+		 
 		 super.reflect();
+	}
+	
+	public @Override List<Reference<? extends AnnotatedElement>> evaluate() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		return super.value;
 	}
 	
 	public TypeContent(Type source) throws NullArgumentException {

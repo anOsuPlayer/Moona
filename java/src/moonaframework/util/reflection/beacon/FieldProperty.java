@@ -1,5 +1,7 @@
 package moonaframework.util.reflection.beacon;
 
+import java.util.List;
+
 import moonaframework.util.exceptions.NullArgumentException;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
@@ -23,9 +25,20 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 	public @Override void reflect() {
 		java.lang.reflect.Field field = source.evaluate();
 		
+		enableStrictContext();
+		
 		super.value.add(new Modifier(source));
 		
+		disableStrictContext();
+		
 		super.reflect();
+	}
+	
+	public @Override List<Reflection<?>> evaluate() {
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		return super.value;
 	}
 	
 	public FieldProperty(Field source) throws NullArgumentException {

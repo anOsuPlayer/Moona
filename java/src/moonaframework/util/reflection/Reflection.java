@@ -34,9 +34,22 @@ public abstract class Reflection<T> implements Serial {
 		return value;
 	}
 	
+	private static boolean strictContext = false;
+	
+	protected static final void enableStrictContext() {
+		strictContext = true;
+	}
+	protected static final void disableStrictContext() {
+		strictContext = false;
+	}
+	
+	protected final boolean isStrictContext() {
+		return strictContext;
+	}
+	
 	protected Reflection() {
 		this.id = Moona.generateID();
-		if (Moona.hasAutoReflections()) {
+		if (Moona.hasAutoReflections() || strictContext) {
 			Mirror.queue(this);
 		}
 	}

@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.util.annotation.Deadlined;
+import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
 
 public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>> {
 
 	public static final Beacon<Reflection<?>> EMPTY_BEACON = new Beacon<>() {
 		
+		public @Override String toString() {
+			return "Empty Beacon";
+		}
+		
 		private static final Object PLACEHOLDER = new Object();
 		
 		public @Deadlined Object getTarget() {
 			return PLACEHOLDER;
+		}
+		
+		{
+			Mirror.add(this);
 		}
 	};
 	
@@ -34,7 +43,7 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 		hasGenerated = true;
 	}
 	
-	public @Override final List<R> evaluate() {
+	public @Override List<R> evaluate() {
 		if (!hasGenerated) {
 			reflect();
 		}
