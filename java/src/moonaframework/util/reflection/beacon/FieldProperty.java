@@ -25,11 +25,11 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 	public @Override void reflect() {
 		java.lang.reflect.Field field = source.evaluate();
 		
-		enableStrictContext();
+		strictContext.enable();
 		
 		super.value.add(new Modifier(source));
 		
-		disableStrictContext();
+		strictContext.disable();
 		
 		super.reflect();
 	}

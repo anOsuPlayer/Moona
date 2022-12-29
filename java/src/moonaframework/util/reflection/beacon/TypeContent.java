@@ -107,7 +107,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	public @Override void reflect() {
 		 Class<?> clazz = source.evaluate();
 		 
-		 enableStrictContext();
+		 strictContext.enable();
 		 
 		 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 			 super.value.add(new Method(m));
@@ -124,7 +124,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			 fieldCount++;
 		 }
 		 
-		 disableStrictContext();
+		 strictContext.disable();
 		 
 		 super.reflect();
 	}

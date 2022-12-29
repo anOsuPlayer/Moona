@@ -55,7 +55,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 	public @Override void reflect() {
 		java.lang.reflect.Method method = source.evaluate();
 		
-		enableStrictContext();
+		strictContext.enable();
 		
 		super.value.add(new Modifier(source, method.getModifiers()));
 		
@@ -64,7 +64,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 			super.value.add(new Parameter(source, i, params[i]));
 		}
 		
-		disableStrictContext();
+		strictContext.disable();
 		
 		super.reflect();
 	}
