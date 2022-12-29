@@ -22,4 +22,7 @@ public class Status<T> implements Property<T> {
 	protected Status(T value) {
 		setValue(value);
 	}
+	protected Status() {
+		
+	}
 }

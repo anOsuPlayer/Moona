@@ -64,7 +64,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 					+ " method name.");
 		}
 		this.clazz = clazz; this.name = name; this.args = args;
-		if (Moona.hasAutoReflections()) {
+		if (Moona.autoReflections.evaluate()) {
 			derive();
 		}
 	}

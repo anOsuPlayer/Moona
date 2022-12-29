@@ -71,7 +71,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args) throws Throwable {
-		Moona.enableAutoReflections();
+		Moona.autoReflections.enable();
 		
 		Type t = new Type(Test.class);
 		
