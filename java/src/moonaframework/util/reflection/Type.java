@@ -7,14 +7,14 @@ public final class Type extends Reference<Class<?>> {
 	
 	private final Class<?> clazz;
 	
-	public @Override String toString() {
-		return (clazz == null) ? "Non-generated Reflection." : clazz.getName();
-	}
-	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Type t) ?
 				this.clazz.equals(t.clazz)
 				: false;
+	}
+	
+	public @Override String toString() {
+		return (clazz == null) ? "Non-generated Reflection" : clazz.getName();
 	}
 	
 	public @Override void reflect() {

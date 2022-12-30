@@ -6,9 +6,10 @@ import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.reflection.beacon.Beacon;
 
-public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter {
+public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T>
+	permits Type, Constructor, Method, Field, Parameter, Generic {
 	
-	public @Override final AnnotatedElement getTarget() {
+	public @Override final T getTarget() {
 		return super.value;
 	}
 	

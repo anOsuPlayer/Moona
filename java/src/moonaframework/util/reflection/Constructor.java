@@ -27,8 +27,8 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	}
 	
 	public @Override String toString() {
-		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + "."
-				+ ((args.equals(Mirror.NO_ARGS)) ? "No parameters." : " Parameters: " + Arrays.toString(args)) + ".";
+		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + ","
+				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UnresolvedReflectionException {
@@ -52,9 +52,9 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	public Constructor(Class<?> clazz, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null) {
-			throw new NullArgumentException("Cannot build a Constructor Reference with a null class.");
+			throw new NullArgumentException("Cannot build a Constructor Reference over a null class.");
 		}
-		this.clazz = clazz; this.args = args;
+		this.clazz = clazz; this.args = (args == null) ? Mirror.NO_ARGS : args;
 	}
 	public Constructor(Class<?> clazz) {
 		this(clazz, Mirror.NO_ARGS);
@@ -62,7 +62,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	public Constructor(java.lang.reflect.Constructor<?> constr) throws NullArgumentException {
 		if (constr == null) {
-			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
+			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Constructor.");
 		}
 		super.value = constr;
 		this.clazz = constr.getDeclaringClass();

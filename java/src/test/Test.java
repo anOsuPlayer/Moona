@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import moonaframework.*;
 import moonaframework.base.Constexpr;
 import moonaframework.base.Moona;
+import moonaframework.base.Natural;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.dynamic.Synthetized;
@@ -75,15 +76,9 @@ public class Test<T extends Serial> {
 	public static void main(String[] args) {
 		Moona.autoReflections.enable();
 		
-		Type t = new Type(Test.class);
-		
-		TypeContent tc = t.derive();
+		Method m = new Method(Test.class, "a");
 		
 		Moona.init();
-		
-		Benchmark.showTime(() -> {
-			new SealedProfiler(Reference.class);
-		});
 	}
 	
 	public Test(@Annot int a) {

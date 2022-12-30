@@ -36,8 +36,8 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Method " + name + " in class "
-				+ clazz.getSimpleName() + "."
-				+ ((args.equals(Mirror.NO_ARGS)) ? "No parameters" : " Parameters: " + Arrays.toString(args)) + ".";
+				+ clazz.getSimpleName() + ","
+				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UnresolvedReflectionException {
@@ -61,10 +61,10 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null || name == null) {
-			throw new NullArgumentException("Cannot build a Method Reference with a null class or a null"
+			throw new NullArgumentException("Cannot build a Method Reference over a null class or a null"
 					+ " method name.");
 		}
-		this.clazz = clazz; this.name = name; this.args = args;
+		this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
 		if (Moona.autoReflections.evaluate()) {
 			derive();
 		}

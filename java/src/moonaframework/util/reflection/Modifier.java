@@ -12,15 +12,38 @@ public final class Modifier extends Reflection<Integer> {
 		return this.target;
 	}
 	
-	public @Override void reflect() {
-		super.value = target.evaluate().getModifiers();
+	public @Override boolean equals(Object o) {
+		return (o instanceof Modifier mod) ?
+				this.target.equals(mod.target)
+				: false;
 	}
 	
-	public @Override Integer evaluate() {
-		if (super.value == null) {
-			reflect();
+	public @Override String toString() {
+		if (target == null) {
+			return "Non-generated Reflection.";
 		}
-		return super.evaluate();
+		
+		String mod = "";
+		mod += isPublic() ? "public" : "";
+		mod += isProtected() ? "protected" : "";
+		mod += isPackage() ? "package" : "";
+		mod += isPrivate() ? "private" : "";
+		
+		mod += isSynchronized() ? " synchronized" : "";
+		
+		mod += isStatic() ? " static" : "";
+		
+		mod += isAbstract() ? " abstract" : "";
+		mod += isFinal() ? " final" : "";
+		
+		mod += isTransient() ? " transient" : "";
+		mod += isVolatile() ? " volatile" : "";
+		
+		mod += isStrict() ? " strictfp" : "";
+		
+		mod += isNative() ? " native" : "";
+		
+		return mod;
 	}
 	
 	public boolean isPublic() {
@@ -98,6 +121,17 @@ public final class Modifier extends Reflection<Integer> {
 		return (super.value & java.lang.reflect.Modifier.STRICT) != 0;
 	}
 	
+	public @Override void reflect() {
+		super.value = target.evaluate().getModifiers();
+	}
+	
+	public @Override Integer evaluate() {
+		if (super.value == null) {
+			reflect();
+		}
+		return super.evaluate();
+	}
+	
 	public Modifier(Reference<? extends Member> ref) throws NullArgumentException {
 		if (ref == null) {
 			throw new NullArgumentException("Cannot build a Modifier Reflection over a null Reference.");
@@ -108,7 +142,7 @@ public final class Modifier extends Reflection<Integer> {
 	public Modifier(Reference<? extends Member> source, int modifiers) throws IllegalArgumentException {
 		this(source);
 		if (modifiers < 0) {
-			throw new NullArgumentException("The value which states the modifiers cannot be null.");
+			throw new NullArgumentException("The value which states the modifiers cannot be less than zero.");
 		}
 		super.value = modifiers;
 	}

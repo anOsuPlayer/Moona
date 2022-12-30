@@ -26,6 +26,16 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 		return super.value.isVarArgs();
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof Parameter param) ?
+				this.source.equals(param.source) && this.index == param.index
+				: false;
+	}
+	
+	public @Override String toString() {
+		return (source == null) ? "Non-generated Reflection" : "Parameter n." + index + " of " + source;
+	}
+	
 	public @Override final void reflect() throws UnresolvedReflectionException {
 		java.lang.reflect.Parameter[] params = source.evaluate().getParameters();
 		if (index < params.length) {
@@ -38,7 +48,7 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 	
 	public Parameter(Reference<? extends Executable> source, int index) throws IllegalArgumentException, NullArgumentException {
 		if (source == null) {
-			throw new NullArgumentException("Cannot generate a Parameter Reference over a null Reference source.");
+			throw new NullArgumentException("Cannot generate a Parameter Reference over a null Reference.");
 		}
 		if (index < 0) {
 			throw new IllegalArgumentException("Parameter's index cannot be less than zero.");
