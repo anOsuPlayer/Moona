@@ -12,12 +12,15 @@ public final class SealedProfiler extends Beacon<Type> {
 	}
 	
 	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException {
-		if (!super.hasGenerated) {
-			reflect();
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index >= super.value.size()) {
 			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " permitted "
 					+ "subclasses, index " + index + " is out of range.");
+		}
+		if (!super.hasGenerated) {
+			reflect();
 		}
 		return super.value.get(index);
 	}

@@ -35,12 +35,15 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 		return list;
 	}
 	public Parameter getParameter(int index) throws IllegalArgumentException {
-		if (!super.hasGenerated) {
-			reflect();
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index + 1 >= super.value.size()) {
 			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Parameter "
 					+ "References, index " + index + " is out of range.");
+		}
+		if (!super.hasGenerated) {
+			reflect();
 		}
 		return (Parameter) super.value.get(index+1);
 	}

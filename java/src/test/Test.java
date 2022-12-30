@@ -58,7 +58,7 @@ import static java.lang.annotation.ElementType.*;
 	
 }
 
-public class Test {
+public class Test<T extends Serial> {
 	
 	static Action action = new Action(10) {
 		public @Override void trigger() {
@@ -76,7 +76,7 @@ public class Test {
 		
 		Type t = new Type(Test.class);
 		
-		SealedProfiler sp = new SealedProfiler(Reference.class);
+		System.out.println(Test.class.getTypeParameters()[0].getAnnotatedBounds()[0].getAnnotations().length);
 		
 		Moona.init();
 		

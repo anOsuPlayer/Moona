@@ -36,12 +36,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Method getMethod(int index) throws IndexOutOfBoundsException {
-		if (!super.hasGenerated) {
-			reflect();
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index >= methodCount) {
 			throw new IndexOutOfBoundsException("There are only " + methodCount + " Method References, index "
 					+ index + " is out of range.");
+		}
+		if (!super.hasGenerated) {
+			reflect();
 		}
 		return (Method) super.value.get(index);
 	}
@@ -63,12 +66,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Constructor getConstructor(int index) throws IndexOutOfBoundsException {
-		if (!super.hasGenerated) {
-			reflect();
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index >= methodCount) {
 			throw new IndexOutOfBoundsException("There are only " + constructorCount + " Constructor References,"
 					+ "index " + index + " is out of range.");
+		}
+		if (!super.hasGenerated) {
+			reflect();
 		}
 		return (Constructor) super.value.get(methodCount+index);
 	}
@@ -90,12 +96,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Field getField(int index) throws IndexOutOfBoundsException {
-		if (!super.hasGenerated) {
-			reflect();
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index >= methodCount) {
 			throw new IndexOutOfBoundsException("There are only " + fieldCount + " Field References, index "
 					+ index + " is out of range.");
+		}
+		if (!super.hasGenerated) {
+			reflect();
 		}
 		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
