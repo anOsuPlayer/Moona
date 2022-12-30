@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 
 public final class Annotated extends Reflection<List<Annotation>> {
 
@@ -16,14 +17,29 @@ public final class Annotated extends Reflection<List<Annotation>> {
 	}
 	
 	public @Override void reflect() {
-		super.value = Arrays.asList(target.evaluate().getAnnotations());
+		try {
+			super.value = Arrays.asList(target.evaluate().getAnnotations());
+		}
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
 	}
 	
 	public @Override List<Annotation> evaluate() {
 		if (super.value == null) {
 			reflect();
 		}
-		return super.evaluate();
+
+		List<Annotation> annots = List.of();
+		
+		try {
+			annots = super.evaluate();
+		}
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
+		
+		return annots;
 	}
 	
 	public boolean isAnnotatedWith(Class<? extends Annotation> annot) {

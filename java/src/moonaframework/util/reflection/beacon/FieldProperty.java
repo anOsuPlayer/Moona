@@ -3,6 +3,7 @@ package moonaframework.util.reflection.beacon;
 import java.util.List;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Reflection;
@@ -23,15 +24,20 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 	}
 	
 	public @Override void reflect() {
-		java.lang.reflect.Field field = source.evaluate();
-		
-		strictContext.enable();
-		
-		super.value.add(new Modifier(source));
-		
-		strictContext.disable();
-		
-		super.reflect();
+		try {
+			java.lang.reflect.Field field = source.evaluate();
+			
+			strictContext.enable();
+			
+			super.value.add(new Modifier(source));
+			
+			strictContext.disable();
+			
+			super.reflect();
+		}
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
 	}
 	
 	public @Override List<Reflection<?>> evaluate() {

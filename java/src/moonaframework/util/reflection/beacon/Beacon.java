@@ -5,6 +5,7 @@ import java.util.List;
 
 import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
 
@@ -39,14 +40,19 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 	
 	protected boolean hasGenerated = false;
 	
-	public @Override void reflect() {
+	public @Override void reflect() throws UnresolvedReflectionException {
 		for (R refl : super.value) {
-			refl.evaluate();
+			try {
+				refl.evaluate();
+			}
+			catch (UnresolvedReflectionException ure) {
+				ure.printStackTrace();
+			}
 		}
 		hasGenerated = true;
 	}
 	
-	public @Override List<R> evaluate() {
+	public @Override List<R> evaluate() throws UnresolvedReflectionException {
 		if (!hasGenerated) {
 			reflect();
 		}

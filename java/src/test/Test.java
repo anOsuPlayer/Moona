@@ -39,6 +39,7 @@ import moonaframework.util.annotation.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.functional.Cast;
 import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;

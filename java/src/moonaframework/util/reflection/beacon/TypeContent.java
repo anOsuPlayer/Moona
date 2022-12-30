@@ -6,6 +6,7 @@ import java.util.List;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.ReflectionNotFoundException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Method;
@@ -147,28 +148,33 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public @Override void reflect() {
-		 Class<?> clazz = source.evaluate();
-		 
-		 strictContext.enable();
-		 
-		 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-			 super.value.add(new Method(m));
-			 methodCount++;
+		 try {
+			 Class<?> clazz = source.evaluate();
+			 
+			 strictContext.enable();
+			 
+			 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
+				 super.value.add(new Method(m));
+				 methodCount++;
+			 }
+			 
+			 for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
+				 super.value.add(new Constructor(con));
+				 constructorCount++;
+			 }
+			 
+			 for (java.lang.reflect.Field f : clazz.getDeclaredFields()) {
+				 super.value.add(new Field(f));
+				 fieldCount++;
+			 }
+			 
+			 strictContext.disable();
+			 
+			 super.reflect();
 		 }
-		 
-		 for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
-			 super.value.add(new Constructor(con));
-			 constructorCount++;
+		 catch (UnresolvedReflectionException ure) {
+			 ure.printStackTrace();
 		 }
-		 
-		 for (java.lang.reflect.Field f : clazz.getDeclaredFields()) {
-			 super.value.add(new Field(f));
-			 fieldCount++;
-		 }
-		 
-		 strictContext.disable();
-		 
-		 super.reflect();
 	}
 	
 	public @Override List<Reference<? extends AnnotatedElement>> evaluate() {

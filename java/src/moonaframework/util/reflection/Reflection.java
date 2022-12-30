@@ -4,6 +4,7 @@ import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.base.Setting;
+import moonaframework.util.exception.UnresolvedReflectionException;
 
 public abstract class Reflection<T> implements Serial {
 
@@ -26,9 +27,9 @@ public abstract class Reflection<T> implements Serial {
 	
 	public abstract Object getTarget();
 	
-	public abstract void reflect();
+	public abstract void reflect() throws UnresolvedReflectionException;
 	
-	public T evaluate() {
+	public T evaluate() throws UnresolvedReflectionException {
 		if (value == null) {
 			reflect();
 		}

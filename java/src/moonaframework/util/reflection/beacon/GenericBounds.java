@@ -3,6 +3,7 @@ package moonaframework.util.reflection.beacon;
 import java.lang.reflect.TypeVariable;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Generic;
 import moonaframework.util.reflection.Type;
 
@@ -22,18 +23,23 @@ public final class GenericBounds extends Beacon<Type> {
 	}
 	
 	public @Override void reflect() {
-		TypeVariable<?> generic = source.evaluate();
-		
-		strictContext.enable();
-		
-		java.lang.reflect.Type[] bounds = generic.getBounds();
-		for (int i = 0; i < bounds.length; i++) {
-			super.value.add(new Type((Class<?>) bounds[i]));
+		try {
+			TypeVariable<?> generic = source.evaluate();
+			
+			strictContext.enable();
+			
+			java.lang.reflect.Type[] bounds = generic.getBounds();
+			for (int i = 0; i < bounds.length; i++) {
+				super.value.add(new Type((Class<?>) bounds[i]));
+			}
+			
+			strictContext.disable();
+			
+			super.reflect();
 		}
-		
-		strictContext.disable();
-		
-		super.reflect();
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
 	}
 	
 	public GenericBounds(Generic source) throws NullArgumentException {

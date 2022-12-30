@@ -1,6 +1,7 @@
 package moonaframework.util.reflection.beacon;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Type;
 
 public final class SealedProfiler extends Beacon<Type> {
@@ -36,8 +37,13 @@ public final class SealedProfiler extends Beacon<Type> {
 			reflect();
 		}
 		for (Type t : super.value) {
-			if (t.evaluate().equals(clazz)) {
-				return true;
+			try {
+				if (t.evaluate().equals(clazz)) {
+					return true;
+				}
+			}
+			catch (UnresolvedReflectionException e) {
+				e.printStackTrace();
 			}
 		}
 		return false;
@@ -51,26 +57,36 @@ public final class SealedProfiler extends Beacon<Type> {
 	}
 	
 	public @Override void reflect() {
-		Class<?> clazz = source.evaluate();
-		
-		strictContext.enable();
-		
-		for (Class<?> allowed : clazz.getPermittedSubclasses()) {
-			super.value.add(new Type(allowed));
+		try {
+			Class<?> clazz = source.evaluate();
+			
+			strictContext.enable();
+			
+			for (Class<?> allowed : clazz.getPermittedSubclasses()) {
+				super.value.add(new Type(allowed));
+			}
+			
+			strictContext.disable();
+			
+			super.reflect();
 		}
-		
-		strictContext.disable();
-		
-		super.reflect();
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
 	}
 	
 	public SealedProfiler(Type source) throws IllegalArgumentException, NullArgumentException {
 		if (source == null) {
 			throw new NullArgumentException("SealedProfilers cannot be extracted from a null Type Reference.");
 		}
-		if (!source.evaluate().isSealed()) {
-			throw new IllegalArgumentException("SealedProfilers can only be built from Type References that"
-					+ " target sealed classes.");
+		try {
+			if (!source.evaluate().isSealed()) {
+				throw new IllegalArgumentException("SealedProfilers can only be built from Type References that"
+						+ " target sealed classes.");
+			}
+		}
+		catch (UnresolvedReflectionException e) {
+			e.printStackTrace();
 		}
 		this.source = source;
 	}

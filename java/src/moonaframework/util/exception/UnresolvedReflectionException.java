@@ -3,7 +3,7 @@ package moonaframework.util.exception;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 
-public class UnresolvedReflectionException extends RuntimeException implements Serial {
+public class UnresolvedReflectionException extends Exception implements Serial {
 
 	private static final long serialVersionUID = -4;
 

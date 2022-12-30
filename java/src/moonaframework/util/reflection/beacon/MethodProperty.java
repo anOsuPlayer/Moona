@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
@@ -56,20 +57,25 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 	}
 	
 	public @Override void reflect() {
-		java.lang.reflect.Method method = source.evaluate();
-		
-		strictContext.enable();
-		
-		super.value.add(new Modifier(source, method.getModifiers()));
-		
-		java.lang.reflect.Parameter[] params = method.getParameters();
-		for (int i = 0; i < params.length; i++) {
-			super.value.add(new Parameter(source, i, params[i]));
+		try {
+			java.lang.reflect.Method method = source.evaluate();
+			
+			strictContext.enable();
+			
+			super.value.add(new Modifier(source, method.getModifiers()));
+			
+			java.lang.reflect.Parameter[] params = method.getParameters();
+			for (int i = 0; i < params.length; i++) {
+				super.value.add(new Parameter(source, i, params[i]));
+			}
+			
+			strictContext.disable();
+			
+			super.reflect();
 		}
-		
-		strictContext.disable();
-		
-		super.reflect();
+		catch (UnresolvedReflectionException ure) {
+			ure.printStackTrace();
+		}
 	}
 	
 	public MethodProperty(Method source) throws NullArgumentException {
