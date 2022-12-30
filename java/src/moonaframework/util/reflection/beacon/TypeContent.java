@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.ReflectionNotFoundException;
 import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Method;
@@ -48,7 +49,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		}
 		return (Method) super.value.get(index);
 	}
-	public Method getMethod(String name) throws NoSuchMethodException, NullArgumentException {
+	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException {
 		if (name == null) {
 			throw new NullArgumentException("The method's name can't be null.");
 		}
@@ -62,7 +63,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 				return m;
 			}
 		}
-		throw new NoSuchMethodException("There is no method named " + name + " in this TypeContent.");
+		throw new ReflectionNotFoundException("There is no method named " + name + " in this TypeContent.");
 	}
 	
 	private int constructorCount = 0;
@@ -124,7 +125,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		}
 		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
-	public Field getField(String name) throws NoSuchFieldException, NullArgumentException {
+	public Field getField(String name) throws ReflectionNotFoundException, NullArgumentException {
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
@@ -138,7 +139,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 				return f;
 			}
 		}
-		throw new NoSuchFieldException("There is no field named " + name + " in this TypeContent.");
+		throw new ReflectionNotFoundException("There is no field named " + name + " in this TypeContent.");
 	}
 	
 	public int totalReflections() {
