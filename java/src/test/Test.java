@@ -52,7 +52,7 @@ import static java.lang.annotation.ElementType.*;
 @SuppressWarnings("unused")
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ CONSTRUCTOR, FIELD, PARAMETER })
+@Target({ CONSTRUCTOR, FIELD, PARAMETER, TYPE_USE })
 @interface Annot {
 	
 }
@@ -72,10 +72,19 @@ public class Test {
 	
 	public static void main(String[] args) throws Throwable {
 		Moona.autoReflections.enable();
+		Moona.loadReflections.disable();
 		
-		Type t = new Type(Test.class);
+		Type t = new @Annot Type(Test.class);
+		
+		System.out.println(t.getClass().getAnnotations());
 		
 		Moona.init();
+	
+		Benchmark.showTime(() -> {
+			Mirror.loadReflections();
+		});
+		
+		System.out.println(Mirror.totalReflections());
 	}
 	
 	public Test(@Annot int a) {

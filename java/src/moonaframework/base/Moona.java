@@ -21,6 +21,10 @@ public final class Moona {
 		return isOn;
 	}
 	
+	public static final Setting autoReflections = new Setting(false);
+	
+	public static final Setting loadReflections = new Setting(true);
+	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
@@ -34,14 +38,14 @@ public final class Moona {
 			}
 		}
 		
-		Mirror.loadReflections();
+		if (loadReflections.evaluate()) {
+			Mirror.loadReflections();
+		}
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
-	
-	public static final Setting autoReflections = new Setting(false);
 	
 	private static AtomicLong idCounter = new AtomicLong(0);
 	
