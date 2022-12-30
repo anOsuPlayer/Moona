@@ -48,6 +48,22 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		}
 		return (Method) super.value.get(index);
 	}
+	public Method getMethod(String name) throws NoSuchMethodException, NullArgumentException {
+		if (name == null) {
+			throw new NullArgumentException("The method's name can't be null.");
+		}
+		
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		for (int i = 0; i < methodCount; i++) {
+			Method m = getMethod(i);
+			if (m.getName().equals(name)) {
+				return m;
+			}
+		}
+		throw new NoSuchMethodException("There is no method named " + name + " in this TypeContent.");
+	}
 	
 	private int constructorCount = 0;
 	
@@ -107,6 +123,22 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			reflect();
 		}
 		return (Field) super.value.get(methodCount+constructorCount+index);
+	}
+	public Field getField(String name) throws NoSuchFieldException, NullArgumentException {
+		if (name == null) {
+			throw new NullArgumentException("The field's name can't be null.");
+		}
+		
+		if (!super.hasGenerated) {
+			reflect();
+		}
+		for (int i = 0; i < methodCount; i++) {
+			Field f = getField(i);
+			if (f.getName().equals(name)) {
+				return f;
+			}
+		}
+		throw new NoSuchFieldException("There is no field named " + name + " in this TypeContent.");
 	}
 	
 	public int totalReflections() {

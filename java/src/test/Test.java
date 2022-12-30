@@ -76,7 +76,9 @@ public class Test<T extends Serial> {
 		
 		Type t = new Type(Test.class);
 		
-		System.out.println(Test.class.getTypeParameters()[0].getAnnotatedBounds()[0].getAnnotations().length);
+		TypeContent tc = t.derive();
+		
+		tc.getMethod("a");
 		
 		Moona.init();
 		
