@@ -1,7 +1,6 @@
 package moonaframework.util.reflection.beacon;
 
-import java.util.List;
-
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Field;
@@ -16,35 +15,28 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 		return this.source;
 	}
 	
-	public Modifier getModifiers() {
+	public Modifier getModifiers() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Modifier) super.value.get(0);
 	}
 	
-	public @Override void reflect() {
-		try {
-			java.lang.reflect.Field field = source.evaluate();
-			
-			strictContext.enable();
-			
-			super.value.add(new Modifier(source));
-			
-			strictContext.disable();
-			
-			super.reflect();
-		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
-	}
-	
-	public @Override List<Reflection<?>> evaluate() {
-		if (!super.hasGenerated) {
-			reflect();
-		}
-		return super.value;
+	public @Override void reflect() throws UnresolvedReflectionException {
+		java.lang.reflect.Field field = source.evaluate();
+		
+		strictContext.enable();
+		
+		super.value.add(new Modifier(source));
+		
+		strictContext.disable();
+		
+		super.reflect();
 	}
 	
 	public FieldProperty(Field source) throws NullArgumentException {

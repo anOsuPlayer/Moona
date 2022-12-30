@@ -68,13 +68,13 @@ public final class Mirror {
 		reflections.remove(refl, refl.id());
 	}
 	
-	public static void loadReflections() {
+	public static void loadReflections() throws MoonaHandlingException {
 		reflections.forEachValue((refl) -> {
 			try {
 				refl.evaluate();
 			}
 			catch (UnresolvedReflectionException ure) {
-				ure.printStackTrace();
+				throw new MoonaHandlingException("Unable to process unresolved Reflections.", ure);
 			}
 		});
 		if (!queue.isEmpty()) {

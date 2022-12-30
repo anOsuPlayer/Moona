@@ -77,7 +77,7 @@ public class Test<T extends Serial> {
 	public static void main(String[] args) {
 		Moona.autoReflections.enable();
 		
-		Generic g = new Generic(Test.class, "T");
+		Type t = new Type(Test.class);
 		
 		Moona.init();
 	}

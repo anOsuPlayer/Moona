@@ -4,6 +4,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.ReflectionNotFoundException;
 import moonaframework.util.exception.UnresolvedReflectionException;
@@ -26,9 +27,14 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	public int methodCount() {
 		return this.methodCount;
 	}
-	public List<Method> getMethods() {
+	public List<Method> getMethods() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		final List<Method> list = new ArrayList<>();
 		for (int i = 0; i < methodCount; i++) {
@@ -37,7 +43,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return list;
 	}
 	
-	public Method getMethod(int index) throws IndexOutOfBoundsException {
+	public Method getMethod(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -46,17 +52,27 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 					+ index + " is out of range.");
 		}
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Method) super.value.get(index);
 	}
-	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException {
+	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
 		if (name == null) {
 			throw new NullArgumentException("The method's name can't be null.");
 		}
 		
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		for (int i = 0; i < methodCount; i++) {
 			Method m = getMethod(i);
@@ -72,9 +88,14 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	public int constructorCount() {
 		return this.fieldCount;
 	}
-	public List<Constructor> getConstructors() {
+	public List<Constructor> getConstructors() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		final List<Constructor> list = new ArrayList<>();
 		for (int i = methodCount; i < methodCount+constructorCount; i++) {
@@ -83,7 +104,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return list;
 	}
 	
-	public Constructor getConstructor(int index) throws IndexOutOfBoundsException {
+	public Constructor getConstructor(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -92,7 +113,12 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 					+ "index " + index + " is out of range.");
 		}
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Constructor) super.value.get(methodCount+index);
 	}
@@ -102,9 +128,14 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	public int fieldCount() {
 		return this.fieldCount;
 	}
-	public List<Field> getFields() {
+	public List<Field> getFields() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		final List<Field> list = new ArrayList<>();
 		for (int i = constructorCount+methodCount; i < totalReflections(); i++) {
@@ -113,7 +144,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return list;
 	}
 	
-	public Field getField(int index) throws IndexOutOfBoundsException {
+	public Field getField(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -122,17 +153,27 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 					+ index + " is out of range.");
 		}
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
-	public Field getField(String name) throws ReflectionNotFoundException, NullArgumentException {
+	public Field getField(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
 		
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		for (int i = 0; i < methodCount; i++) {
 			Field f = getField(i);
@@ -147,41 +188,29 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return methodCount + constructorCount + fieldCount;
 	}
 	
-	public @Override void reflect() {
-		 try {
-			 Class<?> clazz = source.evaluate();
-			 
-			 strictContext.enable();
-			 
-			 for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-				 super.value.add(new Method(m));
-				 methodCount++;
-			 }
-			 
-			 for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
-				 super.value.add(new Constructor(con));
-				 constructorCount++;
-			 }
-			 
-			 for (java.lang.reflect.Field f : clazz.getDeclaredFields()) {
-				 super.value.add(new Field(f));
-				 fieldCount++;
-			 }
-			 
-			 strictContext.disable();
-			 
-			 super.reflect();
-		 }
-		 catch (UnresolvedReflectionException ure) {
-			 ure.printStackTrace();
-		 }
-	}
-	
-	public @Override List<Reference<? extends AnnotatedElement>> evaluate() {
-		if (!super.hasGenerated) {
-			reflect();
+	public @Override void reflect() throws UnresolvedReflectionException {
+		Class<?> clazz = source.evaluate();
+		
+		strictContext.enable();
+		
+		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
+			super.value.add(new Method(m));
+			methodCount++;
 		}
-		return super.value;
+		
+		for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
+			super.value.add(new Constructor(con));
+			constructorCount++;
+		}
+		
+		for (java.lang.reflect.Field f : clazz.getDeclaredFields()) {
+			super.value.add(new Field(f));
+			fieldCount++;
+		}
+		
+		strictContext.disable();
+		
+		super.reflect();
 	}
 	
 	public TypeContent(Type source) throws NullArgumentException {

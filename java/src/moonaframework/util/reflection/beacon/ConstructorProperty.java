@@ -3,6 +3,7 @@ package moonaframework.util.reflection.beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Constructor;
@@ -18,16 +19,26 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 		return this.source;
 	}
 	
-	public Modifier getModifiers() {
+	public Modifier getModifiers() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Modifier) super.value.get(0);
 	}
 	
-	public List<Parameter> getParameters() {
+	public List<Parameter> getParameters() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		final List<Parameter> list = new ArrayList<>();
 		for (int i = 1; i < super.value.size(); i++) {
@@ -35,7 +46,7 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 		}
 		return list;
 	}
-	public Parameter getParameter(int index) throws IllegalArgumentException {
+	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -44,38 +55,31 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 					+ "References, index " + index + " is out of range.");
 		}
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return (Parameter) super.value.get(index+1);
 	}
 	
-	public @Override void reflect() {
-		try {
-			java.lang.reflect.Constructor<?> method = source.evaluate();
-			
-			strictContext.enable();
-			
-			super.value.add(new Modifier(source, method.getModifiers()));
-			
-			java.lang.reflect.Parameter[] params = method.getParameters();
-			for (int i = 0; i < params.length; i++) {
-				super.value.add(new Parameter(source, i, params[i]));
-			}
-			
-			strictContext.disable();
-			
-			super.reflect();
+	public @Override void reflect() throws UnresolvedReflectionException {
+		java.lang.reflect.Constructor<?> method = source.evaluate();
+		
+		strictContext.enable();
+		
+		super.value.add(new Modifier(source, method.getModifiers()));
+		
+		java.lang.reflect.Parameter[] params = method.getParameters();
+		for (int i = 0; i < params.length; i++) {
+			super.value.add(new Parameter(source, i, params[i]));
 		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
-	}
-	
-	public @Override List<Reflection<?>> evaluate() {
-		if (!super.hasGenerated) {
-			reflect();
-		}
-		return super.value;
+		
+		strictContext.disable();
+		
+		super.reflect();
 	}
 	
 	public ConstructorProperty(Constructor source) throws NullArgumentException {

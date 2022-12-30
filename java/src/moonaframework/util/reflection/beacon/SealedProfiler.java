@@ -1,5 +1,6 @@
 package moonaframework.util.reflection.beacon;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Type;
@@ -12,7 +13,7 @@ public final class SealedProfiler extends Beacon<Type> {
 		return this.source;
 	}
 	
-	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException {
+	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -21,20 +22,35 @@ public final class SealedProfiler extends Beacon<Type> {
 					+ "subclasses, index " + index + " is out of range.");
 		}
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return super.value.get(index);
 	}
 	
-	public boolean isPermitted(Type ref) {
+	public boolean isPermitted(Type ref) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return super.value.contains(ref);
 	}
-	public boolean isPermitted(Class<?> clazz) {
+	public boolean isPermitted(Class<?> clazz) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		for (Type t : super.value) {
 			try {
@@ -49,30 +65,30 @@ public final class SealedProfiler extends Beacon<Type> {
 		return false;
 	}
 	
-	public int permittedCount() {
+	public int permittedCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return super.value.size();
 	}
 	
-	public @Override void reflect() {
-		try {
-			Class<?> clazz = source.evaluate();
-			
-			strictContext.enable();
-			
-			for (Class<?> allowed : clazz.getPermittedSubclasses()) {
-				super.value.add(new Type(allowed));
-			}
-			
-			strictContext.disable();
-			
-			super.reflect();
+	public @Override void reflect() throws UnresolvedReflectionException {
+		Class<?> clazz = source.evaluate();
+		
+		strictContext.enable();
+		
+		for (Class<?> allowed : clazz.getPermittedSubclasses()) {
+			super.value.add(new Type(allowed));
 		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
+		
+		strictContext.disable();
+		
+		super.reflect();
 	}
 	
 	public SealedProfiler(Type source) throws IllegalArgumentException, NullArgumentException {

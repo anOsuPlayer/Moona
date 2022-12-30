@@ -2,6 +2,7 @@ package moonaframework.util.reflection.beacon;
 
 import java.lang.reflect.TypeVariable;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UnresolvedReflectionException;
 import moonaframework.util.reflection.Generic;
@@ -15,31 +16,31 @@ public final class GenericBounds extends Beacon<Type> {
 		return this.source;
 	}
 	
-	public int boundsCount() {
+	public int boundsCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+			}
 		}
 		return super.value.size();
 	}
 	
-	public @Override void reflect() {
-		try {
-			TypeVariable<?> generic = source.evaluate();
-			
-			strictContext.enable();
-			
-			java.lang.reflect.Type[] bounds = generic.getBounds();
-			for (int i = 0; i < bounds.length; i++) {
-				super.value.add(new Type((Class<?>) bounds[i]));
-			}
-			
-			strictContext.disable();
-			
-			super.reflect();
+	public @Override void reflect() throws UnresolvedReflectionException {
+		TypeVariable<?> generic = source.evaluate();
+		
+		strictContext.enable();
+		
+		java.lang.reflect.Type[] bounds = generic.getBounds();
+		for (int i = 0; i < bounds.length; i++) {
+			super.value.add(new Type((Class<?>) bounds[i]));
 		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
+		
+		strictContext.disable();
+		
+		super.reflect();
 	}
 	
 	public GenericBounds(Generic source) throws NullArgumentException {

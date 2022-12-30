@@ -42,12 +42,7 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 	
 	public @Override void reflect() throws UnresolvedReflectionException {
 		for (R refl : super.value) {
-			try {
-				refl.evaluate();
-			}
-			catch (UnresolvedReflectionException ure) {
-				ure.printStackTrace();
-			}
+			refl.evaluate();
 		}
 		hasGenerated = true;
 	}
