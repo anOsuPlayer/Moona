@@ -14,13 +14,6 @@ public final class SealedProfiler extends Beacon<Type> {
 	}
 	
 	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
-		if (index < 0) {
-			throw new IllegalArgumentException("Negative indexes are not allowed.");
-		}
-		if (index >= super.value.size()) {
-			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " permitted "
-					+ "subclasses, index " + index + " is out of range.");
-		}
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -29,6 +22,15 @@ public final class SealedProfiler extends Beacon<Type> {
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
+		
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
+		}
+		if (index >= super.value.size()) {
+			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " permitted "
+					+ "subclasses, index " + index + " is out of range.");
+		}
+		
 		return super.value.get(index);
 	}
 	
@@ -52,6 +54,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
+		
 		for (Type t : super.value) {
 			try {
 				if (t.evaluate().equals(clazz)) {
@@ -74,6 +77,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
+		
 		return super.value.size();
 	}
 	

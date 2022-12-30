@@ -44,6 +44,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Method getMethod(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UnresolvedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			}
+		}
+		
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
@@ -51,6 +60,10 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			throw new IndexOutOfBoundsException("There are only " + methodCount + " Method References, index "
 					+ index + " is out of range.");
 		}
+		
+		return (Method) super.value.get(index);
+	}
+	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -59,21 +72,11 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
-		return (Method) super.value.get(index);
-	}
-	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+		
 		if (name == null) {
 			throw new NullArgumentException("The method's name can't be null.");
 		}
 		
-		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
-			}
-		}
 		for (int i = 0; i < methodCount; i++) {
 			Method m = getMethod(i);
 			if (m.getName().equals(name)) {
@@ -105,13 +108,6 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Constructor getConstructor(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
-		if (index < 0) {
-			throw new IllegalArgumentException("Negative indexes are not allowed.");
-		}
-		if (index >= methodCount) {
-			throw new IndexOutOfBoundsException("There are only " + constructorCount + " Constructor References,"
-					+ "index " + index + " is out of range.");
-		}
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -120,6 +116,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
+		
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
+		}
+		if (index >= methodCount) {
+			throw new IndexOutOfBoundsException("There are only " + constructorCount + " Constructor References,"
+					+ "index " + index + " is out of range.");
+		}
+		
 		return (Constructor) super.value.get(methodCount+index);
 	}
 	
@@ -145,13 +150,6 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 	}
 	
 	public Field getField(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
-		if (index < 0) {
-			throw new IllegalArgumentException("Negative indexes are not allowed.");
-		}
-		if (index >= methodCount) {
-			throw new IndexOutOfBoundsException("There are only " + fieldCount + " Field References, index "
-					+ index + " is out of range.");
-		}
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -160,6 +158,15 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
+		
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
+		}
+		if (index >= methodCount) {
+			throw new IndexOutOfBoundsException("There are only " + fieldCount + " Field References, index "
+					+ index + " is out of range.");
+		}
+		
 		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
 	public Field getField(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
