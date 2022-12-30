@@ -21,7 +21,7 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return (Modifier) super.value.get(0);

@@ -26,7 +26,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return super.value.get(index);
@@ -38,7 +38,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return super.value.contains(ref);
@@ -49,7 +49,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		for (Type t : super.value) {
@@ -71,7 +71,7 @@ public final class SealedProfiler extends Beacon<Type> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return super.value.size();

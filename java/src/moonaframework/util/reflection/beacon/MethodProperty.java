@@ -25,7 +25,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return (Modifier) super.value.get(0);
@@ -37,7 +37,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		final List<Parameter> list = new ArrayList<>();
@@ -59,7 +59,7 @@ public class MethodProperty extends Beacon<Reflection<?>> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return (Parameter) super.value.get(index+1);

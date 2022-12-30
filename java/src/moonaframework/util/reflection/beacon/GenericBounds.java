@@ -22,7 +22,7 @@ public final class GenericBounds extends Beacon<Type> {
 				reflect();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.");
+				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
 			}
 		}
 		return super.value.size();
