@@ -42,11 +42,23 @@ public final class Generic extends Reference<TypeVariable<?>> {
 		throw new UnresolvedReflectionException("No Generic References could be generated from the given arguments.");
 	}
 	
+	private GenericBounds gb;
+	
+	public @Override GenericBounds derive() {
+		if (gb == null) {
+			gb = new GenericBounds(this);
+		}
+		return gb;
+	}
+	
 	public Generic(Reference<? extends GenericDeclaration> source, String name) throws NullArgumentException {
 		if (source == null || name == null) {
 			throw new NullArgumentException("Cannot generate a Generic Reference over a null Reference or"
 					+ " null name.");
 		}
 		this.source = source; this.name = name;
+	}
+	public Generic(Class<?> clazz, String name) throws NullArgumentException {
+		this (new Type(clazz), name);
 	}
 }
