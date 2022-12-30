@@ -2,7 +2,7 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.Member;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public final class Modifier extends Reflection<Integer> {
 

@@ -7,7 +7,7 @@ import java.util.List;
 import moonaframework.base.Moona;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public abstract class Series<T> implements Iterable<T>, Serial {
 	

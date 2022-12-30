@@ -1,4 +1,4 @@
-package moonaframework.util.reflection;
+package moonaframework.util.exception;
 
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;

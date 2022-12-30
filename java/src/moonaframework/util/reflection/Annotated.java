@@ -5,7 +5,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.List;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public final class Annotated extends Reflection<List<Annotation>> {
 

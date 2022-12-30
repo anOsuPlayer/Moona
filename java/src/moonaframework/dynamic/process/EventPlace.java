@@ -10,7 +10,7 @@ import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.event.ModalEvent;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.collection.IshMap;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public class EventPlace extends Task implements Serial {
 

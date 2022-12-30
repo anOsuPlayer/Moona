@@ -37,6 +37,7 @@ import moonaframework.util.Benchmark;
 import moonaframework.util.annotation.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.functional.Cast;
 import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
@@ -71,18 +72,18 @@ public class Test<T extends Serial> {
 		
 	}
 	
-	public static void main(String[] args) throws Throwable {
+	public static void main(String[] args) {
 		Moona.autoReflections.enable();
 		
 		Type t = new Type(Test.class);
 		
 		TypeContent tc = t.derive();
 		
-		tc.getMethod("a");
-		
 		Moona.init();
 		
-		
+		Benchmark.showTime(() -> {
+			new SealedProfiler(Reference.class);
+		});
 	}
 	
 	public Test(@Annot int a) {

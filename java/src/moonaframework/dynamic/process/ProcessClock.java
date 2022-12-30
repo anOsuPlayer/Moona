@@ -1,6 +1,6 @@
 package moonaframework.dynamic.process;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.relation.Attached;
 import moonaframework.util.time.Chrono;
 

@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import moonaframework.util.Reviterable;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

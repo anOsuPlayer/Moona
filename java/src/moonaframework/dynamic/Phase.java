@@ -6,7 +6,7 @@ import java.util.List;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.dynamic.process.Process;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public class Phase {
 

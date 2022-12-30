@@ -4,7 +4,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Method;

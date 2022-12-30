@@ -1,7 +1,9 @@
 package moonaframework.util.reflection;
 
 import java.lang.reflect.Executable;
-import moonaframework.util.exceptions.NullArgumentException;
+
+import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UnresolvedReflectionException;
 
 public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 

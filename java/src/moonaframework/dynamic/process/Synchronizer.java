@@ -3,7 +3,7 @@ package moonaframework.dynamic.process;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
 import moonaframework.util.Packable;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.time.Timer;
 
 public class Synchronizer extends Task implements Packable<Process> {

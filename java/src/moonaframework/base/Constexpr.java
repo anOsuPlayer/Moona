@@ -1,6 +1,6 @@
 package moonaframework.base;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.functional.Snippet;
 
 public final class Constexpr implements Serial {

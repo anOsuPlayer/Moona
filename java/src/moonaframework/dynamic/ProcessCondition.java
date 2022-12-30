@@ -1,7 +1,7 @@
 package moonaframework.dynamic;
 
 import moonaframework.dynamic.process.Process;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public enum ProcessCondition {
 	

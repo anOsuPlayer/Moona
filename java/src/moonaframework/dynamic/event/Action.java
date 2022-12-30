@@ -3,7 +3,7 @@ package moonaframework.dynamic.event;
 import moonaframework.base.Nature;
 import moonaframework.util.annotation.Functional;
 import moonaframework.util.condition.Conditional;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public @Functional abstract class Action extends AbstractEvent implements ModalEvent {
 

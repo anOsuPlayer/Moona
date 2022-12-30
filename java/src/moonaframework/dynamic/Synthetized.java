@@ -2,7 +2,7 @@ package moonaframework.dynamic;
 
 import moonaframework.dynamic.process.AbstractProcess;
 import moonaframework.util.Packable;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.functional.Snippet;
 
 public class Synthetized extends AbstractProcess implements Packable<Snippet> {

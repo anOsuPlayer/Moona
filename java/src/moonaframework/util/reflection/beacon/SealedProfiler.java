@@ -1,6 +1,6 @@
 package moonaframework.util.reflection.beacon;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Type;
 
 public final class SealedProfiler extends Beacon<Type> {

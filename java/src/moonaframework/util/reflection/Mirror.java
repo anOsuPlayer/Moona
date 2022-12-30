@@ -4,7 +4,7 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.util.collection.IshMap;
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 
 public final class Mirror {
 	

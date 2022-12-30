@@ -2,7 +2,7 @@ package moonaframework.util.reflection.beacon;
 
 import java.util.List;
 
-import moonaframework.util.exceptions.NullArgumentException;
+import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Reflection;
