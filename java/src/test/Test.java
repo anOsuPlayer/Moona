@@ -43,6 +43,7 @@ import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
 import moonaframework.util.reflection.beacon.MethodProperty;
+import moonaframework.util.reflection.beacon.SealedProfiler;
 import moonaframework.util.reflection.beacon.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
@@ -72,19 +73,14 @@ public class Test {
 	
 	public static void main(String[] args) throws Throwable {
 		Moona.autoReflections.enable();
-		Moona.loadReflections.disable();
 		
-		Type t = new @Annot Type(Test.class);
+		Type t = new Type(Test.class);
 		
-		System.out.println(t.getClass().getAnnotations());
+		SealedProfiler sp = new SealedProfiler(Reference.class);
 		
 		Moona.init();
-	
-		Benchmark.showTime(() -> {
-			Mirror.loadReflections();
-		});
 		
-		System.out.println(Mirror.totalReflections());
+		
 	}
 	
 	public Test(@Annot int a) {

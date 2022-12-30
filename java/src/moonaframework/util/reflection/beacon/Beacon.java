@@ -3,6 +3,7 @@ package moonaframework.util.reflection.beacon;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
@@ -22,7 +23,9 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 		}
 		
 		{
-			Mirror.add(this);
+			if (Moona.autoReflections.evaluate()) {
+				Mirror.add(this);
+			}
 		}
 	};
 	
