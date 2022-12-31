@@ -1,4 +1,4 @@
-package moonaframework.util.reflection.beacon;
+package moonaframework.util.reflection.flare;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
@@ -7,7 +7,7 @@ import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Reflection;
 
-public class FieldProperty extends Beacon<Reflection<?>> {
+public class FieldProperty extends Flare<Reflection<?>> {
 
 	private final Field source;
 	

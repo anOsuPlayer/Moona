@@ -1,11 +1,11 @@
-package moonaframework.util.reflection.beacon;
+package moonaframework.util.reflection.flare;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Type;
 
-public final class SealedProfiler extends Beacon<Type> {
+public final class SealedProfiler extends Flare<Type> {
 
 	private final Type source;
 	

@@ -2,7 +2,7 @@ package moonaframework.util.reflection;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.beacon.FieldProperty;
+import moonaframework.util.reflection.flare.FieldProperty;
 
 public final class Field extends Reference<java.lang.reflect.Field> {
 	

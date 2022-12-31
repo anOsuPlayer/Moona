@@ -1,7 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.reflection.beacon.TypeContent;
+import moonaframework.util.reflection.flare.TypeContent;
 
 public final class Type extends Reference<Class<?>> {
 	

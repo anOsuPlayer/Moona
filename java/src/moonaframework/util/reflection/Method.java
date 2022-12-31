@@ -5,7 +5,7 @@ import java.util.Arrays;
 import moonaframework.base.Moona;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.beacon.MethodProperty;
+import moonaframework.util.reflection.flare.MethodProperty;
 
 public final class Method extends Reference<java.lang.reflect.Method> {
 	

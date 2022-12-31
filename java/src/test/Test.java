@@ -45,9 +45,9 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
-import moonaframework.util.reflection.beacon.MethodProperty;
-import moonaframework.util.reflection.beacon.SealedProfiler;
-import moonaframework.util.reflection.beacon.TypeContent;
+import moonaframework.util.reflection.flare.MethodProperty;
+import moonaframework.util.reflection.flare.SealedProfiler;
+import moonaframework.util.reflection.flare.TypeContent;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 

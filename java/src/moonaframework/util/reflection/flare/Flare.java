@@ -1,4 +1,4 @@
-package moonaframework.util.reflection.beacon;
+package moonaframework.util.reflection.flare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
 
-public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>> {
+public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>> {
 
-	public static final Beacon<Reflection<?>> EMPTY_BEACON = new Beacon<>() {
+	public static final Flare<Reflection<?>> EMPTY_BEACON = new Flare<>() {
 		
 		public @Override String toString() {
 			return "Empty Beacon";
@@ -31,7 +31,7 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 	};
 	
 	public @Override final boolean equals(Object o) {
-		return (o instanceof Beacon<?> beacon) ?
+		return (o instanceof Flare<?> beacon) ?
 				this.getTarget().equals(beacon.getTarget())
 				: false;
 	}
@@ -54,7 +54,7 @@ public abstract class Beacon<R extends Reflection<?>> extends Reflection<List<R>
 		return super.value;
 	}
 	
-	protected Beacon() {
+	protected Flare() {
 		super(); super.value = new ArrayList<>();
 	}
 }

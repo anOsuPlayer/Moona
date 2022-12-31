@@ -1,4 +1,4 @@
-package moonaframework.util.reflection.beacon;
+package moonaframework.util.reflection.flare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.Reflection;
 
-public class ConstructorProperty extends Beacon<Reflection<?>> {
+public class ConstructorProperty extends Flare<Reflection<?>> {
 
 	private final Constructor source;
 	

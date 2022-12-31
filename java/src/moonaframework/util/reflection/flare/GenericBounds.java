@@ -1,4 +1,4 @@
-package moonaframework.util.reflection.beacon;
+package moonaframework.util.reflection.flare;
 
 import java.lang.reflect.TypeVariable;
 
@@ -8,7 +8,7 @@ import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Generic;
 import moonaframework.util.reflection.Type;
 
-public final class GenericBounds extends Beacon<Type> {
+public final class GenericBounds extends Flare<Type> {
 
 	private final Generic source;
 	
