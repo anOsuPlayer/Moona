@@ -36,6 +36,16 @@ public abstract class Reflection<T> implements Serial {
 		return value;
 	}
 	
+	public final boolean isUnresolved() {
+		try {
+			evaluate();
+			return true;
+		}
+		catch (UnresolvedReflectionException ure) {
+			return false;
+		}
+	}
+	
 	protected static final Setting strictContext = new Setting(false);
 	
 	protected Reflection() {
