@@ -62,7 +62,7 @@ public final class Generic extends Reference<TypeVariable<?>> {
 		this (new Type(clazz), name);
 	}
 	
-	public Generic(Reference<? extends GenericDeclaration> source, String name, TypeVariable<?> typevar) throws IllegalArgumentException {
+	public Generic(Reference<? extends GenericDeclaration> source, String name, TypeVariable<?> typevar) throws NullArgumentException {
 		this(source, name);
 		if (typevar == null) {
 			throw new NullArgumentException("A null java.lang.reflect.TypeVariable<?> cannot be accepted.");

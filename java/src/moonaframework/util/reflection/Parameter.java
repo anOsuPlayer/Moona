@@ -2,6 +2,7 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.Executable;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 
@@ -9,20 +10,28 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 
 	private final Reference<? extends Executable> source;
 	
-	public final Reference<? extends Executable> getSource() {
+	public Reference<? extends Executable> getSource() {
 		return this.source;
 	}
-	public final Class<?> getType() {
+	public Class<?> getType() {
 		return super.value.getType();
 	}
 	
 	private final int index;
 	
-	public final int getIndex() {
+	public int getIndex() {
 		return this.index;
 	}
 	
-	public final boolean isVarArgs() {
+	public boolean isVarArgs() throws MoonaHandlingException {
+		if (super.value == null) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
 		return super.value.isVarArgs();
 	}
 	
@@ -36,7 +45,7 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 		return (source == null) ? "Non-generated Reflection" : "Parameter n." + index + " of " + source;
 	}
 	
-	public @Override final void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Parameter[] params = source.evaluate().getParameters();
 		if (index < params.length) {
 			super.value = params[index];
@@ -56,7 +65,7 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 		this.source = source; this.index = index;
 	}
 	
-	public Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws IllegalArgumentException {
+	public Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
 		this(source, index);
 		if (param == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");

@@ -60,13 +60,6 @@ public final class Annotated extends Reflection<List<Annotation>> {
 		super.value = Arrays.asList(target.evaluate().getAnnotations());
 	}
 	
-	public @Override List<Annotation> evaluate() throws UndefinedReflectionException {
-		if (super.value == null) {
-			reflect();
-		}
-		return super.evaluate();
-	}
-	
 	public Annotated(Reference<? extends AnnotatedElement> ref) throws NullArgumentException {
 		if (ref == null) {
 			throw new NullArgumentException("Cannot build an Annotated Reflection over a null Reference.");

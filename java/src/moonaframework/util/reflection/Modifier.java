@@ -2,6 +2,7 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.Member;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 
@@ -47,105 +48,138 @@ public final class Modifier extends Reflection<Integer> {
 		return mod;
 	}
 	
-	public boolean isPublic() {
+	public boolean isPublic() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.PUBLIC) != 0;
 	}
-	public boolean isProtected() {
+	public boolean isProtected() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.PROTECTED) != 0;
 	}
-	public boolean isPackage() {
+	public boolean isPackage() throws MoonaHandlingException {
 		return !isPublic() && !isProtected() && !isPrivate();
 	}
-	public boolean isPrivate() {
+	public boolean isPrivate() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.PRIVATE) != 0;
 	}
 	
-	public boolean isStatic() {
+	public boolean isStatic() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.STATIC) != 0;
 	}
-	public boolean isFinal() {
+	public boolean isFinal() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.FINAL) != 0;
 	}
-	public boolean isConstant() {
+	public boolean isConstant() throws MoonaHandlingException {
 		return isStatic() && isFinal();
 	}
-	public boolean isAbstract() {
+	public boolean isAbstract() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.ABSTRACT) != 0;
 	}
 	
-	public boolean isTransient() {
+	public boolean isTransient() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.TRANSIENT) != 0;
 	}
-	public boolean isVolatile() {
+	public boolean isVolatile() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.VOLATILE) != 0;
 	}
-	public boolean isSynchronized() {
+	public boolean isSynchronized() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.SYNCHRONIZED) != 0;
 	}
-	public boolean isNative() {
+	public boolean isNative() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.NATIVE) != 0;
 	}
-	public boolean isStrict() {
+	public boolean isStrict() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return (super.value & java.lang.reflect.Modifier.STRICT) != 0;
 	}
 	
-	public @Override void reflect() {
-		try {
-			super.value = target.evaluate().getModifiers();
-		}
-		catch (UndefinedReflectionException ure) {
-			ure.printStackTrace();
-		}
-	}
-	
-	public @Override Integer evaluate() {
-		if (super.value == null) {
-			reflect();
-		}
-		
-		Integer mod = -1;
-		
-		try {
-			mod = super.evaluate();
-		}
-		catch (UndefinedReflectionException ure) {
-			ure.printStackTrace();
-		}
-		
-		return mod;
+	public @Override void reflect() throws UndefinedReflectionException {
+		super.value = target.evaluate().getModifiers();
 	}
 	
 	public Modifier(Reference<? extends Member> ref) throws NullArgumentException {
