@@ -30,13 +30,13 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		for (java.lang.reflect.Field m : clazz.getDeclaredFields()) {
-			if (m.getName().equals(name)) {
-				super.value = m;
-				return;
-			}
+		try {
+			super.value = clazz.getDeclaredField(name);
 		}
-		throw new UndefinedReflectionException("No Field References could be generated from the given arguments.");
+		catch (NoSuchFieldException nsme) {
+			throw new UndefinedReflectionException("No Method References could be generated from the given"
+					+ " arguments.", nsme);
+		}
 	}
 	
 	private FieldProperty fp;

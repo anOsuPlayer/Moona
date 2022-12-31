@@ -17,17 +17,6 @@ public final class Annotated extends Reflection<List<Annotation>> {
 		return this.target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
-		super.value = Arrays.asList(target.evaluate().getAnnotations());
-	}
-	
-	public @Override List<Annotation> evaluate() throws UndefinedReflectionException {
-		if (super.value == null) {
-			reflect();
-		}
-		return super.evaluate();
-	}
-	
 	public boolean isAnnotatedWith(Class<? extends Annotation> annot) throws MoonaHandlingException {
 		if (super.value == null) {
 			try {
@@ -54,6 +43,28 @@ public final class Annotated extends Reflection<List<Annotation>> {
 			}
 		}
 		return super.value.size();
+	}
+	
+	public @Override String toString() {
+		return (target == null) ? "Non-generated Reflection" : "Annotated of " + target + ", "
+				+ ((super.value.size() == 0) ? "no Annotations" : "Annotations: " + super.value.toString());
+	}
+	
+	public @Override boolean equals(Object o) {
+		return (o instanceof Annotated ann) ?
+				this.getTarget().equals(ann.getTarget())
+				: false;
+	}
+	
+	public @Override void reflect() throws UndefinedReflectionException {
+		super.value = Arrays.asList(target.evaluate().getAnnotations());
+	}
+	
+	public @Override List<Annotation> evaluate() throws UndefinedReflectionException {
+		if (super.value == null) {
+			reflect();
+		}
+		return super.evaluate();
 	}
 	
 	public Annotated(Reference<? extends AnnotatedElement> ref) throws NullArgumentException {

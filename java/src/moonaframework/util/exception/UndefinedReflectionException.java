@@ -14,9 +14,14 @@ public class UndefinedReflectionException extends Exception implements Serial {
 		return Nature.EXCEPTION;
 	}
 
+	public UndefinedReflectionException(String message, Throwable cause) {
+		super(message, cause);
+	}
+	
 	public UndefinedReflectionException(String message) {
 		super(message);
 	}
+	
 	public UndefinedReflectionException() {
 		super("The given arguments could not generate any Reflection.");
 	}

@@ -27,18 +27,18 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	}
 	
 	public @Override String toString() {
-		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + ","
+		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + ", "
 				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
-			if ((args.equals(Mirror.NO_ARGS)) ? con.getParameterTypes().length == 0 : Arrays.equals(con.getParameterTypes(), args)) {
-				super.value = con;
-				return;
-			}
+		try {
+			super.value = clazz.getDeclaredConstructor(args);
 		}
-		throw new UndefinedReflectionException("No Constructor References could be generated from the given arguments.");
+		catch (NoSuchMethodException nsme) {
+			throw new UndefinedReflectionException("No Method References could be generated from the given"
+					+ " arguments.", nsme);
+		}
 	}
 	
 	private ConstructorProperty cp;

@@ -36,18 +36,18 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Method " + name + " in class "
-				+ clazz.getSimpleName() + ","
+				+ clazz.getSimpleName() + ", "
 				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
-			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(m.getParameterTypes(), args)) {
-				super.value = m;
-				return;
-			}
+		try {
+			super.value = clazz.getDeclaredMethod(name, args);
 		}
-		throw new UndefinedReflectionException("No Method References could be generated from the given arguments.");
+		catch (NoSuchMethodException nsme) {
+			throw new UndefinedReflectionException("No Method References could be generated from the given"
+					+ " arguments.", nsme);
+		}
 	}
 	
 	private MethodProperty mp;
