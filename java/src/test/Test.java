@@ -77,11 +77,7 @@ public class Test<T extends Serial> {
 	public static void main(String[] args) {
 		Moona.autoReflections.enable();
 		
-		Method m = new Method(Test.class, "b");
-		
-		MethodProperty mp = m.derive();
-		
-		Parameter p = mp.getParameter(0);
+		Method m = new Method(Test.class, "a");
 		
 		Moona.init();
 	}

@@ -74,7 +74,7 @@ public final class Mirror {
 				refl.evaluate();
 			}
 			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to process unresolved Reflections.", ure);
+				throw new MoonaHandlingException("Unresolved Reflections detected.", ure);
 			}
 		});
 		if (!queue.isEmpty()) {

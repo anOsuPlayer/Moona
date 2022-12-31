@@ -11,8 +11,8 @@ public class MoonaHandlingException extends RuntimeException implements Serial {
 		return Nature.EXCEPTION;
 	}
 	
-	public MoonaHandlingException(String message, Throwable trace) {
-		super(message, trace);
+	public MoonaHandlingException(String message, Throwable cause) {
+		super(message, cause);
 		Moona.isOn = false;
 	}
 	
