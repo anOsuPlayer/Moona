@@ -67,6 +67,10 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
+	public @Override String toString() {
+		return (source == null) ? "Non-generated Flare" : "ConstructorProperty of " + source;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Constructor<?> method = source.evaluate();
 		

@@ -195,6 +195,10 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return methodCount + constructorCount + fieldCount;
 	}
 	
+	public @Override String toString() {
+		return (source == null) ? "Non-generated Flare" : "TypeContent of " + source;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		Class<?> clazz = source.evaluate();
 		

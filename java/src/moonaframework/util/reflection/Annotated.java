@@ -45,7 +45,15 @@ public final class Annotated extends Reflection<List<Annotation>> {
 		return super.value.size();
 	}
 	
-	public @Override String toString() {
+	public @Override String toString() throws MoonaHandlingException {
+		if (super.value == null) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
 		return (target == null) ? "Non-generated Reflection" : "Annotated of " + target + ", "
 				+ ((super.value.size() == 0) ? "no Annotations" : "Annotations: " + super.value.toString());
 	}

@@ -66,7 +66,7 @@ public class Test<T extends Serial> {
 	static Action action = new Action(10) {
 		public @Override void trigger() {
 			System.out.println("AAAAAAAaa");
-			Benchmark.sleep(1000);
+			Benchmark.sleep(100);
 		}
 	};
 	
@@ -76,6 +76,8 @@ public class Test<T extends Serial> {
 	
 	public static void main(String[] args) {
 		Moona.autoReflections.enable();
+		
+		Type t = new Type(Test.class);
 		
 		Moona.init();
 	}

@@ -67,6 +67,10 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
+	public @Override String toString() {
+		return (source == null) ? "Non-generated Flare" : "MethodProperty of " + source;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Method method = source.evaluate();
 		

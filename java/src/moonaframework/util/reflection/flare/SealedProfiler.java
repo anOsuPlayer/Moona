@@ -77,8 +77,20 @@ public final class SealedProfiler extends Flare<Type> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
-		
 		return super.value.size();
+	}
+	
+	public @Override String toString() throws MoonaHandlingException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		return (source == null) ? "Non-generated Flare" : "SealedProfiler of " + source + ", "
+				+ "permitted subclasses : " + super.value.toString();
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

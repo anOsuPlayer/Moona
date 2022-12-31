@@ -20,34 +20,6 @@ public class Modifier extends Reflection<Integer> {
 				: false;
 	}
 	
-	public @Override String toString() {
-		if (target == null) {
-			return "Non-generated Reflection.";
-		}
-		
-		String mod = "";
-		mod += isPublic() ? "public" : "";
-		mod += isProtected() ? "protected" : "";
-		mod += isPackage() ? "package" : "";
-		mod += isPrivate() ? "private" : "";
-		
-		mod += isSynchronized() ? " synchronized" : "";
-		
-		mod += isStatic() ? " static" : "";
-		
-		mod += isAbstract() ? " abstract" : "";
-		mod += isFinal() ? " final" : "";
-		
-		mod += isTransient() ? " transient" : "";
-		mod += isVolatile() ? " volatile" : "";
-		
-		mod += isStrict() ? " strictfp" : "";
-		
-		mod += isNative() ? " native" : "";
-		
-		return mod;
-	}
-	
 	public boolean isPublic() throws MoonaHandlingException {
 		if (super.value == null) {
 			try {
@@ -176,6 +148,34 @@ public class Modifier extends Reflection<Integer> {
 			}
 		}
 		return (super.value & java.lang.reflect.Modifier.STRICT) != 0;
+	}
+	
+	public @Override String toString() {
+		if (target == null) {
+			return "Non-generated Reflection.";
+		}
+		
+		String mod = "";
+		mod += isPublic() ? "public" : "";
+		mod += isProtected() ? "protected" : "";
+		mod += isPackage() ? "package" : "";
+		mod += isPrivate() ? "private" : "";
+		
+		mod += isSynchronized() ? " synchronized" : "";
+		
+		mod += isStatic() ? " static" : "";
+		
+		mod += isAbstract() ? " abstract" : "";
+		mod += isFinal() ? " final" : "";
+		
+		mod += isTransient() ? " transient" : "";
+		mod += isVolatile() ? " volatile" : "";
+		
+		mod += isStrict() ? " strictfp" : "";
+		
+		mod += isNative() ? " native" : "";
+		
+		return mod;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

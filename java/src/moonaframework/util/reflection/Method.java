@@ -37,7 +37,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Method " + name + " in class "
 				+ clazz.getSimpleName() + ", "
-				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
+				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : "parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

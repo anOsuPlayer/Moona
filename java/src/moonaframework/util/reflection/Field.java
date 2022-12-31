@@ -33,9 +33,9 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 		try {
 			super.value = clazz.getDeclaredField(name);
 		}
-		catch (NoSuchFieldException nsme) {
+		catch (NoSuchFieldException nsfe) {
 			throw new UndefinedReflectionException("No Method References could be generated from the given"
-					+ " arguments.", nsme);
+					+ " arguments.", nsfe);
 		}
 	}
 	

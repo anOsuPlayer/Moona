@@ -28,7 +28,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	public @Override String toString() {
 		return (clazz == null) ? "Non-generated Reflection" : "Constructor of class " + clazz.getSimpleName() + ", "
-				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
+				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : "parameters: " + Arrays.toString(args));
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

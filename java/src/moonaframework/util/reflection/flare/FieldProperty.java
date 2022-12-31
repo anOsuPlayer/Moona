@@ -27,6 +27,10 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (Modifier) super.value.get(0);
 	}
 	
+	public @Override String toString() {
+		return (source == null) ? "Non-generated Flare" : "FieldProperty of " + source;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Field field = source.evaluate();
 		

@@ -28,6 +28,19 @@ public final class GenericBounds extends Flare<Type> {
 		return super.value.size();
 	}
 	
+	public @Override String toString() {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		return (source == null) ? "Non-generated Flare" : "GenericBounds of " + source + ", "
+				+ ((super.value.size() == 0) ? "no bounds" : "bounds : " + super.value.toString());
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		TypeVariable<?> generic = source.evaluate();
 		

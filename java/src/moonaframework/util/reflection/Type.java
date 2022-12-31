@@ -14,7 +14,7 @@ public final class Type extends Reference<Class<?>> {
 	}
 	
 	public @Override String toString() {
-		return (clazz == null) ? "Non-generated Reflection" : clazz.getName();
+		return (clazz == null) ? "Non-generated Reflection" : "Type " + clazz.getName();
 	}
 	
 	public @Override void reflect() {
