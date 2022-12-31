@@ -2,7 +2,7 @@ package moonaframework.util.reflection;
 
 import moonaframework.util.exception.NullArgumentException;
 
-public final class PureType extends Reflection<java.lang.reflect.Type> {
+public final class RawType extends Reflection<java.lang.reflect.Type> {
 
 	private final java.lang.reflect.Type target;
 	
@@ -11,7 +11,7 @@ public final class PureType extends Reflection<java.lang.reflect.Type> {
 	}
 	
 	public @Override boolean equals(Object o) {
-		return (o instanceof PureType pt) ?
+		return (o instanceof RawType pt) ?
 				this.target.equals(pt.target)
 				: false;
 	}
@@ -24,7 +24,7 @@ public final class PureType extends Reflection<java.lang.reflect.Type> {
 		super.value = this.target;
 	}
 	
-	public PureType(java.lang.reflect.Type target) throws NullArgumentException {
+	public RawType(java.lang.reflect.Type target) throws NullArgumentException {
 		if (target == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Type cannot be accepted.");
 		}

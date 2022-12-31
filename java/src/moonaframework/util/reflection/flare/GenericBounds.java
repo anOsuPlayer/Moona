@@ -7,9 +7,9 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Generic;
-import moonaframework.util.reflection.PureType;
+import moonaframework.util.reflection.RawType;
 
-public final class GenericBounds extends Flare<PureType> {
+public final class GenericBounds extends Flare<RawType> {
 
 	private final Generic source;
 	
@@ -17,7 +17,7 @@ public final class GenericBounds extends Flare<PureType> {
 		return this.source;
 	}
 	
-	public List<PureType> getBounds() throws MoonaHandlingException {
+	public List<RawType> getBounds() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -29,7 +29,7 @@ public final class GenericBounds extends Flare<PureType> {
 
 		return super.value;
 	}
-	public PureType getBound(int index) throws IllegalArgumentException {
+	public RawType getBound(int index) throws IllegalArgumentException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -82,7 +82,7 @@ public final class GenericBounds extends Flare<PureType> {
 		
 		java.lang.reflect.Type[] bounds = generic.getBounds();
 		for (int i = 0; i < bounds.length; i++) {
-			super.value.add(new PureType(bounds[i]));
+			super.value.add(new RawType(bounds[i]));
 		}
 		
 		strictContext.disable();
