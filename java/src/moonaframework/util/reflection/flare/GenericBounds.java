@@ -71,8 +71,16 @@ public final class GenericBounds extends Flare<RawType> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
+		String bounds = "";
+		for (RawType rt : super.value) {
+			bounds += rt.toString().substring(rt.toString().lastIndexOf('.')+1) + ", ";
+		}
+		
+		bounds = (bounds.length() != 0) ? bounds.substring(0, bounds.length()-2) : bounds;
+		
 		return (source == null) ? "Non-generated Flare" : "GenericBounds of " + source + ", "
-				+ ((super.value.size() == 0) ? "no bounds" : "bounds : " + super.value.toString());
+				+ ((super.value.size() == 0) ? "no bounds" : "bounds : " + bounds);
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

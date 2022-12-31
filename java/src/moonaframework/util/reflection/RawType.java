@@ -17,7 +17,7 @@ public final class RawType extends Reflection<java.lang.reflect.Type> {
 	}
 	
 	public @Override String toString() {
-		return (target == null) ? "Non-generated Reflection" : "PureType " + target.getTypeName();
+		return (target == null) ? "Non-generated Reflection" : "RawType " + target.getTypeName();
 	}
 	
 	public @Override void reflect() {
