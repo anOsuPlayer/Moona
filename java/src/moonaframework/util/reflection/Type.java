@@ -21,6 +21,10 @@ public final class Type extends Reference<Class<?>> {
 		super.value = this.clazz;
 	}
 	
+	public @Override Class<?> evaluate() {
+		return this.clazz;
+	}
+	
 	private TypeContent tc;
 	
 	public @Override TypeContent derive() {

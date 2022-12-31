@@ -1,6 +1,5 @@
 package test;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -47,8 +46,9 @@ import moonaframework.util.functional.Mold;
 import moonaframework.util.functional.Property;
 import moonaframework.util.functional.Snippet;
 import moonaframework.util.reflection.*;
+import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.MethodProperty;
-import moonaframework.util.reflection.flare.SealedProfiler;
+import moonaframework.util.reflection.flare.SealedProfile;
 import moonaframework.util.reflection.flare.TypeContent;
 import moonaframework.util.relation.Attached;
 import moonaframework.util.relation.Delegate;
@@ -82,11 +82,11 @@ public class Test<T extends @Annot(hello = 0) Serial> {
 		
 		Type t = new Type(Test.class);
 		
-		Annotated ann = new Annotated(t.derive().getGeneric(0).derive().getBound(0));
+		Annotated annot = new Annotated(t.derive().getGeneric(0).derive().getBound(0));
 		
 		Moona.init();
 		
-		System.out.println(ann);
+		System.out.println(annot);
 	}
 	
 	public Test() {

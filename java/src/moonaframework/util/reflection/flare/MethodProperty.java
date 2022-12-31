@@ -40,10 +40,12 @@ public class MethodProperty extends Flare<Reflection<?>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Parameter> list = new ArrayList<>();
 		for (int i = 1; i < super.value.size(); i++) {
 			list.add((Parameter) super.value.get(i));
 		}
+		
 		return list;
 	}
 	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {

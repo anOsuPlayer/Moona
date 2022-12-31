@@ -20,6 +20,10 @@ public final class RawType extends Reference<java.lang.reflect.AnnotatedType> {
 		super.value = this.target;
 	}
 	
+	public @Override java.lang.reflect.AnnotatedType evaluate() {
+		return this.target;
+	}
+	
 	public RawType(java.lang.reflect.AnnotatedType target) throws NullArgumentException {
 		if (target == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Type cannot be accepted.");

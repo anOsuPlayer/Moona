@@ -59,6 +59,7 @@ public final class GenericBounds extends Flare<RawType> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		return super.value.size();
 	}
 	
