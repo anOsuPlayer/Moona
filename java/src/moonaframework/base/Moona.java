@@ -23,7 +23,7 @@ public final class Moona {
 	
 	public static final Setting autoReflections = new Setting(false);
 	
-	public static final Setting initializeReflections = new Setting(true);
+	public static final Setting loadReflections = new Setting(true);
 	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
@@ -38,7 +38,7 @@ public final class Moona {
 			}
 		}
 		
-		if (initializeReflections.evaluate()) {
+		if (loadReflections.evaluate()) {
 			Mirror.loadReflections();
 		}
 	}

@@ -17,7 +17,7 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	public @Override abstract void reflect() throws UndefinedReflectionException;
 	
 	public @Deadlined Flare<?> derive() {
-		return Flare.EMPTY_BEACON;
+		return Flare.EMPTY_FLARE;
 	}
 	
 	protected Reference() {

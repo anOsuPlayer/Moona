@@ -72,11 +72,11 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		
 		strictContext.enable();
 		
-		super.value.add(new Modifier(source, method.getModifiers()));
+		super.value.add((Modifier) new Modifier_(source, method.getModifiers()));
 		
 		java.lang.reflect.Parameter[] params = method.getParameters();
 		for (int i = 0; i < params.length; i++) {
-			super.value.add(new Parameter(source, i, params[i]));
+			super.value.add((Parameter) new Parameter_(source, i, params[i]));
 		}
 		
 		strictContext.disable();

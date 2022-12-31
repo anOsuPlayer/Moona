@@ -6,7 +6,7 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 
-public final class Parameter extends Reference<java.lang.reflect.Parameter> {
+public non-sealed class Parameter extends Reference<java.lang.reflect.Parameter> {
 
 	private final Reference<? extends Executable> source;
 	
@@ -65,7 +65,7 @@ public final class Parameter extends Reference<java.lang.reflect.Parameter> {
 		this.source = source; this.index = index;
 	}
 	
-	public Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
+	protected Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
 		this(source, index);
 		if (param == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");

@@ -6,7 +6,7 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 
-public final class Modifier extends Reflection<Integer> {
+public class Modifier extends Reflection<Integer> {
 
 	private final Reference<? extends Member> target;
 	
@@ -189,7 +189,7 @@ public final class Modifier extends Reflection<Integer> {
 		this.target = ref;
 	}
 	
-	public Modifier(Reference<? extends Member> source, int modifiers) throws IllegalArgumentException {
+	protected Modifier(Reference<? extends Member> source, int modifiers) throws NullArgumentException {
 		this(source);
 		if (modifiers < 0) {
 			throw new NullArgumentException("The value which states the modifiers cannot be less than zero.");

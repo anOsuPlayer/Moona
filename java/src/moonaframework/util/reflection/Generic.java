@@ -7,7 +7,7 @@ import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.GenericBounds;
 
-public final class Generic extends Reference<TypeVariable<?>> {
+public non-sealed class Generic extends Reference<TypeVariable<?>> {
 
 	private final Reference<? extends GenericDeclaration> source;
 	
@@ -62,7 +62,7 @@ public final class Generic extends Reference<TypeVariable<?>> {
 		this (new Type(clazz), name);
 	}
 	
-	public Generic(Reference<? extends GenericDeclaration> source, String name, TypeVariable<?> typevar) throws NullArgumentException {
+	protected Generic(Reference<? extends GenericDeclaration> source, String name, TypeVariable<?> typevar) throws NullArgumentException {
 		this(source, name);
 		if (typevar == null) {
 			throw new NullArgumentException("A null java.lang.reflect.TypeVariable<?> cannot be accepted.");
