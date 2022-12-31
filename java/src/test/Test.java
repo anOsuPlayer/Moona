@@ -80,9 +80,11 @@ public class Test<T extends Serial> {
 		Type t = new Type(Test.class);
 		
 		Moona.init();
+		
+		System.out.println(t.derive());
 	}
 	
-	public Test(@Annot int a) {
+	public Test() {
 		
 	}
 }

@@ -25,8 +25,7 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 	}
 	
 	public @Override String toString() {
-		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in class "
-				+ clazz.getSimpleName();
+		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in class " + clazz.getName();
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

@@ -35,9 +35,14 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	}
 	
 	public @Override String toString() {
-		return (name == null) ? "Non-generated Reflection" : "Method " + name + " in class "
-				+ clazz.getSimpleName() + ", "
-				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : "parameters: " + Arrays.toString(args));
+		String params = "";
+		for (Class<?> param : args) {
+			params += param.getSimpleName() + ", ";
+		}
+		params = (params.length() != 0) ? params.substring(0, params.length()-2) : params;
+		
+		return (name == null) ? "Non-generated Reflection" : "Method " + name + "(" + params
+				+ ")" + " in class " + clazz.getName();
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
