@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import moonaframework.*;
 import moonaframework.base.Constexpr;
 import moonaframework.base.Moona;
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Natural;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
@@ -39,6 +40,7 @@ import moonaframework.util.annotation.*;
 import moonaframework.util.collection.*;
 import moonaframework.util.condition.Condition;
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.ReflectionNotFoundException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.functional.Cast;
 import moonaframework.util.functional.Mold;
@@ -48,6 +50,7 @@ import moonaframework.util.reflection.*;
 import moonaframework.util.reflection.flare.MethodProperty;
 import moonaframework.util.reflection.flare.SealedProfiler;
 import moonaframework.util.reflection.flare.TypeContent;
+import moonaframework.util.relation.Attached;
 import moonaframework.util.relation.Delegate;
 import moonaframework.util.time.*;
 
@@ -61,7 +64,7 @@ import static java.lang.annotation.ElementType.*;
 	
 }
 
-public class Test<T extends Serial> {
+public class Test<T extends Serial & Attached<T>> {
 	
 	static Action action = new Action(10) {
 		public @Override void trigger() {
@@ -70,18 +73,18 @@ public class Test<T extends Serial> {
 		}
 	};
 	
-	public @Timeless void a(@Annot int a) {
+	public @Timeless void a(T a) {
 		
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Throwable {
 		Moona.autoReflections.enable();
 		
 		Type t = new Type(Test.class);
 		
 		Moona.init();
 		
-		System.out.println(t.derive());
+		System.out.println(t.derive().getGeneric(0).derive());
 	}
 	
 	public Test() {

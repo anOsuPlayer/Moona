@@ -155,7 +155,7 @@ public class Modifier extends Reflection<Integer> {
 			return "Non-generated Reflection.";
 		}
 		
-		String mod = "";
+		String mod = "Modifier of " + target + " : ";
 		mod += isPublic() ? "public" : "";
 		mod += isProtected() ? "protected" : "";
 		mod += isPackage() ? "package" : "";

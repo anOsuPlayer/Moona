@@ -68,18 +68,6 @@ public final class SealedProfiler extends Flare<Type> {
 		return false;
 	}
 	
-	public int permittedCount() throws MoonaHandlingException {
-		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
-		}
-		return super.value.size();
-	}
-	
 	public @Override String toString() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {

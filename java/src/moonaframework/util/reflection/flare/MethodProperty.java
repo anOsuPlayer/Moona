@@ -67,6 +67,19 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
+	public int parameterCount() {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		return super.value.size()-1;
+	}
+	
 	public @Override String toString() {
 		return (source == null) ? "Non-generated Flare" : "MethodProperty of " + source;
 	}

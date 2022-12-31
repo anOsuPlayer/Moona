@@ -1,19 +1,53 @@
 package moonaframework.util.reflection.flare;
 
 import java.lang.reflect.TypeVariable;
+import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Generic;
-import moonaframework.util.reflection.Type;
+import moonaframework.util.reflection.PureType;
 
-public final class GenericBounds extends Flare<Type> {
+public final class GenericBounds extends Flare<PureType> {
 
 	private final Generic source;
 	
 	public @Override Generic getTarget() {
 		return this.source;
+	}
+	
+	public List<PureType> getBounds() throws MoonaHandlingException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+
+		return super.value;
+	}
+	public PureType getBound(int index) throws IllegalArgumentException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
+		}
+		if (index >= super.value.size()) {
+			throw new IndexOutOfBoundsException("There are only " + super.value.size() + " PureType Reflections,"
+					+ " index " + index + " is out of range.");
+		}
+		
+		return super.value.get(index);
 	}
 	
 	public int boundsCount() throws MoonaHandlingException {
@@ -48,7 +82,7 @@ public final class GenericBounds extends Flare<Type> {
 		
 		java.lang.reflect.Type[] bounds = generic.getBounds();
 		for (int i = 0; i < bounds.length; i++) {
-			super.value.add(new Type((Class<?>) bounds[i]));
+			super.value.add(new PureType(bounds[i]));
 		}
 		
 		strictContext.disable();
