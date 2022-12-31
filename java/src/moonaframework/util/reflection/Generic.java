@@ -4,7 +4,7 @@ import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.TypeVariable;
 
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.beacon.GenericBounds;
 
 public final class Generic extends Reference<TypeVariable<?>> {
@@ -31,7 +31,7 @@ public final class Generic extends Reference<TypeVariable<?>> {
 		return (source == null) ? "Non-generated Reflection" : "Generic " + name + " of " + source;
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		TypeVariable<?>[] vars = source.evaluate().getTypeParameters();
 		for (TypeVariable<?> t : vars) {
 			if (t.getName().equals(name)) {
@@ -39,7 +39,7 @@ public final class Generic extends Reference<TypeVariable<?>> {
 				return;
 			}
 		}
-		throw new UnresolvedReflectionException("No Generic References could be generated from the given arguments.");
+		throw new UndefinedReflectionException("No Generic References could be generated from the given arguments.");
 	}
 	
 	private GenericBounds gb;

@@ -4,7 +4,7 @@ import java.lang.reflect.TypeVariable;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Generic;
 import moonaframework.util.reflection.Type;
 
@@ -21,14 +21,14 @@ public final class GenericBounds extends Beacon<Type> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		return super.value.size();
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		TypeVariable<?> generic = source.evaluate();
 		
 		strictContext.enable();

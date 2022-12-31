@@ -7,7 +7,7 @@ import java.util.List;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.ReflectionNotFoundException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Method;
@@ -32,8 +32,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		final List<Method> list = new ArrayList<>();
@@ -48,8 +48,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -68,8 +68,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -96,8 +96,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		final List<Constructor> list = new ArrayList<>();
@@ -112,8 +112,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -138,8 +138,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		final List<Field> list = new ArrayList<>();
@@ -154,8 +154,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -178,8 +178,8 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		for (int i = 0; i < methodCount; i++) {
@@ -195,7 +195,7 @@ public final class TypeContent extends Beacon<Reference<? extends AnnotatedEleme
 		return methodCount + constructorCount + fieldCount;
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		Class<?> clazz = source.evaluate();
 		
 		strictContext.enable();

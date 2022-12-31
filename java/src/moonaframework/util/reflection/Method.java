@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import moonaframework.base.Moona;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.beacon.MethodProperty;
 
 public final class Method extends Reference<java.lang.reflect.Method> {
@@ -40,14 +40,14 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		for (java.lang.reflect.Method m : clazz.getDeclaredMethods()) {
 			if (m.getName().equals(name) && (args.equals(Mirror.NO_ARGS)) ? true : Arrays.equals(m.getParameterTypes(), args)) {
 				super.value = m;
 				return;
 			}
 		}
-		throw new UnresolvedReflectionException("No Method References could be generated from the given arguments.");
+		throw new UndefinedReflectionException("No Method References could be generated from the given arguments.");
 	}
 	
 	private MethodProperty mp;

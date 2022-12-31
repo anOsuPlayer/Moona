@@ -5,7 +5,7 @@ import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class Mirror {
 	
@@ -73,8 +73,8 @@ public final class Mirror {
 			try {
 				refl.evaluate();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unresolved Reflections detected.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Undefined Reflections detected.", ure);
 			}
 		});
 		if (!queue.isEmpty()) {

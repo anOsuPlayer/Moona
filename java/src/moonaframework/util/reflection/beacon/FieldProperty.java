@@ -2,7 +2,7 @@ package moonaframework.util.reflection.beacon;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Reflection;
@@ -20,14 +20,14 @@ public class FieldProperty extends Beacon<Reflection<?>> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		return (Modifier) super.value.get(0);
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Field field = source.evaluate();
 		
 		strictContext.enable();

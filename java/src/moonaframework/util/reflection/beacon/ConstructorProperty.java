@@ -5,7 +5,7 @@ import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Constructor;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
@@ -24,8 +24,8 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		return (Modifier) super.value.get(0);
@@ -36,8 +36,8 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		final List<Parameter> list = new ArrayList<>();
@@ -51,8 +51,8 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -67,7 +67,7 @@ public class ConstructorProperty extends Beacon<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Constructor<?> method = source.evaluate();
 		
 		strictContext.enable();

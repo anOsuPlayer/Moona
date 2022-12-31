@@ -5,8 +5,9 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.List;
 
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class Annotated extends Reflection<List<Annotation>> {
 
@@ -16,35 +17,25 @@ public final class Annotated extends Reflection<List<Annotation>> {
 		return this.target;
 	}
 	
-	public @Override void reflect() {
-		try {
-			super.value = Arrays.asList(target.evaluate().getAnnotations());
-		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
+	public @Override void reflect() throws UndefinedReflectionException {
+		super.value = Arrays.asList(target.evaluate().getAnnotations());
 	}
 	
-	public @Override List<Annotation> evaluate() {
+	public @Override List<Annotation> evaluate() throws UndefinedReflectionException {
 		if (super.value == null) {
 			reflect();
 		}
-
-		List<Annotation> annots = List.of();
-		
-		try {
-			annots = super.evaluate();
-		}
-		catch (UnresolvedReflectionException ure) {
-			ure.printStackTrace();
-		}
-		
-		return annots;
+		return super.evaluate();
 	}
 	
-	public boolean isAnnotatedWith(Class<? extends Annotation> annot) {
+	public boolean isAnnotatedWith(Class<? extends Annotation> annot) throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		for (Annotation a : super.value) {
 			if (a.annotationType().equals(annot)) {
@@ -53,9 +44,14 @@ public final class Annotated extends Reflection<List<Annotation>> {
 		}
 		return false;
 	}
-	public int annotationCount() {
+	public int annotationCount() throws MoonaHandlingException {
 		if (super.value == null) {
-			reflect();
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
 		}
 		return super.value.size();
 	}

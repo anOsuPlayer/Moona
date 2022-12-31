@@ -1,7 +1,7 @@
 package moonaframework.util.reflection;
 
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.beacon.FieldProperty;
 
 public final class Field extends Reference<java.lang.reflect.Field> {
@@ -29,14 +29,14 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 				+ clazz.getSimpleName();
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		for (java.lang.reflect.Field m : clazz.getDeclaredFields()) {
 			if (m.getName().equals(name)) {
 				super.value = m;
 				return;
 			}
 		}
-		throw new UnresolvedReflectionException("No Field References could be generated from the given arguments.");
+		throw new UndefinedReflectionException("No Field References could be generated from the given arguments.");
 	}
 	
 	private FieldProperty fp;

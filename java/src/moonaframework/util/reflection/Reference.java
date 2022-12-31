@@ -4,7 +4,7 @@ import java.lang.reflect.AnnotatedElement;
 
 import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.beacon.Beacon;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T>
@@ -14,7 +14,7 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 		return super.value;
 	}
 	
-	public @Override abstract void reflect() throws UnresolvedReflectionException;
+	public @Override abstract void reflect() throws UndefinedReflectionException;
 	
 	public @Deadlined Beacon<?> derive() {
 		return Beacon.EMPTY_BEACON;

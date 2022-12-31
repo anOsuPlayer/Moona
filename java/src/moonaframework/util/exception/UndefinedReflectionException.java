@@ -3,7 +3,7 @@ package moonaframework.util.exception;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
 
-public class UnresolvedReflectionException extends Exception implements Serial {
+public class UndefinedReflectionException extends Exception implements Serial {
 
 	private static final long serialVersionUID = -4;
 
@@ -14,10 +14,10 @@ public class UnresolvedReflectionException extends Exception implements Serial {
 		return Nature.EXCEPTION;
 	}
 
-	public UnresolvedReflectionException(String message) {
+	public UndefinedReflectionException(String message) {
 		super(message);
 	}
-	public UnresolvedReflectionException() {
+	public UndefinedReflectionException() {
 		super("The given arguments could not generate any Reflection.");
 	}
 }

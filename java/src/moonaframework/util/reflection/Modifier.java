@@ -3,7 +3,7 @@ package moonaframework.util.reflection;
 import java.lang.reflect.Member;
 
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class Modifier extends Reflection<Integer> {
 
@@ -126,7 +126,7 @@ public final class Modifier extends Reflection<Integer> {
 		try {
 			super.value = target.evaluate().getModifiers();
 		}
-		catch (UnresolvedReflectionException ure) {
+		catch (UndefinedReflectionException ure) {
 			ure.printStackTrace();
 		}
 	}
@@ -141,7 +141,7 @@ public final class Modifier extends Reflection<Integer> {
 		try {
 			mod = super.evaluate();
 		}
-		catch (UnresolvedReflectionException ure) {
+		catch (UndefinedReflectionException ure) {
 			ure.printStackTrace();
 		}
 		

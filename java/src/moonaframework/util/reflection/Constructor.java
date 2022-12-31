@@ -3,7 +3,7 @@ package moonaframework.util.reflection;
 import java.util.Arrays;
 
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.beacon.ConstructorProperty;
 
 public final class Constructor extends Reference<java.lang.reflect.Constructor<?>> {
@@ -31,14 +31,14 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 				+ ((args.equals(Mirror.NO_ARGS)) ? "no parameters" : " parameters: " + Arrays.toString(args));
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		for (java.lang.reflect.Constructor<?> con : clazz.getDeclaredConstructors()) {
 			if ((args.equals(Mirror.NO_ARGS)) ? con.getParameterTypes().length == 0 : Arrays.equals(con.getParameterTypes(), args)) {
 				super.value = con;
 				return;
 			}
 		}
-		throw new UnresolvedReflectionException("No Constructor References could be generated from the given arguments.");
+		throw new UndefinedReflectionException("No Constructor References could be generated from the given arguments.");
 	}
 	
 	private ConstructorProperty cp;

@@ -2,7 +2,7 @@ package moonaframework.util.reflection.beacon;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UnresolvedReflectionException;
+import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Type;
 
 public final class SealedProfiler extends Beacon<Type> {
@@ -18,8 +18,8 @@ public final class SealedProfiler extends Beacon<Type> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -39,8 +39,8 @@ public final class SealedProfiler extends Beacon<Type> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		return super.value.contains(ref);
@@ -50,8 +50,8 @@ public final class SealedProfiler extends Beacon<Type> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
@@ -61,7 +61,7 @@ public final class SealedProfiler extends Beacon<Type> {
 					return true;
 				}
 			}
-			catch (UnresolvedReflectionException e) {
+			catch (UndefinedReflectionException e) {
 				e.printStackTrace();
 			}
 		}
@@ -73,15 +73,15 @@ public final class SealedProfiler extends Beacon<Type> {
 			try {
 				reflect();
 			}
-			catch (UnresolvedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with unresolved Reflections.", ure);
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
 		
 		return super.value.size();
 	}
 	
-	public @Override void reflect() throws UnresolvedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		Class<?> clazz = source.evaluate();
 		
 		strictContext.enable();
@@ -105,7 +105,7 @@ public final class SealedProfiler extends Beacon<Type> {
 						+ " target sealed classes.");
 			}
 		}
-		catch (UnresolvedReflectionException e) {
+		catch (UndefinedReflectionException e) {
 			e.printStackTrace();
 		}
 		this.source = source;
