@@ -88,7 +88,7 @@ public final class GenericBounds extends Flare<RawType> {
 		
 		strictContext.enable();
 		
-		java.lang.reflect.Type[] bounds = generic.getBounds();
+		java.lang.reflect.AnnotatedType[] bounds = generic.getAnnotatedBounds();
 		for (int i = 0; i < bounds.length; i++) {
 			super.value.add(new RawType(bounds[i]));
 		}

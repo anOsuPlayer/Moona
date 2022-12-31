@@ -61,10 +61,10 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ CONSTRUCTOR, FIELD, PARAMETER, TYPE_USE })
 @interface Annot {
-	
+	int hello();
 }
 
-public class Test<T extends Serial & Attached<T>> {
+public class Test<T extends @Annot(hello = 0) Serial> {
 	
 	static Action action = new Action(10) {
 		public @Override void trigger() {
@@ -73,7 +73,7 @@ public class Test<T extends Serial & Attached<T>> {
 		}
 	};
 	
-	public @Timeless void a(T a) {
+	public @Timeless void a(int a) {
 		
 	}
 	
@@ -82,9 +82,11 @@ public class Test<T extends Serial & Attached<T>> {
 		
 		Type t = new Type(Test.class);
 		
+		Annotated ann = new Annotated(t.derive().getGeneric(0).derive().getBound(0));
+		
 		Moona.init();
 		
-		System.out.println(t.derive().getGeneric(0).derive());
+		System.out.println(ann);
 	}
 	
 	public Test() {

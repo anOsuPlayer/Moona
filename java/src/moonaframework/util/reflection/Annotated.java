@@ -54,8 +54,16 @@ public final class Annotated extends Reflection<List<Annotation>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
+		String annots = "";
+		for (Annotation ann : super.value) {
+			annots += ann.toString().substring(ann.toString().lastIndexOf('.')+1) + ", ";
+		}
+		
+		annots = (annots.length() != 0) ? annots.substring(0, annots.length()-2) : annots;
+		
 		return (target == null) ? "Non-generated Reflection" : "Annotated of " + target + ", "
-				+ ((super.value.size() == 0) ? "no Annotations" : "Annotations: " + super.value.toString());
+				+ ((super.value.size() == 0) ? "no Annotations" : "Annotations: " + annots);
 	}
 	
 	public @Override boolean equals(Object o) {

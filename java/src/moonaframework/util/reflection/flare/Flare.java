@@ -22,7 +22,7 @@ public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>>
 	public static final Flare<Reflection<?>> EMPTY_FLARE = new Flare<>() {
 		
 		public @Override String toString() {
-			return "Empty Beacon";
+			return "Empty Flare";
 		}
 		
 		private static final Object PLACEHOLDER = new Object();
