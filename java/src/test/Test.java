@@ -82,11 +82,9 @@ public class Test<T extends @Annot(hello = 0) Serial> {
 		
 		Type t = new Type(Test.class);
 		
-		Annotated annot = new Annotated(t.derive().getGeneric(0).derive().getBound(0));
+		
 		
 		Moona.init();
-		
-		System.out.println(annot);
 	}
 	
 	public Test() {
