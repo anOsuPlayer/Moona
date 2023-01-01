@@ -82,8 +82,6 @@ public class Test<T extends @Annot(hello = 0) Serial> {
 		
 		Type t = new Type(Test.class);
 		
-		
-		
 		Moona.init();
 	}
 	
