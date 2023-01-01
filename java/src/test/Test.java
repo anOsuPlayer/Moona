@@ -80,8 +80,6 @@ public class Test<T extends @Annot(hello = 0) Serial> {
 	public static void main(String[] args) throws Throwable {
 		Moona.autoReflections.enable();
 		
-		Type t = new Type(Test.class);
-		
 		Moona.init();
 	}
 	
