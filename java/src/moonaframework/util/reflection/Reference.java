@@ -9,7 +9,7 @@ import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T>
-	permits Type, Constructor, Method, Field, Parameter, Generic, RawType, Annotation {
+		permits Type, Constructor, Method, Field, Parameter, Generic, RawType, Annotation {
 	
 	public @Override final T getTarget() {
 		return super.value;
@@ -17,8 +17,13 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	
 	public @Override abstract void reflect() throws UndefinedReflectionException;
 	
+	private Annotated annots;
+	
 	public final Annotated getAnnotated() {
-		return new Annotated(this);
+		if (annots == null) {
+			annots = new Annotated(this);
+		}
+		return annots;
 	}
 	
 	public @Deadlined Flare<?> derive() {
@@ -30,6 +35,7 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 		
 		if (Moona.autoReflections.evaluate() || strictContext.evaluate()) {
 			derive();
+			getAnnotated();
 		}
 	}
 }
