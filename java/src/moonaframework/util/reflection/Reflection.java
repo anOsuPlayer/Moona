@@ -39,10 +39,10 @@ public abstract class Reflection<T> implements Serial {
 	public final boolean isUndefined() {
 		try {
 			evaluate();
-			return true;
+			return false;
 		}
 		catch (UndefinedReflectionException ure) {
-			return false;
+			return true;
 		}
 	}
 	
