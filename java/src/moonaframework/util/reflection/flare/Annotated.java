@@ -63,6 +63,10 @@ public final class Annotated extends Flare<Annotation> {
 		return super.value.size();
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof Annotated ann) ? this.getTarget().equals(ann.getTarget()) : false;
+	}
+	
 	public @Override String toString() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {

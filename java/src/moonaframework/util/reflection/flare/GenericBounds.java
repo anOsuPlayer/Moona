@@ -63,6 +63,10 @@ public final class GenericBounds extends Flare<RawType> {
 		return super.value.size();
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof GenericBounds gb) ? this.getTarget().equals(gb.getTarget()) : false;
+	}
+	
 	public @Override String toString() {
 		if (!super.hasGenerated) {
 			try {

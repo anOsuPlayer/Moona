@@ -82,6 +82,10 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		return super.value.size()-1;
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof MethodProperty mp) ? this.getTarget().equals(mp.getTarget()) : false;
+	}
+	
 	public @Override String toString() {
 		return (source == null) ? "Non-generated Flare" : "MethodProperty of " + source;
 	}

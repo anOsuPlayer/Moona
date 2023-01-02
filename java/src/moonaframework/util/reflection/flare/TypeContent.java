@@ -260,6 +260,10 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return methodCount + constructorCount + fieldCount + genericsCount;
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof TypeContent tc) ? this.getTarget().equals(tc.getTarget()) : false;
+	}
+	
 	public @Override String toString() {
 		return (source == null) ? "Non-generated Flare" : "TypeContent of " + source;
 	}

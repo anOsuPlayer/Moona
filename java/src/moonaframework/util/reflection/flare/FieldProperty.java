@@ -27,6 +27,10 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (Modifier) super.value.get(0);
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof FieldProperty fp) ? this.getTarget().equals(fp.getTarget()) : false;
+	}
+	
 	public @Override String toString() {
 		return (source == null) ? "Non-generated Flare" : "FieldProperty of " + source;
 	}

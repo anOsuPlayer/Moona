@@ -80,6 +80,10 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		return super.value.size()-1;
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof ConstructorProperty cp) ? this.getTarget().equals(cp.getTarget()) : false;
+	}
+	
 	public @Override String toString() {
 		return (source == null) ? "Non-generated Flare" : "ConstructorProperty of " + source;
 	}

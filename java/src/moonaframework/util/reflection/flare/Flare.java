@@ -56,10 +56,8 @@ public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>>
 		}
 	}
 	
-	public @Override final boolean equals(Object o) {
-		return (o instanceof Flare<?> beacon) ?
-				this.getTarget().equals(beacon.getTarget())
-				: false;
+	public @Override boolean equals(Object o) {
+		return (o instanceof Flare<?> flare) ? this.getTarget().equals(flare.getTarget()) : false;
 	}
 	
 	public @Override abstract Object getTarget();

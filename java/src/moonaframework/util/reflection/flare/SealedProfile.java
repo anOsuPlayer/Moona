@@ -92,6 +92,10 @@ public final class SealedProfile extends Flare<Type> {
 		return super.value.size();
 	}
 	
+	public @Override boolean equals(Object o) {
+		return (o instanceof SealedProfile sp) ? this.getTarget().equals(sp.getTarget()) : false;
+	}
+	
 	public @Override String toString() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
