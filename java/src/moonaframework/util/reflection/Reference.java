@@ -5,6 +5,7 @@ import java.lang.reflect.AnnotatedElement;
 import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T>
@@ -15,6 +16,10 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	}
 	
 	public @Override abstract void reflect() throws UndefinedReflectionException;
+	
+	public final Annotated getAnnotated() {
+		return new Annotated(this);
+	}
 	
 	public @Deadlined Flare<?> derive() {
 		return Flare.EMPTY_FLARE;

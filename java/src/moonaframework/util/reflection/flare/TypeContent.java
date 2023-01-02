@@ -246,6 +246,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		for (int i = 0; i < genericsCount; i++) {
 			Generic g = getGeneric(i);
 			if (g.getName().equals(name)) {
