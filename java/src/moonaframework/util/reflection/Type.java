@@ -1,28 +1,27 @@
 package moonaframework.util.reflection;
 
+import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.flare.TypeContent;
 
 public final class Type extends Reference<Class<?>> {
-	
-	private final Class<?> clazz;
-	
+
 	public @Override boolean equals(Object o) {
 		return (o instanceof Type t) ?
-				this.clazz.equals(t.clazz)
+				super.value.equals(t.value)
 				: false;
 	}
 	
 	public @Override String toString() {
-		return (clazz == null) ? "Non-generated Reflection" : "Type " + clazz.getName();
+		return (value == null) ? "Non-generated Reflection" : "Type " + value.getName();
 	}
 	
-	public @Override void reflect() {
-		super.value = this.clazz;
+	public @Deadlined void reflect() {
+		
 	}
 	
 	public @Override Class<?> evaluate() {
-		return this.clazz;
+		return super.value;
 	}
 	
 	private TypeContent tc;
@@ -38,6 +37,6 @@ public final class Type extends Reference<Class<?>> {
 		if (clazz == null) {
 			throw new NullArgumentException("Cannot generate a Type Reference over a null class.");
 		}
-		this.clazz = clazz;
+		super.value = clazz;
 	}
 }
