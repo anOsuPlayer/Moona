@@ -14,6 +14,7 @@ import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Reflection;
+import moonaframework.util.reflection.Type;
 import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.Generic;
 
@@ -25,9 +26,9 @@ public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>>
 			return "Empty Flare";
 		}
 		
-		private static final Object PLACEHOLDER = new Object();
+		private static final Type PLACEHOLDER = new Type(Flare.class);
 		
-		public @Deadlined Object getTarget() {
+		public @Deadlined Type getTarget() {
 			return PLACEHOLDER;
 		}
 		
@@ -60,7 +61,7 @@ public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>>
 		return (o instanceof Flare<?> flare) ? this.getTarget().equals(flare.getTarget()) : false;
 	}
 	
-	public @Override abstract Object getTarget();
+	public @Override abstract Reference<?> getTarget();
 	
 	protected boolean hasGenerated = false;
 	
