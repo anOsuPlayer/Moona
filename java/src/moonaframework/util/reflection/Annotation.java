@@ -15,6 +15,10 @@ public final class Annotation extends Reference<Class<? extends java.lang.annota
 		return (value == null) ? "Non-generated Reflection" : "Annotation " + value.getName();
 	}
 	
+	public @Override Class<? extends java.lang.annotation.Annotation> getTarget() {
+		return super.value;
+	}
+	
 	public @Deadlined void reflect() {
 		
 	}

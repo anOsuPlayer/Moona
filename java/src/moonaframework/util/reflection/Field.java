@@ -28,6 +28,10 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in class " + clazz.getName();
 	}
 	
+	public @Override java.lang.reflect.Field getTarget() {
+		return super.value;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
 			super.value = clazz.getDeclaredField(name);

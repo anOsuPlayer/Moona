@@ -15,6 +15,10 @@ public final class RawType extends Reference<java.lang.reflect.AnnotatedType> {
 		return (value == null) ? "Non-generated Reflection" : "RawType " + value.getType().getTypeName();
 	}
 	
+	public @Override java.lang.reflect.AnnotatedType getTarget() {
+		return super.value;
+	}
+	
 	public @Deadlined void reflect() {
 		
 	}

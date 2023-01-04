@@ -9,10 +9,10 @@ import moonaframework.util.reflection.flare.GenericBounds;
 
 public non-sealed class Generic extends Reference<TypeVariable<?>> {
 
-	private final Reference<? extends GenericDeclaration> source;
+	private final Reference<? extends GenericDeclaration> target;
 	
-	public Reference<? extends GenericDeclaration> getSource() {
-		return this.source;
+	public Reference<? extends GenericDeclaration> getTarget() {
+		return this.target;
 	}
 	
 	private final String name;
@@ -23,16 +23,16 @@ public non-sealed class Generic extends Reference<TypeVariable<?>> {
 	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Generic gen) ?
-				this.source.equals(gen.source) && this.name.equals(gen.name)
+				this.target.equals(gen.target) && this.name.equals(gen.name)
 				: false;
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Reflection" : "Generic " + name + " of " + source;
+		return (target == null) ? "Non-generated Reflection" : "Generic " + name + " of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		TypeVariable<?>[] vars = source.evaluate().getTypeParameters();
+		TypeVariable<?>[] vars = target.evaluate().getTypeParameters();
 		for (TypeVariable<?> t : vars) {
 			if (t.getName().equals(name)) {
 				super.value = t;
@@ -51,19 +51,19 @@ public non-sealed class Generic extends Reference<TypeVariable<?>> {
 		return gb;
 	}
 	
-	public Generic(Reference<? extends GenericDeclaration> source, String name) throws NullArgumentException {
-		if (source == null || name == null) {
+	public Generic(Reference<? extends GenericDeclaration> target, String name) throws NullArgumentException {
+		if (target == null || name == null) {
 			throw new NullArgumentException("Cannot generate a Generic Reference over a null Reference or"
 					+ " null name.");
 		}
-		this.source = source; this.name = name;
+		this.target = target; this.name = name;
 	}
 	public Generic(Class<?> clazz, String name) throws NullArgumentException {
 		this (new Type(clazz), name);
 	}
 	
-	protected Generic(Reference<? extends GenericDeclaration> source, String name, TypeVariable<?> typevar) throws NullArgumentException {
-		this(source, name);
+	protected Generic(Reference<? extends GenericDeclaration> target, String name, TypeVariable<?> typevar) throws NullArgumentException {
+		this(target, name);
 		if (typevar == null) {
 			throw new NullArgumentException("A null java.lang.reflect.TypeVariable<?> cannot be accepted.");
 		}

@@ -45,6 +45,10 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 				+ ")" + " in class " + clazz.getName();
 	}
 	
+	public @Override java.lang.reflect.Method getTarget() {
+		return super.value;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
 			super.value = clazz.getDeclaredMethod(name, args);

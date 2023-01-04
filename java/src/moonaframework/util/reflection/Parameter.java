@@ -8,10 +8,10 @@ import moonaframework.util.exception.UndefinedReflectionException;
 
 public non-sealed class Parameter extends Reference<java.lang.reflect.Parameter> {
 
-	private final Reference<? extends Executable> source;
+	private final Reference<? extends Executable> target;
 	
-	public Reference<? extends Executable> getSource() {
-		return this.source;
+	public Reference<? extends Executable> getTarget() {
+		return this.target;
 	}
 	public Class<?> getType() {
 		return super.value.getType();
@@ -37,16 +37,16 @@ public non-sealed class Parameter extends Reference<java.lang.reflect.Parameter>
 	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Parameter param) ?
-				this.source.equals(param.source) && this.index == param.index
+				this.target.equals(param.target) && this.index == param.index
 				: false;
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Reflection" : "Parameter n." + index + " of " + source;
+		return (target == null) ? "Non-generated Reflection" : "Parameter n." + index + " of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		java.lang.reflect.Parameter[] params = source.evaluate().getParameters();
+		java.lang.reflect.Parameter[] params = target.evaluate().getParameters();
 		if (index < params.length) {
 			super.value = params[index];
 			return;
@@ -55,18 +55,18 @@ public non-sealed class Parameter extends Reference<java.lang.reflect.Parameter>
 				+ " Reference.");
 	}
 	
-	public Parameter(Reference<? extends Executable> source, int index) throws IllegalArgumentException, NullArgumentException {
-		if (source == null) {
+	public Parameter(Reference<? extends Executable> target, int index) throws IllegalArgumentException, NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("Cannot generate a Parameter Reference over a null Reference.");
 		}
 		if (index < 0) {
 			throw new IllegalArgumentException("Parameter's index cannot be less than zero.");
 		}
-		this.source = source; this.index = index;
+		this.target = target; this.index = index;
 	}
 	
-	protected Parameter(Reference<? extends Executable> source, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
-		this(source, index);
+	protected Parameter(Reference<? extends Executable> target, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
+		this(target, index);
 		if (param == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");
 		}

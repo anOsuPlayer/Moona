@@ -37,6 +37,10 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 				+ params + ")" + " in class " + clazz.getName();
 	}
 	
+	public @Override java.lang.reflect.Constructor<?> getTarget() {
+		return super.value;
+	}
+	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
 			super.value = clazz.getDeclaredConstructor(args);

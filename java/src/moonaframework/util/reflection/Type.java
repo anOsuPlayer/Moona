@@ -16,6 +16,10 @@ public final class Type extends Reference<Class<?>> {
 		return (value == null) ? "Non-generated Reflection" : "Type " + value.getName();
 	}
 	
+	public @Override Class<?> getTarget() {
+		return super.value;
+	}
+	
 	public @Deadlined void reflect() {
 		
 	}
