@@ -1,42 +1,49 @@
 package moonaframework.util.reflection;
 
+import java.lang.reflect.AnnotatedElement;
+
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
 
-public final class Annotation extends Reference<Class<? extends java.lang.annotation.Annotation>> {
+public final class Annotation<A extends java.lang.annotation.Annotation> extends Reflection<A> {
+	
+	private final Reference<? extends AnnotatedElement> target;
+	
+	public @Override Reference<? extends AnnotatedElement> getTarget() {
+		return this.target;
+	}
 	
 	public @Override boolean equals(Object o) {
-		return (o instanceof Annotation ann) ?
+		return (o instanceof Annotation<?> ann) ?
 				this.value.equals(ann.value)
 				: false;
 	}
 	
 	public @Override String toString() {
-		return (value == null) ? "Non-generated Reflection" : "Annotation " + value.getName();
-	}
-	
-	public @Override Class<? extends java.lang.annotation.Annotation> getTarget() {
-		return super.value;
+		return (value == null) ? "Non-generated Reflection" : "Annotation " + value.toString();
 	}
 	
 	public @Deadlined void reflect() {
 		
 	}
 	
-	public @Override Class<? extends java.lang.annotation.Annotation> evaluate() {
+	public @Override A evaluate() {
 		return super.value;
 	}
 	
-	public Annotation(Class<? extends java.lang.annotation.Annotation> annot) throws NullArgumentException {
-		if (annot == null) {
-			throw new NullArgumentException("Cannot generate a Annotation Reference over a null class.");
+//	public Annotation(Class<? extends java.lang.annotation.Annotation> annot) throws NullArgumentException {
+//		if (annot == null) {
+//			throw new NullArgumentException("Cannot generate a Annotation Reference over a null class.");
+//		}
+//		super.value = annot;
+//	}
+	public Annotation(Reference<? extends AnnotatedElement> target, A annot) throws NullArgumentException {
+		if (target == null) {
+			throw new NullArgumentException("Cannot generate an Annotation Reference over a null class.");
 		}
-		super.value = annot;
-	}
-	public Annotation(java.lang.annotation.Annotation annot) throws NullArgumentException {
 		if (annot == null) {
 			throw new NullArgumentException("A null java.lang.annotation.Annotation cannot be accepted.");
 		}
-		super.value = annot.annotationType();
+		this.target = target; super.value = annot;
 	}
 }

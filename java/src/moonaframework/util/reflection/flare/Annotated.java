@@ -9,7 +9,7 @@ import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Annotation;
 import moonaframework.util.reflection.Reference;
 
-public final class Annotated extends Flare<Annotation> {
+public final class Annotated extends Flare<Annotation<?>> {
 	
 	private final Reference<? extends AnnotatedElement> source;
 	
@@ -17,7 +17,7 @@ public final class Annotated extends Flare<Annotation> {
 		return this.source;
 	}
 	
-	public List<Annotation> getAnnotations() throws MoonaHandlingException {
+	public List<Annotation<?>> getAnnotations() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -29,7 +29,29 @@ public final class Annotated extends Flare<Annotation> {
 		
 		return super.value;
 	}
-	public Annotation getAnnotation(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+//	public Annotation<?> getAnnotation(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+//		if (!super.hasGenerated) {
+//			try {
+//				reflect();
+//			}
+//			catch (UndefinedReflectionException ure) {
+//				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+//			}
+//		}
+//		
+//		if (index < 0) {
+//			throw new IllegalArgumentException("Negative indexes are not allowed.");
+//		}
+//		if (index >= super.value.size()) {
+//			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Annotation"
+//					+ "References, index " + index + " is out of range.");
+//		}
+//		
+//		return super.value.get(index);
+//	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends java.lang.annotation.Annotation> Annotation<T> getAnnotation(Class<T> annot) {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -39,15 +61,13 @@ public final class Annotated extends Flare<Annotation> {
 			}
 		}
 		
-		if (index < 0) {
-			throw new IllegalArgumentException("Negative indexes are not allowed.");
-		}
-		if (index >= super.value.size()) {
-			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Annotation"
-					+ "References, index " + index + " is out of range.");
+		for (Annotation<?> ann : super.value) {
+			if (ann.evaluate().annotationType().equals(annot)) {
+				return (Annotation<T>) ann;
+			}
 		}
 		
-		return super.value.get(index);
+		return null;
 	}
 	
 	public int annotationCount() throws MoonaHandlingException {
@@ -78,7 +98,7 @@ public final class Annotated extends Flare<Annotation> {
 		}
 		
 		String annots = "";
-		for (Annotation ann : super.value) {
+		for (Annotation<?> ann : super.value) {
 			annots += ann.toString().substring(ann.toString().lastIndexOf('.')+1) + ", ";
 		}
 		
@@ -94,7 +114,7 @@ public final class Annotated extends Flare<Annotation> {
 		strictContext.enable();
 		
 		for (java.lang.annotation.Annotation annot : ann.getAnnotations()) {
-			super.value.add(new Annotation(annot));
+			super.value.add(new Annotation<>(source, annot));
 		}
 		
 		strictContext.disable();
@@ -108,7 +128,7 @@ public final class Annotated extends Flare<Annotation> {
 		}
 		this.source = source;
 	}
-	public Annotated(Class<? extends java.lang.annotation.Annotation> clazz) {
-		this(new Annotation(clazz));
-	}
+//	public Annotated(Class<? extends java.lang.annotation.Annotation> clazz) {
+//		this(new Annotation(clazz));
+//	}
 }

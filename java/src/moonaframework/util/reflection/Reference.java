@@ -9,7 +9,7 @@ import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
 public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T>
-		permits Type, Constructor, Method, Field, Parameter, Generic, RawType, Annotation {
+		permits Type, Constructor, Method, Field, Parameter, Generic, RawType {
 	
 	public @Override abstract Object getTarget();
 	
