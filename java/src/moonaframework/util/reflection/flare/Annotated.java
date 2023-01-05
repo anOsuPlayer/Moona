@@ -31,7 +31,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T extends java.lang.annotation.Annotation> Annotation<T> getAnnotation(Class<T> annot) {
+	public <A extends java.lang.annotation.Annotation> Annotation<A> getAnnotation(Class<A> annot) {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -43,15 +43,15 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		for (Annotation<?> ann : super.value) {
 			if (ann.evaluate().annotationType().equals(annot)) {
-				return (Annotation<T>) ann;
+				return (Annotation<A>) ann;
 			}
 		}
 		
 		return null;
 	}
 	
-	public <T extends java.lang.annotation.Annotation> T evaluateAnnotation(Class<T> annot) {
-		return (T) getAnnotation(annot).evaluate();
+	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) {
+		return getAnnotation(annot).evaluate();
 	}
 	
 	public int annotationCount() throws MoonaHandlingException {
@@ -112,7 +112,4 @@ public final class Annotated extends Flare<Annotation<?>> {
 		}
 		this.source = source;
 	}
-//	public Annotated(Class<? extends java.lang.annotation.Annotation> clazz) {
-//		this(new Annotation(clazz));
-//	}
 }
