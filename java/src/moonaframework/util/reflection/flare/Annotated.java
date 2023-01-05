@@ -31,7 +31,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <A extends java.lang.annotation.Annotation> Annotation<A> getAnnotation(Class<A> annot) {
+	public <A extends java.lang.annotation.Annotation> Annotation<A> getAnnotation(Class<A> annot) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -49,8 +49,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		return null;
 	}
-	
-	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) {
+	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) throws MoonaHandlingException {
 		return getAnnotation(annot).evaluate();
 	}
 	
@@ -97,7 +96,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		strictContext.enable();
 		
-		for (java.lang.annotation.Annotation annot : ann.getAnnotations()) {
+		for (java.lang.annotation.Annotation annot : ann.getDeclaredAnnotations()) {
 			super.value.add(new Annotation<>(source, annot));
 		}
 		

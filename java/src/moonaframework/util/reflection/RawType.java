@@ -1,13 +1,15 @@
 package moonaframework.util.reflection;
 
+import java.lang.reflect.AnnotatedType;
+
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
 
-public final class RawType extends Reference<java.lang.reflect.AnnotatedType> {
+public final class RawType extends Reference<AnnotatedType> {
 
 	public @Override boolean equals(Object o) {
-		return (o instanceof RawType pt) ?
-				this.value.equals(pt.value)
+		return (o instanceof RawType rt) ?
+				this.value.equals(rt.value)
 				: false;
 	}
 	
@@ -15,7 +17,7 @@ public final class RawType extends Reference<java.lang.reflect.AnnotatedType> {
 		return (value == null) ? "Non-generated Reflection" : "RawType " + value.getType().getTypeName();
 	}
 	
-	public @Override java.lang.reflect.AnnotatedType getTarget() {
+	public @Override AnnotatedType getTarget() {
 		return super.value;
 	}
 	
@@ -23,11 +25,11 @@ public final class RawType extends Reference<java.lang.reflect.AnnotatedType> {
 		
 	}
 	
-	public @Override java.lang.reflect.AnnotatedType evaluate() {
+	public @Override AnnotatedType evaluate() {
 		return super.value;
 	}
 	
-	public RawType(java.lang.reflect.AnnotatedType type) throws NullArgumentException {
+	public RawType(AnnotatedType type) throws NullArgumentException {
 		if (type == null) {
 			throw new NullArgumentException("A null java.lang.reflect.AnnotatedType cannot be accepted.");
 		}

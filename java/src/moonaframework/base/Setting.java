@@ -4,10 +4,10 @@ import moonaframework.util.Status;
 
 public final class Setting extends Status<Boolean> {
 
-	public final void enable() {
+	public void enable() {
 		super.setValue(true);
 	}
-	public final void disable() {
+	public void disable() {
 		super.setValue(false);
 	}
 	
