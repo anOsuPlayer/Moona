@@ -50,6 +50,10 @@ public final class Annotated extends Flare<Annotation<?>> {
 		return null;
 	}
 	
+	public <T extends java.lang.annotation.Annotation> T evaluateAnnotation(Class<T> annot) {
+		return (T) getAnnotation(annot).evaluate();
+	}
+	
 	public int annotationCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
