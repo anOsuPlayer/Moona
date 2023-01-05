@@ -31,12 +31,6 @@ public final class Annotation<A extends java.lang.annotation.Annotation> extends
 		return super.value;
 	}
 	
-//	public Annotation(Class<? extends java.lang.annotation.Annotation> annot) throws NullArgumentException {
-//		if (annot == null) {
-//			throw new NullArgumentException("Cannot generate a Annotation Reference over a null class.");
-//		}
-//		super.value = annot;
-//	}
 	public Annotation(Reference<? extends AnnotatedElement> target, A annot) throws NullArgumentException {
 		if (target == null) {
 			throw new NullArgumentException("Cannot generate an Annotation Reference over a null class.");

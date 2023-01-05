@@ -29,26 +29,6 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		return super.value;
 	}
-//	public Annotation<?> getAnnotation(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
-//		if (!super.hasGenerated) {
-//			try {
-//				reflect();
-//			}
-//			catch (UndefinedReflectionException ure) {
-//				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-//			}
-//		}
-//		
-//		if (index < 0) {
-//			throw new IllegalArgumentException("Negative indexes are not allowed.");
-//		}
-//		if (index >= super.value.size()) {
-//			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Annotation"
-//					+ "References, index " + index + " is out of range.");
-//		}
-//		
-//		return super.value.get(index);
-//	}
 	
 	@SuppressWarnings("unchecked")
 	public <T extends java.lang.annotation.Annotation> Annotation<T> getAnnotation(Class<T> annot) {
