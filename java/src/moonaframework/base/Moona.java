@@ -21,7 +21,7 @@ public final class Moona {
 		return isOn;
 	}
 	
-	public static final Setting autoReflections = new Setting(false);
+	public static final Setting autoReflections = new Setting(true);
 	
 	public static final Setting loadReflections = new Setting(true);
 	

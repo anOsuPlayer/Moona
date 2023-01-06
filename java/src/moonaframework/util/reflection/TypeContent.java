@@ -2,6 +2,7 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
@@ -59,7 +60,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Method) super.value.get(index);
 	}
-	public Method getMethod(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Method getMethod(String name, Class<?>...args) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -75,11 +76,12 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		for (int i = 0; i < methodCount; i++) {
 			Method m = getMethod(i);
-			if (m.getName().equals(name)) {
+			if (m.getName().equals(name) && Arrays.equals(m.getParameterTypes(), args)) {
 				return m;
 			}
 		}
-		throw new ReflectionNotFoundException("There is no method named " + name + " in this TypeContent.");
+		throw new ReflectionNotFoundException("There is no method named " + name + " having those arguments"
+				+ " in this TypeContent.");
 	}
 	
 	private int constructorCount = 0;
@@ -122,6 +124,29 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		}
 		
 		return (Constructor) super.value.get(methodCount+index);
+	}
+	public Constructor getConstructor(Class<?>...args) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		if (args == null) {
+			throw new NullArgumentException("The constructor's arguments can't be null.");
+		}
+		
+		for (int i = 0; i < methodCount; i++) {
+			Constructor con = getConstructor(i);
+			if (Arrays.equals(con.getParameterTypes(), args)) {
+				return con;
+			}
+		}
+		throw new ReflectionNotFoundException("There is no constructor having such parameters in this" 
+				+ " TypeContent.");
 	}
 	
 	private int fieldCount = 0;
