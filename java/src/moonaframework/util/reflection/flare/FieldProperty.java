@@ -1,10 +1,14 @@
 package moonaframework.util.reflection.flare;
 
+import java.lang.reflect.AnnotatedParameterizedType;
+import java.lang.reflect.AnnotatedType;
+
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Field;
 import moonaframework.util.reflection.Modifier;
+import moonaframework.util.reflection.RawType;
 import moonaframework.util.reflection.Reflection;
 
 public class FieldProperty extends Flare<Reflection<?>> {
@@ -35,12 +39,17 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (source == null) ? "Non-generated Flare" : "FieldProperty of " + source;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException, MoonaHandlingException {
 		java.lang.reflect.Field field = source.evaluate();
 		
 		strictContext.enable();
 		
 		super.value.add(new Modifier(source));
+
+		AnnotatedType[] generics = ((AnnotatedParameterizedType) field.getAnnotatedType()).getAnnotatedActualTypeArguments();
+		for (AnnotatedType ann : generics) {
+			super.value.add(new RawType(ann));
+		}
 		
 		strictContext.disable();
 		
