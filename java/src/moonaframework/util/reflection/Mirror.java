@@ -6,6 +6,7 @@ import moonaframework.base.Serial;
 import moonaframework.util.collection.IshMap;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.flare.Flare;
 
 public final class Mirror {
 	
@@ -21,6 +22,8 @@ public final class Mirror {
 	}
 	
 	private static int totalReflections = 0;
+	
+	private static int totalFlares = 0;
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
@@ -42,6 +45,7 @@ public final class Mirror {
 	}
 	static void addReflection(Reflection<?> refl) {
 		totalReflections++;
+		totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
 		
 		reflections.add(refl, refl.id());
 	}
@@ -64,6 +68,7 @@ public final class Mirror {
 	}
 	static void removeReflection(Reflection<?> refl) {
 		totalReflections--;
+		totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
 		
 		reflections.remove(refl, refl.id());
 	}
