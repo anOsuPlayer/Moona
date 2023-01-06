@@ -189,7 +189,7 @@ public class Modifier extends Reflection<Integer> {
 		this.target = ref;
 	}
 	
-	protected Modifier(Reference<? extends Member> source, int modifiers) throws NullArgumentException {
+	Modifier(Reference<? extends Member> source, int modifiers) throws NullArgumentException {
 		this(source);
 		if (modifiers < 0) {
 			throw new NullArgumentException("The value which states the modifiers cannot be less than zero.");

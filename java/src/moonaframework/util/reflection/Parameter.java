@@ -65,7 +65,7 @@ public non-sealed class Parameter extends Reference<java.lang.reflect.Parameter>
 		this.target = target; this.index = index;
 	}
 	
-	protected Parameter(Reference<? extends Executable> target, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
+	Parameter(Reference<? extends Executable> target, int index, java.lang.reflect.Parameter param) throws NullArgumentException {
 		this(target, index);
 		if (param == null) {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");

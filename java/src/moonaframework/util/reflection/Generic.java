@@ -62,7 +62,7 @@ public non-sealed class Generic extends Reference<TypeVariable<?>> {
 		this (new Type(clazz), name);
 	}
 	
-	protected Generic(Reference<? extends GenericDeclaration> target, String name, TypeVariable<?> typevar) throws NullArgumentException {
+	Generic(Reference<? extends GenericDeclaration> target, String name, TypeVariable<?> typevar) throws NullArgumentException {
 		this(target, name);
 		if (typevar == null) {
 			throw new NullArgumentException("A null java.lang.reflect.TypeVariable<?> cannot be accepted.");
