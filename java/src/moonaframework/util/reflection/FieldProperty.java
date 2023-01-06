@@ -94,13 +94,12 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		
 		super.value.add(new Modifier(source));
 		
-		try {
+		if (!field.getGenericType().equals(field.getType())) {
 			AnnotatedType[] generics = ((AnnotatedParameterizedType) field.getAnnotatedType()).getAnnotatedActualTypeArguments();
 			for (AnnotatedType ann : generics) {
 				super.value.add(new RawType(ann));
 			}
 		}
-		catch (ClassCastException cce) { }
 		
 		strictContext.disable();
 		
