@@ -45,7 +45,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		}
 		return list;
 	}
-	public RawType getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public RawType getTypeArgument(int index) throws IllegalArgumentException, MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -66,7 +66,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (RawType) super.value.get(index+1);
 	}
 	
-	public int typeParameterCount() {
+	public int typeArgumentsCount() {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
