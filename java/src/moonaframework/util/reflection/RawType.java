@@ -6,7 +6,7 @@ import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
 
 public final class RawType extends Reference<AnnotatedType> {
-
+	
 	public @Override boolean equals(Object o) {
 		return (o instanceof RawType rt) ?
 				this.value.equals(rt.value)

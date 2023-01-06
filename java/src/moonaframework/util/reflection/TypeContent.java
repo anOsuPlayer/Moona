@@ -192,7 +192,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	public int genericsCount() {
 		return this.genericsCount;
 	}
-	public List<Generic> getGenerics() throws MoonaHandlingException {
+	public List<Generic> getTypeArguments() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -208,7 +208,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return list;
 	}
 	
-	public Generic getGeneric(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Generic getTypeArgument(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -228,7 +228,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Generic) super.value.get(methodCount+constructorCount+fieldCount+index);
 	}
-	public Generic getGeneric(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Generic getTypeArgument(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
@@ -243,7 +243,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		}
 		
 		for (int i = 0; i < genericsCount; i++) {
-			Generic g = getGeneric(i);
+			Generic g = getTypeArgument(i);
 			if (g.getName().equals(name)) {
 				return g;
 			}
