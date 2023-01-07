@@ -8,7 +8,12 @@ import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class ExistingGeneric extends Generic {
 
+	private boolean trusted = false;
+	
 	public @Override final java.lang.reflect.TypeVariable<?> evaluate() throws UndefinedReflectionException {
+		if (trusted) {
+			return super.evaluate();
+		}
 		var previous = super.value;
 		reflect();
 		if (!super.value.equals(previous)) {
@@ -24,5 +29,9 @@ public final class ExistingGeneric extends Generic {
 			throw new NullArgumentException("A null java.lang.reflect.TypeVariable<?> cannot be accepted.");
 		}
 		super.value = typevar;
+		
+		if (Reflection.strictContext.evaluate()) {
+			trusted = true;
+		}
 	}
 }

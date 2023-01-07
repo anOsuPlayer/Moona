@@ -7,7 +7,12 @@ import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class ExistingParameter extends Parameter {
 
+	private boolean trusted = false;
+	
 	public @Override final java.lang.reflect.Parameter evaluate() throws UndefinedReflectionException {
+		if (trusted) {
+			return super.evaluate();
+		}
 		var previous = super.value;
 		reflect();
 		if (!super.value.equals(previous)) {
@@ -23,5 +28,9 @@ public final class ExistingParameter extends Parameter {
 			throw new NullArgumentException("A null java.lang.reflect.Parameter cannot be accepted.");
 		}
 		super.value = param;
+		
+		if (Reflection.strictContext.evaluate()) {
+			trusted = true;
+		}
 	}
 }

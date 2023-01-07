@@ -7,7 +7,12 @@ import moonaframework.util.exception.UndefinedReflectionException;
 
 public final class ExistingModifier extends Modifier {
 
+	private boolean trusted = false;
+	
 	public @Override final Integer evaluate() throws UndefinedReflectionException {
+		if (trusted) {
+			return super.evaluate();
+		}
 		Integer previous = super.value;
 		reflect();
 		if (!super.value.equals(previous)) {
@@ -23,5 +28,9 @@ public final class ExistingModifier extends Modifier {
 			throw new NullArgumentException("The value which states the modifiers cannot be less than zero.");
 		}
 		super.value = modifiers;
+		
+		if (Reflection.strictContext.evaluate()) {
+			trusted = true;
+		}
 	}
 }
