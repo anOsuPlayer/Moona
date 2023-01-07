@@ -1,4 +1,4 @@
-package moonaframework.util.reflection;
+package moonaframework.util.reflection.flare;
 
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
@@ -8,7 +8,10 @@ import java.util.List;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.flare.Flare;
+import moonaframework.util.reflection.Field;
+import moonaframework.util.reflection.Modifier;
+import moonaframework.util.reflection.RawType;
+import moonaframework.util.reflection.Reflection;
 
 public class FieldProperty extends Flare<Reflection<?>> {
 

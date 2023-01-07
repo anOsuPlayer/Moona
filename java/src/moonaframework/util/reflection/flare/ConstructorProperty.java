@@ -1,4 +1,4 @@
-package moonaframework.util.reflection;
+package moonaframework.util.reflection.flare;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,18 @@ import java.util.List;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.flare.Flare;
+import moonaframework.util.reflection.Constructor;
+import moonaframework.util.reflection.ExistingModifier;
+import moonaframework.util.reflection.ExistingParameter;
+import moonaframework.util.reflection.Modifier;
+import moonaframework.util.reflection.Parameter;
+import moonaframework.util.reflection.Reflection;
 
-public class MethodProperty extends Flare<Reflection<?>> {
+public class ConstructorProperty extends Flare<Reflection<?>> {
 
-	private final Method source;
+	private final Constructor source;
 	
-	public @Override Method getTarget() {
+	public @Override Constructor getTarget() {
 		return this.source;
 	}
 	
@@ -37,12 +42,10 @@ public class MethodProperty extends Flare<Reflection<?>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
-		
 		final List<Parameter> list = new ArrayList<>();
 		for (int i = 1; i < super.value.size(); i++) {
 			list.add((Parameter) super.value.get(i));
 		}
-		
 		return list;
 	}
 	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
@@ -80,23 +83,23 @@ public class MethodProperty extends Flare<Reflection<?>> {
 	}
 	
 	public @Override boolean equals(Object o) {
-		return (o instanceof MethodProperty mp) ? this.getTarget().equals(mp.getTarget()) : false;
+		return (o instanceof ConstructorProperty cp) ? this.getTarget().equals(cp.getTarget()) : false;
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Flare" : "MethodProperty of " + source;
+		return (source == null) ? "Non-generated Flare" : "ConstructorProperty of " + source;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		java.lang.reflect.Method method = source.evaluate();
+		java.lang.reflect.Constructor<?> method = source.evaluate();
 		
 		strictContext.enable();
 		
-		super.value.add(new Modifier(source, method.getModifiers()));
+		super.value.add(new ExistingModifier(source, method.getModifiers()));
 		
 		java.lang.reflect.Parameter[] params = method.getParameters();
 		for (int i = 0; i < params.length; i++) {
-			super.value.add(new Parameter(source, i, params[i]));
+			super.value.add(new ExistingParameter(source, i, params[i]));
 		}
 		
 		strictContext.disable();
@@ -104,7 +107,7 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		super.reflect();
 	}
 	
-	public MethodProperty(Method source) throws NullArgumentException {
+	public ConstructorProperty(Constructor source) throws NullArgumentException {
 		if (source == null) {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}

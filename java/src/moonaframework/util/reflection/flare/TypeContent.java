@@ -1,4 +1,4 @@
-package moonaframework.util.reflection;
+package moonaframework.util.reflection.flare;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -9,7 +9,13 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.ReflectionNotFoundException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.flare.Flare;
+import moonaframework.util.reflection.Constructor;
+import moonaframework.util.reflection.ExistingGeneric;
+import moonaframework.util.reflection.Field;
+import moonaframework.util.reflection.Generic;
+import moonaframework.util.reflection.Method;
+import moonaframework.util.reflection.Reference;
+import moonaframework.util.reflection.Type;
 
 public final class TypeContent extends Flare<Reference<? extends AnnotatedElement>> {
 
@@ -309,7 +315,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		}
 		
 		for (java.lang.reflect.TypeVariable<?> tv : clazz.getTypeParameters()) {
-			super.value.add(new Generic(source, tv.getName(), tv));
+			super.value.add(new ExistingGeneric(source, tv.getName(), tv));
 			genericsCount++;
 		}
 		
