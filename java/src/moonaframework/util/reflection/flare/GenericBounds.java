@@ -43,7 +43,7 @@ public final class GenericBounds extends Flare<RawType> {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
 		if (index >= super.value.size()) {
-			throw new IndexOutOfBoundsException("There are only " + super.value.size() + " PureType Reflections,"
+			throw new IndexOutOfBoundsException("There are only " + super.value.size() + " RawType Reflections,"
 					+ " index " + index + " is out of range.");
 		}
 		

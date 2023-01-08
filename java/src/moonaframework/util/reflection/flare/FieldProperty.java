@@ -30,6 +30,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		return (Modifier) super.value.get(0);
 	}
 	
@@ -42,6 +43,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<RawType> list = new ArrayList<>();
 		for (int i = 1; i < super.value.size(); i++) {
 			list.add((RawType) super.value.get(i));

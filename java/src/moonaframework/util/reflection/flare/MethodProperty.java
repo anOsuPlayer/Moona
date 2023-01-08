@@ -15,6 +15,7 @@ import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.Reflection;
+import moonaframework.util.reflection.Type;
 
 public class MethodProperty extends Flare<Reflection<?>> {
 
@@ -142,7 +143,20 @@ public class MethodProperty extends Flare<Reflection<?>> {
 				return g;
 			}
 		}
-		throw new ReflectionNotFoundException("There is no generic named " + name + " in this TypeContent.");
+		throw new ReflectionNotFoundException("There is no generic named " + name + " in this MethodProperty.");
+	}
+	
+	public Type getReturnType() {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		return (Type) super.value.get(1+parameterCount+typeArgumentsCount);
 	}
 	
 	public @Override boolean equals(Object o) {
@@ -170,6 +184,8 @@ public class MethodProperty extends Flare<Reflection<?>> {
 			super.value.add(new ExistingGeneric(target, tv.getName(), tv));
 			typeArgumentsCount++;
 		}
+		
+		super.value.add(new Type(method.getReturnType()));
 		
 		strictContext.disable();
 		
