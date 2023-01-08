@@ -111,10 +111,10 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		super.reflect();
 	}
 	
-	public FieldProperty(Field source) throws NullArgumentException {
-		if (source == null) {
+	public FieldProperty(Field target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("FieldProperties cannot be extracted from a null Field Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
 }

@@ -105,10 +105,10 @@ public final class Annotated extends Flare<Annotation<?>> {
 		super.reflect();
 	}
 	
-	public Annotated(Reference<? extends AnnotatedElement> source) throws NullArgumentException {
-		if (source == null) {
+	public Annotated(Reference<? extends AnnotatedElement> target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("An Annotated cannot be extracted from a null Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
 }

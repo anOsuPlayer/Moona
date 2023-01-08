@@ -176,10 +176,10 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		super.reflect();
 	}
 	
-	public ConstructorProperty(Constructor source) throws NullArgumentException {
-		if (source == null) {
+	public ConstructorProperty(Constructor target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("ConstructorProperty cannot be extracted from a null Constructor Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
 }

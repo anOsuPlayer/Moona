@@ -192,10 +192,10 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		super.reflect();
 	}
 	
-	public MethodProperty(Method source) throws NullArgumentException {
-		if (source == null) {
+	public MethodProperty(Method target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
 }

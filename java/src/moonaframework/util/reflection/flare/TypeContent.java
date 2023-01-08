@@ -17,9 +17,9 @@ import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Type;
 
-public final class TypeContent extends Flare<Reference<? extends AnnotatedElement>> {
+public sealed class TypeContent extends Flare<Reference<? extends AnnotatedElement>> permits RecordContent, EnumContent {
 
-	private final Type target;
+	protected final Type target;
 	
 	public @Override Type getTarget() {
 		return this.target;
@@ -329,13 +329,13 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		super.reflect();
 	}
 	
-	public TypeContent(Type source) throws NullArgumentException {
-		if (source == null) {
+	public TypeContent(Type target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("TypeContent cannot be extracted from a null Type Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
-	public TypeContent(Class<?> source) throws NullArgumentException {
-		this.target = new Type(source);
+	public TypeContent(Class<?> target) throws NullArgumentException {
+		this.target = new Type(target);
 	}
 }

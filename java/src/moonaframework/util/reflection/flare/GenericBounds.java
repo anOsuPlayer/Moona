@@ -103,10 +103,10 @@ public final class GenericBounds extends Flare<RawType> {
 		super.reflect();
 	}
 	
-	public GenericBounds(Generic source) throws NullArgumentException {
-		if (source == null) {
+	public GenericBounds(Generic target) throws NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("GenericBounds cannot be extracted from a null Generic Reference.");
 		}
-		this.target = source;
+		this.target = target;
 	}
 }

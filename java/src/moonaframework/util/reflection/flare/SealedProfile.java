@@ -141,7 +141,7 @@ public final class SealedProfile extends Flare<Type> {
 		}
 		this.target = target;
 	}
-	public SealedProfile(Class<?> source) throws IllegalArgumentException, NullArgumentException {
-		this(new Type(source));
+	public SealedProfile(Class<?> target) throws IllegalArgumentException, NullArgumentException {
+		this(new Type(target));
 	}
 }
