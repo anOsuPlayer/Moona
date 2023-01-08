@@ -15,10 +15,10 @@ import moonaframework.util.reflection.Reflection;
 
 public class ConstructorProperty extends Flare<Reflection<?>> {
 
-	private final Constructor source;
+	private final Constructor target;
 	
 	public @Override Constructor getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public Modifier getModifiers() throws MoonaHandlingException {
@@ -42,10 +42,12 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Parameter> list = new ArrayList<>();
 		for (int i = 1; i < super.value.size(); i++) {
 			list.add((Parameter) super.value.get(i));
 		}
+		
 		return list;
 	}
 	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
@@ -87,19 +89,19 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Flare" : "ConstructorProperty of " + source;
+		return (target == null) ? "Non-generated Flare" : "ConstructorProperty of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		java.lang.reflect.Constructor<?> method = source.evaluate();
+		java.lang.reflect.Constructor<?> method = target.evaluate();
 		
 		strictContext.enable();
 		
-		super.value.add(new ExistingModifier(source, method.getModifiers()));
+		super.value.add(new ExistingModifier(target, method.getModifiers()));
 		
 		java.lang.reflect.Parameter[] params = method.getParameters();
 		for (int i = 0; i < params.length; i++) {
-			super.value.add(new ExistingParameter(source, i, params[i]));
+			super.value.add(new ExistingParameter(target, i, params[i]));
 		}
 		
 		strictContext.disable();
@@ -111,6 +113,6 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		if (source == null) {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 }

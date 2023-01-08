@@ -11,10 +11,10 @@ import moonaframework.util.reflection.RawType;
 
 public final class GenericBounds extends Flare<RawType> {
 
-	private final Generic source;
+	private final Generic target;
 	
 	public @Override Generic getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public List<RawType> getBounds() throws MoonaHandlingException {
@@ -84,12 +84,12 @@ public final class GenericBounds extends Flare<RawType> {
 		
 		bounds = (bounds.length() != 0) ? bounds.substring(0, bounds.length()-2) : bounds;
 		
-		return (source == null) ? "Non-generated Flare" : "GenericBounds of " + source + ", "
+		return (target == null) ? "Non-generated Flare" : "GenericBounds of " + target + ", "
 				+ ((super.value.size() == 0) ? "no bounds" : "bounds : " + bounds);
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		TypeVariable<?> generic = source.evaluate();
+		TypeVariable<?> generic = target.evaluate();
 		
 		strictContext.enable();
 		
@@ -107,6 +107,6 @@ public final class GenericBounds extends Flare<RawType> {
 		if (source == null) {
 			throw new NullArgumentException("GenericBounds cannot be extracted from a null Generic Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 }

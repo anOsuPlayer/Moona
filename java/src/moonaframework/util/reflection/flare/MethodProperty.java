@@ -15,10 +15,10 @@ import moonaframework.util.reflection.Reflection;
 
 public class MethodProperty extends Flare<Reflection<?>> {
 
-	private final Method source;
+	private final Method target;
 	
 	public @Override Method getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public Modifier getModifiers() throws MoonaHandlingException {
@@ -89,19 +89,19 @@ public class MethodProperty extends Flare<Reflection<?>> {
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Flare" : "MethodProperty of " + source;
+		return (target == null) ? "Non-generated Flare" : "MethodProperty of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		java.lang.reflect.Method method = source.evaluate();
+		java.lang.reflect.Method method = target.evaluate();
 		
 		strictContext.enable();
 		
-		super.value.add(new ExistingModifier(source, method.getModifiers()));
+		super.value.add(new ExistingModifier(target, method.getModifiers()));
 		
 		java.lang.reflect.Parameter[] params = method.getParameters();
 		for (int i = 0; i < params.length; i++) {
-			super.value.add(new ExistingParameter(source, i, params[i]));
+			super.value.add(new ExistingParameter(target, i, params[i]));
 		}
 		
 		strictContext.disable();
@@ -113,6 +113,6 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		if (source == null) {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 }

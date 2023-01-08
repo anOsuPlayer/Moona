@@ -9,10 +9,10 @@ import moonaframework.util.reflection.Type;
 
 public final class SealedProfile extends Flare<Type> {
 
-	private final Type source;
+	private final Type target;
 	
 	public @Override Type getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public List<Type> getPermittedSubclasses() throws MoonaHandlingException {
@@ -113,12 +113,12 @@ public final class SealedProfile extends Flare<Type> {
 		
 		permit = permit.substring(0, permit.length()-2);
 		
-		return (source == null) ? "Non-generated Flare" : "SealedProfile of " + source + ", "
+		return (target == null) ? "Non-generated Flare" : "SealedProfile of " + target + ", "
 				+ "permitted subtypes : " + permit;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		Class<?> clazz = source.evaluate();
+		Class<?> clazz = target.evaluate();
 		
 		strictContext.enable();
 		
@@ -131,15 +131,15 @@ public final class SealedProfile extends Flare<Type> {
 		super.reflect();
 	}
 	
-	public SealedProfile(Type source) throws IllegalArgumentException, NullArgumentException {
-		if (source == null) {
+	public SealedProfile(Type target) throws IllegalArgumentException, NullArgumentException {
+		if (target == null) {
 			throw new NullArgumentException("SealedProfilers cannot be extracted from a null Type Reference.");
 		}
-		if (!source.evaluate().isSealed()) {
+		if (!target.evaluate().isSealed()) {
 			throw new IllegalArgumentException("SealedProfilers can only be built from Type References that"
 					+ " target sealed classes.");
 		}
-		this.source = source;
+		this.target = target;
 	}
 	public SealedProfile(Class<?> source) throws IllegalArgumentException, NullArgumentException {
 		this(new Type(source));

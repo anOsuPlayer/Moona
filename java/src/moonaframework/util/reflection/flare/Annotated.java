@@ -11,10 +11,10 @@ import moonaframework.util.reflection.Reference;
 
 public final class Annotated extends Flare<Annotation<?>> {
 	
-	private final Reference<? extends AnnotatedElement> source;
+	private final Reference<? extends AnnotatedElement> target;
 	
 	public @Override Reference<? extends AnnotatedElement> getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public List<Annotation<?>> getAnnotations() throws MoonaHandlingException {
@@ -87,17 +87,17 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		annots = (annots.length() != 0) ? annots.substring(0, annots.length()-2) : annots;
 		
-		return (source == null) ? "Non-generated Flare" : "Annotated of " + source + ", "
+		return (target == null) ? "Non-generated Flare" : "Annotated of " + target + ", "
 				+ ((super.value.size() == 0) ? "no annotations" : "annotations : " + annots);
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		AnnotatedElement ann = source.evaluate();
+		AnnotatedElement ann = target.evaluate();
 		
 		strictContext.enable();
 		
 		for (java.lang.annotation.Annotation annot : ann.getDeclaredAnnotations()) {
-			super.value.add(new Annotation<>(source, annot));
+			super.value.add(new Annotation<>(target, annot));
 		}
 		
 		strictContext.disable();
@@ -109,6 +109,6 @@ public final class Annotated extends Flare<Annotation<?>> {
 		if (source == null) {
 			throw new NullArgumentException("An Annotated cannot be extracted from a null Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 }

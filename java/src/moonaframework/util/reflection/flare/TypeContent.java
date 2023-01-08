@@ -19,10 +19,10 @@ import moonaframework.util.reflection.Type;
 
 public final class TypeContent extends Flare<Reference<? extends AnnotatedElement>> {
 
-	private final Type source;
+	private final Type target;
 	
 	public @Override Type getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	private int methodCount = 0;
@@ -291,11 +291,11 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Flare" : "TypeContent of " + source;
+		return (target == null) ? "Non-generated Flare" : "TypeContent of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
-		Class<?> clazz = source.evaluate();
+		Class<?> clazz = target.evaluate();
 		
 		strictContext.enable();
 		
@@ -315,7 +315,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		}
 		
 		for (java.lang.reflect.TypeVariable<?> tv : clazz.getTypeParameters()) {
-			super.value.add(new ExistingGeneric(source, tv.getName(), tv));
+			super.value.add(new ExistingGeneric(target, tv.getName(), tv));
 			genericsCount++;
 		}
 		
@@ -328,9 +328,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		if (source == null) {
 			throw new NullArgumentException("TypeContent cannot be extracted from a null Type Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 	public TypeContent(Class<?> source) throws NullArgumentException {
-		this.source = new Type(source);
+		this.target = new Type(source);
 	}
 }

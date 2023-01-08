@@ -15,10 +15,10 @@ import moonaframework.util.reflection.Reflection;
 
 public class FieldProperty extends Flare<Reflection<?>> {
 
-	private final Field source;
+	private final Field target;
 	
 	public @Override Field getTarget() {
-		return this.source;
+		return this.target;
 	}
 	
 	public Modifier getModifiers() throws MoonaHandlingException {
@@ -87,15 +87,15 @@ public class FieldProperty extends Flare<Reflection<?>> {
 	}
 	
 	public @Override String toString() {
-		return (source == null) ? "Non-generated Flare" : "FieldProperty of " + source;
+		return (target == null) ? "Non-generated Flare" : "FieldProperty of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException, MoonaHandlingException {
-		java.lang.reflect.Field field = source.evaluate();
+		java.lang.reflect.Field field = target.evaluate();
 		
 		strictContext.enable();
 		
-		super.value.add(new Modifier(source));
+		super.value.add(new Modifier(target));
 		
 		if (!field.getGenericType().equals(field.getType())) {
 			AnnotatedType[] generics = ((AnnotatedParameterizedType) field.getAnnotatedType()).getAnnotatedActualTypeArguments();
@@ -113,6 +113,6 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		if (source == null) {
 			throw new NullArgumentException("FieldProperties cannot be extracted from a null Field Reference.");
 		}
-		this.source = source;
+		this.target = source;
 	}
 }
