@@ -5,9 +5,12 @@ import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.ReflectionNotFoundException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.ExistingGeneric;
 import moonaframework.util.reflection.ExistingModifier;
 import moonaframework.util.reflection.ExistingParameter;
+import moonaframework.util.reflection.Generic;
 import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
@@ -33,6 +36,11 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		return (Modifier) super.value.get(0);
 	}
 	
+	private int parameterCount = 0;
+	
+	public int parameterCount() {
+		return this.parameterCount;
+	}
 	public List<Parameter> getParameters() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
@@ -50,6 +58,7 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		
 		return list;
 	}
+	
 	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
@@ -63,7 +72,7 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
-		if (index + 1 >= super.value.size()) {
+		if (index >= parameterCount) {
 			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " Parameter "
 					+ "References, index " + index + " is out of range.");
 		}
@@ -71,7 +80,12 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		return (Parameter) super.value.get(index+1);
 	}
 	
-	public int parameterCount() {
+	private int typeArgumentsCount = 0;
+	
+	public int typeArgumentsCount() {
+		return this.typeArgumentsCount;
+	}
+	public List<Generic> getTypeArguments() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
 				reflect();
@@ -81,7 +95,54 @@ public class MethodProperty extends Flare<Reflection<?>> {
 			}
 		}
 		
-		return super.value.size()-1;
+		final List<Generic> list = new ArrayList<>();
+		for (int i = parameterCount; i < super.value.size(); i++) {
+			list.add((Generic) super.value.get(i));
+		}
+		return list;
+	}
+	
+	public Generic getTypeArgument(int index) throws IllegalArgumentException, MoonaHandlingException {
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		if (index < 0) {
+			throw new IllegalArgumentException("Negative indexes are not allowed.");
+		}
+		if (index + 1 >= super.value.size()) {
+			throw new IllegalArgumentException("There are only " + (super.value.size()-1) + " RawType "
+					+ "References, index " + index + " is out of range.");
+		}
+		
+		return (Generic) super.value.get(1+parameterCount+index);
+	}
+	public Generic getTypeArgument(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+		if (name == null) {
+			throw new NullArgumentException("The field's name can't be null.");
+		}
+		
+		if (!super.hasGenerated) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		for (int i = 0; i < typeArgumentsCount; i++) {
+			Generic g = getTypeArgument(i);
+			if (g.getName().equals(name)) {
+				return g;
+			}
+		}
+		throw new ReflectionNotFoundException("There is no generic named " + name + " in this TypeContent.");
 	}
 	
 	public @Override boolean equals(Object o) {
@@ -102,6 +163,12 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		java.lang.reflect.Parameter[] params = method.getParameters();
 		for (int i = 0; i < params.length; i++) {
 			super.value.add(new ExistingParameter(target, i, params[i]));
+			parameterCount++;
+		}
+		
+		for (java.lang.reflect.TypeVariable<?> tv : method.getTypeParameters()) {
+			super.value.add(new ExistingGeneric(target, tv.getName(), tv));
+			typeArgumentsCount++;
 		}
 		
 		strictContext.disable();

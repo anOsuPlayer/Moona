@@ -39,6 +39,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Method> list = new ArrayList<>();
 		for (int i = 0; i < methodCount; i++) {
 			list.add((Method) super.value.get(i));
@@ -104,6 +105,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Constructor> list = new ArrayList<>();
 		for (int i = methodCount; i < methodCount+constructorCount; i++) {
 			list.add((Constructor) super.value.get(i));
@@ -169,6 +171,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Field> list = new ArrayList<>();
 		for (int i = constructorCount+methodCount; i < constructorCount+methodCount+fieldCount; i++) {
 			list.add((Field) super.value.get(i));
@@ -209,6 +212,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		for (int i = 0; i < fieldCount; i++) {
 			Field f = getField(i);
 			if (f.getName().equals(name)) {
@@ -218,10 +222,10 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		throw new ReflectionNotFoundException("There is no field named " + name + " in this TypeContent.");
 	}
 	
-	private int genericsCount = 0;
+	private int typeArgumentsCount = 0;
 	
-	public int genericsCount() {
-		return this.genericsCount;
+	public int typeArgumentsCount() {
+		return this.typeArgumentsCount;
 	}
 	public List<Generic> getTypeArguments() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
@@ -232,6 +236,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
 			}
 		}
+		
 		final List<Generic> list = new ArrayList<>();
 		for (int i = constructorCount+methodCount+fieldCount; i < totalReflections(); i++) {
 			list.add((Generic) super.value.get(i));
@@ -252,8 +257,8 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		if (index < 0) {
 			throw new IllegalArgumentException("Negative indexes are not allowed.");
 		}
-		if (index >= genericsCount) {
-			throw new IndexOutOfBoundsException("There are only " + genericsCount + " Generic References, index "
+		if (index >= typeArgumentsCount) {
+			throw new IndexOutOfBoundsException("There are only " + typeArgumentsCount + " Generic References, index "
 					+ index + " is out of range.");
 		}
 		
@@ -273,7 +278,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 			}
 		}
 		
-		for (int i = 0; i < genericsCount; i++) {
+		for (int i = 0; i < typeArgumentsCount; i++) {
 			Generic g = getTypeArgument(i);
 			if (g.getName().equals(name)) {
 				return g;
@@ -283,7 +288,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	
 	public int totalReflections() {
-		return methodCount + constructorCount + fieldCount + genericsCount;
+		return methodCount + constructorCount + fieldCount + typeArgumentsCount;
 	}
 	
 	public @Override boolean equals(Object o) {
@@ -316,7 +321,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		for (java.lang.reflect.TypeVariable<?> tv : clazz.getTypeParameters()) {
 			super.value.add(new ExistingGeneric(target, tv.getName(), tv));
-			genericsCount++;
+			typeArgumentsCount++;
 		}
 		
 		strictContext.disable();
