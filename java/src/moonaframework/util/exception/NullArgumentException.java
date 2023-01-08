@@ -14,9 +14,14 @@ public class NullArgumentException extends RuntimeException implements Serial {
 		return Nature.EXCEPTION;
 	}
 
+	public NullArgumentException(String message, Throwable cause) {
+		super(message, cause);
+	}
+	
 	public NullArgumentException(String message) {
 		super(message);
 	}
+	
 	public NullArgumentException() {
 		super("Null arguments are not allowed.");
 	}
