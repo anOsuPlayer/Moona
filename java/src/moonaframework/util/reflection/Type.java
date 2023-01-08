@@ -4,7 +4,7 @@ import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.flare.TypeContent;
 
-public sealed class Type extends Reference<Class<?>> permits Record, Enumeration {
+public final class Type extends Reference<Class<?>> {
 
 	public @Override boolean equals(Object o) {
 		return (o instanceof Type t) ?

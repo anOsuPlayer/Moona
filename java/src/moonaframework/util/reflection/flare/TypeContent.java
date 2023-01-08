@@ -17,7 +17,7 @@ import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Type;
 
-public sealed class TypeContent extends Flare<Reference<? extends AnnotatedElement>> permits RecordContent, EnumContent {
+public final class TypeContent extends Flare<Reference<? extends AnnotatedElement>> {
 
 	protected final Type target;
 	
