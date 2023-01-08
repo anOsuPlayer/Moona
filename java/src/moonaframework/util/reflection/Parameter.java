@@ -42,7 +42,7 @@ public sealed class Parameter extends Reference<java.lang.reflect.Parameter> per
 	}
 	
 	public @Override String toString() {
-		return (target == null) ? "Non-generated Reflection" : "Parameter n." + index + " of " + target;
+		return (target == null) ? "Non-generated Reflection" : "Parameter n." + (index+1) + " of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {
