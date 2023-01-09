@@ -327,6 +327,8 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		strictContext.disable();
 		
 		super.reflect();
+		
+		System.out.println("AAAAAA");
 	}
 	
 	public TypeContent(Type target) throws NullArgumentException {

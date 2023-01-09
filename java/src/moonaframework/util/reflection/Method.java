@@ -3,6 +3,7 @@ package moonaframework.util.reflection;
 import java.util.Arrays;
 
 import moonaframework.base.Moona;
+import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.MethodProperty;
@@ -25,6 +26,19 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public Class<?>[] getParameterTypes() {
 		return this.args;
+	}
+	
+	public Class<?> getReturnType() {
+		if (super.value == null) {
+			try {
+				reflect();
+			}
+			catch (UndefinedReflectionException ure) {
+				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+			}
+		}
+		
+		return super.value.getReturnType();
 	}
 	
 	public @Override boolean equals(Object o) {

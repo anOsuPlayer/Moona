@@ -100,21 +100,21 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		
 		super.value.add(new Modifier(target));
 		
-		if (!field.getGenericType().equals(field.getType())) {
-			AnnotatedParameterizedType atp = null;
+		if (field.getGenericType().getTypeName().contains("<")) {
+			AnnotatedParameterizedType apt = null;
 			
 			if (field.getType().isArray()) {
 				AnnotatedArrayType aat = (AnnotatedArrayType) field.getAnnotatedType();
 				while (aat.getAnnotatedGenericComponentType() instanceof AnnotatedArrayType) {
 					aat = (AnnotatedArrayType) aat.getAnnotatedGenericComponentType();
 				}
-				atp = (AnnotatedParameterizedType) aat.getAnnotatedGenericComponentType();
+				apt = (AnnotatedParameterizedType) aat.getAnnotatedGenericComponentType();
 			}
 			else {
-				atp = (AnnotatedParameterizedType) field.getAnnotatedType();
+				apt = (AnnotatedParameterizedType) field.getAnnotatedType();
 			}
 			
-			AnnotatedType[] generics = atp.getAnnotatedActualTypeArguments();
+			AnnotatedType[] generics = apt.getAnnotatedActualTypeArguments();
 			for (AnnotatedType ann : generics) {
 				super.value.add(new RawType(ann));
 			}
