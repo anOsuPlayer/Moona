@@ -1,5 +1,6 @@
 package moonaframework.util.reflection.flare;
 
+import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
 import java.util.ArrayList;
@@ -100,7 +101,20 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		super.value.add(new Modifier(target));
 		
 		if (!field.getGenericType().equals(field.getType())) {
-			AnnotatedType[] generics = ((AnnotatedParameterizedType) field.getAnnotatedType()).getAnnotatedActualTypeArguments();
+			AnnotatedParameterizedType atp = null;
+			
+			if (field.getType().isArray()) {
+				AnnotatedArrayType aat = (AnnotatedArrayType) field.getAnnotatedType();
+				while (aat.getAnnotatedGenericComponentType() instanceof AnnotatedArrayType) {
+					aat = (AnnotatedArrayType) aat.getAnnotatedGenericComponentType();
+				}
+				atp = (AnnotatedParameterizedType) aat.getAnnotatedGenericComponentType();
+			}
+			else {
+				atp = (AnnotatedParameterizedType) field.getAnnotatedType();
+			}
+			
+			AnnotatedType[] generics = atp.getAnnotatedActualTypeArguments();
 			for (AnnotatedType ann : generics) {
 				super.value.add(new RawType(ann));
 			}
