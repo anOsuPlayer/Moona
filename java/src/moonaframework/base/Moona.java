@@ -30,6 +30,13 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
 		
+		if (loadReflections.evaluate()) {
+			Mirror.loadReflections();
+		}
+		
+		autoReflections.disable();
+		autoReflections.lock();
+		
 		isOn = true;
 		
 		for (Serial s : elements.values()) {
@@ -37,13 +44,6 @@ public final class Moona {
 				cx.code.run();
 			}
 		}
-		
-		if (loadReflections.evaluate()) {
-			Mirror.loadReflections();
-		}
-		
-		autoReflections.disable();
-		autoReflections.lock();
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
