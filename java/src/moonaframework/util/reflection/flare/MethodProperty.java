@@ -15,6 +15,7 @@ import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Modifier;
 import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.Reflection;
+import moonaframework.util.reflection.Type;
 
 public class MethodProperty extends Flare<Reflection<?>> {
 
@@ -143,6 +144,18 @@ public class MethodProperty extends Flare<Reflection<?>> {
 			}
 		}
 		throw new ReflectionNotFoundException("There is no generic named " + name + " in this MethodProperty.");
+	}
+	
+	public Class<?> getReturnType() throws MoonaHandlingException {
+		try {
+			return target.evaluate().getReturnType();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+		}
+	}
+	public Type getReturnTypeReference() throws MoonaHandlingException {
+		return new Type(getReturnType());
 	}
 	
 	public @Override boolean equals(Object o) {

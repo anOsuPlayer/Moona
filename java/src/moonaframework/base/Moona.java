@@ -41,6 +41,9 @@ public final class Moona {
 		if (loadReflections.evaluate()) {
 			Mirror.loadReflections();
 		}
+		
+		autoReflections.disable();
+		autoReflections.lock();
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
