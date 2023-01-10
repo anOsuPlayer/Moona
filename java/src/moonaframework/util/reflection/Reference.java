@@ -30,9 +30,11 @@ public abstract sealed class Reference<T extends AnnotatedElement> extends Refle
 	protected Reference() {
 		super();
 		
-		if (Moona.autoReflections.evaluate() || strictContext.evaluate()) {
-			derive();
+		if (Moona.autoReflections.evaluate()) {
 			getAnnotated();
+		}
+		if (strictContext.evaluate()) {
+			derive();
 		}
 	}
 }
