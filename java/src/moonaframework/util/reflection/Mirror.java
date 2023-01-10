@@ -127,6 +127,10 @@ public final class Mirror {
 		return totalReflections;
 	}
 	
+	public static int totalFlares() {
+		return totalFlares;
+	}
+	
 	private Mirror() {
 		
 	}

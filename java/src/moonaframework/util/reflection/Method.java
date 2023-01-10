@@ -2,7 +2,6 @@ package moonaframework.util.reflection;
 
 import java.util.Arrays;
 
-import moonaframework.base.Moona;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.MethodProperty;
@@ -74,9 +73,6 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 					+ " method name.");
 		}
 		this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
-		if (Moona.autoReflections.evaluate()) {
-			derive();
-		}
 	}
 	public Method(Class<?> clazz, String name) {
 		this(clazz, name, Mirror.NO_ARGS);

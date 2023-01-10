@@ -136,7 +136,7 @@ public final class SealedProfile extends Flare<Type> {
 			throw new NullArgumentException("SealedProfilers cannot be extracted from a null Type Reference.");
 		}
 		if (!target.evaluate().isSealed()) {
-			throw new IllegalArgumentException("SealedProfilers can only be built from Type References that"
+			throw new IllegalArgumentException("SealedProfiles can only be built from Type References that"
 					+ " target sealed classes.");
 		}
 		this.target = target;

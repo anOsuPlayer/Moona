@@ -45,8 +45,13 @@ public sealed class Parameter extends Reference<java.lang.reflect.Parameter> per
 		return (target == null) ? "Non-generated Reflection" : "Parameter n." + (index+1) + " of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException, IndexOutOfBoundsException {
 		java.lang.reflect.Parameter[] params = target.evaluate().getParameters();
+		
+		if (index >= params.length) {
+			throw new IndexOutOfBoundsException("Only " + params.length + " parameters are available.");
+		}
+		
 		if (index < params.length) {
 			super.value = params[index];
 			return;
