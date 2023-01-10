@@ -56,6 +56,7 @@ public sealed class Parameter extends Reference<java.lang.reflect.Parameter> per
 			super.value = params[index];
 			return;
 		}
+		
 		throw new UndefinedReflectionException("Parameter n." + index + " could not be evaluated from the given"
 				+ " Reference.");
 	}
