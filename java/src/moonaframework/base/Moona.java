@@ -34,9 +34,6 @@ public final class Moona {
 			Mirror.loadReflections();
 		}
 		
-		autoReflections.disable();
-		autoReflections.lock();
-		
 		isOn = true;
 		
 		for (Serial s : elements.values()) {
