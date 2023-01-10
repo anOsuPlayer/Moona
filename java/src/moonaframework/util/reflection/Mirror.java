@@ -43,7 +43,7 @@ public final class Mirror {
 			add(refl);
 		}
 	}
-	static void addReflection(Reflection<?> refl) {
+	static void addReflection(Reflection<?> refl) throws MoonaHandlingException {
 		totalReflections++;
 		totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
 		
@@ -79,7 +79,7 @@ public final class Mirror {
 				refl.evaluate();
 			}
 			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Undefined Reflections detected.", ure);
+				throw new MoonaHandlingException("Undefined Reflections.", ure);
 			}
 		});
 		if (!queue.isEmpty()) {
