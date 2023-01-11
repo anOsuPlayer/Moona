@@ -8,7 +8,7 @@ import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
-public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> permits Type, Constructor, Method, Field, Parameter, Generic, RawType, RecordComponent {
+public abstract sealed class Reference<T extends AnnotatedElement> extends Reflection<T> implements Derivable permits Type, Constructor, Method, Field, Parameter, Generic, RawType, RecordComponent {
 	
 	public @Override abstract Object getTarget();
 	

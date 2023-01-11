@@ -4,15 +4,15 @@ import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.FieldProperty;
 
-public final class Field extends Reference<java.lang.reflect.Field> {
+public sealed class Field extends Reference<java.lang.reflect.Field> permits EnumField {
 	
-	private final Class<?> clazz;
+	protected final Class<?> clazz;
 	
 	public Class<?> getDeclaringClass() {
 		return clazz;
 	}
 	
-	private final String name;
+	protected final String name;
 	
 	public String getName() {
 		return this.name;
@@ -25,7 +25,7 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 	}
 	
 	public @Override String toString() {
-		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in class " + clazz.getName();
+		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in Class " + clazz.getName();
 	}
 	
 	public @Override java.lang.reflect.Field getTarget() {
@@ -37,7 +37,7 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 			super.value = clazz.getDeclaredField(name);
 		}
 		catch (NoSuchFieldException nsfe) {
-			throw new UndefinedReflectionException("No Method References could be generated from the given"
+			throw new UndefinedReflectionException("No Field References could be generated from the given"
 					+ " arguments.", nsfe);
 		}
 	}
@@ -61,9 +61,24 @@ public final class Field extends Reference<java.lang.reflect.Field> {
 	
 	public Field(java.lang.reflect.Field field) throws NullArgumentException {
 		if (field == null) {
-			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
+			throw new NullArgumentException("Cannot build a Field Reference over a null java.lang.reflect.Method.");
 		}
 		super.value = field;
 		this.clazz = field.getDeclaringClass(); this.name = field.getName();
+	}
+}
+
+final class EnumField extends Field {
+	
+	public @Override String toString() {
+		return (name == null) ? "Non-generated Reflection" : "Enum Const " + name + " in Enum " + clazz.getName();
+	}
+	
+	public EnumField(Class<?> clazz, String name) throws IllegalArgumentException, NullArgumentException {
+		super(clazz, name);
+	}
+	
+	public EnumField(java.lang.reflect.Field field) throws NullArgumentException {
+		super(field);
 	}
 }
