@@ -50,7 +50,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 		return null;
 	}
 	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) throws MoonaHandlingException {
-		return getAnnotation(annot).evaluate();
+		return getAnnotation(annot) == null ? null : getAnnotation(annot).evaluate();
 	}
 	
 	public int annotationCount() throws MoonaHandlingException {
