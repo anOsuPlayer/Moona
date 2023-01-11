@@ -35,7 +35,6 @@ public abstract class Reflection<T> implements Serial {
 		}
 		return value;
 	}
-	
 	public final boolean isUndefined() {
 		try {
 			evaluate();
@@ -50,5 +49,9 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected Reflection() {
 		this.id = Moona.generateID();
+		
+		if (Moona.autoReflections.evaluate()) {
+			Mirror.queue(this);
+		}
 	}
 }
