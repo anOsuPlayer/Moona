@@ -84,7 +84,7 @@ public final class GenericBounds extends Flare<RawType> {
 		
 		bounds = (bounds.length() != 0) ? bounds.substring(0, bounds.length()-2) : bounds;
 		
-		return (target == null) ? "Non-generated Flare" : "GenericBounds of " + target + ", "
+		return (!super.hasGenerated) ? "Non-generated Flare" : "GenericBounds of " + target + ", "
 				+ ((super.value.size() == 0) ? "no bounds" : "bounds : " + bounds);
 	}
 	

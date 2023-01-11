@@ -98,7 +98,7 @@ public final class Hierarchy extends Flare<Type> {
 	}
 	
 	public @Override String toString() {
-		return "Hierarchy of " + target;
+		return (!super.hasGenerated) ? "Non-generate Flare." : "Hierarchy of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

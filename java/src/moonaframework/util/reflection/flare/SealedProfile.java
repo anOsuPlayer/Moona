@@ -113,7 +113,7 @@ public final class SealedProfile extends Flare<Type> {
 		
 		permit = permit.substring(0, permit.length()-2);
 		
-		return (target == null) ? "Non-generated Flare" : "SealedProfile of " + target + ", "
+		return (!super.hasGenerated) ? "Non-generated Flare" : "SealedProfile of " + target + ", "
 				+ "permitted subtypes : " + permit;
 	}
 	
@@ -140,8 +140,5 @@ public final class SealedProfile extends Flare<Type> {
 					+ " target sealed classes.");
 		}
 		this.target = target;
-	}
-	public SealedProfile(Class<?> target) throws IllegalArgumentException, NullArgumentException {
-		this(new Type(target));
 	}
 }

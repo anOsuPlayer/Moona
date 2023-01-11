@@ -90,7 +90,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 	}
 	
 	public @Override String toString() {
-		return (target == null) ? "Non-generated Flare" : "FieldProperty of " + target;
+		return (!super.hasGenerated) ? "Non-generated Flare" : "FieldProperty of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException, MoonaHandlingException {

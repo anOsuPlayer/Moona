@@ -296,7 +296,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	
 	public @Override String toString() {
-		return (target == null) ? "Non-generated Flare" : "TypeContent of " + target;
+		return (!super.hasGenerated) ? "Non-generated Flare" : "TypeContent of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

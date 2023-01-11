@@ -87,7 +87,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		annots = (annots.length() != 0) ? annots.substring(0, annots.length()-2) : annots;
 		
-		return (target == null) ? "Non-generated Flare" : "Annotated of " + target + ", "
+		return (!super.hasGenerated) ? "Non-generated Flare" : "Annotated of " + target + ", "
 				+ ((super.value.size() == 0) ? "no annotations" : "annotations : " + annots);
 	}
 	
