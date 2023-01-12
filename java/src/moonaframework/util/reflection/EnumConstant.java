@@ -40,7 +40,7 @@ public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
 	
 	public final Annotated getAnnotated() {
 		if (annots == null) {
-			annots = new Annotated(new EnumField(target, super.value.toString()));
+			annots = new Annotated(new EnumField(super.value.getClass(), super.value.toString()));
 		}
 		return annots;
 	}
