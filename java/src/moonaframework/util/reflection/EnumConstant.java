@@ -1,23 +1,22 @@
 package moonaframework.util.reflection;
 
-import java.lang.reflect.AnnotatedElement;
-
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.NullArgumentException;
-import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.Annotated;
-import moonaframework.util.reflection.flare.EnumContent;
-import moonaframework.util.reflection.flare.Flare;
 import moonaframework.util.reflection.flare.TypeContent;
 
 public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
 
 	private final Class<E> target;
 	
-	public @Override Class<? extends Enum<E>> getTarget() {
+	public @Override Class<E> getTarget() {
 		return this.target;
 	}
 
+	public String getName() {
+		return String.valueOf(super.value);
+	}
+	
 	public @Override boolean equals(Object o) {
 		return (o instanceof EnumConstant<?> en) ?
 				this.target.equals(en.target) && this.value.equals(en.value)
