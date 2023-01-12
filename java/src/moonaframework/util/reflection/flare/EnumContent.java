@@ -115,7 +115,7 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 		if (target == null) {
 			throw new NullArgumentException("EnumContents cannot be extracted from a null Type Reference.");
 		}
-		if (!target.evaluate().isSealed()) {
+		if (!target.evaluate().isEnum()) {
 			throw new IllegalArgumentException("EnumContents can only be built from Type References that"
 					+ " target enum classes.");
 		}
