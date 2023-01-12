@@ -26,6 +26,10 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		return this.args;
 	}
 	
+	public Class<?> getReturnType() {
+		return super.value.getReturnType();
+	}
+	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Method method) ?
 				this.name.equals(method.name) && this.clazz.equals(method.clazz)
