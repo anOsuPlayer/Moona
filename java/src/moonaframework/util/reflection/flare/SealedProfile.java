@@ -120,13 +120,9 @@ public final class SealedProfile extends Flare<Type> {
 	public @Override void reflect() throws UndefinedReflectionException {
 		Class<?> clazz = target.evaluate();
 		
-		strictContext.enable();
-		
 		for (Class<?> allowed : clazz.getPermittedSubclasses()) {
 			super.value.add(new Type(allowed));
 		}
-		
-		strictContext.disable();
 		
 		super.reflect();
 	}

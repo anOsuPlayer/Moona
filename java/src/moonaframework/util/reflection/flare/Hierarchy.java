@@ -104,15 +104,11 @@ public final class Hierarchy extends Flare<Type> {
 	public @Override void reflect() throws UndefinedReflectionException {
 		Class<?> clazz = target.evaluate();
 		
-		strictContext.enable();
-		
 		super.value.add(new Type((clazz.getSuperclass() != null) ? clazz.getSuperclass() : Object.class));
 		
 		for (Class<?> interf : clazz.getInterfaces()) {
 			super.value.add(new Type(interf));
 		}
-		
-		strictContext.disable();
 		
 		super.reflect();
 	}

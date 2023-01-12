@@ -28,13 +28,9 @@ public final class ExceptionProfile extends Flare<Type> {
 	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Executable exec = target.evaluate();
 		
-		strictContext.enable();
-		
 		for (Class<?> except : exec.getExceptionTypes()) {
 			super.value.add(new Type(except));
 		}
-		
-		strictContext.disable();
 		
 		super.reflect();
 	}
