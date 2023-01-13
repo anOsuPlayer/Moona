@@ -1,8 +1,5 @@
 package moonaframework.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import moonaframework.util.functional.Snippet;
 
 public final class Benchmark {

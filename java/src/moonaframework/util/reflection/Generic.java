@@ -3,7 +3,6 @@ package moonaframework.util.reflection;
 import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.TypeVariable;
 
-import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.GenericBounds;

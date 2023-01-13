@@ -45,7 +45,7 @@ public abstract class Reflection<T> implements Serial {
 		}
 	}
 	
-	protected static final Setting strictContext = new Setting(false);
+	protected static transient final Setting strictContext = new Setting(false);
 	
 	protected Reflection() {
 		this.id = Moona.generateID();
