@@ -71,24 +71,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 	}
 	
 	public @Override String toString() throws MoonaHandlingException {
-		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
-		}
-		
-		String annots = "";
-		for (Annotation<?> ann : super.value) {
-			annots += ann.toString().substring(ann.toString().lastIndexOf('.')+1) + ", ";
-		}
-		
-		annots = (annots.length() != 0) ? annots.substring(0, annots.length()-2) : annots;
-		
-		return (!super.hasGenerated) ? "Non-generated Flare" : "Annotated of " + target + ", "
-				+ ((super.value.size() == 0) ? "no annotations" : "annotations : " + annots);
+		return (!super.hasGenerated) ? "Non-generated Flare" : "Annotated of " + target;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

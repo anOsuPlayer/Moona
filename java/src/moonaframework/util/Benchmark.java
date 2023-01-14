@@ -14,7 +14,7 @@ public final class Benchmark {
 		s.run();
 		return System.nanoTime()-beg;
 	}
-	public static void showTime(Snippet s) {
+	public static void showTime(Snippet s) throws NullArgumentException {
 		System.out.println(Benchmark.time(s) + " ns");
 	}
 	
@@ -32,7 +32,7 @@ public final class Benchmark {
 		}
 		return avg / cycles;
 	}
-	public static void showStress(int cycles, Snippet s) {
+	public static void showStress(int cycles, Snippet s) throws NullArgumentException {
 		System.out.println("avg of: " + stress(cycles, s) + " ns");
 	}
 	
