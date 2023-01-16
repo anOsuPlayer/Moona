@@ -57,5 +57,7 @@ public final class Type extends Reference<Class<?>> {
 			throw new NullArgumentException("Cannot generate a Type Reference over a null class.");
 		}
 		super.value = clazz;
+		
+		super.mirrorInteraction();
 	}
 }

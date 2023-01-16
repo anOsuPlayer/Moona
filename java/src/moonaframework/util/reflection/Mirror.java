@@ -34,9 +34,7 @@ public final class Mirror {
 		if (reflections.hasKey(refl.id())) {
 			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
 		}
-		if (!has(refl)) {
-			addReflection(refl);
-		}
+		addReflection(refl);
 	}
 	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
 		for (Reflection<?> refl : reflections) {
@@ -44,10 +42,12 @@ public final class Mirror {
 		}
 	}
 	static void addReflection(Reflection<?> refl) throws MoonaHandlingException {
-		totalReflections++;
-		totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
-		
-		reflections.add(refl, refl.id());
+		if (!has(refl)) {
+			totalReflections++;
+			totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
+			
+			reflections.add(refl, refl.id());
+		}
 	}
 	
 	public static void remove(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
@@ -57,9 +57,7 @@ public final class Mirror {
 		if (!reflections.hasKey(refl.id())) {
 			throw new MoonaHandlingException("This Reflection is not present in Moona.");
 		}
-		if (has(refl)) {
-			removeReflection(refl);
-		}
+		removeReflection(refl);
 	}
 	public static void remove(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
 		for (Reflection<?> refl : reflections) {
@@ -67,10 +65,12 @@ public final class Mirror {
 		}
 	}
 	static void removeReflection(Reflection<?> refl) {
-		totalReflections--;
-		totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
-		
-		reflections.remove(refl, refl.id());
+		if (has(refl)) {
+			totalReflections--;
+			totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
+			
+			reflections.remove(refl, refl.id());
+		}
 	}
 	
 	public static void loadReflections() throws MoonaHandlingException {

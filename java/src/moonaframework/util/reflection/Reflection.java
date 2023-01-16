@@ -48,14 +48,28 @@ public abstract class Reflection<T> implements Serial {
 	protected static transient final Setting strictContext = new Setting(false);
 	
 	protected void mirrorInteraction() {
-		if (Moona.autoReflections.evaluate()) {
-			Mirror.queue(this);
+		if (!Moona.isOn()) {
+			if (Moona.autoReflections.evaluate()) {
+				Mirror.queue(this);
+			}
+			
+			if (Moona.autoDeriveReferences.evaluate() || (strictContext.evaluate() && Moona.autoDeriveReferences.evaluate())) {
+				if (this instanceof Derivable d) {
+					d.derive();
+					d.getAnnotated();
+				}
+			}
 		}
-		
-		if (this instanceof Derivable d) {
-			if (Moona.autoDeriveReferences.evaluate() || strictContext.evaluate()) {
-				d.derive();
-				d.getAnnotated();
+		else {
+			if (Moona.autoReflections.evaluate()) {
+				Mirror.add(this);
+			}
+			
+			if (Moona.deriveWhenInitialized.evaluate() || (strictContext.evaluate() && Moona.deriveWhenInitialized.evaluate())) {
+				if (this instanceof Derivable d) {
+					d.derive();
+					d.getAnnotated();
+				}
 			}
 		}
 	}

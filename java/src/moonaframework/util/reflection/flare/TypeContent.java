@@ -30,6 +30,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	public int methodCount() {
 		return this.methodCount;
 	}
+	
 	public List<Method> getMethods() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
 			try {
@@ -94,7 +95,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	private int constructorCount = 0;
 	
 	public int constructorCount() {
-		return this.fieldCount;
+		return this.constructorCount;
 	}
 	public List<Constructor> getConstructors() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
