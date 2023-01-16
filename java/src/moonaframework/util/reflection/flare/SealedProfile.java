@@ -119,5 +119,7 @@ public final class SealedProfile extends Flare<Type> {
 					+ " target sealed classes.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }

@@ -32,5 +32,7 @@ public final class ExistingParameter extends Parameter {
 		if (Reflection.strictContext.evaluate()) {
 			trusted = true;
 		}
+		
+		super.mirrorInteraction();
 	}
 }

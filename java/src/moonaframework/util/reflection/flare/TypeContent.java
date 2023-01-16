@@ -334,8 +334,10 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 			throw new NullArgumentException("TypeContent cannot be extracted from a null Type Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 	public TypeContent(Class<?> target) throws NullArgumentException {
-		this.target = new Type(target);
+		this(new Type(target));
 	}
 }

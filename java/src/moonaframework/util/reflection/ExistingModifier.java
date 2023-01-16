@@ -32,5 +32,7 @@ public final class ExistingModifier extends Modifier {
 		if (Reflection.strictContext.evaluate()) {
 			trusted = true;
 		}
+		
+		super.mirrorInteraction();
 	}
 }

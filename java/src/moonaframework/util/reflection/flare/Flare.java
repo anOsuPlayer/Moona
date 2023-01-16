@@ -26,9 +26,7 @@ public abstract class Flare<R extends Reflection<?>> extends Reflection<List<R>>
 		}
 		
 		{
-			if (Moona.autoReflections.evaluate()) {
-				Mirror.add(this);
-			}
+			super.mirrorInteraction();
 		}
 	};
 	

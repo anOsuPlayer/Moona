@@ -47,11 +47,20 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected static transient final Setting strictContext = new Setting(false);
 	
-	protected Reflection() {
-		this.id = Moona.generateID();
-		
+	protected void mirrorInteraction() {
 		if (Moona.autoReflections.evaluate()) {
 			Mirror.queue(this);
 		}
+		
+		if (this instanceof Derivable d) {
+			if (Moona.autoDeriveReferences.evaluate() || strictContext.evaluate()) {
+				d.derive();
+				d.getAnnotated();
+			}
+		}
+	}
+	
+	protected Reflection() {
+		this.id = Moona.generateID();
 	}
 }

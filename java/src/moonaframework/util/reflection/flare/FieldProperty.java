@@ -130,5 +130,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 			throw new NullArgumentException("FieldProperties cannot be extracted from a null Field Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }

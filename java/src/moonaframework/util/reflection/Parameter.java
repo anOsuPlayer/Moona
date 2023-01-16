@@ -69,5 +69,7 @@ public sealed class Parameter extends Reference<java.lang.reflect.Parameter> per
 			throw new IllegalArgumentException("Parameter's index cannot be less than zero.");
 		}
 		this.target = target; this.index = index;
+		
+		super.mirrorInteraction();
 	}
 }

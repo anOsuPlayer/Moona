@@ -46,5 +46,7 @@ public final class ExistingRecordComponent extends RecordComponent {
 		if (Reflection.strictContext.evaluate()) {
 			trusted = true;
 		}
+		
+		super.mirrorInteraction();
 	}
 }

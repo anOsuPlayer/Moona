@@ -54,5 +54,7 @@ public final class Annotation<A extends java.lang.annotation.Annotation> extends
 			throw new NullArgumentException("A null java.lang.annotation.Annotation cannot be accepted.");
 		}
 		this.target = target; super.value = annot;
+		
+		super.mirrorInteraction();
 	}
 }

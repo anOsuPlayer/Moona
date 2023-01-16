@@ -5,7 +5,7 @@ import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.TypeContent;
 
-public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
+public final class EnumConstant<E extends Enum<E>> extends Reflection<E> implements Derivable {
 
 	private final Class<E> target;
 	
@@ -38,7 +38,7 @@ public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
 	
 	private Annotated annots;
 	
-	public final Annotated getAnnotated() {
+	public @Override Annotated getAnnotated() {
 		if (annots == null) {
 			annots = new Annotated(new EnumField(target, super.value.toString()));
 		}
@@ -47,7 +47,7 @@ public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
 	
 	private TypeContent tc;
 	
-	public @Deadlined TypeContent derive() {
+	public @Override TypeContent derive() {
 		if (tc == null) {
 			tc = new TypeContent(super.value.getClass());
 		}
@@ -59,5 +59,7 @@ public final class EnumConstant<E extends Enum<E>> extends Reflection<E> {
 			throw new NullArgumentException("Cannot generate an EnumConstant Reference over a null enum.");
 		}
 		super.value = en; this.target = super.value.getDeclaringClass();
+		
+		super.mirrorInteraction();
 	}
 }

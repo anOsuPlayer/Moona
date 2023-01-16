@@ -194,5 +194,7 @@ public class MethodProperty extends Flare<Reflection<?>> {
 			throw new NullArgumentException("MethodProperties cannot be extracted from a null Method Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }

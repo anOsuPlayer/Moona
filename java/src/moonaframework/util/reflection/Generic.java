@@ -57,6 +57,8 @@ public sealed class Generic extends Reference<TypeVariable<?>> permits ExistingG
 					+ " null name.");
 		}
 		this.target = target; this.name = name;
+		
+		super.mirrorInteraction();
 	}
 	public Generic(Class<?> clazz, String name) throws NullArgumentException {
 		this (new Type(clazz), name);

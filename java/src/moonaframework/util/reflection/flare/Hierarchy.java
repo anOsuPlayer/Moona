@@ -118,6 +118,8 @@ public final class Hierarchy extends Flare<Type> {
 			throw new NullArgumentException("Hierarchy cannot be extracted from a null Type Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 	public Hierarchy(Class<?> clazz) throws NullArgumentException {
 		this(new Type(clazz));

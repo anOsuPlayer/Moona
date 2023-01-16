@@ -187,5 +187,7 @@ public sealed class Modifier extends Reflection<Integer> permits ExistingModifie
 			throw new NullArgumentException("Cannot build a Modifier Reflection over a null Reference.");
 		}
 		this.target = ref;
+		
+		super.mirrorInteraction();
 	}
 }

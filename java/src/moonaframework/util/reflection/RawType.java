@@ -34,5 +34,7 @@ public final class RawType extends Reference<AnnotatedType> {
 			throw new NullArgumentException("A null java.lang.reflect.AnnotatedType cannot be accepted.");
 		}
 		super.value = type;
+		
+		super.mirrorInteraction();
 	}
 }

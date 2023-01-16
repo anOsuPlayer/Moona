@@ -65,6 +65,8 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 			throw new NullArgumentException("Cannot build a Constructor Reference over a null class.");
 		}
 		this.clazz = clazz; this.args = (args == null) ? Mirror.NO_ARGS : args;
+		
+		super.mirrorInteraction();
 	}
 	public Constructor(Class<?> clazz) {
 		this(clazz, Mirror.NO_ARGS);
@@ -77,5 +79,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		super.value = constr;
 		this.clazz = constr.getDeclaringClass();
 		this.args = (constr.getParameterTypes().length == 0) ? Mirror.NO_ARGS : constr.getParameterTypes();
+		
+		super.mirrorInteraction();
 	}
 }

@@ -75,6 +75,8 @@ public sealed class RecordComponent extends Reference<java.lang.reflect.RecordCo
 					+ " or a null record component name.");
 		}
 		this.clazz = clazz; this.name = name;
+		
+		super.mirrorInteraction();
 	}
 	public RecordComponent(Class<? extends Record> clazz, int index) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null) {
@@ -85,5 +87,7 @@ public sealed class RecordComponent extends Reference<java.lang.reflect.RecordCo
 			throw new IllegalArgumentException("RecordComponent's index cannot be less than zero.");
 		}
 		this.clazz = clazz; this.index = index;
+		
+		super.mirrorInteraction();
 	}
 }

@@ -77,6 +77,8 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 					+ " method name.");
 		}
 		this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
+		
+		super.mirrorInteraction();
 	}
 	public Method(Class<?> clazz, String name) {
 		this(clazz, name, Mirror.NO_ARGS);
@@ -88,5 +90,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		}
 		super.value = method;
 		this.clazz = method.getDeclaringClass(); this.name = method.getName(); this.args = method.getParameterTypes();
+
+		super.mirrorInteraction();
 	}
 }

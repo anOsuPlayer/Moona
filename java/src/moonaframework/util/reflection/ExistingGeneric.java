@@ -33,5 +33,7 @@ public final class ExistingGeneric extends Generic {
 		if (Reflection.strictContext.evaluate()) {
 			trusted = true;
 		}
+		
+		super.mirrorInteraction();
 	}
 }

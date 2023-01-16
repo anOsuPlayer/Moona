@@ -120,5 +120,7 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 					+ " target enum classes.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }

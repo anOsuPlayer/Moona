@@ -119,5 +119,7 @@ public final class ExceptionProfile extends Flare<Type> {
 			throw new NullArgumentException("ExecutableProfiles cannot be extracted from a null Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }

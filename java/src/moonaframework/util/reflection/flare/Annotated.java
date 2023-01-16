@@ -93,5 +93,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 			throw new NullArgumentException("An Annotated cannot be extracted from a null Reference.");
 		}
 		this.target = target;
+		
+		super.mirrorInteraction();
 	}
 }
