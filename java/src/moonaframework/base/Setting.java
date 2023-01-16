@@ -6,7 +6,7 @@ public final class Setting extends Status<Boolean> {
 
 	private boolean isFinal = false;
 	
-	private final Setting[] chains;
+	private final Setting[] dependencies;
 	
 	public void enable() {
 		if (!isFinal) { super.setValue(true); }
@@ -21,7 +21,7 @@ public final class Setting extends Status<Boolean> {
 	
 	public @Override Boolean evaluate() {
 		Boolean value = Boolean.valueOf(super.evaluate());
-		for (Setting s : chains) {
+		for (Setting s : dependencies) {
 			value &= s.evaluate();
 		}
 		return value;
@@ -29,7 +29,7 @@ public final class Setting extends Status<Boolean> {
 	
 	public Setting(boolean init, Setting...settings) {
 		setValue(init);
-		this.chains = settings;
+		this.dependencies = settings;
 	}
 	public Setting(boolean init) {
 		this(init, new Setting[0]);
