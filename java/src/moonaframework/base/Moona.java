@@ -23,6 +23,8 @@ public final class Moona {
 	
 	public static final Setting autoReflections = new Setting(true);
 	
+	public static final Setting autoDeriveReflections = new Setting(true, autoReflections);
+	
 	public static final Setting loadReflections = new Setting(true);
 	
 	public static void init() throws MoonaHandlingException {
