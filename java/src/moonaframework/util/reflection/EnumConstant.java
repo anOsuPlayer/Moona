@@ -60,6 +60,6 @@ public final class EnumConstant<E extends Enum<E>> extends Reflection<E> impleme
 		}
 		super.value = en; this.target = super.value.getDeclaringClass();
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

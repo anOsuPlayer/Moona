@@ -47,6 +47,10 @@ public abstract class Reflection<T> implements Serial {
 	
 	protected static transient final Setting strictContext = new Setting(false);
 	
+	protected void valueExtraction() {
+		
+	}
+	
 	protected void mirrorInteraction() {
 		if (!Moona.isOn()) {
 			if (Moona.autoReflections.evaluate()) {
@@ -62,7 +66,7 @@ public abstract class Reflection<T> implements Serial {
 		}
 		else {
 			if (Moona.autoReflections.evaluate()) {
-				Mirror.add(this);
+				Mirror.addReflection(this);
 			}
 			
 			if (Moona.deriveWhenInitialized.evaluate() || (strictContext.evaluate() && Moona.deriveWhenInitialized.evaluate())) {

@@ -120,6 +120,6 @@ public final class SealedProfile extends Flare<Type> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

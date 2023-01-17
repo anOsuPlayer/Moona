@@ -121,6 +121,6 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

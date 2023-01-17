@@ -188,6 +188,6 @@ public sealed class Modifier extends Reflection<Integer> permits ExistingModifie
 		}
 		this.target = ref;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

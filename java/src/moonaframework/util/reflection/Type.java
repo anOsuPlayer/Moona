@@ -58,6 +58,6 @@ public final class Type extends Reference<Class<?>> {
 		}
 		super.value = clazz;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

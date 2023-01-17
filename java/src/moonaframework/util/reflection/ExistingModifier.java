@@ -33,6 +33,6 @@ public final class ExistingModifier extends Modifier {
 			trusted = true;
 		}
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

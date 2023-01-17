@@ -2,7 +2,6 @@ package moonaframework.util.reflection;
 
 import java.lang.reflect.AnnotatedElement;
 
-import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.flare.Annotated;

@@ -88,6 +88,6 @@ public sealed class RecordComponent extends Reference<java.lang.reflect.RecordCo
 		}
 		this.clazz = clazz; this.index = index;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

@@ -80,6 +80,6 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		this.clazz = constr.getDeclaringClass();
 		this.args = (constr.getParameterTypes().length == 0) ? Mirror.NO_ARGS : constr.getParameterTypes();
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

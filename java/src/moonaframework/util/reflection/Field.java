@@ -68,7 +68,7 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 		super.value = field;
 		this.clazz = field.getDeclaringClass(); this.name = field.getName();
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }
 

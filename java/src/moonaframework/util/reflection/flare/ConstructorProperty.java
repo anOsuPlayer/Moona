@@ -181,7 +181,7 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 			throw new NullArgumentException("ConstructorProperty cannot be extracted from a null Constructor Reference.");
 		}
 		this.target = target;
-		
-		super.mirrorInteraction();
+
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

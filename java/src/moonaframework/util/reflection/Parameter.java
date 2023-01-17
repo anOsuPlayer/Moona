@@ -70,6 +70,6 @@ public sealed class Parameter extends Reference<java.lang.reflect.Parameter> per
 		}
 		this.target = target; this.index = index;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

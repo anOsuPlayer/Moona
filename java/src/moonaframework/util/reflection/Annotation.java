@@ -55,6 +55,6 @@ public final class Annotation<A extends java.lang.annotation.Annotation> extends
 		}
 		this.target = target; super.value = annot;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

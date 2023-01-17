@@ -195,6 +195,6 @@ public class MethodProperty extends Flare<Reflection<?>> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

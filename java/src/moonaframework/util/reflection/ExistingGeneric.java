@@ -34,6 +34,6 @@ public final class ExistingGeneric extends Generic {
 			trusted = true;
 		}
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

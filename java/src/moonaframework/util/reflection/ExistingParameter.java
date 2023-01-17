@@ -33,6 +33,6 @@ public final class ExistingParameter extends Parameter {
 			trusted = true;
 		}
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

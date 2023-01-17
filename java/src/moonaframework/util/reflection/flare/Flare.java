@@ -3,10 +3,8 @@ package moonaframework.util.reflection.flare;
 import java.util.ArrayList;
 import java.util.List;
 
-import moonaframework.base.Moona;
 import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reference;
 import moonaframework.util.reflection.Reflection;
 import moonaframework.util.reflection.Type;

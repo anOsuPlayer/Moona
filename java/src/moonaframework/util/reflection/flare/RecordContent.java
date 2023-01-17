@@ -112,6 +112,6 @@ public final class RecordContent extends Flare<RecordComponent> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

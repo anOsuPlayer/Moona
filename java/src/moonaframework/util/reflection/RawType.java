@@ -35,6 +35,6 @@ public final class RawType extends Reference<AnnotatedType> {
 		}
 		super.value = type;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

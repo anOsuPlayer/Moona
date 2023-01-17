@@ -109,6 +109,6 @@ public final class GenericBounds extends Flare<RawType> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

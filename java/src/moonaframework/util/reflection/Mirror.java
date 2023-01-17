@@ -1,8 +1,5 @@
 package moonaframework.util.reflection;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
@@ -30,20 +27,6 @@ public final class Mirror {
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
-	public static void add(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
-		if (refl == null) {
-			throw new NullArgumentException("You cannot add null elements to Moona.");
-		}
-		if (reflections.hasKey(refl.id())) {
-			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
-		}
-		addReflection(refl);
-	}
-	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
-		for (Reflection<?> refl : reflections) {
-			add(refl);
-		}
-	}
 	static void addReflection(Reflection<?> refl) throws MoonaHandlingException {
 		if (!has(refl)) {
 			totalReflections++;
@@ -53,20 +36,6 @@ public final class Mirror {
 		}
 	}
 	
-	public static void remove(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
-		if (refl == null) {
-			throw new NullArgumentException("You cannot remove null elements to Moona.");
-		}
-		if (!reflections.hasKey(refl.id())) {
-			throw new MoonaHandlingException("This Reflection is not present in Moona.");
-		}
-		removeReflection(refl);
-	}
-	public static void remove(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
-		for (Reflection<?> refl : reflections) {
-			remove(refl);
-		}
-	}
 	static void removeReflection(Reflection<?> refl) {
 		if (has(refl)) {
 			totalReflections--;
@@ -94,26 +63,6 @@ public final class Mirror {
 			queue.clear();
 			loadReflections();
 		}
-	}
-	
-	public static List<Reflection<?>> getReflectionsOf(Object target) {
-		final List<Reflection<?>> refls = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
-			if (refl.getTarget().equals(target)) { refls.add(refl); }
-		});
-		return refls;
-	}
-	
-	public static List<Flare<?>> getFlaresOf(Object target) {
-		final List<Flare<?>> flares = new ArrayList<>();
-		reflections.forEachValue((refl) -> {
-			if (refl instanceof Flare<?> fl && fl.getTarget().equals(target)) { flares.add(fl); }
-		});
-		return flares;
-	}
-	
-	public static void wipe() {
-		reflections.clear();
 	}
 	
 	public static Reflection<?> get(long id) {

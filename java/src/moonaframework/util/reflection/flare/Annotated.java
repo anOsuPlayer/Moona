@@ -74,7 +74,7 @@ public final class Annotated extends Flare<Annotation<?>> {
 		return (!super.hasGenerated) ? "Non-generated Flare" : "Annotated of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws UndefinedReflectionException {		
 		AnnotatedElement ann = target.evaluate();
 		
 		strictContext.enable();
@@ -94,6 +94,6 @@ public final class Annotated extends Flare<Annotation<?>> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

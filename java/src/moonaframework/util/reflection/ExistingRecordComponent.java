@@ -47,6 +47,6 @@ public final class ExistingRecordComponent extends RecordComponent {
 			trusted = true;
 		}
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 }

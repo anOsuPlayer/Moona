@@ -119,7 +119,7 @@ public final class Hierarchy extends Flare<Type> {
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 	public Hierarchy(Class<?> clazz) throws NullArgumentException {
 		this(new Type(clazz));

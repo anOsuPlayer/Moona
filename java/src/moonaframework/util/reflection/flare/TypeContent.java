@@ -336,7 +336,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		}
 		this.target = target;
 		
-		super.mirrorInteraction();
+		super.mirrorInteraction(); super.valueExtraction();
 	}
 	public TypeContent(Class<?> target) throws NullArgumentException {
 		this(new Type(target));
