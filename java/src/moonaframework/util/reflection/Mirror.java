@@ -79,6 +79,10 @@ public final class Mirror {
 		}
 	}
 	
+	public static boolean isReflected(Reflection<?> refl) {
+		return refl.value != null;
+	}
+	
 	public static Reflection<?> get(long id) {
 		return isReflection(id) ? reflections.valueOf(id) : null;
 	}
