@@ -102,14 +102,13 @@ public final class Moona {
 			return;
 		}
 		if (Nature.isReflectionLike(s)) {
-			Mirror.remove((Reflection<?>) s);
 			return;
 		}
 		elements.remove(s, s.id());
 	}
 	
 	public static void collapse() {
-		Processor.collapse(); Mirror.wipe(); Agent.collapse();
+		Processor.collapse(); Agent.collapse();
 		elements.clear();
 		Moona.isOn = false;
 	}

@@ -48,7 +48,7 @@ public abstract class Reflection<T> implements Serial {
 	protected static transient final Setting strictContext = new Setting(false);
 	
 	protected void valueExtraction() {
-		
+		Mirror.askMirror(this);
 	}
 	
 	protected void mirrorInteraction() {

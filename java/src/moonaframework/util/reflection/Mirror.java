@@ -27,21 +27,26 @@ public final class Mirror {
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
+	public static void add(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
+		if (refl == null) {
+			throw new NullArgumentException("You cannot add null elements to Moona.");
+		}
+		if (reflections.hasKey(refl.id())) {
+			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
+		}
+		addReflection(refl);
+	}
+	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
+		for (Reflection<?> refl : reflections) {
+			add(refl);
+		}
+	}
 	static void addReflection(Reflection<?> refl) throws MoonaHandlingException {
 		if (!has(refl)) {
 			totalReflections++;
 			totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
 			
 			reflections.add(refl, refl.id());
-		}
-	}
-	
-	static void removeReflection(Reflection<?> refl) {
-		if (has(refl)) {
-			totalReflections--;
-			totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
-			
-			reflections.remove(refl, refl.id());
 		}
 	}
 	
@@ -62,6 +67,15 @@ public final class Mirror {
 			}
 			queue.clear();
 			loadReflections();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	static <T> void askMirror(Reflection<T> refl) {
+		for (Reflection<?> r : reflections.values()) {
+			if (r.equals(refl)) {
+				refl.value = (T) r.value;
+			}
 		}
 	}
 	
