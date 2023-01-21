@@ -2,4 +2,4 @@
 /java/src/test/
 /java/bin/
 /java/buildJar.jardesc
-/cpp/*
+/cpp/.vscode/
