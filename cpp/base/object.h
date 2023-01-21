@@ -21,6 +21,7 @@
                 ~Object();
 
                 Object* clone() const;
+                
                 template <typename T> bool instanceof() const {
                     return std::is_assignable<T, Object>();
                 }
