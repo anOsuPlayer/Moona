@@ -3,27 +3,27 @@
 #ifndef MOONA_OBJECT
     #define MOONA_OBJECT
 
-    #include <iostream>
-
     namespace moona {
 
-        class Object {
+        template <typename O> class Object {
+
             private:
                 long id;
 
             protected:
-                void write(std::ostream& os) const {
+                virtual void write(std::ostream& os) const {
                     os << "Object-" << id;
                 }
 
             public:
-                Object();
-                ~Object();
+                Object() {
+                    this->id = Moona::generateId();
+                }
+                ~Object() {
+                }
 
-                Object* clone() const;
-                
-                template <typename T> bool instanceof() const {
-                    return std::is_assignable<T, Object>();
+                O* clone() const {
+                    return new O();
                 }
 
                 friend std::ostream& operator << (std::ostream& os, const Object& o) {
@@ -31,8 +31,8 @@
                     return os;
                 }
 
-                long getId() const {
-                    return this->id;
+                template <typename T> bool instanceof() const {
+                    return std::is_assignable<T, O>();
                 }
 
                 unsigned short int getSize() const {

@@ -1,8 +1,10 @@
 #include "../moona.h"
 
-namespace moona {
-
+namespace {
     static long id = 0;
+}
+
+namespace moona {
 
     long Moona::generateId() {
         return ++id;
