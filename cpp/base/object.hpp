@@ -30,13 +30,10 @@
                     return (obj == nullptr) ^ true;
                 }
                 friend bool operator == (const O& obj1, const O& obj2) {
-                    return obj1.equals(&obj2);
+                    return &obj1 == &obj2;
                 }
-                bool operator == (const Object<O>* obj) {
-                    return obj == this;
-                }
-                bool operator == (const Object<O>& obj) {
-                    return &obj == this;
+                friend bool operator == (const O& obj1, const O* obj2) {
+                    return &obj1 == obj2;
                 }
 
                 template <typename T> bool instanceof() const {
