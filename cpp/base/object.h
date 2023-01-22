@@ -19,7 +19,7 @@
                 Object() {
                     this->id = Moona::generateId();
                 }
-                ~Object() {
+                virtual ~Object() {
                 }
 
                 O* clone() const {
@@ -36,7 +36,7 @@
                 }
 
                 unsigned short int getSize() const {
-                    return sizeof(this);
+                    return sizeof(O);
                 }
         };
     }

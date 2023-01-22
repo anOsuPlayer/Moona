@@ -9,9 +9,6 @@
             private:
                 Moona();
 
-            public:
-                static long generateId();
-
         };
     }
 
