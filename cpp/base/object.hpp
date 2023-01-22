@@ -8,24 +8,23 @@
     namespace moona {
 
         template <typename O> class Object {
-
-            protected:
-                virtual void write(std::ostream& os) const {
-                    os << "Object-" << this;
-                }
-
             public:
                 Object() {
                 }
                 virtual ~Object() {
                 }
 
-                O* clone() const {
+                O* clone() {
                     return new O();
                 }
 
+                virtual std::string toString() const {
+                    std::ostringstream oss;
+                    oss << "Object-" << this;
+                    return oss.str();
+                }
                 friend std::ostream& operator << (std::ostream& os, const Object& o) {
-                    o.write(os);
+                    os << o.toString();
                     return os;
                 }
 
