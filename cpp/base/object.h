@@ -3,21 +3,19 @@
 #ifndef MOONA_OBJECT
     #define MOONA_OBJECT
 
+    #include "../moona.h"
+
     namespace moona {
 
         template <typename O> class Object {
 
-            private:
-                long id;
-
             protected:
                 virtual void write(std::ostream& os) const {
-                    os << "Object-" << id;
+                    os << "Object-" << this;
                 }
 
             public:
                 Object() {
-                    this->id = Moona::generateId();
                 }
                 virtual ~Object() {
                 }
