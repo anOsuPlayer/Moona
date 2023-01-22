@@ -3,7 +3,7 @@
 #ifndef MOONA_OBJECT
     #define MOONA_OBJECT
 
-    #include "../moona.h"
+    #include "../moona.hpp"
 
     namespace moona {
 

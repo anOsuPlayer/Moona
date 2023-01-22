@@ -3,7 +3,7 @@
 #ifndef MOONA_BASE
     #define MOONA_BASE
 
-    #include "moonaclass.h"
-    #include "object.h"
+    #include "moonaclass.hpp"
+    #include "object.hpp"
 
 #endif
