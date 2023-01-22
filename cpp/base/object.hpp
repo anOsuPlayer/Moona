@@ -19,9 +19,7 @@
                 }
 
                 virtual std::string toString() const {
-                    std::ostringstream oss;
-                    oss << "Object-" << this;
-                    return oss.str();
+                    return "Object";
                 }
                 friend std::ostream& operator << (std::ostream& os, const Object& o) {
                     os << o.toString();
@@ -29,7 +27,7 @@
                 }
 
                 template <typename T> bool instanceof() const {
-                    return std::is_assignable<T, O>();
+                    return std::is_assignable<T, O>() || std::is_same<T, O>();
                 }
 
                 unsigned short int getSize() const {
