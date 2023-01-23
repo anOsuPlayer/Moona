@@ -29,11 +29,11 @@
                 virtual bool equals(const O* obj) const {
                     return (obj == nullptr) ^ true;
                 }
-                friend bool operator == (const O& obj1, const O& obj2) {
-                    return &obj1 == &obj2;
+                bool operator == (const O& obj2) const {
+                    return this == &obj2;
                 }
-                friend bool operator == (const O& obj1, const O* obj2) {
-                    return &obj1 == obj2;
+                bool operator == (const O* obj2) const {
+                    return this == obj2;
                 }
 
                 template <typename T> bool instanceof() const {
