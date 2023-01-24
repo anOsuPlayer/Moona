@@ -18,11 +18,8 @@
                     return new O();
                 }
 
-                virtual std::string toString() const {
-                    return "Object";
-                }
                 friend std::ostream& operator << (std::ostream& os, const Object& o) {
-                    os << o.toString();
+                    os << "Object-" << &o;
                     return os;
                 }
 

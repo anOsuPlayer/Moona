@@ -6,6 +6,7 @@
     #include <iostream>
     #include <concepts>
     #include <string>
+    #include <string.h>
     #include <sstream>
     #include <any>
 

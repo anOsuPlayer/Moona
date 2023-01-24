@@ -20,12 +20,13 @@
                 ~Number() {
                 }
 
-                virtual std::string toString() const {
-                    return std::to_string(value);
+                friend std::ostream& operator << (std::ostream& os, const Number<N>& n) {
+                    os << n.value;
+                    return os;
                 }
 
-                virtual bool equals(const Number<N>* n2) const override {
-                    return (n2 == nullptr && this == nullptr) || (this->value == n2->value);
+                bool equals(const Number<N>* n2) const final override {
+                    return this->value == n2->value;
                 }
 
                 Number<N> operator + (const Number<N>& n2) const {
