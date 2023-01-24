@@ -8,9 +8,11 @@
     namespace moona {
 
         template <typename O> class Object {
-            public:
+            protected:
                 Object() {
                 }
+            
+            public:
                 virtual ~Object() {
                 }
 
@@ -24,7 +26,7 @@
                 }
 
                 virtual bool equals(const O* obj) const {
-                    return (obj == nullptr) ^ true;
+                    return (obj == nullptr) ^ this == obj;
                 }
                 bool operator == (const O& obj2) const {
                     return this == &obj2;

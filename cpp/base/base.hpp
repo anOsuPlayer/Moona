@@ -5,5 +5,6 @@
 
     #include "moonaclass.hpp"
     #include "object.hpp"
+    #include "benchmark.hpp"
 
 #endif

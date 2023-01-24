@@ -11,11 +11,11 @@
         
         template <Numeral N> class Number : public Object<Number<N>> {
             private:
-                N value = 0;
+                N* value = 0;
 
             public:
                 Number(N value) {
-                    this->value = value;
+                    this->value = &value;
                 }
                 ~Number() {
                 }

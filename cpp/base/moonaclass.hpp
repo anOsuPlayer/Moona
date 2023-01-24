@@ -10,7 +10,6 @@
         class Moona {
             private:
                 Moona();
-
         };
     }
 
