@@ -10,7 +10,7 @@
                 Benchmark();
 
             public:
-                static void displayAssertion(bool condition);
+                static void printAssertion(bool condition);
         };
     }
 

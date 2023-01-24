@@ -2,7 +2,7 @@
 
 namespace moona {
 
-    void Benchmark::displayAssertion(bool condition) {
+    void Benchmark::printAssertion(bool condition) {
         std::cout << std::boolalpha << condition << std::noboolalpha;
     }
 }

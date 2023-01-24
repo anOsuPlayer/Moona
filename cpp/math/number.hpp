@@ -6,16 +6,17 @@
     #include "../moona.hpp"
 
     namespace moona {
-
-        template <typename N> concept Numeral = std::is_integral<N>::value || std::is_floating_point<N>::value;
         
-        template <Numeral N> class Number : public Object<Number<N>> {
-            private:
-                N* value = 0;
+        template <Numeral N> class Number : public Entity<Number<N>> {
+            protected:
+                N value = 0;
 
             public:
+                Number() {
+                    this->value = 0;
+                }
                 Number(N value) {
-                    this->value = &value;
+                    this->value = value;
                 }
                 ~Number() {
                 }
@@ -23,10 +24,6 @@
                 friend std::ostream& operator << (std::ostream& os, const Number<N>& n) {
                     os << n.value;
                     return os;
-                }
-
-                bool equals(const Number<N>* n2) const final override {
-                    return this->value == n2->value;
                 }
 
                 Number<N> operator + (const Number<N>& n2) const {
@@ -93,6 +90,8 @@
                 std::strong_ordering operator <=> (const Number<N>& n2) const {
                     return this->value <=> n2.value;
                 }
+
+
         };
     }
 

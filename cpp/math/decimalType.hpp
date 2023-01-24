@@ -7,7 +7,18 @@
 
     namespace moona {
 
-        template <typename D> concept Decimal = std::is_floating_point<D>::value;
+        template <DecimalNumber D> class Decimal : public Number<D> {
+            public:
+                Decimal(D value) : Number<D>(value) {
+                }
+                ~Decimal() {
+                }
+        };
+
+        typedef Decimal<float> Float;
+
+        typedef Decimal<double> Double;
+        typedef Decimal<long double> LongDouble;
     }
 
 #endif
