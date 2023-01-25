@@ -3,10 +3,7 @@
 #ifndef MOONA_ENTITY
     #define MOONA_ENTITY
 
-    #ifndef MOONA
-        #include <iostream>
-        #include <concepts>
-    #endif
+    #include "../moona.hpp"
 
     namespace moona {
 

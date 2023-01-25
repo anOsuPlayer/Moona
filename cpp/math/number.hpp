@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef NUMBER_OBJECT
-    #define NUMBER_OBJECT
+#ifndef MOONA_NUMBER_OBJECT
+    #define MOONA_NUMBER_OBJECT
 
     #include "../moona.hpp"
 
@@ -73,6 +73,17 @@
                 Number<N> operator -- (int) {
                     Number<N> n = *this;
                     --*this;
+                    return n;
+                }
+
+                Number<N> operator - () const {
+                    Number<N> n;
+                    n.value = -this->value;
+                    return n;
+                }
+                Number<N> operator ~ () const {
+                    Number<N> n;
+                    n.value = std::abs(this->value);
                     return n;
                 }
 

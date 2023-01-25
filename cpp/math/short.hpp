@@ -10,8 +10,9 @@
         class Short : public Integral<signed short int> {
             public:
                 Short();
-                Short(signed short int value) ;
-                template <Numeral N> Short(const Number<N>& value);
+                Short(signed short int value);
+                template <Numeral N> Short(const Number<N>& value) : Integral<signed short int>(value) {
+                }
                 ~Short();
         };
     }

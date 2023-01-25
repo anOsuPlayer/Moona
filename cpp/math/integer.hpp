@@ -7,12 +7,13 @@
 
     namespace moona {
 
-        class Integer : public Integral<signed int> {
+        class Int : public Integral<signed int> {
             public:
-                Integer();
-                Integer(signed int value) ;
-                template <Numeral N> Integer(const Number<N>& value);
-                ~Integer();
+                Int();
+                Int(signed int value);
+                template <Numeral N> Int(const Number<N>& value) : Integral<signed int>(value) {
+                }
+                ~Int();
         };
     }
 

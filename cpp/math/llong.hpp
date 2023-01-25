@@ -10,8 +10,9 @@
         class Longer : public Integral<signed long long int> {
             public:
                 Longer();
-                Longer(signed long long int value) ;
-                template <Numeral N> Longer(const Number<N>& value);
+                Longer(signed long long int value);
+                template <Numeral N> Longer(const Number<N>& value) : Integral<signed long long int>(value) {
+                }
                 ~Longer();
         };
     }

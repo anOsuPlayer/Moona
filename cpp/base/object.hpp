@@ -3,10 +3,7 @@
 #ifndef MOONA_OBJECT
     #define MOONA_OBJECT
 
-    #ifndef MOONA_BASE
-        #include "object.hpp"
-        #include "entity.hpp"
-    #endif
+    #include "../moona.hpp"
 
     namespace moona {
 

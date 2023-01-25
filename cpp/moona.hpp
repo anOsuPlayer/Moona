@@ -3,31 +3,8 @@
 #ifndef MOONA
     #define MOONA
 
-    #include <iostream>
-    #include <concepts>
-    #include <string>
-    #include <cmath>
-    #include <sstream>
-    #include <any>
-
-    namespace moona {
-
-        template <typename I> concept IntegralNumber = std::is_integral<I>::value;
-        template <typename D> concept DecimalNumber = std::is_floating_point<D>::value;
-
-        template <typename N> concept Numeral = IntegralNumber<N> || DecimalNumber<N>;
-    }
-
+    #include "base/resources.hpp"
     #include "base/base.hpp"
     #include "math/math.hpp"
-
-    namespace moona {
-
-        template <typename E> concept MoonaEntity = std::is_base_of<Entity<E>, E>::value;
-
-        template <typename T> concept MoonaType = std::is_base_of<Type<T>, T>::value;
-
-        template <typename O> concept MoonaObject = MoonaEntity<O> && MoonaType<O>;
-    }
 
 #endif

@@ -11,7 +11,8 @@
             public:
                 Long();
                 Long(signed long int value) ;
-                template <Numeral N> Long(const Number<N>& value);
+                template <Numeral N> Long(const Number<N>& value) : Integral<signed long int>(value) {
+                }
                 ~Long();
         };
     }

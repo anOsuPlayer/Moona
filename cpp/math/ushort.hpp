@@ -11,7 +11,8 @@
             public:
                 UnsignedShort();
                 UnsignedShort(signed short int value) ;
-                template <Numeral N> UnsignedShort(const Number<N>& value);
+                template <Numeral N> UnsignedShort(const Number<N>& value) : Integral<unsigned short int>(value) {
+                }
                 ~UnsignedShort();
         };
     }

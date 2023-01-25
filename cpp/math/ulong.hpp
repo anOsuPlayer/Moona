@@ -11,7 +11,8 @@
             public:
                 UnsignedLong();
                 UnsignedLong(unsigned long int value) ;
-                template <Numeral N> UnsignedLong(const Number<N>& value);
+                template <Numeral N> UnsignedLong(const Number<N>& value) : Integral<unsigned long int>(value) {
+                }
                 ~UnsignedLong();
         };
     }

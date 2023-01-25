@@ -8,9 +8,6 @@ namespace moona {
     Short::Short(signed short int value) : Integral<signed short int>(value) {
     }
 
-    template <Numeral N> Short::Short(const Number<N>& value) : Integral<signed short int>(value) {
-    }
-
     Short::~Short() {
     }
 }

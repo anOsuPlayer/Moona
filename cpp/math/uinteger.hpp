@@ -7,12 +7,13 @@
 
     namespace moona {
 
-        class UnsignedInteger : public Integral<unsigned int> {
+        class UnsignedInt : public Integral<unsigned int> {
             public:
-                UnsignedInteger();
-                UnsignedInteger(unsigned int value) ;
-                template <Numeral N> UnsignedInteger(const Number<N>& value);
-                ~UnsignedInteger();
+                UnsignedInt();
+                UnsignedInt(unsigned int value);
+                template <Numeral N> UnsignedInt(const Number<N>& value) : Integral<unsigned int>(value) {
+                }
+                ~UnsignedInt();
         };
     }
 

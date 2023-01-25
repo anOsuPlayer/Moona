@@ -3,9 +3,7 @@
 #ifndef MOONA_TYPE
     #define MOONA_TYPE
 
-    #ifndef MOONA
-        #include <string>
-    #endif
+    #include "../moona.hpp"
 
     namespace moona {
 

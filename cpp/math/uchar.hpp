@@ -10,8 +10,9 @@
         class UnsignedChar : public Integral<unsigned char> {
             public:
                 UnsignedChar();
-                UnsignedChar(unsigned char value) ;
-                template <Numeral N> UnsignedChar(const Number<N>& value);
+                UnsignedChar(unsigned char value);
+                template <Numeral N> UnsignedChar(const Number<N>& value) : Integral<unsigned char>(value) {
+                }
                 ~UnsignedChar();
         };
     }
