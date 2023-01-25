@@ -16,5 +16,8 @@
     #include "llong.hpp"
     #include "ullong.hpp"
     #include "decimalType.hpp"
+    #include "float.hpp"
+    #include "double.hpp"
+    #include "quad.hpp"
 
 #endif

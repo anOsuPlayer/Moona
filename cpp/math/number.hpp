@@ -29,7 +29,7 @@
                 }
 
                 friend std::ostream& operator << (std::ostream& os, const Number<N>& n) {
-                    os << n.value;
+                    os << std::fixed << n.value;
                     return os;
                 }
 
