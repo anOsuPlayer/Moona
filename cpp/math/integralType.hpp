@@ -13,6 +13,8 @@
                 }
                 Integral(I value) : Number<I>(value) {
                 }
+                template <Numeral T> Integral (const Number<T>& value) : Number<I>(value) {
+                }
                 ~Integral() {
                 }
 
@@ -88,8 +90,8 @@
         typedef Integral<signed char> Char;
         typedef Integral<unsigned char> UnsignedChar;
 
-        typedef Integral<signed int> Integer;
-        typedef Integral<unsigned int> UnsignedInteger;
+        typedef Integral<signed int> Int;
+        typedef Integral<unsigned int> UnsignedInt;
 
         typedef Integral<signed long int> Long;
         typedef Integral<unsigned long int> UnsignedLong;

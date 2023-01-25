@@ -18,10 +18,14 @@
                 Number(N value) {
                     this->value = value;
                 }
-                template <typename T> Number(Number<T> value) {
-                    this->value = static_cast<N>(value);
+                template <typename T> Number(const Number<T>& value) {
+                    this->value = static_cast<N>(value.get());
                 }
                 ~Number() {
+                }
+
+                N get() const {
+                    return this->value;
                 }
 
                 friend std::ostream& operator << (std::ostream& os, const Number<N>& n) {
@@ -29,11 +33,7 @@
                     return os;
                 }
 
-                operator N() const {
-                    return this->value;
-                }
-
-                template <Numeral T> Number<N>& operator = (const Number<T>& n2) {
+                Number& operator = (const Number& n2) {
                     this->value = n2.value;
                     return *this;
                 }
@@ -101,6 +101,11 @@
                 }
                 std::strong_ordering operator <=> (const Number<N>& n2) const {
                     return this->value <=> n2.value;
+                }
+
+                template <Numeral T> operator Number<T>() {
+                    Number<T> i(this->value);
+                    return i;
                 }
         };
     }

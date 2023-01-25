@@ -13,6 +13,8 @@
                 }
                 Decimal(D value) : Number<D>(value) {
                 }
+                template <Numeral T> Decimal (const Number<T>& value) : Number<D>(value) {
+                }
                 ~Decimal() {
                 }
 
