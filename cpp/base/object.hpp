@@ -7,27 +7,24 @@
 
     namespace moona {
 
-        template <typename O> class Object : public Entity<O> {
-            protected:
-                Object() {
-                }
-            
+        template <typename O> class Object {
             public:
-                virtual ~Object() {
+                Object() {
+                };
+                ~Object() {
+                };
+
+                friend std::ostream& operator << (std::ostream& os, const Object& e) {
+                    os << "Object-" << &e;
+                    return os;
                 }
 
-                virtual O* clone() const {
-                    return new O();
+                template <typename T> bool instanceof() const {
+                    return std::is_assignable<T, O>() || std::is_same<T, O>();
                 }
 
-                virtual bool equals(const O* obj) const {
-                    return (obj == nullptr) ^ this == obj;
-                }
-                bool operator == (const O& obj2) const {
-                    return this == &obj2;
-                }
-                bool operator == (const O* obj2) const {
-                    return this == obj2;
+                unsigned short int getSize() const {
+                    return sizeof(O);
                 }
         };
     }

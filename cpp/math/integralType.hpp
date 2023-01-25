@@ -15,6 +15,71 @@
                 }
                 ~Integral() {
                 }
+
+                Integral<I> operator % (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value % n2.value;
+                    return n;
+                }
+                Integral<I> operator %= (const Integral<I>& n2) {
+                    this->value %= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator & (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value & n2.value;
+                    return n;
+                }
+                Integral<I> operator &= (const Integral<I>& n2) {
+                    this->value &= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator | (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value | n2.value;
+                    return n;
+                }
+                Integral<I> operator |= (const Integral<I>& n2) {
+                    this->value |= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator ^ (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value ^ n2.value;
+                    return n;
+                }
+                Integral<I> operator ^= (const Integral<I>& n2) {
+                    this->value ^= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator << (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value << n2.value;
+                    return n;
+                }
+                Integral<I> operator <<= (const Integral<I>& n2) {
+                    this->value <<= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator >> (const Integral<I>& n2) const {
+                    Integral<I> n;
+                    n.value = this->value >> n2.value;
+                    return n;
+                }
+                Integral<I> operator >>= (const Integral<I>& n2) {
+                    this->value <<= n2.value;
+                    return *this;
+                }
+
+                Integral<I> operator ! () {
+                    this->value = !this->value;
+                    return *this;
+                }
         };
 
         typedef Integral<signed short int> Short;
@@ -23,8 +88,8 @@
         typedef Integral<signed char> Char;
         typedef Integral<unsigned char> UnsignedChar;
 
-        typedef Integral<signed int> Int;
-        typedef Integral<unsigned int> UnsignedInt;
+        typedef Integral<signed int> Integer;
+        typedef Integral<unsigned int> UnsignedInteger;
 
         typedef Integral<signed long int> Long;
         typedef Integral<unsigned long int> UnsignedLong;

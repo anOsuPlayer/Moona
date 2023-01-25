@@ -6,12 +6,12 @@
     #include <iostream>
     #include <concepts>
     #include <string>
-    #include <string.h>
+    #include <cmath>
     #include <sstream>
     #include <any>
 
     namespace moona {
-        
+
         template <typename I> concept IntegralNumber = std::is_integral<I>::value;
         template <typename D> concept DecimalNumber = std::is_floating_point<D>::value;
 
