@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef DECIMAL_NUMBER_OBJECT
-    #define DECIMAL_NUMBER_OBJECT
+#ifndef MOONA_DECIMAL_NUMBER_OBJECT
+    #define MOONA_DECIMAL_NUMBER_OBJECT
 
     #include "../moona.hpp"
 
@@ -48,11 +48,6 @@
                     return *this;
                 }
         };
-
-        typedef Decimal<float> Float;
-
-        typedef Decimal<double> Double;
-        typedef Decimal<long double> LongDouble;
     }
 
 #endif

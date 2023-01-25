@@ -7,7 +7,7 @@
 
     namespace moona {
         
-        template <Numeral N> class Number : public Object<Number<N>> {
+        template <Numeral N> class Number : public Entity<Number<N>> {
             protected:
                 N value = 0;
 

@@ -1,4 +1,7 @@
-#include "../moona.hpp"
+#ifndef MOONA
+    #include <iostream>
+    #include "benchmark.hpp"
+#endif
 
 namespace moona {
 

@@ -23,7 +23,11 @@
 
     namespace moona {
 
-        template <typename O> concept MoonaObject = std::is_base_of<Object<O>, O>::value;
+        template <typename E> concept MoonaEntity = std::is_base_of<Entity<E>, E>::value;
+
+        template <typename T> concept MoonaType = std::is_base_of<Type<T>, T>::value;
+
+        template <typename O> concept MoonaObject = MoonaEntity<O> && MoonaType<O>;
     }
 
 #endif

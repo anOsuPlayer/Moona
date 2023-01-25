@@ -5,6 +5,16 @@
 
     #include "number.hpp"
     #include "integralType.hpp"
+    #include "short.hpp"
+    #include "ushort.hpp"
+    #include "char.hpp"
+    #include "uchar.hpp"
+    #include "integer.hpp"
+    #include "uinteger.hpp"
+    #include "long.hpp"
+    #include "ulong.hpp"
+    #include "llong.hpp"
+    #include "ullong.hpp"
     #include "decimalType.hpp"
 
 #endif
