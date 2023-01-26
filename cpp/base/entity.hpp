@@ -10,13 +10,20 @@
         template <typename E> class Entity {
             private:
                 Entity() {
-                };
+                }
                 ~Entity() {
-                };
+                }
 
             public:
+                operator bool() const {
+                    return this != nullptr;
+                }
+
                 template <typename T> bool instanceof() const {
                     return std::is_assignable<T, E>() || std::is_same<T, E>();
+                }
+                template <typename T> bool superof() const {
+                    return std::is_assignable<E, T>();
                 }
 
                 unsigned short int getSize() const {

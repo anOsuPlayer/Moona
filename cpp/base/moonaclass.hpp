@@ -8,6 +8,7 @@
         class Moona {
             private:
                 Moona();
+                ~Moona();
         };
     }
 

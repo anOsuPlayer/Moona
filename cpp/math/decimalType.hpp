@@ -37,7 +37,7 @@
                 }
 
                 friend Decimal<D> operator ^ (Decimal<D> n, const Decimal<D>& exp) {
-                    n.value = std::pow(n->value, exp);
+                    n.value = std::pow(n.value, exp);
                     return n;
                 }
                 Decimal<D>& operator ^= (const Decimal<D>& exp) {

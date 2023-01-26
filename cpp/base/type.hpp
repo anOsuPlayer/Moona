@@ -10,17 +10,17 @@
         template <typename T> class Type {
             private:
                 Type() {
-                };
-                ~Type() {
+                }
+                virtual ~Type() {
                 }
 
             public:
-                constexpr Type<T> getType() const {
-                    return new Type<T>();
+                constexpr std::type_info typeInfo() const {
+                    return typeid(*this);
                 }
 
-                virtual bool equals(const T* t2) const {
-                    return this == t2;
+                constexpr const char* typeName() const {
+                    return typeid(*this).name();
                 }
 
             template <typename O> friend class Object;

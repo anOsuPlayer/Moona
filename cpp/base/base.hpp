@@ -3,8 +3,8 @@
 #ifndef MOONA_BASE
     #define MOONA_BASE
 
-    #include "entity.hpp"
     #include "type.hpp"
+    #include "entity.hpp"
     #include "object.hpp"
     #include "moonaclass.hpp"
     #include "benchmark.hpp"
@@ -15,7 +15,7 @@
 
         template <typename T> concept MoonaType = std::is_base_of<Type<T>, T>::value;
 
-        template <typename O> concept MoonaObject = MoonaEntity<O> && MoonaType<O>;
+        template <typename O> concept MoonaObject = std::is_base_of<Object<O>, O>::value;
     }
 
 #endif

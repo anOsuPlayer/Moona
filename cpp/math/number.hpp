@@ -7,9 +7,9 @@
 
     namespace moona {
         
-        template <Numeral N> class Number : public Entity<Number<N>> {
+        template <Numeral N> class Number : public Entity<N> {
             protected:
-                N value = 0;
+                N value;
 
             public:
                 Number() {
@@ -26,6 +26,19 @@
 
                 N get() const {
                     return this->value;
+                }
+                operator N() const {
+                    return this->value;
+                }
+                
+                template <Numeral T> bool smallerThan() {
+                    return sizeof(N) <= sizeof(T);
+                }
+                template <Numeral T> bool biggerThan() {
+                    return sizeof(N) >= sizeof(T);
+                }
+                template <Numeral T> bool sameSizeOf() {
+                    return sizeof(N) == sizeof(T);
                 }
 
                 friend std::ostream& operator << (std::ostream& os, const Number<N>& n) {
@@ -60,7 +73,7 @@
                     n1.value -= n2.value;
                     return n1;
                 }
-                Number<N> operator -= (const Number<N>& n2) {
+                Number<N>& operator -= (const Number<N>& n2) {
                     this->value -= n2.value;
                     return *this;
                 }
@@ -74,12 +87,12 @@
                     return n;
                 }
 
-                Number<N> operator - () const {
+                Number<N>& operator - () const {
                     Number<N> n;
                     n.value = -this->value;
                     return n;
                 }
-                Number<N> operator ~ () const {
+                Number<N>& operator ~ () const {
                     Number<N> n;
                     n.value = std::abs(this->value);
                     return n;
@@ -89,7 +102,7 @@
                     n1.value *= n2.value;
                     return n1;
                 }
-                Number<N> operator *= (const Number<N>& n2) {
+                Number<N>& operator *= (const Number<N>& n2) {
                     this->value *= n2.value;
                     return *this;
                 }
@@ -98,7 +111,7 @@
                     n1.value /= n2.value;
                     return n1;
                 }
-                Number<N> operator /= (const Number<N>& n2) {
+                Number<N>& operator /= (const Number<N>& n2) {
                     this->value /= n2.value;
                     return *this;
                 }
