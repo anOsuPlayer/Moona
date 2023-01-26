@@ -38,10 +38,9 @@
                     return *this;
                 }
 
-                Number<N> operator + (const Number<N>& n2) const {
-                    Number<N> n;
-                    n.value = this->value + n2.value;
-                    return n;
+                friend Number<N> operator + (Number<N> n1, const Number<N>& n2) {
+                    n1.value += n2.value;
+                    return n1;
                 }
                 Number<N> operator += (const Number<N>& n2) {
                     this->value += n2.value;
@@ -57,10 +56,9 @@
                     return n;
                 }
 
-                Number<N> operator - (const Number<N>& n2) const {
-                    Number<N> n;
-                    n.value = this->value - n2.value;
-                    return n;
+                friend Number<N> operator - (Number<N> n1, const Number<N>& n2) {
+                    n1.value -= n2.value;
+                    return n1;
                 }
                 Number<N> operator -= (const Number<N>& n2) {
                     this->value -= n2.value;
@@ -87,20 +85,18 @@
                     return n;
                 }
 
-                Number<N> operator * (const Number<N>& n2) const {
-                    Number<N> n;
-                    n.value = this->value * n2.value;
-                    return n;
+                friend Number<N> operator * (Number<N> n1, const Number<N>& n2) {
+                    n1.value *= n2.value;
+                    return n1;
                 }
                 Number<N> operator *= (const Number<N>& n2) {
                     this->value *= n2.value;
                     return *this;
                 }
                 
-                Number<N> operator / (const Number<N>& n2) const {
-                    Number<N> n;
-                    n.value = this->value / n2.value;
-                    return n;
+                friend Number<N> operator / (Number<N> n1, const Number<N>& n2) {
+                    n1.value /= n2.value;
+                    return n1;
                 }
                 Number<N> operator /= (const Number<N>& n2) {
                     this->value /= n2.value;

@@ -19,9 +19,6 @@
                     return new Type<T>();
                 }
 
-                virtual std::string toString() const {
-                    return "Object";
-                }
                 virtual bool equals(const T* t2) const {
                     return this == t2;
                 }
