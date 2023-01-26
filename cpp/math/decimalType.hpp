@@ -18,32 +18,29 @@
                 ~Decimal() {
                 }
 
-                Decimal<D> operator << (const unsigned int& n2) const {
-                    Decimal<D> n;
-                    n.value = this->value / std::pow(10, n2);
+                friend Decimal<D> operator << (Decimal<D> n, const unsigned int& n2) {
+                    n.value /= std::pow(10, n2);
                     return n;
                 }
-                Decimal<D> operator <<= (const unsigned int& n2) {
+                Decimal<D>& operator <<= (const unsigned int& n2) {
                     this->value /= std::pow(10, n2);
                     return *this;
                 }
 
-                Decimal<D> operator >> (const unsigned int& n2) const {
-                    Decimal<D> n;
-                    n.value = this->value * std::pow(10, n2);
+                friend Decimal<D> operator >> (Decimal<D> n, const unsigned int& n2) {
+                    n.value *= std::pow(10, n2);
                     return n;
                 }
-                Decimal<D> operator >>= (const unsigned int& n2) {
+                Decimal<D>& operator >>= (const unsigned int& n2) {
                     this->value *= std::pow(10, n2);
                     return *this;
                 }
 
-                Decimal<D> operator ^ (const Decimal<D>& exp) const {
-                    Decimal<D> n;
-                    n.value = std::pow(this->value, exp);
+                friend Decimal<D> operator ^ (Decimal<D> n, const Decimal<D>& exp) {
+                    n.value = std::pow(n->value, exp);
                     return n;
                 }
-                Decimal<D> operator ^= (const Decimal<D>& exp) {
+                Decimal<D>& operator ^= (const Decimal<D>& exp) {
                     this->value = std::pow(this->value, exp);
                     return *this;
                 }

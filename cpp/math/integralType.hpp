@@ -18,60 +18,54 @@
                 ~Integral() {
                 }
 
-                Integral<I> operator % (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value % n2.value;
-                    return n;
+                friend Integral<I> operator % (Integral<I> n1, const Integral<I>& n2) {
+                    n1.value %= n2.value;
+                    return n1;
                 }
-                Integral<I> operator %= (const Integral<I>& n2) {
+                Integral<I>& operator %= (const Integral<I>& n2) {
                     this->value %= n2.value;
                     return *this;
                 }
 
-                Integral<I> operator & (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value & n2.value;
-                    return n;
+                friend Integral<I> operator & (Integral<I> n1, const Integral<I>& n2) {
+                    n1.value &= n2.value;
+                    return n1;
                 }
-                Integral<I> operator &= (const Integral<I>& n2) {
+                Integral<I>& operator &= (const Integral<I>& n2) {
                     this->value &= n2.value;
                     return *this;
                 }
 
-                Integral<I> operator | (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value | n2.value;
-                    return n;
+                friend Integral<I> operator | (Integral<I> n1, const Integral<I>& n2) {
+                    n1.value |= n2.value;
+                    return n1;
                 }
-                Integral<I> operator |= (const Integral<I>& n2) {
+                Integral<I>& operator |= (const Integral<I>& n2) {
                     this->value |= n2.value;
                     return *this;
                 }
 
-                Integral<I> operator ^ (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value ^ n2.value;
-                    return n;
+                friend Integral<I> operator ^ (Integral<I>& n1, const Integral<I>& n2) {
+                    n1.value ^= n2.value;
+                    return n1;
                 }
-                Integral<I> operator ^= (const Integral<I>& n2) {
+                Integral<I>& operator ^= (const Integral<I>& n2) {
                     this->value ^= n2.value;
                     return *this;
                 }
 
-                Integral<I> operator << (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value << n2.value;
-                    return n;
+                friend Integral<I> operator << (Integral<I>& n1, const Integral<I>& n2) {
+                    n1.value <<= n2.value;
+                    return n1;
                 }
                 Integral<I> operator <<= (const Integral<I>& n2) {
                     this->value <<= n2.value;
                     return *this;
                 }
 
-                Integral<I> operator >> (const Integral<I>& n2) const {
-                    Integral<I> n;
-                    n.value = this->value >> n2.value;
-                    return n;
+                friend Integral<I> operator >> (Integral<I>& n1, const Integral<I>& n2) {
+                    n1.value >>= n2.value;
+                    return n1;
                 }
                 Integral<I> operator >>= (const Integral<I>& n2) {
                     this->value <<= n2.value;
