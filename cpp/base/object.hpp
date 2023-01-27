@@ -19,9 +19,8 @@
                 }
 
                 virtual const char* toString() const {
-                    std::string r("Object ");
-                    r.append(this->typeName());
-                    return (r.c_str());
+                    const char* r = "Object";
+                    return r;
                 }
                 virtual bool equals(const O& t2) const {
                     return this == &t2;

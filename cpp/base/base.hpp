@@ -6,8 +6,7 @@
     #include "type.hpp"
     #include "entity.hpp"
     #include "object.hpp"
-    #include "moonaclass.hpp"
-    #include "benchmark.hpp"
+    #include "assertion.hpp"
 
     namespace moona {
 

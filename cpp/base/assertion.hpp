@@ -19,9 +19,8 @@
                     return this->value;
                 }
 
-                bool equals(const Assertion& ass) const override final {
-                    return (this->value == ass.value && this->getType() == ass.getType());
-                }
+                virtual const char* toString() const override;
+                bool equals(const Assertion& ass) const override final;
         };
     }
 
