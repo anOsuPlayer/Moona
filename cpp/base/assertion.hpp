@@ -19,7 +19,7 @@
                     return this->value;
                 }
 
-                virtual const char* toString() const override;
+                virtual BasicString toString() const override;
                 bool equals(const Assertion& ass) const override final;
         };
     }

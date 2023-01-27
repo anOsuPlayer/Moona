@@ -18,8 +18,8 @@
                     return new Type<O>();
                 }
 
-                virtual const char* toString() const {
-                    const char* r = "Object";
+                virtual BasicString toString() const {
+                    BasicString r = "Object";
                     return r;
                 }
                 virtual bool equals(const O& t2) const {

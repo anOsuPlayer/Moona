@@ -8,9 +8,9 @@ namespace moona {
     Assertion::~Assertion() {
     }
 
-    const char* Assertion::toString() const {
-        const char* r = "Assertion";
-        return r;
+    BasicString Assertion::toString() const {
+        BasicString s = "Assertion";
+        return s;
     }
     bool Assertion::equals(const Assertion& ass) const {
         return (this->getType() == ass.getType());

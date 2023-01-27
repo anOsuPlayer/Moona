@@ -10,6 +10,8 @@
     #include <limits>
     #include <any>
 
+    #include "../string/basicstring.hpp"
+
     namespace moona {
 
         template <typename I> concept IntegralNumber = std::is_integral<I>::value;
