@@ -3,27 +3,25 @@
 #ifndef MOONA_OBJECT
     #define MOONA_OBJECT
 
-    #include "../moona.hpp"
+    #include <string>
+
+    #include "entity.hpp"
 
     namespace moona {
 
-        template <typename O> class Object : public Entity<O>, public Type<O> {
+        template <typename O> class Object : public Entity<O> {
             public:
                 Object() {
                 }
-                virtual ~Object() {
+                ~Object() {
                 }
 
-                Type<O>* getType() const {
-                    return new Type<O>();
+                virtual constexpr std::string toString() const {
+                    return "Object";
                 }
 
-                virtual BasicString toString() const {
-                    BasicString r = "Object";
-                    return r;
-                }
-                virtual bool equals(const O& t2) const {
-                    return this == &t2;
+                virtual bool equals(const Object<O>* o) const {
+                    return (this == o);
                 }
         };
     }

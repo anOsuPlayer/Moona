@@ -3,7 +3,9 @@
 #ifndef MOONA_ENTITY
     #define MOONA_ENTITY
 
-    #include "../moona.hpp"
+    #include <iostream>
+
+    #include "type.hpp"
 
     namespace moona {
 
@@ -15,23 +17,15 @@
                 }
 
             public:
-                operator bool() const {
-                    return this != nullptr;
+                constexpr Type<E>* type() const {
+                    return new Type<E>();
                 }
 
-                template <typename T> bool instanceof() const {
-                    return std::is_assignable<T, E>() || std::is_same<T, E>();
-                }
-                template <typename T> bool superof() const {
-                    return std::is_assignable<E, T>();
+                template <typename T> constexpr bool instanceof() const {
+                    return std::is_base_of<T, E>() || std::is_same<T, E>();
                 }
 
-                unsigned short int getSize() const {
-                    return sizeof(E);
-                }
-
-            template <typename O> friend class Object;
-            template <Numeral N> friend class Number;
+            template <typename T> friend class Object;
         };
     }
 

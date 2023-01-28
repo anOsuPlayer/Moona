@@ -1,7 +1,7 @@
-#include "../moona.hpp"
+#include "moonaclass.hpp"
 
 namespace moona {
-    
+
     Moona::Moona() {
     }
 

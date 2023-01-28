@@ -4,13 +4,14 @@
     #define MOONA_BENCHMARK
 
     namespace moona {
-      
+
         class Benchmark {
             private:
                 Benchmark();
+                ~Benchmark();
 
             public:
-                static void printAssertion(bool condition);
+                static void printAssertion(bool value);
         };
     }
 

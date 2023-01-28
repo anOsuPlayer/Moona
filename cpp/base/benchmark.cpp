@@ -1,8 +1,15 @@
-#include "../moona.hpp"
+#include <iostream>
+#include "benchmark.hpp"
 
 namespace moona {
 
-    void Benchmark::printAssertion(bool condition) {
-        std::cout << std::boolalpha << condition << std::noboolalpha;
+    Benchmark::Benchmark() {
+    }
+
+    Benchmark::~Benchmark() {
+    }
+
+    void Benchmark::printAssertion(bool value) {
+        std::cout << std::boolalpha << value << std::noboolalpha;
     }
 }

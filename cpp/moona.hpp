@@ -1,13 +1,8 @@
 #pragma once
 
-#ifndef MOONA
-    #define MOONA
+#ifndef MOONA_MAIN
+    #define MOONA_MAIN
 
-    #include "base/resources.hpp"
     #include "base/base.hpp"
-    #include "math/math.hpp"
-    #include "string/strings.hpp"
-    #include "base/moonaclass.hpp"
-    #include "base/benchmark.hpp"
-
+    
 #endif
