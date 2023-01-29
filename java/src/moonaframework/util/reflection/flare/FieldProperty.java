@@ -22,27 +22,17 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return this.target;
 	}
 	
-	public Modifier getModifiers() throws MoonaHandlingException {
+	public Modifier getModifiers() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return (Modifier) super.value.get(0);
 	}
 	
-	public List<RawType> getTypeArguments() throws MoonaHandlingException {
+	public List<RawType> getTypeArguments() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<RawType> list = new ArrayList<>();
@@ -51,14 +41,9 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		}
 		return list;
 	}
-	public RawType getTypeArgument(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public RawType getTypeArgument(int index) throws UndefinedReflectionException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -72,14 +57,9 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (RawType) super.value.get(index+1);
 	}
 	
-	public int typeArgumentsCount() {
+	public int typeArgumentsCount() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size()-1;
@@ -93,7 +73,7 @@ public class FieldProperty extends Flare<Reflection<?>> {
 		return (!super.hasGenerated) ? "Non-generated Flare" : "FieldProperty of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException, MoonaHandlingException {
+	public @Override void reflect() throws UndefinedReflectionException {
 		java.lang.reflect.Field field = target.evaluate();
 		
 		strictContext.enable();

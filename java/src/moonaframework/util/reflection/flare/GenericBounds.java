@@ -17,26 +17,16 @@ public final class GenericBounds extends Flare<RawType> {
 		return this.target;
 	}
 	
-	public List<RawType> getBounds() throws MoonaHandlingException {
+	public List<RawType> getBounds() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 
 		return super.value;
 	}
-	public RawType getBound(int index) throws IllegalArgumentException {
+	public RawType getBound(int index) throws UndefinedReflectionException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -50,14 +40,9 @@ public final class GenericBounds extends Flare<RawType> {
 		return super.value.get(index);
 	}
 	
-	public int boundsCount() throws MoonaHandlingException {
+	public int boundsCount() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();
@@ -73,7 +58,7 @@ public final class GenericBounds extends Flare<RawType> {
 				reflect();
 			}
 			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
+				throw new MoonaHandlingException("Unable to call .toString() on undefined Reflections.", ure);
 			}
 		}
 		

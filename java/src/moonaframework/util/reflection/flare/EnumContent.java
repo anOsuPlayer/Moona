@@ -19,25 +19,15 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 	
 	public List<EnumConstant<E>> getEnumConstants() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value;
 	}
 	
-	public EnumConstant<E> getEnumConstant(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public EnumConstant<E> getEnumConstant(int index) throws MoonaHandlingException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -50,14 +40,9 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 		
 		return super.value.get(index);
 	}
-	public EnumConstant<E> getEnumConstant(String name) throws NullArgumentException, MoonaHandlingException, ReflectionNotFoundException {
+	public EnumConstant<E> getEnumConstant(String name) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (name == null) {
@@ -76,12 +61,7 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 	
 	public int enumConstsCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();
@@ -97,7 +77,7 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 		return (!super.hasGenerated) ? "Non-generated Flare" : "EnumContent of " + target; 
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws MoonaHandlingException {
 		@SuppressWarnings("unchecked") Class<E> clazz = (Class<E>) target.evaluate();
 		
 		strictContext.enable();
@@ -108,7 +88,12 @@ public final class EnumContent<E extends Enum<E>> extends Flare<EnumConstant<E>>
 		
 		strictContext.disable();
 		
-		super.reflect();
+		try {
+			super.reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("This should not happen.");
+		}
 	}
 	
 	public EnumContent(Type target) throws IllegalArgumentException, NullArgumentException {

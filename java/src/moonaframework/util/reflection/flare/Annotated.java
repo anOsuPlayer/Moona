@@ -17,28 +17,18 @@ public final class Annotated extends Flare<Annotation<?>> {
 		return this.target;
 	}
 	
-	public List<Annotation<?>> getAnnotations() throws MoonaHandlingException {
+	public List<Annotation<?>> getAnnotations() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <A extends java.lang.annotation.Annotation> Annotation<A> getAnnotation(Class<A> annot) throws MoonaHandlingException {
+	public <A extends java.lang.annotation.Annotation> Annotation<A> getAnnotation(Class<A> annot) throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (Annotation<?> ann : super.value) {
@@ -49,18 +39,13 @@ public final class Annotated extends Flare<Annotation<?>> {
 		
 		return null;
 	}
-	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) throws MoonaHandlingException {
+	public <A extends java.lang.annotation.Annotation> A evaluateAnnotation(Class<A> annot) throws UndefinedReflectionException {
 		return getAnnotation(annot) == null ? null : getAnnotation(annot).evaluate();
 	}
 	
-	public int annotationCount() throws MoonaHandlingException {
+	public int annotationCount() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();

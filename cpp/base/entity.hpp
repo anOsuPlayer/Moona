@@ -5,6 +5,7 @@
 
     #include <iostream>
 
+    #include "numericconcepts.hpp"
     #include "type.hpp"
 
     namespace moona {
@@ -26,6 +27,7 @@
                 }
 
             template <typename T> friend class Object;
+            template <Numeral N> friend class Number;
         };
     }
 

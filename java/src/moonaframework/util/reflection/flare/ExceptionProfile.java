@@ -17,26 +17,16 @@ public final class ExceptionProfile extends Flare<Type> {
 		return this.target;
 	}
 	
-	public List<Type> getExceptionTypes() throws MoonaHandlingException {
+	public List<Type> getExceptionTypes() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 
 		return super.value;
 	}
-	public Type getExceptionType(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Type getExceptionType(int index) throws UndefinedReflectionException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -50,26 +40,16 @@ public final class ExceptionProfile extends Flare<Type> {
 		return super.value.get(index);
 	}
 	
-	public boolean doesThrow(Type ref) throws MoonaHandlingException {
+	public boolean doesThrow(Type ref) throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.contains(ref);
 	}
-	public boolean doesThrow(Class<?> clazz) throws MoonaHandlingException {
+	public boolean doesThrow(Class<?> clazz) throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (Type t : super.value) {
@@ -81,14 +61,9 @@ public final class ExceptionProfile extends Flare<Type> {
 		return false;
 	}
 	
-	public int exceptionTypesCount() throws MoonaHandlingException {
+	public int exceptionTypesCount() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();

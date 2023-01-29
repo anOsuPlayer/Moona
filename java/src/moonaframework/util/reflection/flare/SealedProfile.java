@@ -15,26 +15,16 @@ public final class SealedProfile extends Flare<Type> {
 		return this.target;
 	}
 	
-	public List<Type> getPermittedSubclasses() throws MoonaHandlingException {
+	public List<Type> getPermittedSubclasses() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 
 		return super.value;
 	}
-	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Type getPermittedSubclass(int index) throws UndefinedReflectionException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -50,24 +40,14 @@ public final class SealedProfile extends Flare<Type> {
 	
 	public boolean isPermitted(Type ref) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.contains(ref);
 	}
 	public boolean isPermitted(Class<?> clazz) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (Type t : super.value) {
@@ -81,12 +61,7 @@ public final class SealedProfile extends Flare<Type> {
 	
 	public int permittedCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();
@@ -96,18 +71,23 @@ public final class SealedProfile extends Flare<Type> {
 		return (o instanceof SealedProfile sp) ? this.getTarget().equals(sp.getTarget()) : false;
 	}
 	
-	public @Override String toString() throws MoonaHandlingException {
+	public @Override String toString() {
 		return (!super.hasGenerated) ? "Non-generated Flare" : "SealedProfile of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws MoonaHandlingException {
 		Class<?> clazz = target.evaluate();
 		
 		for (Class<?> allowed : clazz.getPermittedSubclasses()) {
 			super.value.add(new Type(allowed));
 		}
 		
-		super.reflect();
+		try {
+			super.reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("This should not happen.");
+		}
 	}
 	
 	public SealedProfile(Type target) throws IllegalArgumentException, NullArgumentException {

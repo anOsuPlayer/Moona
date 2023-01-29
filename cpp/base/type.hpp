@@ -16,24 +16,24 @@
                 }
 
             public:
-                template <typename S> constexpr bool isBaseOf() const {
+                template <typename S> constexpr bool baseof() const {
                     return std::is_base_of<T, S>();
                 }
-                template <typename S> constexpr bool isBaseOf(const Type<S>* ts) const {
+                template <typename S> constexpr bool baseof(const Type<S>* ts) const {
                     return std::is_base_of<T, S>();
                 }
 
-                template <typename S> constexpr bool isDerivedOf() const {
+                template <typename S> constexpr bool derivedfrom() const {
                     return std::is_base_of<S, T>();
                 }
-                template <typename S> constexpr bool isDerivedOf(const Type<S>* ts) const {
+                template <typename S> constexpr bool derivedfrom(const Type<S>* ts) const {
                     return std::is_base_of<S, T>();
                 }
 
-                template <typename S> constexpr bool isSameAs() const {
+                template <typename S> constexpr bool equals() const {
                     return std::is_same<S, T>();
                 }
-                template <typename S> constexpr bool isSameAs(const Type<S>* ts) const {
+                template <typename S> constexpr bool equals(const Type<S>* ts) const {
                     return std::is_same<S, T>();
                 }
 

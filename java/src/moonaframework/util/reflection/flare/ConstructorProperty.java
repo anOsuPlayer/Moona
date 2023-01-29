@@ -24,15 +24,11 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		return this.target;
 	}
 	
-	public Modifier getModifiers() throws MoonaHandlingException {
+	public Modifier getModifiers() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
+		
 		return (Modifier) super.value.get(0);
 	}
 	
@@ -41,14 +37,9 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 	public int parameterCount() {
 		return this.parameterCount;
 	}
-	public List<Parameter> getParameters() throws MoonaHandlingException {
+	public List<Parameter> getParameters() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Parameter> list = new ArrayList<>();
@@ -59,14 +50,9 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		return list;
 	}
 	
-	public Parameter getParameter(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public Parameter getParameter(int index) throws UndefinedReflectionException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -85,14 +71,9 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 	public int typeArgumentsCount() {
 		return this.typeArgumentsCount;
 	}
-	public List<Generic> getTypeArguments() throws MoonaHandlingException {
+	public List<Generic> getTypeArguments() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Generic> list = new ArrayList<>();
@@ -102,14 +83,9 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		return list;
 	}
 	
-	public Generic getTypeArgument(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public Generic getTypeArgument(int index) throws UndefinedReflectionException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -122,18 +98,13 @@ public class ConstructorProperty extends Flare<Reflection<?>> {
 		
 		return (Generic) super.value.get(1+parameterCount+index);
 	}
-	public Generic getTypeArgument(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Generic getTypeArgument(String name) throws UndefinedReflectionException, ReflectionNotFoundException, NullArgumentException {
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
 		
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (int i = 0; i < typeArgumentsCount; i++) {

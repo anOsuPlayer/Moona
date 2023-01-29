@@ -15,14 +15,9 @@ public final class Hierarchy extends Flare<Type> {
 		return this.target;
 	}
 	
-	public Type getSuperclass() throws MoonaHandlingException {
+	public Type getSuperclass() {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.get(0);
@@ -30,24 +25,14 @@ public final class Hierarchy extends Flare<Type> {
 	
 	public List<Type> getInterfaces() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.subList(1, super.value.size());
 	}
-	public Type getInterface(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public Type getInterface(int index) throws MoonaHandlingException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -63,12 +48,7 @@ public final class Hierarchy extends Flare<Type> {
 	
 	public boolean isSuperType(Type t) throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.contains(t);
@@ -79,17 +59,12 @@ public final class Hierarchy extends Flare<Type> {
 	
 	public int superTypesCount() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value.size();
 	}
-	public int interfaceCount() throws MoonaHandlingException {
+	public int interfaceCount() {
 		return superTypesCount()-1;
 	}
 	
@@ -101,7 +76,7 @@ public final class Hierarchy extends Flare<Type> {
 		return (!super.hasGenerated) ? "Non-generate Flare." : "Hierarchy of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws MoonaHandlingException {
 		Class<?> clazz = target.evaluate();
 		
 		super.value.add(new Type((clazz.getSuperclass() != null) ? clazz.getSuperclass() : Object.class));
@@ -110,7 +85,12 @@ public final class Hierarchy extends Flare<Type> {
 			super.value.add(new Type(interf));
 		}
 		
-		super.reflect();
+		try {
+			super.reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("This should not happen.");
+		}
 	}
 	
 	public Hierarchy(Type target) {

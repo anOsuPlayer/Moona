@@ -23,25 +23,15 @@ public final class RecordContent extends Flare<RecordComponent> {
 	}
 	public List<RecordComponent> getRecordComponents() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		return super.value;
 	}
 	
-	public RecordComponent getRecordComponent(int index) throws IllegalArgumentException, MoonaHandlingException {
+	public RecordComponent getRecordComponent(int index) throws MoonaHandlingException, IllegalArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -54,14 +44,9 @@ public final class RecordContent extends Flare<RecordComponent> {
 		
 		return super.value.get(index);
 	}
-	public RecordComponent getRecordComponent(String name) throws NullArgumentException, MoonaHandlingException, ReflectionNotFoundException {
+	public RecordComponent getRecordComponent(String name) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (name == null) {
@@ -88,7 +73,7 @@ public final class RecordContent extends Flare<RecordComponent> {
 		return (!super.hasGenerated) ? "Non-generated Flare." : "RecordContent of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws MoonaHandlingException {
 		@SuppressWarnings("unchecked") Class<? extends Record> clazz = (Class<? extends Record>) target.evaluate();
 		
 		strictContext.enable();
@@ -99,7 +84,12 @@ public final class RecordContent extends Flare<RecordComponent> {
 		
 		strictContext.disable();
 		
-		super.reflect();
+		try  {
+			super.reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("This should not happen.");
+		}
 	}
 
 	public RecordContent(Type target) throws IllegalArgumentException, NullArgumentException {

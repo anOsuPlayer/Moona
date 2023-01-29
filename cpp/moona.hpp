@@ -4,5 +4,6 @@
     #define MOONA_MAIN
 
     #include "base/base.hpp"
+    #include "math/math.hpp"
     
 #endif

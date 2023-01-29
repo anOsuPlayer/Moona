@@ -21,18 +21,6 @@
         };
 
         template <typename O> concept NonMoonaObject = !MoonaObject<O>;
-
-        template <typename N> concept Numeric = requires {
-            std::is_arithmetic<N>();
-        };
-
-        template <typename I> concept IntegralType = requires {
-            std::is_integral<I>();
-        };
-
-        template <typename D> concept DecimalType = requires {
-            std::is_floating_point<D>();
-        };
     }
 
 #endif

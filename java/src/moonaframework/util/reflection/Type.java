@@ -6,13 +6,19 @@ import moonaframework.util.reflection.flare.TypeContent;
 
 public final class Type extends Reference<Class<?>> {
 	
+	public @Override Class<?> getTarget() {
+		return super.value;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T> T[] getArrayType(int length) {
 		return (T[]) java.lang.reflect.Array.newInstance(super.value, length);
 	}
+	
 	public Class<?> getComponentType() {
 		return super.value.getComponentType();
 	}
+	
 	public Class<?> getBasicComponentType() {
 		Class<?> clazz = super.value;
 		while (clazz.isArray()) {
@@ -29,10 +35,6 @@ public final class Type extends Reference<Class<?>> {
 	
 	public @Override String toString() {
 		return (value == null) ? "Non-generated Reflection" : "Type " + value.getName();
-	}
-	
-	public @Override Class<?> getTarget() {
-		return super.value;
 	}
 	
 	public @Deadlined void reflect() {

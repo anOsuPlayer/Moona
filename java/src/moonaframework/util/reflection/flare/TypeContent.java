@@ -33,12 +33,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	
 	public List<Method> getMethods() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Method> list = new ArrayList<>();
@@ -48,14 +43,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return list;
 	}
 	
-	public Method getMethod(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Method getMethod(int index) throws MoonaHandlingException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -68,14 +58,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Method) super.value.get(index);
 	}
-	public Method getMethod(String name, Class<?>...args) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Method getMethod(String name, Class<?>...args) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (name == null) {
@@ -99,12 +84,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	public List<Constructor> getConstructors() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Constructor> list = new ArrayList<>();
@@ -114,14 +94,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return list;
 	}
 	
-	public Constructor getConstructor(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Constructor getConstructor(int index) throws MoonaHandlingException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -134,14 +109,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Constructor) super.value.get(methodCount+index);
 	}
-	public Constructor getConstructor(Class<?>...args) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Constructor getConstructor(Class<?>...args) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (args == null) {
@@ -165,12 +135,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	public List<Field> getFields() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Field> list = new ArrayList<>();
@@ -180,14 +145,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return list;
 	}
 	
-	public Field getField(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Field getField(int index) throws MoonaHandlingException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -200,18 +160,13 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Field) super.value.get(methodCount+constructorCount+index);
 	}
-	public Field getField(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Field getField(String name) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException {
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
 		
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (int i = 0; i < fieldCount; i++) {
@@ -230,12 +185,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 	}
 	public List<Generic> getTypeArguments() throws MoonaHandlingException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		final List<Generic> list = new ArrayList<>();
@@ -245,14 +195,9 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return list;
 	}
 	
-	public Generic getTypeArgument(int index) throws IndexOutOfBoundsException, MoonaHandlingException {
+	public Generic getTypeArgument(int index) throws MoonaHandlingException, IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		if (index < 0) {
@@ -265,18 +210,13 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		return (Generic) super.value.get(methodCount+constructorCount+fieldCount+index);
 	}
-	public Generic getTypeArgument(String name) throws ReflectionNotFoundException, NullArgumentException, MoonaHandlingException {
+	public Generic getTypeArgument(String name) throws MoonaHandlingException, ReflectionNotFoundException, NullArgumentException{
 		if (name == null) {
 			throw new NullArgumentException("The field's name can't be null.");
 		}
 		
 		if (!super.hasGenerated) {
-			try {
-				reflect();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Unable to operate with undefined Reflections.", ure);
-			}
+			reflect();
 		}
 		
 		for (int i = 0; i < typeArgumentsCount; i++) {
@@ -300,7 +240,7 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		return (!super.hasGenerated) ? "Non-generated Flare" : "TypeContent of " + target;
 	}
 	
-	public @Override void reflect() throws UndefinedReflectionException {
+	public @Override void reflect() throws MoonaHandlingException {
 		Class<?> clazz = target.evaluate();
 		
 		strictContext.enable();
@@ -327,7 +267,12 @@ public final class TypeContent extends Flare<Reference<? extends AnnotatedElemen
 		
 		strictContext.disable();
 		
-		super.reflect();
+		try {
+			super.reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			throw new MoonaHandlingException("This should not happen.");
+		}
 	}
 	
 	public TypeContent(Type target) throws NullArgumentException {
