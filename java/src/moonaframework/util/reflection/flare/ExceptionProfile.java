@@ -3,7 +3,6 @@ package moonaframework.util.reflection.flare;
 import java.lang.reflect.Executable;
 import java.util.List;
 
-import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Reference;
