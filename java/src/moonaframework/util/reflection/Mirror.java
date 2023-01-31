@@ -1,5 +1,8 @@
 package moonaframework.util.reflection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.Nature;
 import moonaframework.base.Serial;
@@ -77,6 +80,14 @@ public final class Mirror {
 				refl.value = (T) r.value;
 			}
 		}
+	}
+	
+	public static List<Reflection<?>> getReflectionsOf(Object target) {
+		final List<Reflection<?>> refls = new ArrayList<>();
+		for (Reflection<?> r : reflections.values()) {
+			if (r.getTarget().equals(target)) { refls.add(r); }
+		}
+		return refls;
 	}
 	
 	public static boolean isReflected(Reflection<?> refl) {
