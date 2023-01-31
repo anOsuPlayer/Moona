@@ -1,8 +1,8 @@
 #pragma once
 
-#ifndef MOONA_MAIN
-    #define MOONA_MAIN
-    
+#ifndef MOONA_BASE
+    #define MOONA_BASE
+
     #include "moonaclass.hpp"
 
 #endif
