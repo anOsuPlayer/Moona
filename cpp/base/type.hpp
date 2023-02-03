@@ -4,6 +4,7 @@
     #define MOONA_TYPE
 
     #include <type_traits>
+    #include <typeinfo>
 
     namespace moona {
         
