@@ -12,12 +12,8 @@
                 Moona();
                 ~Moona();
 
-                static constexpr std::string_view DEFAULT_OBJECT_TOSTRING = "Object";
-
             public:
                 static void init();
-
-                static std::string_view getDefaultObjectToString();
         };
     }
 

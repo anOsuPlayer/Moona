@@ -24,7 +24,7 @@
                 }
 
                 virtual const char* toString() const {
-                    return Moona::getDefaultObjectToString().cbegin();
+                    return type()->name();
                 }
 
                 virtual bool equals(const Object* obj2) const {
