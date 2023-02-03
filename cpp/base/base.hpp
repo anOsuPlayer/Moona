@@ -4,6 +4,7 @@
     #define MOONA_BASE
 
     #include "moonaclass.hpp"
+    #include "benchmark.hpp"
     #include "object.hpp"
     #include "entity.hpp"
     #include "type.hpp"
