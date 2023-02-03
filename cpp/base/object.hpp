@@ -15,16 +15,12 @@
                 ~Object() {
                 }
 
-                Type<O, super...>* type() const {
-                    return new Type<O, super...>();
-                }
-
                 virtual Object<O, super...>* clone() const {
                     return new Object<O, super...>();
                 }
 
                 virtual const char* toString() const {
-                    return type()->name();
+                    return this->type()->name();
                 }
 
                 virtual bool equals(const Object* obj2) const {

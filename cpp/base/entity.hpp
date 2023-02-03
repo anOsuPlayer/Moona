@@ -15,8 +15,8 @@
                 }
 
             public:
-                Type<E, super...>* basetype() const {
-                    return new Type<E, super...>(); 
+                Type<E, super...>* type() const {
+                    return new Type<E, super...>();
                 }
 
                 template <typename T> constexpr bool instanceof() const {
