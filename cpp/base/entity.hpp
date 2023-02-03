@@ -7,7 +7,7 @@
 
     namespace moona {
 
-        template <typename E> class Entity {
+        template <typename E, typename... super> class Entity : public super... {
             protected:
                 Entity() {
                 }
@@ -15,8 +15,8 @@
                 }
 
             public:
-                Type<E>* type() const {
-                    return new Type<E>(); 
+                Type<E, super...>* basetype() const {
+                    return new Type<E, super...>(); 
                 }
 
                 template <typename T> constexpr bool instanceof() const {

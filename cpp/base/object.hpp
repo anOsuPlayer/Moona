@@ -8,15 +8,19 @@
 
     namespace moona {
 
-        template <typename O> class Object : public virtual Entity<O> {
+        template <typename O, typename... super> class Object : public Entity<O, super...> {
             public:
                 Object() {
                 }
                 ~Object() {
                 }
 
-                virtual Object* clone() const {
-                    return new Object<O>();
+                Type<O, super...>* type() const {
+                    return new Type<O, super...>();
+                }
+
+                virtual Object<O, super...>* clone() const {
+                    return new Object<O, super...>();
                 }
 
                 virtual const char* toString() const {

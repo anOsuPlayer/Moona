@@ -7,11 +7,19 @@
 
     namespace moona {
         
-        template <typename T> class Type {
+        template <typename T, typename... super> class Type {
             public:
                 Type() {
                 }
                 ~Type() {
+                }
+
+                constexpr const char* name() const {
+                    return typeid(T).name();
+                }
+
+                constexpr const unsigned short int size() const {
+                    return sizeof(T);
                 }
         };
     }
