@@ -7,7 +7,17 @@
 
     namespace moona {
 
-        template <typename E, typename... super> class Entity : public super... {
+        template <typename B> class Base {
+            private:
+                Base() {
+                }
+                ~Base() {
+                }
+            
+            template <typename E, typename... super> friend class Entity;
+        };
+
+        template <typename E, typename... super> class Entity : public Base<E>, public super... {
             protected:
                 Entity() {
                 }

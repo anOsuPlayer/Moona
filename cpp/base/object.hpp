@@ -8,7 +8,7 @@
 
     namespace moona {
 
-        template <typename O, typename... super> class Object : public Entity<O, super...> {
+        template <typename O, typename... super> class Object : public Entity<O> {
             public:
                 Object() {
                 }

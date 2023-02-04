@@ -8,9 +8,7 @@
     namespace moona {
 
         struct Assertion : public Entity<Assertion> {
-            private:
-                Assertion(bool value);
-
+            protected:
                 bool value;
 
             public:

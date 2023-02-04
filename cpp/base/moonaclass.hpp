@@ -3,7 +3,8 @@
 #ifndef MOONA_CLASS
     #define MOONA_CLASS
 
-    #include <string>
+    #include "object.hpp"
+    #include "../conditional/assertion.hpp"
 
     namespace moona {
 
@@ -14,6 +15,14 @@
 
             public:
                 static void init();
+
+                template <typename O> struct isMoonaObject : public Assertion {
+                    isMoonaObject() {
+                        this->value = std::is_base_of<Base<O>, O>();
+                    }
+                    ~isMoonaObject() {
+                    }
+                };
         };
     }
 

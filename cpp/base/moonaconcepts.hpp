@@ -14,11 +14,11 @@
             std::is_base_of<Object<O, super...>, O>();
         };
 
-        template <typename E, typename... super> concept MoonaEntity = requires {
-            std::is_base_of<Entity<E, super...>, E>();
+        template <typename E> concept MoonaEntity = requires {
+            std::is_base_of<Entity<E>, E>();
         };
         template <typename E, typename... super> concept PureEntity = requires {
-            MoonaEntity<E, super...> && !MoonaObject<E, super...>;
+            MoonaEntity<E> && !MoonaObject<E, super...>;
         };
     }
 
