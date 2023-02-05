@@ -13,6 +13,9 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	public Class<?> getDeclaringClass() {
 		return this.clazz;
 	}
+	public @Override Class<?> getTarget() {
+		return this.clazz;
+	}
 	
 	private final Class<?>[] args;
 	
@@ -35,10 +38,6 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 		
 		return (clazz == null) ? "Non-generated Reflection" : "Constructor " + clazz.getSimpleName() + "("
 				+ params + ")" + " in class " + clazz.getName();
-	}
-	
-	public @Override java.lang.reflect.Constructor<?> getTarget() {
-		return super.value;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

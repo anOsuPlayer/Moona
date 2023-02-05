@@ -11,6 +11,9 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 	public Class<?> getDeclaringClass() {
 		return clazz;
 	}
+	public @Override Class<?> getTarget() {
+		return this.clazz;
+	}
 	
 	protected final String name;
 	
@@ -26,10 +29,6 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 	
 	public @Override String toString() {
 		return (name == null) ? "Non-generated Reflection" : "Field " + name + " in Class " + clazz.getName();
-	}
-	
-	public @Override java.lang.reflect.Field getTarget() {
-		return super.value;
 	}
 	
 	public @Override void reflect() throws UndefinedReflectionException {

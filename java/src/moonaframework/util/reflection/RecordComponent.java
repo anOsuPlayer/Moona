@@ -8,6 +8,9 @@ public sealed class RecordComponent extends Reference<java.lang.reflect.RecordCo
 
 	private final Class<? extends Record> clazz;
 	
+	public Class<? extends Record> getRecord() {
+		return this.clazz;
+	}
 	public @Override Class<? extends Record> getTarget() {
 		return this.clazz;
 	}
