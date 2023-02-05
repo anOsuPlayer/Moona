@@ -116,10 +116,13 @@ public final class Mirror {
 	}
 	
 	public static int totalReflections() {
-		return totalReflections;
+		return totalReflections + totalFlares;
 	}
 	
-	public static int totalFlares() {
+	public static int reflectionsCount() {
+		return totalReflections;
+	}
+	public static int flaresCount() {
 		return totalFlares;
 	}
 	
