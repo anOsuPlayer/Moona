@@ -15,8 +15,6 @@ public final class Processor {
 	
 	static final IshMap<Process, Long> processes = new IshMap<>();
 	
-	static final List<Long> uniques = new ArrayList<>();
-	
 	private static int totalProcesses = 0;
 	
 	private static int totalDaemons = 0;
@@ -346,25 +344,9 @@ public final class Processor {
 	}
 
 	private static void initiator(Process p) {
-//		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "initialize", Annotated.NO_ARGS).evaluate()) {
-//			Agent.include(new AbstractEvent() {
-//				public void trigger() {
-//					p.initialize();
-//				}
-//			});
-//			return;
-//		}
 		p.initialize();
 	}
 	private static void ender(Process p) {
-//		if (Mirror.getAnnotatedMethod(p.getClass(), Timeless.class, "end", Annotated.NO_ARGS).evaluate()) {
-//			Agent.exclude(new AbstractEvent() {
-//				public void trigger() {
-//					p.end();
-//				}
-//			});
-//			return;
-//		}
 		p.end();
 	}
 	

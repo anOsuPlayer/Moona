@@ -34,9 +34,6 @@ public final class Mirror {
 		if (refl == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
-		if (reflections.hasKey(refl.id())) {
-			throw new MoonaHandlingException("This Reflection already belongs to Moona.");
-		}
 		addReflection(refl);
 	}
 	public static void add(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
