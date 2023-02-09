@@ -16,9 +16,17 @@
             public:
                 static void init();
 
-                template <typename O> struct isMoonaObject : public Assertion {
+                template <typename O> struct isMoonaElement : public Assertion {
                     isMoonaObject() {
                         this->value = std::is_base_of<Base<O>, O>();
+                    }
+                    ~isMoonaObject() {
+                    }
+                };
+
+                template <typename E, typename... super> struct isMoonaEntity : public Assertion {
+                    isMoonaObject() {
+                        this->value = std::is_base_of<Entity<E, super...>, E>();
                     }
                     ~isMoonaObject() {
                     }
