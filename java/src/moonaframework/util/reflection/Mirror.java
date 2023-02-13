@@ -23,6 +23,12 @@ public final class Mirror {
 		}
 		queue.add(refl, refl.id());
 	}
+	static void dequeue(Reflection<?> refl) throws NullArgumentException {
+		if (refl == null) {
+			throw new NullArgumentException("You cannot dequeue null Reflections.");
+		}
+		queue.remove(refl, refl.id());
+	}
 	
 	private static int totalReflections = 0;
 	

@@ -1,5 +1,6 @@
 package moonaframework.util.reflection;
 
+import moonaframework.base.Moona;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 
@@ -36,12 +37,40 @@ public class VagueReflection<R> extends Reflection<R> {
 		return refl.evaluate();
 	}
 	
+	protected @Override void mirrorInteraction() {
+		if (!Moona.isOn()) {
+			if (Moona.autoReflections.evaluate()) {
+				Mirror.dequeue(refl);
+				Mirror.queue(this);
+			}
+			
+			if (Moona.autoDeriveReferences.evaluate() || (strictContext.evaluate() && Moona.autoDeriveReferences.evaluate())) {
+				if (this instanceof Derivable d) {
+					d.derive();
+					d.getAnnotated();
+				}
+			}
+		}
+		else {
+			if (Moona.autoReflections.evaluate()) {
+				Mirror.removeReflection(refl);
+				Mirror.addReflection(this);
+			}
+			
+			if (Moona.deriveWhenInitialized.evaluate() || (strictContext.evaluate() && Moona.deriveWhenInitialized.evaluate())) {
+				if (this instanceof Derivable d) {
+					d.derive();
+					d.getAnnotated();
+				}
+			}
+		}
+	}
+	
 	public VagueReflection(Reflection<R> refl) throws NullArgumentException {
+		super();
 		if (refl == null) {
 			throw new NullArgumentException("Cannot build a VagueReflection over a null Reflection.");
 		}
-		Mirror.remove(refl);
 		this.refl = refl;
-		Mirror.add(this);
 	}
 }
