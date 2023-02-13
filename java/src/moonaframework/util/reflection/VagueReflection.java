@@ -7,7 +7,10 @@ public class VagueReflection<R> extends Reflection<R> {
 	
 	private final Reflection<R> refl;
 	
-	public @Override final Reflection<?> getTarget() {
+	public @Override final Object getTarget() {
+		return this.refl.getTarget();
+	}
+	public final Reflection<R> getBaseReflection() {
 		return this.refl;
 	}
 	
