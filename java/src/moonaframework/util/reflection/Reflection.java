@@ -35,6 +35,7 @@ public abstract class Reflection<T> implements Serial {
 		}
 		return value;
 	}
+	
 	public final boolean isUndefined() {
 		try {
 			evaluate();
