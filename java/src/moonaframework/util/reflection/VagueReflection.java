@@ -40,6 +40,8 @@ public class VagueReflection<R> extends Reflection<R> {
 		if (refl == null) {
 			throw new NullArgumentException("Cannot build a VagueReflection over a null Reflection.");
 		}
+		Mirror.remove(refl);
 		this.refl = refl;
+		Mirror.add(this);
 	}
 }

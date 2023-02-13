@@ -50,6 +50,26 @@ public final class Mirror {
 		}
 	}
 	
+	public static void remove(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
+		if (refl == null) {
+			throw new NullArgumentException("You cannot add null elements to Moona.");
+		}
+		removeReflection(refl);
+	}
+	public static void remove(Reflection<?>...reflections) throws MoonaHandlingException, NullArgumentException {
+		for (Reflection<?> refl : reflections) {
+			remove(refl);
+		}
+	}
+	static void removeReflection(Reflection<?> refl) throws MoonaHandlingException {
+		if (!has(refl)) {
+			totalReflections--;
+			totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
+			
+			reflections.remove(refl, refl.id());
+		}
+	}
+	
 	public static void loadReflections() throws MoonaHandlingException {
 		reflections.forEachValue((refl) -> {
 			try {
