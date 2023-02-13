@@ -4,7 +4,7 @@
     #define MOONA_CLASS
 
     #include "object.hpp"
-    #include "../conditional/assertion.hpp"
+    #include "../conditions/conditional.hpp"
 
     namespace moona {
 
@@ -16,7 +16,7 @@
             public:
                 static void init();
 
-                template <typename B> struct isMoonaElement : public Assertion {
+                template <typename B> struct isMoonaElement : public Conditional {
                     isMoonaElement() {
                         this->value = std::is_base_of<Base<B>, B>();
                     }
@@ -24,7 +24,7 @@
                     }
                 };
 
-                template <typename E, typename... super> struct isMoonaEntity : public Assertion {
+                template <typename E, typename... super> struct isMoonaEntity : public Conditional {
                     isMoonaEntity() {
                         this->value = std::is_base_of<Entity<E, super...>, E>();
                     }
@@ -32,7 +32,7 @@
                     }
                 };
 
-                template <typename O, typename... super> struct isMoonaObject : public Assertion {
+                template <typename O, typename... super> struct isMoonaObject : public Conditional {
                     isMoonaObject() {
                         this->value = std::is_base_of<Object<O, super...>, O>();
                     }

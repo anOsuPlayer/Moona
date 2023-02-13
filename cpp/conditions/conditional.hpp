@@ -7,14 +7,14 @@
 
     namespace moona {
 
-        struct Assertion : public Entity<Assertion> {
+        struct Conditional : public Entity<Conditional> {
             protected:
                 bool value;
 
-            public:
-                Assertion();
-                ~Assertion();
+                Conditional();
+                ~Conditional();
 
+            public:
                 operator bool() const;
         };
     }
