@@ -6,7 +6,7 @@ import moonaframework.base.Serial;
 import moonaframework.base.Setting;
 import moonaframework.util.exception.UndefinedReflectionException;
 
-public abstract class Reflection<T> implements Serial {
+public abstract class Reflection<R> implements Serial {
 
 	private final long id;
 	
@@ -23,17 +23,21 @@ public abstract class Reflection<T> implements Serial {
 				: false;
 	}
 	
-	protected T value;
+	protected R value;
 	
 	public abstract Object getTarget();
 	
 	public abstract void reflect() throws UndefinedReflectionException;
 	
-	public T evaluate() throws UndefinedReflectionException {
+	public R evaluate() throws UndefinedReflectionException {
 		if (value == null) {
 			reflect();
 		}
 		return value;
+	}
+	
+	public final VagueReflection<R> vagueForm() {
+		return new VagueReflection<>(this);
 	}
 	
 	public final boolean isUndefined() {
