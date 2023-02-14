@@ -19,11 +19,29 @@ public abstract class Reflection<R> implements MoonaObject {
 	
 	public abstract void reflect() throws UndefinedReflectionException;
 	
+	public final void safeReflect() {
+		try {
+			reflect();
+		}
+		catch (UndefinedReflectionException ure) {
+			
+		}
+	}
+	
 	public R evaluate() throws UndefinedReflectionException {
 		if (value == null) {
 			reflect();
 		}
 		return value;
+	}
+	
+	public final R safeEval() {
+		try {
+			return evaluate();
+		}
+		catch (UndefinedReflectionException ure) {
+			return null;
+		}
 	}
 	
 	public final boolean isUndefined() {
