@@ -28,7 +28,7 @@ public final class Agent {
 			if (e == null) {
 				throw new NullArgumentException("You cannot add null elements to Moona.");
 			}
-			if (events.contains(e) || toAdd.contains(e)) {
+			if (has(e)) {
 				throw new MoonaHandlingException("This Event already belongs to Moona.");
 			}
 			includeEvent(e);
@@ -58,7 +58,7 @@ public final class Agent {
 			if (e == null) {
 				throw new NullArgumentException("You cannot remove a null element from Moona.");
 			}
-			if (!events.contains(e) && !events.contains(e)) {
+			if (!has(e)) {
 				throw new MoonaHandlingException("This Event is not present in Moona.");
 			}
 			excludeEvent(e);

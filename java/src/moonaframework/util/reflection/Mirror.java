@@ -37,8 +37,6 @@ public final class Mirror {
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
 	
-	static final Object BLOB = new Object();
-	
 	public static void add(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
 		if (refl == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
@@ -51,7 +49,7 @@ public final class Mirror {
 		}
 	}
 	static void addReflection(Reflection<?> refl) throws MoonaHandlingException {
-		if (!has(refl)) {
+		if (!reflections.contains(refl)) {
 			totalReflections++;
 			totalFlares += (refl instanceof Flare<?>) ? 1 : 0;
 			
@@ -71,7 +69,7 @@ public final class Mirror {
 		}
 	}
 	static void removeReflection(Reflection<?> refl) throws MoonaHandlingException {
-		if (!has(refl)) {
+		if (reflections.contains(refl)) {
 			totalReflections--;
 			totalFlares -= (refl instanceof Flare<?>) ? 1 : 0;
 			
@@ -82,7 +80,7 @@ public final class Mirror {
 	public static void loadReflections() throws MoonaHandlingException {
 		if (Moona.unsafeReflectionLoading.evaluate()) {
 			reflections.forEach((refl) -> {
-				if (refl.safeEval().equals(Mirror.BLOB)) {
+				if (refl.safeEval() == null) {
 					undefinedReflections++;
 				}
 			});
@@ -99,7 +97,7 @@ public final class Mirror {
 		}
 		if (!queue.isEmpty()) {
 			for (Reflection<?> refl : queue) {
-				if (!has(refl)) {
+				if (!reflections.contains(refl)) {
 					addReflection(refl);
 				}
 			}

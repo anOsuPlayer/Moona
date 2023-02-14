@@ -36,24 +36,17 @@ public abstract class Reflection<R> implements MoonaObject {
 		return value;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public final R safeEval() {
 		try {
 			return evaluate();
 		}
 		catch (UndefinedReflectionException ure) {
-			return (R) Mirror.BLOB;
+			return null;
 		}
 	}
 	
 	public final boolean isUndefined() {
-		try {
-			evaluate();
-			return false;
-		}
-		catch (UndefinedReflectionException ure) {
-			return true;
-		}
+		return safeEval().equals(null);
 	}
 	
 	protected static transient final Setting strictContext = new Setting(false);
