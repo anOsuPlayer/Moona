@@ -60,11 +60,11 @@ public final class Moona {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
 		if (elements.contains(mo) || Processor.contains(mo) || Mirror.contains(mo) || Agent.contains(mo)) {
-			throw new MoonaHandlingException("This Serial already belongs to Moona.");
+			throw new MoonaHandlingException("This MoonaObject already belongs to Moona.");
 		}
-		addSerial(mo);
+		addMoonaObject(mo);
 	}
-	static void addSerial(MoonaObject mo) {
+	static void addMoonaObject(MoonaObject mo) {
 		elements.add(mo);
 	}
 	
@@ -74,11 +74,11 @@ public final class Moona {
 		}
 		if (!elements.contains(mo) && !Processor.contains(mo) && !Mirror.contains(mo) &
 				!Agent.contains(mo)) {
-			throw new MoonaHandlingException("This Serial is not present in Moona.");
+			throw new MoonaHandlingException("This MoonaObject is not present in Moona.");
 		}
-		removeSerial(mo);
+		removeMoonaObject(mo);
 	}
-	static void removeSerial(MoonaObject mo) {
+	static void removeMoonaObject(MoonaObject mo) {
 		elements.remove(mo);
 	}
 	
