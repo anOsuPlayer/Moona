@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author pelle
- *
- */
-module siria {
-}
