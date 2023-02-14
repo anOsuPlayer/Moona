@@ -27,6 +27,8 @@ public final class Moona {
 	
 	public static final Setting loadReflections = new Setting(true);
 	
+	public static final Setting unsafeReflectionLoading = new Setting(false, loadReflections);
+	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");

@@ -36,12 +36,13 @@ public abstract class Reflection<R> implements MoonaObject {
 		return value;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public final R safeEval() {
 		try {
 			return evaluate();
 		}
 		catch (UndefinedReflectionException ure) {
-			return null;
+			return (R) Mirror.BLOB;
 		}
 	}
 	

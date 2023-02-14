@@ -3,6 +3,7 @@ package moonaframework.util.reflection;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
 import moonaframework.util.exception.NullArgumentException;
@@ -30,9 +31,13 @@ public final class Mirror {
 	
 	private static int totalReflections = 0;
 	
+	private static int undefinedReflections = 0;
+	
 	private static int totalFlares = 0;
 	
 	public static final Class<?>[] NO_ARGS = new Class<?>[0];
+	
+	static final Object BLOB = new Object();
 	
 	public static void add(Reflection<?> refl) throws MoonaHandlingException, NullArgumentException {
 		if (refl == null) {
@@ -75,14 +80,23 @@ public final class Mirror {
 	}
 	
 	public static void loadReflections() throws MoonaHandlingException {
-		reflections.forEach((refl) -> {
-			try {
-				refl.evaluate();
-			}
-			catch (UndefinedReflectionException ure) {
-				throw new MoonaHandlingException("Undefined Reflections.", ure);
-			}
-		});
+		if (Moona.unsafeReflectionLoading.evaluate()) {
+			reflections.forEach((refl) -> {
+				if (refl.safeEval().equals(Mirror.BLOB)) {
+					undefinedReflections++;
+				}
+			});
+		}
+		else {
+			reflections.forEach((refl) -> {
+				try {
+					refl.evaluate();
+				}
+				catch (UndefinedReflectionException ure) {
+					throw new MoonaHandlingException("Undefined Reflections.", ure);
+				}
+			});
+		}
 		if (!queue.isEmpty()) {
 			for (Reflection<?> refl : queue) {
 				if (!has(refl)) {
@@ -132,6 +146,9 @@ public final class Mirror {
 	
 	public static int reflectionsCount() {
 		return totalReflections;
+	}
+	public static int undefinedReflectionsCount() {
+		return undefinedReflections;
 	}
 	public static int flaresCount() {
 		return totalFlares;
