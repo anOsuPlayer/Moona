@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
-import moonaframework.base.Serial;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.event.ModalEvent;
 import moonaframework.util.annotation.Deadlined;
-import moonaframework.util.collection.IshMap;
 import moonaframework.util.exception.NullArgumentException;
 
-public class EventPlace extends Task implements Serial {
+public class EventPlace extends Task {
 
-	final IshMap<Event, Long> events;
+	final List<Event> events;
 	
 	private int eventCount = 0;
 	
@@ -28,7 +26,7 @@ public class EventPlace extends Task implements Serial {
 		if (e == null) {
 			throw new NullArgumentException("You cannot add null Events.");
 		}
-		if (events.hasKey(e.id())) {
+		if (has(e)) {
 			throw new MoonaHandlingException("This Event is already present in this EventSpace.");
 		}
 		eventCount++;
@@ -40,7 +38,7 @@ public class EventPlace extends Task implements Serial {
 		if (e == null) {
 			throw new NullArgumentException("You cannot remove null Events.");
 		}
-		if (!events.hasKey(e.id())) {
+		if (!events.contains(e)) {
 			throw new MoonaHandlingException("This Event is not present in this EventSpace.");
 		}
 		eventCount--;
@@ -56,14 +54,14 @@ public class EventPlace extends Task implements Serial {
 	
 	protected final void flush() {
 		toRemove.forEach((e) -> {
-			events.remove(e, e.id());
+			events.remove(e);
 			eventCount--;
 			modalCount -= (e instanceof ModalEvent) ? 1 : 0;
 		});
 		toRemove.clear();
 		
 		toAdd.forEach((e) -> {
-			events.add(e, e.id());
+			events.add(e);
 			eventCount++;
 			modalCount += (e instanceof ModalEvent) ? 1 : 0;
 		});
@@ -81,7 +79,7 @@ public class EventPlace extends Task implements Serial {
 	public @Override void update() {
 		flush();
 		
-		for (Event e : events.values()) {
+		for (Event e : events) {
 			if (e instanceof ModalEvent me) {
 				if (me.getMode().equals(EventMode.ONCE)) {
 					toRemove.add(e);
@@ -105,15 +103,8 @@ public class EventPlace extends Task implements Serial {
 		}
 	}
 	
-	public Event get(long id) {
-		return events.valueOf(id);
-	}
-	
-	public boolean has(long id) {
-		return events.hasKey(id);
-	}
 	public boolean has(Event e) {
-		return events.has(e, e.id());
+		return events.contains(e) || toAdd.contains(e);
 	}
 	
 	public int eventCount() {
@@ -124,14 +115,14 @@ public class EventPlace extends Task implements Serial {
 	}
 	
 	public EventPlace() {
-		this.events = new IshMap<>();
+		this.events = new ArrayList<>();
 		this.toRemove = new ArrayList<>();
 		this.toAdd = new ArrayList<>();
 	}
 	public EventPlace(Event...es) {
 		this();
 		for (Event e : es) {
-			events.add(e, e.id());
+			toAdd.add(e);
 		}
 	}
 }

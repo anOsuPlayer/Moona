@@ -4,20 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import moonaframework.base.Moona;
-import moonaframework.base.Nature;
-import moonaframework.base.Serial;
 import moonaframework.util.exception.NullArgumentException;
 
-public abstract class Series<T> implements Iterable<T>, Serial {
-	
-	private final long id;
-	public @Override final long id() {
-		return this.id;
-	}
-	public @Override Nature nature() {
-		return Nature.OBJECT;
-	}
+public abstract class Series<T> implements Iterable<T> {
 	
 	public @Override String toString() {
 		if (series.isEmpty()) {
@@ -72,7 +61,6 @@ public abstract class Series<T> implements Iterable<T>, Serial {
 		this.series = new ArrayList<>();
 		this.from = from; this.iterations = until;
 		this.offset = offset + ((offset == 0) ? 1 : 0);
-		this.id = Moona.generateID();
 	}
 	public Series(T from, long until) throws NullArgumentException {
 		this(from, until, 0);

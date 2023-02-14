@@ -16,7 +16,7 @@ public class EventSpace extends EventPlace {
 	public @Override void update() {
 		flush();
 		
-		for (Event e : events.values()) {
+		for (Event e : events) {
 			if (e instanceof ModalEvent me) {
 				if (me.getMode().equals(EventMode.ONCE)) {
 					toRemove.add(e);

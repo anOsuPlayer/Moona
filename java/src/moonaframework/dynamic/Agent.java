@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.base.MoonaHandlingException;
-import moonaframework.base.Serial;
+import moonaframework.base.MoonaObject;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
 import moonaframework.dynamic.event.ModalEvent;
 import moonaframework.dynamic.process.Task;
-import moonaframework.util.collection.IshMap;
 import moonaframework.util.exception.NullArgumentException;
 
 public final class Agent {
 
-	static final IshMap<Event, Long> events = new IshMap<>();
+	static final List<Event> events = new ArrayList<>();
 	
 	private static final List<Event> toAdd = new ArrayList<>();
 	
@@ -29,7 +28,7 @@ public final class Agent {
 			if (e == null) {
 				throw new NullArgumentException("You cannot add null elements to Moona.");
 			}
-			if (events.hasKey(e.id())) {
+			if (events.contains(e) || toAdd.contains(e)) {
 				throw new MoonaHandlingException("This Event already belongs to Moona.");
 			}
 			includeEvent(e);
@@ -41,7 +40,7 @@ public final class Agent {
 		}
 	}
 	static void filteredInclude(Event e) {
-		if (!events.hasKey(e.id())) {
+		if (!events.contains(e)) {
 			includeEvent(e);
 		}
 	}
@@ -59,7 +58,7 @@ public final class Agent {
 			if (e == null) {
 				throw new NullArgumentException("You cannot remove a null element from Moona.");
 			}
-			if (!events.hasKey(e.id())) {
+			if (!events.contains(e) && !events.contains(e)) {
 				throw new MoonaHandlingException("This Event is not present in Moona.");
 			}
 			excludeEvent(e);
@@ -71,7 +70,7 @@ public final class Agent {
 		}
 	}
 	static void filteredExclude(Event e) {
-		if (events.hasKey(e.id())) {
+		if (events.contains(e)) {
 			excludeEvent(e);
 		}
 	}
@@ -83,14 +82,14 @@ public final class Agent {
 	
 	private static void flush() {
 		toRemove.forEach((e) -> {
-			events.remove(e, e.id());
+			events.remove(e);
 			totalEvents--;
 			totalModals -= (e instanceof ModalEvent) ? 1 : 0;
 		});
 		toRemove.clear();
 		
 		toAdd.forEach((e) -> {
-			events.add(e, e.id());
+			events.add(e);
 			totalEvents++;
 			totalModals += (e instanceof ModalEvent) ? 1 : 0;
 		});
@@ -111,7 +110,7 @@ public final class Agent {
 			
 			flush();
 			
-			for (Event e : events.values()) {
+			for (Event e : events) {
 				if (e instanceof ModalEvent me) {
 					if (me.getMode().equals(EventMode.ONCE)) {
 						toRemove.add(e);
@@ -158,32 +157,18 @@ public final class Agent {
 		}
 	}
 	
-	public static Event get(long id) {
-		return events.valueOf(id);
+	public static boolean isEvent(MoonaObject mo) {
+		return mo instanceof Event;
+	}
+	public static boolean isModalEvent(MoonaObject mo) {
+		return mo instanceof ModalEvent;
 	}
 	
-	public static boolean isEvent(Serial s) {
-		return s instanceof Event;
-	}
-	public static boolean isModalEvent(Serial s) {
-		return s instanceof ModalEvent;
-	}
-	
-	public static boolean isEvent(long id) {
-		return events.hasKey(id);
-	}
-	public static boolean isModalEvent(long id) {
-		return events.hasKey(id) && events.valueOf(id) instanceof ModalEvent;
-	}
-	
-	public static boolean contains(Serial s) {
-		return s instanceof Event e ? events.has(e, e.id()) : false;
-	}
-	public static boolean has(long id) {
-		return events.hasKey(id);
+	public static boolean contains(MoonaObject mo) {
+		return mo instanceof Event e ? has(e) : false;
 	}
 	public static boolean has(Event e) {
-		return has(e.id());
+		return events.contains(e) || toAdd.contains(e);
 	}
 	
 	public static int totalEvents() {

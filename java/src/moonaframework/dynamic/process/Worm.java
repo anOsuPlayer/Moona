@@ -1,7 +1,6 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.base.Moona;
-import moonaframework.base.Nature;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.Processor;
@@ -9,10 +8,6 @@ import moonaframework.util.annotation.Deadlined;
 import moonaframework.util.relation.Bindable;
 
 public abstract class Worm extends Daemon implements Bindable<Process> {
-	
-	public @Override Nature nature() {
-		return Nature.WORM;
-	}
 	
 	public @Override Worm clone() {
 		return (Worm) Handler.cloneProcess(this);

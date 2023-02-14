@@ -1,19 +1,17 @@
 package moonaframework.base;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Processor;
-import moonaframework.dynamic.event.Event;
-import moonaframework.dynamic.process.Process;
-import moonaframework.util.collection.IshMap;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Mirror;
-import moonaframework.util.reflection.Reflection;
 
 public final class Moona {
 	
-	static final IshMap<Serial, Long> elements = new IshMap<>();
+	static final List<MoonaObject> elements = new ArrayList<>();
 	
 	static boolean isOn = false;
 	
@@ -40,8 +38,8 @@ public final class Moona {
 		
 		isOn = true;
 		
-		for (Serial s : elements.values()) {
-			if (s instanceof Constexpr cx) {
+		for (MoonaObject mo : elements) {
+			if (mo instanceof Constexpr cx) {
 				cx.code.run();
 			}
 		}
@@ -57,54 +55,31 @@ public final class Moona {
 		return idCounter.incrementAndGet();
 	}
 	
-	public static void add(Serial s) throws MoonaHandlingException, NullArgumentException {
-		if (s == null) {
+	public static void add(MoonaObject mo) throws MoonaHandlingException, NullArgumentException {
+		if (mo == null) {
 			throw new NullArgumentException("You cannot add null elements to Moona.");
 		}
-		if (elements.hasKey(s.id()) || Processor.contains(s) || Mirror.contains(s) || Agent.contains(s)) {
+		if (elements.contains(mo) || Processor.contains(mo) || Mirror.contains(mo) || Agent.contains(mo)) {
 			throw new MoonaHandlingException("This Serial already belongs to Moona.");
 		}
-		addSerial(s);
+		addSerial(mo);
 	}
-	static void addSerial(Serial s) {
-		if (Nature.isProcessLike(s)) {
-			Processor.add((Process) s);
-			return;
-		}
-		if (Nature.isEventLike(s)) {
-			Agent.include((Event) s);
-			return;
-		}
-		if (Nature.isReflectionLike(s)) {
-			Mirror.add((Reflection<?>) s);
-			return;
-		}
-		elements.add(s, s.id());
+	static void addSerial(MoonaObject mo) {
+		elements.add(mo);
 	}
 	
-	public static void remove(Serial s) throws MoonaHandlingException, NullArgumentException {
-		if (s == null) {
+	public static void remove(MoonaObject mo) throws MoonaHandlingException, NullArgumentException {
+		if (mo == null) {
 			throw new NullArgumentException("You cannot remove a null element from Moona.");
 		}
-		if (!elements.hasKey(s.id()) && !Processor.contains(s) && !Mirror.contains(s) &
-				!Agent.contains(s)) {
+		if (!elements.contains(mo) && !Processor.contains(mo) && !Mirror.contains(mo) &
+				!Agent.contains(mo)) {
 			throw new MoonaHandlingException("This Serial is not present in Moona.");
 		}
-		removeSerial(s);
+		removeSerial(mo);
 	}
-	static void removeSerial(Serial s) {
-		if (Nature.isProcessLike(s)) {
-			Processor.remove((Process) s);
-			return;
-		}
-		if (Nature.isEventLike(s)) {
-			Agent.exclude((Event) s);
-			return;
-		}
-		if (Nature.isReflectionLike(s)) {
-			return;
-		}
-		elements.remove(s, s.id());
+	static void removeSerial(MoonaObject mo) {
+		elements.remove(mo);
 	}
 	
 	public static void collapse() {
@@ -112,21 +87,10 @@ public final class Moona {
 		elements.clear();
 		Moona.isOn = false;
 	}
-	
-	public static Serial get(long id) {
-		Serial s = elements.valueOf(id);
-		s = (s != null) ? s : Processor.get(id);
-		s = (s != null) ? s : Mirror.get(id);
-		s = (s != null) ? s : Agent.get(id);
-		return s;
-	}
-	
-	public static boolean has(long id) {
-		return elements.hasKey(id) || Processor.has(id) || Mirror.has(id) || Agent.has(id);
-	}
-	public static boolean has(Serial s) {
-		return elements.hasKey(s.id()) || Processor.contains(s) || Mirror.contains(s)
-				|| Agent.contains(s);
+
+	public static boolean has(MoonaObject mo) {
+		return elements.contains(mo) || Processor.contains(mo) || Mirror.contains(mo)
+				|| Agent.contains(mo);
 	}
 	
 	public static int totalElements() {

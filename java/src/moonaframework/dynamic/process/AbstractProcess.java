@@ -1,22 +1,12 @@
 package moonaframework.dynamic.process;
 
 import moonaframework.base.Moona;
-import moonaframework.base.Nature;
 import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 import moonaframework.util.annotation.Deadlined;
 
 public abstract class AbstractProcess implements Process {
-	
-	private final long id;
-	
-	public @Override final long id() {
-		return this.id;
-	}
-	public @Override Nature nature() {
-		return Nature.PROCESS;
-	}
 	
 	public @Override AbstractProcess clone() {
 		return Handler.cloneProcess(this);
@@ -59,7 +49,6 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
-		this.id = Moona.generateID();
 		this.clock = new ProcessClock(this);
 		this.status = new ProcessStatus(ProcessCondition.DEAD);
 	}

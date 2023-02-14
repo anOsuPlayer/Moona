@@ -1,18 +1,8 @@
 package moonaframework.util.exception;
 
-import moonaframework.base.Nature;
-import moonaframework.base.Serial;
-
-public class NullArgumentException extends RuntimeException implements Serial {
+public class NullArgumentException extends RuntimeException {
 
 	private static final long serialVersionUID = -2;
-
-	public @Override long id() {
-		return serialVersionUID;
-	}
-	public @Override Nature nature() {
-		return Nature.EXCEPTION;
-	}
 
 	public NullArgumentException(String message, Throwable cause) {
 		super(message, cause);

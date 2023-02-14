@@ -1,6 +1,5 @@
 package moonaframework.dynamic;
 
-import moonaframework.dynamic.event.AbstractEvent;
 import moonaframework.dynamic.event.Action;
 import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.event.EventMode;
@@ -15,11 +14,13 @@ import moonaframework.util.functional.Snippet;
 public final class Handler {
 	
 	public static AbstractProcess cloneProcess(Process p) {
-		return switch (p.nature()) {
-			case WORM: yield forgeWorm(p);
-			case DAEMON: yield forgeDaemon(p);
-			default: yield forgeProcess(p);
-		};
+		if (p instanceof Worm) {
+			return forgeWorm(p);
+		}
+		else if (p instanceof Daemon) {
+			return forgeDaemon(p);
+		}
+		return forgeProcess(p);
 	}
 	
 	private static Task forgeProcess(Process p) {
@@ -143,15 +144,15 @@ public final class Handler {
 		return buildWorm(s, null);
 	}
 	
-	public static AbstractEvent buildEvent(Snippet s) {
-		return new AbstractEvent() {
+	public static Event buildEvent(Snippet s) {
+		return new Event() {
 			public @Override void trigger() {
 				s.run();
 			}
 		};
 	}
-	public static AbstractEvent castEvent(Event e) {
-		AbstractEvent newEv = buildEvent(e.translate());
+	public static Event castEvent(Event e) {
+		Event newEv = buildEvent(e.translate());
 		if (Agent.has(e)) {
 			Agent.exclude(e);
 			Agent.include(newEv);

@@ -3,15 +3,7 @@ package moonaframework.base;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.functional.Snippet;
 
-public final class Constexpr implements Serial {
-
-	private final long id;
-	public @Override final long id() {
-		return this.id;
-	}
-	public @Override final Nature nature() {
-		return Nature.OBJECT;
-	}
+public final class Constexpr implements MoonaObject {
 	
 	final Snippet code;
 	
@@ -23,7 +15,6 @@ public final class Constexpr implements Serial {
 		if (code == null) {
 			throw new NullArgumentException("A null Constexpr cannot be initialized.");
 		}
-		this.id = Moona.generateID();
 		this.code = code;
 		Moona.add(this);
 	}

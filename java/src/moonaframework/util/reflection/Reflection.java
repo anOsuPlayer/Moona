@@ -1,21 +1,11 @@
 package moonaframework.util.reflection;
 
 import moonaframework.base.Moona;
-import moonaframework.base.Nature;
-import moonaframework.base.Serial;
+import moonaframework.base.MoonaObject;
 import moonaframework.base.Setting;
 import moonaframework.util.exception.UndefinedReflectionException;
 
-public abstract class Reflection<R> implements Serial {
-
-	private final long id;
-	
-	public @Override final long id() {
-		return this.id;
-	}
-	public @Override final Nature nature() {
-		return Nature.REFLECTION;
-	}
+public abstract class Reflection<R> implements MoonaObject {
 	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Reflection<?> refl) ?
@@ -80,6 +70,6 @@ public abstract class Reflection<R> implements Serial {
 	}
 	
 	protected Reflection() {
-		this.id = Moona.generateID();
+		
 	}
 }

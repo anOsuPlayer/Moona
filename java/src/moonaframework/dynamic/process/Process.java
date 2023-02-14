@@ -1,17 +1,12 @@
 package moonaframework.dynamic.process;
 
-import moonaframework.base.Natural;
-import moonaframework.base.Nature;
-import moonaframework.base.Serial;
+import moonaframework.base.MoonaObject;
 import moonaframework.dynamic.Dynamic;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 import moonaframework.util.annotation.Functional;
 
-public @Functional interface Process extends Natural, Runnable, Dynamic, Serial {
-	
-	@Override Nature nature();
-	@Override long id();
+public @Functional interface Process extends MoonaObject, Runnable, Dynamic {
 	
 	ProcessClock getClock();
 	ProcessStatus getStatus();
