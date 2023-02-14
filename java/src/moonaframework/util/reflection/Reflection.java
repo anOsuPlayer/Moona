@@ -36,10 +36,6 @@ public abstract class Reflection<R> implements Serial {
 		return value;
 	}
 	
-	public final VagueReflection<R> vagueForm() {
-		return new VagueReflection<>(this);
-	}
-	
 	public final boolean isUndefined() {
 		try {
 			evaluate();
