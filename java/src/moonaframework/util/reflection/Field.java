@@ -21,6 +21,12 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 		return this.name;
 	}
 	
+	private final boolean isDeclared;
+	
+	public final boolean isDeclared() {
+		return this.isDeclared;
+	}
+	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Field field) ?
 				this.name.equals(field.name) && this.clazz.equals(field.clazz)
@@ -33,7 +39,12 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
-			super.value = clazz.getDeclaredField(name);
+			if (isDeclared) {
+				super.value = clazz.getDeclaredField(name);
+			}
+			else {
+				super.value = clazz.getField(name);
+			}
 		}
 		catch (NoSuchFieldException nsfe) {
 			throw new UndefinedReflectionException("No Field References could be generated from the given"
@@ -49,15 +60,19 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 		}
 		return fp;
 	}
-	
-	public Field(Class<?> clazz, String name) throws IllegalArgumentException, NullArgumentException {
+
+	public Field(Class<?> clazz, String name, boolean isDeclared) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null || name == null) {
 			throw new NullArgumentException("Cannot build a Field Reference with a null class or a null"
 					+ " field name.");
 		}
+		this.isDeclared = isDeclared;
 		this.clazz = clazz; this.name = name;
 		
 		super.mirrorInteraction();
+	}
+	public Field(Class<?> clazz, String name) throws IllegalArgumentException, NullArgumentException {
+		this(clazz, name, false);
 	}
 	
 	public Field(java.lang.reflect.Field field) throws NullArgumentException {
@@ -65,6 +80,7 @@ public sealed class Field extends Reference<java.lang.reflect.Field> permits Enu
 			throw new NullArgumentException("Cannot build a Field Reference over a null java.lang.reflect.Method.");
 		}
 		super.value = field;
+		this.isDeclared = false;
 		this.clazz = field.getDeclaringClass(); this.name = field.getName();
 		
 		super.mirrorInteraction(); super.valueExtraction();

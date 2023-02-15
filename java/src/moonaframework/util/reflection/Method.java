@@ -30,6 +30,12 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		return super.value.getReturnType();
 	}
 	
+	private final boolean isDeclared;
+	
+	public final boolean isDeclared() {
+		return this.isDeclared;
+	}
+	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Method method) ?
 				this.name.equals(method.name) && this.clazz.equals(method.clazz)
@@ -54,7 +60,12 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
-			super.value = clazz.getMethod(name, args);
+			if (isDeclared) {
+				super.value = clazz.getDeclaredMethod(name, args);
+			}
+			else {
+				super.value = clazz.getMethod(name, args);
+			}
 		}
 		catch (NoSuchMethodException nsme) {
 			throw new UndefinedReflectionException("No Method References could be generated from the given"
@@ -71,17 +82,24 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 		return mp;
 	}
 	
-	public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
+	public Method(Class<?> clazz, String name, boolean isDeclared, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null || name == null) {
 			throw new NullArgumentException("Cannot build a Method Reference over a null class or a null"
 					+ " method name.");
 		}
+		this.isDeclared = isDeclared;
 		this.clazz = clazz; this.name = name; this.args = (args == null) ? Mirror.NO_ARGS : args;
 		
 		super.mirrorInteraction(); super.valueExtraction();
 	}
+	public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
+		this(clazz, name, false, Mirror.NO_ARGS);
+	}
 	public Method(Class<?> clazz, String name) {
-		this(clazz, name, Mirror.NO_ARGS);
+		this(clazz, name, false, Mirror.NO_ARGS);
+	}
+	public Method(Class<?> clazz, String name, boolean isDeclared) {
+		this(clazz, name, isDeclared, Mirror.NO_ARGS);
 	}
 	
 	public Method(java.lang.reflect.Method method) throws NullArgumentException {
@@ -89,6 +107,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 			throw new NullArgumentException("Cannot build a Method Reference over a null java.lang.reflect.Method.");
 		}
 		super.value = method;
+		this.isDeclared = false;
 		this.clazz = method.getDeclaringClass(); this.name = method.getName(); this.args = method.getParameterTypes();
 
 		super.mirrorInteraction(); super.valueExtraction();
