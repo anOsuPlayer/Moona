@@ -54,7 +54,7 @@ public final class Method extends Reference<java.lang.reflect.Method> {
 	
 	public @Override void reflect() throws UndefinedReflectionException {
 		try {
-			super.value = clazz.getDeclaredMethod(name, args);
+			super.value = clazz.getMethod(name, args);
 		}
 		catch (NoSuchMethodException nsme) {
 			throw new UndefinedReflectionException("No Method References could be generated from the given"

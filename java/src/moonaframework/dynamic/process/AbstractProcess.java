@@ -5,6 +5,8 @@ import moonaframework.dynamic.Handler;
 import moonaframework.dynamic.ProcessCondition;
 import moonaframework.dynamic.ProcessStatus;
 import moonaframework.util.annotation.Deadlined;
+import moonaframework.util.reflection.Method;
+import moonaframework.util.reflection.Mirror;
 
 public abstract class AbstractProcess implements Process {
 	
@@ -51,5 +53,8 @@ public abstract class AbstractProcess implements Process {
 	public AbstractProcess() {
 		this.clock = new ProcessClock(this);
 		this.status = new ProcessStatus(ProcessCondition.DEAD);
+		
+		Mirror.add(new Method(this.getClass(), "initialize"));
+		Mirror.add(new Method(this.getClass(), "end"));
 	}
 }

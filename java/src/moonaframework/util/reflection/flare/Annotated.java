@@ -43,6 +43,10 @@ public final class Annotated extends Flare<Annotation<?>> {
 		return getAnnotation(annot) == null ? null : getAnnotation(annot).evaluate();
 	}
 	
+	public boolean hasAnnotation(Class<? extends java.lang.annotation.Annotation> annot) throws UndefinedReflectionException {
+		return target.evaluate().isAnnotationPresent(annot);
+	}
+	
 	public int annotationCount() throws UndefinedReflectionException {
 		if (!super.hasGenerated) {
 			reflect();

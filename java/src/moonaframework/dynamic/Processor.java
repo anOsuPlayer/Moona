@@ -6,10 +6,16 @@ import java.util.List;
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
+import moonaframework.dynamic.event.AutoEvent;
 import moonaframework.dynamic.process.Daemon;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Worm;
+import moonaframework.util.annotation.Timeless;
 import moonaframework.util.exception.NullArgumentException;
+import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.Method;
+import moonaframework.util.reflection.Mirror;
+import moonaframework.util.reflection.Reflection;
 
 public final class Processor {
 	
