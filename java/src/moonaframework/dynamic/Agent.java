@@ -3,6 +3,7 @@ package moonaframework.dynamic;
 import java.util.ArrayList;
 import java.util.List;
 
+import moonaframework.dynamic.process.Process;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
 import moonaframework.dynamic.event.Event;
@@ -80,20 +81,24 @@ public final class Agent {
 		}
 	}
 	
-	private static void flush() {
-		toRemove.forEach((e) -> {
-			events.remove(e);
-			totalEvents--;
-			totalModals -= (e instanceof ModalEvent) ? 1 : 0;
-		});
-		toRemove.clear();
+	private static void flush() {	
+		if (!toRemove.isEmpty()) {
+			toRemove.forEach((e) -> {
+				events.remove(e);
+				totalEvents--;
+				totalModals -= (e instanceof ModalEvent) ? 1 : 0;
+			});
+			toRemove.clear();
+		}
 		
-		toAdd.forEach((e) -> {
-			events.add(e);
-			totalEvents++;
-			totalModals += (e instanceof ModalEvent) ? 1 : 0;
-		});
-		toAdd.clear();
+		if (!toAdd.isEmpty()) {
+			toAdd.forEach((e) -> {
+				events.add(e);
+				totalEvents++;
+				totalModals += (e instanceof ModalEvent) ? 1 : 0;
+			});
+			toAdd.clear();
+		}
 		
 		if (totalEvents() == 0) {
 			Processor.terminate(handler);
