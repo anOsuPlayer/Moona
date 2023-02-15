@@ -7,6 +7,7 @@ import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
 import moonaframework.dynamic.event.AutoEvent;
+import moonaframework.dynamic.event.Event;
 import moonaframework.dynamic.process.Daemon;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Worm;
@@ -16,6 +17,7 @@ import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.Reflection;
+import moonaframework.util.reflection.flare.Annotated;
 
 public final class Processor {
 	
@@ -268,9 +270,41 @@ public final class Processor {
 	}
 
 	private static void initiator(Process p) {
+		Annotated initiator = Mirror.getProcessInitializer(p);
+		if (initiator != null) {
+			try {
+				if (initiator.hasAnnotation(Timeless.class)) {
+					Agent.include(new Event() {
+						public @Override void trigger() {
+							p.initialize();
+						}
+					});
+				}
+			}
+			catch (UndefinedReflectionException ure) {
+				ure.printStackTrace();
+			}
+			return;
+		}
 		p.initialize();
 	}
 	private static void ender(Process p) {
+		Annotated initiator = Mirror.getProcessEnder(p);
+		if (initiator != null) {
+			try {
+				if (initiator.hasAnnotation(Timeless.class)) {
+					Agent.include(new Event() {
+						public @Override void trigger() {
+							p.end();
+						}
+					});
+				}
+			}
+			catch (UndefinedReflectionException ure) {
+				ure.printStackTrace();
+			}
+			return;
+		}
 		p.end();
 	}
 

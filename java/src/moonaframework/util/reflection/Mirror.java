@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.base.Moona;
+import moonaframework.dynamic.process.Process;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
 public final class Mirror {
@@ -121,6 +123,19 @@ public final class Mirror {
 			if (r.getTarget().equals(target)) { refls.add(r); }
 		}
 		return refls;
+	}
+	
+	public static Annotated getProcessInitializer(Process p) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Method m && m.getName().equals("initialize")) { return m.getAnnotated(); }
+		}
+		return null;
+	}
+	public static Annotated getProcessEnder(Process p) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Method m && m.getName().equals("end")) { return m.getAnnotated(); }
+		}
+		return null;
 	}
 	
 	public static boolean isReflected(Reflection<?> refl) {
