@@ -271,39 +271,35 @@ public final class Processor {
 
 	private static void initiator(Process p) {
 		Annotated initiator = Mirror.getProcessInitializer(p);
-		if (initiator != null) {
-			try {
-				if (initiator.hasAnnotation(Timeless.class)) {
-					Agent.include(new Event() {
-						public @Override void trigger() {
-							p.initialize();
-						}
-					});
-				}
+		try {
+			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
+				Agent.include(new Event() {
+					public @Override void trigger() {
+						p.initialize();
+					}
+				});
+				return;
 			}
-			catch (UndefinedReflectionException ure) {
-				ure.printStackTrace();
-			}
-			return;
+		}
+		catch (UndefinedReflectionException ure) {
+			ure.printStackTrace();
 		}
 		p.initialize();
 	}
 	private static void ender(Process p) {
-		Annotated initiator = Mirror.getProcessEnder(p);
-		if (initiator != null) {
-			try {
-				if (initiator.hasAnnotation(Timeless.class)) {
-					Agent.include(new Event() {
-						public @Override void trigger() {
-							p.end();
-						}
-					});
-				}
+		Annotated ender = Mirror.getProcessEnder(p);
+		try {
+			if (ender != null && ender.hasAnnotation(Timeless.class)) {
+				Agent.include(new Event() {
+					public @Override void trigger() {
+						p.end();
+					}
+				});
+				return;
 			}
-			catch (UndefinedReflectionException ure) {
-				ure.printStackTrace();
-			}
-			return;
+		}
+		catch (UndefinedReflectionException ure) {
+			ure.printStackTrace();
 		}
 		p.end();
 	}
