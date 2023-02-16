@@ -6,7 +6,7 @@ import java.util.List;
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
-import moonaframework.dynamic.event.Event;
+import moonaframework.dynamic.event.AutoEvent;
 import moonaframework.dynamic.process.Daemon;
 import moonaframework.dynamic.process.Process;
 import moonaframework.dynamic.process.Worm;
@@ -272,7 +272,7 @@ public final class Processor {
 			return m.getName().equals("initialize") && m.getDeclaringClass().equals(p.getClass()); }).evaluate().getAnnotated();
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
-				Agent.include(new Event() {
+				Processor.start(new AutoEvent() {
 					public @Override void trigger() {
 						p.initialize();
 					}
@@ -286,10 +286,11 @@ public final class Processor {
 		p.initialize();
 	}
 	private static void ender(Process p) {
-		Annotated ender = Mirror.getProcessEnder(p);
+		Annotated initiator = Mirror.filterMethods().filter((Method m) -> {
+			return m.getName().equals("end") && m.getDeclaringClass().equals(p.getClass()); }).evaluate().getAnnotated();
 		try {
-			if (ender != null && ender.hasAnnotation(Timeless.class)) {
-				Agent.include(new Event() {
+			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
+				Processor.start(new AutoEvent() {
 					public @Override void trigger() {
 						p.end();
 					}
