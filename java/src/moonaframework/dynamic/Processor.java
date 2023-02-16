@@ -36,7 +36,7 @@ public final class Processor {
 		}
 		addProcess(p);
 	}
-	public static void add(Process...processes) throws MoonaHandlingException, NullArgumentException {
+	public static void add(Process... processes) throws MoonaHandlingException, NullArgumentException {
 		for (Process p : processes) {
 			add(p);
 		}
@@ -63,7 +63,7 @@ public final class Processor {
 		}
 		removeProcess(p);
 	}
-	public static void remove(Process...processes) throws MoonaHandlingException, NullArgumentException {
+	public static void remove(Process... processes) throws MoonaHandlingException, NullArgumentException {
 		for (Process p : processes) {
 			remove(p);
 		}

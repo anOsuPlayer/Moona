@@ -174,10 +174,13 @@ public final class Mirror {
 		}
 	}
 	
-	public static List<Reflection<?>> getReflectionsOf(Object target) {
-		final List<Reflection<?>> refls = new ArrayList<>();
+	public static MirrorFilter<Reflection<?>> getReflectionsOf(Object target) {
+		MirrorFilter<Reflection<?>> refls = new MirrorFilter<Reflection<?>>();
 		for (Reflection<?> r : reflections) {
-			if (r.getTarget().equals(target)) { refls.add(r); }
+			while (r.getTarget() instanceof Reflection<?> refl) {
+				r = refl;
+			}
+			refls.filtered.add(r);
 		}
 		return refls;
 	}
