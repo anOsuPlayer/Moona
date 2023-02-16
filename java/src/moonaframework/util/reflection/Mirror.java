@@ -127,12 +127,20 @@ public final class Mirror {
 			return (filtered.isEmpty()) ? null : filtered.get(index);
 		}
 		
-		public int getResultsCount() {
+		public int resultsCount() {
 			return filtered.size();
 		}
 		
-		public MirrorFilter<R> filter(Predicate<? super R> condition) {
+		public MirrorFilter<R> filter(Predicate<? super R> condition) throws NullArgumentException {
+			if (condition == null) {
+				throw new NullArgumentException("Cannot filter this MirrorFilter with a null Predicate.");
+			}
 			filtered.removeIf(condition.negate());
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByType(Class<?> clazz) {
+			filtered.removeIf((R r) -> { return !r.safeEval().equals(clazz); });
 			return this;
 		}
 		
@@ -174,12 +182,119 @@ public final class Mirror {
 		return refls;
 	}
 	
+	public static MirrorFilter<Type> filterTypes() {
+		MirrorFilter<Type> types = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Type t) { types.filtered.add(t); }
+		}
+		return types;
+	}
+	public static MirrorFilter<RawType> filterRawTypes() {
+		MirrorFilter<RawType> rawtypes = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof RawType rt) { rawtypes.filtered.add(rt); }
+		}
+		return rawtypes;
+	}
+	
 	public static MirrorFilter<Method> filterMethods() {
 		MirrorFilter<Method> methods = new MirrorFilter<>();
 		for (Reflection<?> r : reflections) {
 			if (r instanceof Method m) { methods.filtered.add(m); }
 		}
 		return methods;
+	}
+	public static MirrorFilter<Constructor> filterConstructors() {
+		MirrorFilter<Constructor> cons = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Constructor con) { cons.filtered.add(con); }
+		}
+		return cons;
+	}
+	public static MirrorFilter<Field> filterFields() {
+		MirrorFilter<Field> fields = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Field f) { fields.filtered.add(f); }
+		}
+		return fields;
+	}
+	public static MirrorFilter<Parameter> filterParameters() {
+		MirrorFilter<Parameter> params = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Parameter p) { params.filtered.add(p); }
+		}
+		return params;
+	}
+	public static MirrorFilter<Modifier> filterModifiers() {
+		MirrorFilter<Modifier> mods = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Modifier m) { mods.filtered.add(m); }
+		}
+		return mods;
+	}
+	public static MirrorFilter<Generic> filterGenerics() {
+		MirrorFilter<Generic> generics = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Generic g) { generics.filtered.add(g); }
+		}
+		return generics;
+	}
+	
+	public static MirrorFilter<RecordComponent> filterRecordComponents() {
+		MirrorFilter<RecordComponent> comps = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof RecordComponent comp) { comps.filtered.add(comp); }
+		}
+		return comps;
+	}
+	public static MirrorFilter<EnumConstant<?>> filterEnumConstants() {
+		MirrorFilter<EnumConstant<?>> consts = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof EnumConstant<?> ec) { consts.filtered.add(ec); }
+		}
+		return consts;
+	}
+	
+	public static MirrorFilter<Annotation<?>> filterAnnotations() {
+		MirrorFilter<Annotation<?>> annots = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Annotation<?> a) { annots.filtered.add(a); }
+		}
+		return annots;
+	}
+	
+	public static Flare<?> getDerivedFlareOf(Reference<?> ref) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Flare<?> fl && fl.getTarget().equals(ref)) {
+				return fl;
+			}
+		}
+		return null;
+	}
+	public static Flare<?> getDerivedFlareOfTarget(Object target) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Flare<?> fl && fl.getTarget().getTarget().equals(target)) {
+				return fl;
+			}
+		}
+		return null;
+	}
+	
+	public static Annotated getAnnotatedFlareOf(Reference<?> ref) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Annotated annot && annot.getTarget().equals(ref)) {
+				return annot;
+			}
+		}
+		return null;
+	}
+	public static Annotated getAnnotatedFlareOfTarget(Object target) {
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Annotated annot && annot.getTarget().getTarget().equals(target)) {
+				return annot;
+			}
+		}
+		return null;
 	}
 	
 	public static Annotated getProcessInitializer(Process p) {
