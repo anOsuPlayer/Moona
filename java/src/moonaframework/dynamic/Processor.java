@@ -115,7 +115,6 @@ public final class Processor {
 	}
 
 	public static void await(Process p) throws MoonaHandlingException, NullArgumentException {
-		Moona.checkOn();
 		provide(p);
 		p.initialize();
 		buildProcess(p);
@@ -232,7 +231,6 @@ public final class Processor {
 	}
 
 	public static void interrupt(Process p) throws MoonaHandlingException, NullArgumentException {
-		Moona.checkOn();
 		terminate(p);
 		synchronized (p.getClock()) {
 			ender(p);
@@ -271,7 +269,7 @@ public final class Processor {
 		Annotated initiator = Mirror.getProcessInitializer(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
-				Processor.start(new AutoEvent() {
+				Processor.buildProcess(new AutoEvent() {
 					public @Override void trigger() {
 						p.initialize();
 					}
@@ -288,7 +286,7 @@ public final class Processor {
 		Annotated initiator = Mirror.getProcessEnder(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
-				Processor.start(new AutoEvent() {
+				Processor.buildProcess(new AutoEvent() {
 					public @Override void trigger() {
 						p.end();
 					}
