@@ -121,7 +121,7 @@ public final class Mirror {
 		final List<R> filtered;
 		
 		public R evaluate() {
-			return filtered.get(0);
+			return (filtered.isEmpty()) ? null : filtered.get(0);
 		}
 		
 		public MirrorFilter<R> filter(Predicate<? super R> condition) {
