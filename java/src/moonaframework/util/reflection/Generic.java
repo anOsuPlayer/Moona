@@ -5,9 +5,10 @@ import java.lang.reflect.TypeVariable;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Nominal;
 import moonaframework.util.reflection.flare.GenericBounds;
 
-public sealed class Generic extends Reference<TypeVariable<?>> permits ExistingGeneric {
+public sealed class Generic extends Reference<TypeVariable<?>> implements Nominal permits ExistingGeneric {
 
 	private final Reference<? extends GenericDeclaration> target;
 	
@@ -17,7 +18,7 @@ public sealed class Generic extends Reference<TypeVariable<?>> permits ExistingG
 	
 	private final String name;
 	
-	public String getName() {
+	public @Override String getName() {
 		return this.name;
 	}
 	

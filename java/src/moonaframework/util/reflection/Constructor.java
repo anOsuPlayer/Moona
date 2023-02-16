@@ -12,7 +12,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	private final Class<?> clazz;
 	
-	public Class<?> getDeclaringClass() {
+	public @Override Class<?> getDeclaringClass() {
 		return this.clazz;
 	}
 	public @Override Class<?> getTarget() {
@@ -21,7 +21,7 @@ public final class Constructor extends Reference<java.lang.reflect.Constructor<?
 	
 	private final Class<?>[] args;
 	
-	public Class<?>[] getParameterTypes() {
+	public @Override Class<?>[] getParameterTypes() {
 		return this.args;
 	}
 	

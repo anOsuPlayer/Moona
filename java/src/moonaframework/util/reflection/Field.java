@@ -10,7 +10,7 @@ public sealed class Field extends Reference<java.lang.reflect.Field> implements 
 	
 	protected final Class<?> clazz;
 	
-	public Class<?> getDeclaringClass() {
+	public @Override Class<?> getDeclaringClass() {
 		return clazz;
 	}
 	public @Override Class<?> getTarget() {
@@ -19,7 +19,7 @@ public sealed class Field extends Reference<java.lang.reflect.Field> implements 
 	
 	protected final String name;
 	
-	public String getName() {
+	public @Override String getName() {
 		return this.name;
 	}
 	

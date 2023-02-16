@@ -4,8 +4,9 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.filters.Indexed;
+import moonaframework.util.reflection.filters.Nominal;
 
-public sealed class RecordComponent extends Reference<java.lang.reflect.RecordComponent> implements Indexed permits ExistingRecordComponent {
+public sealed class RecordComponent extends Reference<java.lang.reflect.RecordComponent> implements Nominal, Indexed permits ExistingRecordComponent {
 
 	private final Class<? extends Record> clazz;
 	
@@ -18,13 +19,13 @@ public sealed class RecordComponent extends Reference<java.lang.reflect.RecordCo
 	
 	private String name;
 	
-	public String getName() {
+	public @Override String getName() {
 		return this.name;
 	}
 	
 	private int index = -1;
 	
-	public int getIndex() throws MoonaHandlingException {
+	public @Override int getIndex() throws MoonaHandlingException {
 		if (this.index == -1) {
 			try {
 				reflect();
