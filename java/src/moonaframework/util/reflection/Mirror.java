@@ -120,8 +120,15 @@ public final class Mirror {
 		
 		final List<R> filtered;
 		
+		public List<R> getResults() {
+			return this.filtered;
+		}
 		public R getResult(int index) throws IndexOutOfBoundsException {
 			return (filtered.isEmpty()) ? null : filtered.get(index);
+		}
+		
+		public int getResultsCount() {
+			return filtered.size();
 		}
 		
 		public MirrorFilter<R> filter(Predicate<? super R> condition) {
