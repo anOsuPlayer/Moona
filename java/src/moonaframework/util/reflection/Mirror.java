@@ -299,13 +299,13 @@ public final class Mirror {
 	
 	public static Annotated getProcessInitializer(Process p) {
 		for (Reflection<?> r : reflections) {
-			if (r instanceof Method m && m.getName().equals("initialize")) { return m.getAnnotated(); }
+			if (r instanceof Method m && m.getName().equals("initialize") && m.getDeclaringClass().equals(p.getClass())) { return m.getAnnotated(); }
 		}
 		return null;
 	}
 	public static Annotated getProcessEnder(Process p) {
 		for (Reflection<?> r : reflections) {
-			if (r instanceof Method m && m.getName().equals("end")) { return m.getAnnotated(); }
+			if (r instanceof Method m && m.getName().equals("end") && m.getDeclaringClass().equals(p.getClass())) { return m.getAnnotated(); }
 		}
 		return null;
 	}
