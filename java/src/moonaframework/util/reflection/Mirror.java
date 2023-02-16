@@ -2,13 +2,18 @@ package moonaframework.util.reflection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import moonaframework.base.Moona;
-import moonaframework.dynamic.process.Process;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.base.MoonaObject;
+import moonaframework.dynamic.process.Process;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Argumental;
+import moonaframework.util.reflection.filters.ClassElement;
+import moonaframework.util.reflection.filters.Indexed;
+import moonaframework.util.reflection.filters.Nominal;
 import moonaframework.util.reflection.flare.Annotated;
 import moonaframework.util.reflection.flare.Flare;
 
@@ -111,12 +116,67 @@ public final class Mirror {
 		}
 	}
 	
+	public static final class MirrorFilter<R extends Reflection<?>> {
+		
+		final List<R> filtered;
+		
+		public R evaluate() {
+			return filtered.get(0);
+		}
+		
+		public MirrorFilter<R> filter(Predicate<? super R> condition) {
+			filtered.removeIf(condition);
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByTarget(Object target) {
+			filtered.removeIf((R r) -> { return !r.getTarget().equals(target); });
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByName(String name) {
+			filtered.removeIf((R r) -> { return !(r instanceof Nominal n && n.getName().equals(name)); });
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByClass(Class<?> clazz) {
+			filtered.removeIf((R r) -> { return !(r instanceof ClassElement ce && ce.getDeclaringClass().equals(clazz)); });
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByArguments(Class<?>[] args) {
+			filtered.removeIf((R r) -> { return !(r instanceof Argumental a && a.getParameterTypes().equals(args)); });
+			return this;
+		}
+		
+		public MirrorFilter<R> filterByIndex(int index) {
+			for (R r : filtered) {
+				if (!(r instanceof Indexed i && i.getIndex() == index)) {
+					filtered.remove(r);
+				}
+			}
+			return this;
+		}
+		
+		MirrorFilter() {
+			this.filtered = new ArrayList<>();
+		}
+	}
+	
 	public static List<Reflection<?>> getReflectionsOf(Object target) {
 		final List<Reflection<?>> refls = new ArrayList<>();
 		for (Reflection<?> r : reflections) {
 			if (r.getTarget().equals(target)) { refls.add(r); }
 		}
 		return refls;
+	}
+	
+	public static MirrorFilter<Method> filterMethods() {
+		MirrorFilter<Method> methods = new MirrorFilter<>();
+		for (Reflection<?> r : reflections) {
+			if (r instanceof Method m) { methods.filtered.add(m); }
+		}
+		return methods;
 	}
 	
 	public static Annotated getProcessInitializer(Process p) {

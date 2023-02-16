@@ -5,8 +5,9 @@ import java.lang.reflect.Executable;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Indexed;
 
-public sealed class Parameter extends Reference<java.lang.reflect.Parameter> permits ExistingParameter {
+public sealed class Parameter extends Reference<java.lang.reflect.Parameter> implements Indexed permits ExistingParameter {
 
 	private final Reference<? extends Executable> target;
 	

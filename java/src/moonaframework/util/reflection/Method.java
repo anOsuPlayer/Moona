@@ -4,9 +4,12 @@ import java.util.Arrays;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Argumental;
+import moonaframework.util.reflection.filters.ClassElement;
+import moonaframework.util.reflection.filters.Nominal;
 import moonaframework.util.reflection.flare.MethodProperty;
 
-public final class Method extends Reference<java.lang.reflect.Method> {
+public final class Method extends Reference<java.lang.reflect.Method> implements ClassElement, Nominal, Argumental {
 	
 	private final Class<?> clazz;
 	

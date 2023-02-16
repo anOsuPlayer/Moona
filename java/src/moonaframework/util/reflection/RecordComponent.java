@@ -3,8 +3,9 @@ package moonaframework.util.reflection;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Indexed;
 
-public sealed class RecordComponent extends Reference<java.lang.reflect.RecordComponent> permits ExistingRecordComponent {
+public sealed class RecordComponent extends Reference<java.lang.reflect.RecordComponent> implements Indexed permits ExistingRecordComponent {
 
 	private final Class<? extends Record> clazz;
 	

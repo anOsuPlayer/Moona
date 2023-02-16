@@ -2,9 +2,11 @@ package moonaframework.util.reflection;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.ClassElement;
+import moonaframework.util.reflection.filters.Nominal;
 import moonaframework.util.reflection.flare.FieldProperty;
 
-public sealed class Field extends Reference<java.lang.reflect.Field> permits EnumField {
+public sealed class Field extends Reference<java.lang.reflect.Field> implements ClassElement, Nominal permits EnumField {
 	
 	protected final Class<?> clazz;
 	

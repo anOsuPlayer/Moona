@@ -270,7 +270,7 @@ public final class Processor {
 	}
 
 	private static void initiator(Process p) {
-		Annotated initiator = Mirror.getProcessInitializer(p);
+		Annotated initiator = Mirror.filterMethods().filterByName("initialize").filterByClass(p.getClass()).evaluate().getAnnotated();
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
 				Agent.include(new Event() {

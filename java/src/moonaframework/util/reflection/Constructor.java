@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.filters.Argumental;
+import moonaframework.util.reflection.filters.ClassElement;
 import moonaframework.util.reflection.flare.ConstructorProperty;
 
-public final class Constructor extends Reference<java.lang.reflect.Constructor<?>> {
+public final class Constructor extends Reference<java.lang.reflect.Constructor<?>> implements ClassElement, Argumental {
 	
 	private final Class<?> clazz;
 	
