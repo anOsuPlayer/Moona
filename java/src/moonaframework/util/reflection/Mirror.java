@@ -125,7 +125,7 @@ public final class Mirror {
 		}
 		
 		public MirrorFilter<R> filter(Predicate<? super R> condition) {
-			filtered.removeIf(condition);
+			filtered.removeIf(condition.negate());
 			return this;
 		}
 		
@@ -150,11 +150,7 @@ public final class Mirror {
 		}
 		
 		public MirrorFilter<R> filterByIndex(int index) {
-			for (R r : filtered) {
-				if (!(r instanceof Indexed i && i.getIndex() == index)) {
-					filtered.remove(r);
-				}
-			}
+			filtered.removeIf((R r) -> { return !(r instanceof Indexed i && i.getIndex() == index); });
 			return this;
 		}
 		

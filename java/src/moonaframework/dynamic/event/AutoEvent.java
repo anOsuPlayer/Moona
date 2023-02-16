@@ -11,7 +11,7 @@ public @Functional abstract class AutoEvent extends Task implements Event, Dynam
 	
 	public @Override void update() {
 		trigger();
-		Processor.interrupt(this);
+		Processor.terminate(this);
 	}
 	
 	public AutoEvent() {
