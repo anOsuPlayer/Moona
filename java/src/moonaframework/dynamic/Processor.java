@@ -265,7 +265,7 @@ public final class Processor {
 		}
 	}
 
-	private static void initiator(Process p) {
+	private static void initiator(Process p) throws MoonaHandlingException {
 		Annotated initiator = Mirror.getProcessInitializer(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
@@ -278,11 +278,11 @@ public final class Processor {
 			}
 		}
 		catch (UndefinedReflectionException ure) {
-			ure.printStackTrace();
+			throw MoonaHandlingException.CRITICAL;
 		}
 		p.initialize();
 	}
-	private static void ender(Process p) {
+	private static void ender(Process p) throws MoonaHandlingException {
 		Annotated initiator = Mirror.getProcessEnder(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
@@ -295,7 +295,7 @@ public final class Processor {
 			}
 		}
 		catch (UndefinedReflectionException ure) {
-			ure.printStackTrace();
+			throw MoonaHandlingException.CRITICAL;
 		}
 		p.end();
 	}

@@ -182,6 +182,13 @@ public final class Mirror {
 		return refls;
 	}
 	
+	public static MirrorFilter<Reflection<?>> filter(Predicate<? super Reflection<?>> condition) {
+		MirrorFilter<Reflection<?>> filtered = new MirrorFilter<>();
+		filtered.filtered.addAll(reflections);
+		filtered.filtered.removeIf(condition.negate());
+		return filtered;
+	}
+	
 	public static MirrorFilter<Type> filterTypes() {
 		MirrorFilter<Type> types = new MirrorFilter<>();
 		for (Reflection<?> r : reflections) {
