@@ -13,7 +13,6 @@ import moonaframework.dynamic.process.Worm;
 import moonaframework.util.annotation.Timeless;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.Method;
 import moonaframework.util.reflection.Mirror;
 import moonaframework.util.reflection.flare.Annotated;
 
@@ -269,7 +268,7 @@ public final class Processor {
 		Annotated initiator = Mirror.getProcessInitializer(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
-				Processor.buildProcess(new AutoEvent() {
+				Processor.initiate(new AutoEvent() {
 					public @Override void trigger() {
 						p.initialize();
 					}
@@ -286,7 +285,7 @@ public final class Processor {
 		Annotated initiator = Mirror.getProcessEnder(p);
 		try {
 			if (initiator != null && initiator.hasAnnotation(Timeless.class)) {
-				Processor.buildProcess(new AutoEvent() {
+				Processor.initiate(new AutoEvent() {
 					public @Override void trigger() {
 						p.end();
 					}
