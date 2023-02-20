@@ -4,8 +4,9 @@ import moonaframework.base.Moona;
 import moonaframework.base.MoonaObject;
 import moonaframework.base.Setting;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.relation.Targetting;
 
-public abstract class Reflection<R> implements MoonaObject {
+public abstract class Reflection<R> implements MoonaObject, Targetting<Object> {
 	
 	public @Override boolean equals(Object o) {
 		return (o instanceof Reflection<?> refl) ?
