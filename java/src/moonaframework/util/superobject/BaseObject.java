@@ -1,6 +1,6 @@
 package moonaframework.util.superobject;
 
-class BaseObject<O> implements SuperObject<O> {
+class BaseObject<O> implements SuperObject<O>, StandardState<O> {
 
 	private CoreObject<O> value;
 	

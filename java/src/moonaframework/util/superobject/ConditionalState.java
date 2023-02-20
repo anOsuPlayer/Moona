@@ -2,9 +2,9 @@ package moonaframework.util.superobject;
 
 public interface ConditionalState<O> {
 	
-	SuperObject<O> and();
+	OperativeState<O> and();
 	
-	SuperObject<O> or();
+	OperativeState<O> or();
 	
 	ConclusiveState<O> then();
 }

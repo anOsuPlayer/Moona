@@ -79,11 +79,11 @@ class CoreObject<O> implements SuperObject<O>, ConditionalState<O>, ConclusiveSt
 		return this;
 	}
 	
-	public @Override SuperObject<O> and() {
+	public @Override OperativeState<O> and() {
 		this.operator = AND;
 		return this;
 	}
-	public @Override SuperObject<O> or() {
+	public @Override OperativeState<O> or() {
 		this.operator = OR;
 		return this;
 	}
@@ -109,7 +109,7 @@ class CoreObject<O> implements SuperObject<O>, ConditionalState<O>, ConclusiveSt
 		return this;
 	}
 	
-	public @Override SuperObject<O> orElse() {
+	public @Override OperativeState<O> orElse() {
 		this.pastCondition |= currentCondition;
 		return this;
 	}

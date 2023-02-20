@@ -2,7 +2,7 @@ package moonaframework.util.superobject;
 
 public interface AdversativeState<O> extends ContinuativeState<O> {
 
-	SuperObject<O> orElse();
+	OperativeState<O> orElse();
 	
 	ContinuativeState<O> orElseRun(Runnable r);
 	
