@@ -1,7 +1,10 @@
 /.metadata/
+/java/.metadata/
+/java/.settings/
 /java/src/test/
 /java/bin/
 /java/buildJar.jardesc
 /cpp/.vscode/
 /cpp/test/
 /cpp/moona.exe
+/java/lwjgl/

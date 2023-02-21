@@ -1,8 +1,0 @@
-doctool/workspace.default=org.eclipse.cdt.internal.ui.text.doctools.NullDocCommentOwner
-doxygen/doxygen_new_line_after_brief=true
-doxygen/doxygen_use_brief_tag=false
-doxygen/doxygen_use_javadoc_tags=true
-doxygen/doxygen_use_pre_tag=false
-doxygen/doxygen_use_structural_commands=false
-eclipse.preferences.version=1
-macros/workspace=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<macros/>\r\n
