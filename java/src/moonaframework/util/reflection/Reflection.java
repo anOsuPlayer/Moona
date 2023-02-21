@@ -16,7 +16,7 @@ public abstract class Reflection<R> implements MoonaObject, Targetting<Object> {
 	
 	protected R value;
 	
-	public abstract Object getTarget();
+	public @Override abstract Object getTarget();
 	
 	public abstract void reflect() throws UndefinedReflectionException;
 	
