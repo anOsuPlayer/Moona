@@ -8,7 +8,7 @@ class BaseObject<O> implements SuperObject<O>, StandardState<O> {
 		return this.value.get();
 	}
 	public @Override void set(O value) {
-		this.value.set(value);;
+		this.value.set(value);
 	}
 	
 	public @Override ConditionalState<O> ifPresent() {
