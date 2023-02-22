@@ -54,6 +54,10 @@ class BaseObject<O> implements SuperObject<O>, StandardState<O> {
 		return (o instanceof ReadonlyState<?> ros) ? ros.get().equals(this.value.get()) : false;
 	}
 	
+	public @Override SuperObject<O> clone() {
+		return SuperObject.of(this.value.get());
+	}
+	
 	BaseObject() {
 		this.value = new CoreObject<>();
 	}

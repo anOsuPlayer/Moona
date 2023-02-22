@@ -12,4 +12,8 @@ public sealed interface ReadonlyState<O> permits StandardState<O>, ConclusiveSta
 		}
 		return get();
 	}
+	
+	default SuperObject<O> clone() {
+		return SuperObject.of(get());
+	}
 }

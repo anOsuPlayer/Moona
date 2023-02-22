@@ -9,4 +9,6 @@ public non-sealed interface StandardState<O> extends ReadonlyState<O> {
 		set(value);
 		return this;
 	}
+	
+	
 }

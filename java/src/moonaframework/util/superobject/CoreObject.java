@@ -135,6 +135,10 @@ class CoreObject<O> implements SuperObject<O>, ConditionalState<O>, ConclusiveSt
 		return (o instanceof ReadonlyState<?> ros) ? ros.get().equals(this.value) : false;
 	}
 	
+	public @Override SuperObject<O> clone() {
+		return SuperObject.of(this.value);
+	}
+	
 	CoreObject() {
 		this.value = null;
 	}
