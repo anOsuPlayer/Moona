@@ -19,6 +19,13 @@ public class Status<T> implements Property<T> {
 		
 	}
 	
+	public boolean isValue(T t) {
+		return this.value.equals(t);
+	}
+	public @Override boolean equals(Object o) {
+		return (o instanceof Status<?> s) ? s.evaluate().equals(o) : false;
+	}
+	
 	protected Status(T value) {
 		setValue(value);
 	}
