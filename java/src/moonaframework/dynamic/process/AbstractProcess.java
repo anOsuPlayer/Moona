@@ -14,16 +14,10 @@ public abstract class AbstractProcess implements Process {
 		return Handler.cloneProcess(this);
 	}
 	
-	private final ProcessClock clock;
+	private final Nature nature;
 	
-	public @Override final ProcessClock getClock() {
-		return clock;
-	}
-	
-	private final ProcessStatus status;
-	
-	public @Override final ProcessStatus getStatus() {
-		return this.status;
+	public @Override final Nature nature() {
+		return this.nature;
 	}
 	
 	public @Deadlined void onPause() {
@@ -41,8 +35,8 @@ public abstract class AbstractProcess implements Process {
 
 	public @Override void run() {
 		while (!ProcessCondition.DEAD.check(this) && Moona.isOn()) {
-			synchronized (clock) {
-				clock.pauseHolder();
+			synchronized (getClock()) {
+				getClock().pauseHolder();
 				if (ProcessCondition.RUNNING.check(this)) {
 					update();
 				}
@@ -51,8 +45,7 @@ public abstract class AbstractProcess implements Process {
 	}
 	
 	public AbstractProcess() {
-		this.clock = new ProcessClock(this);
-		this.status = new ProcessStatus(ProcessCondition.DEAD);
+		this.nature = new Nature(new ProcessClock(this), new ProcessStatus(ProcessCondition.DEAD));
 		
 		Mirror.add(new Method(this.getClass(), "initialize"));
 		Mirror.add(new Method(this.getClass(), "end"));

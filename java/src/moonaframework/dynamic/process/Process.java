@@ -8,16 +8,22 @@ import moonaframework.util.annotation.Functional;
 
 public @Functional interface Process extends MoonaObject, Runnable, Dynamic {
 	
-	ProcessClock getClock();
-	ProcessStatus getStatus();
+	Nature nature();
+	
+	default ProcessClock getClock() {
+		return nature().getClock();
+	}
+	default ProcessStatus getStatus() {
+		return nature().getStatus();
+	}
 	
 	default boolean isRunning() {
-		return getStatus().evaluate().equals(ProcessCondition.PAUSED) ||
-				getStatus().evaluate().equals(ProcessCondition.RUNNING);
+		return nature().getStatus().evaluate().equals(ProcessCondition.PAUSED) ||
+				nature().getStatus().evaluate().equals(ProcessCondition.RUNNING);
 	}
 	default boolean isPaused() {
-		return getStatus().evaluate().equals(ProcessCondition.AWAITING) ||
-				getStatus().evaluate().equals(ProcessCondition.PAUSED);
+		return nature().getStatus().evaluate().equals(ProcessCondition.AWAITING) ||
+				nature().getStatus().evaluate().equals(ProcessCondition.PAUSED);
 	}
 	
 	void onPause();
