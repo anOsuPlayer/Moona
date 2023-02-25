@@ -40,6 +40,25 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		board[y][x] = value;
 	}
 	
+	public void copy(int x1, int y1, int x2, int y2) throws CoordinateOutOfRangeException {
+		if (!isContained(x1, y1) || !isContained(x2, y2)) {
+			throw new CoordinateOutOfRangeException();
+		}
+		board[y2][x2] = board[y1][x1];
+	}
+	public void move(int x1, int y1, int x2, int y2) throws CoordinateOutOfRangeException {
+		copy(x1, y1, x2, y2);
+		board[y1][x1] = defaultValue;
+	}
+	public void swap(int x1, int y1, int x2, int y2) throws CoordinateOutOfRangeException {
+		if (!isContained(x1, y1) || !isContained(x2, y2)) {
+			throw new CoordinateOutOfRangeException();
+		}
+		T tmp = board[y2][x2];
+		board[y2][x2] = board[y1][x1];
+		board[y1][x1] = tmp;
+	}
+	
 	private T defaultValue;
 	
 	public T getDefaultValue() {
@@ -47,6 +66,14 @@ public class Grid<T> implements Dimensional2D<Integer> {
 	}
 	public void setDefaultValue(T value) {
 		this.defaultValue = value;
+	}
+	
+	public void replace(T value1, T value2) {
+		for (T[] arr : board) {
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = (arr[i].equals(value1)) ? value2 : value1;
+			}
+		}
 	}
 	
 	public void fill(T value) {
@@ -69,6 +96,22 @@ public class Grid<T> implements Dimensional2D<Integer> {
 	}
 	public boolean isInYRange(int y) {
 		return (y >= 0 || y < getHeight());
+	}
+	
+	public boolean has(T value) {
+		for (T[] arr : board) {
+			for (T t : arr) {
+				if (t == null) {
+					if (value == null) {
+						return true;
+					}
+				}
+				else if (t.equals(value)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public Grid(T[][] board) throws NullArgumentException, IllegalArgumentException {
