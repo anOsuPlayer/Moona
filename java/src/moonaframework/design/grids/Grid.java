@@ -1,54 +1,53 @@
 package moonaframework.design.grids;
 
-public class Grid extends AbstractGrid {
+import moonaframework.design.bidimensional.Dimensional2D;
+import moonaframework.util.exception.CoordinateOutOfRangeException;
+import moonaframework.util.exception.NullArgumentException;
 
-	private static int DEFAULT_WIDTH = 10;
-	
-	public static int getDefaultWidth() {
-		return Grid.DEFAULT_WIDTH;
-	}
-	public static void setDefaultWIDTH(int width) throws IllegalArgumentException {
-		if (width < 0) {
-			throw new IllegalArgumentException("The Grid's default height cannot be negative.");
-		}
-		Grid.DEFAULT_WIDTH = width;
-	}
-	
-	private final int width;
+public class Grid<T> implements Dimensional2D<Integer> {
+
+	private final T[][] board;
 	
 	public @Override Integer getWidth() {
-		return Integer.valueOf(width);
+		return Integer.valueOf(board[0].length);
 	}
-	
-	private static int DEFAULT_HEIGHT = 10;
-	
-	public static int getDefaultHeihgt() {
-		return Grid.DEFAULT_HEIGHT;
-	}
-	public static void setDefaultHeihgt(int height) throws IllegalArgumentException {
-		if (height < 0) {
-			throw new IllegalArgumentException("The Grid's default height cannot be negative.");
-		}
-		Grid.DEFAULT_HEIGHT = height;
-	}
-	
-	private final int height;
 	
 	public @Override Integer getHeight() {
-		return Integer.valueOf(height);
+		return Integer.valueOf(board.length);
 	}
 	
-	public @Override Grid baseGrid() {
-		return this;
+	public GridBox<T> getPoint(int x, int y) {
+		return new GridBox<>(this, x, y);
+	}
+	public boolean belongs(GridBox<T> gb) {
+		return (gb.getBaseGrid().equals(this));
 	}
 	
-	public Grid() {
-		this.width = DEFAULT_WIDTH; this.height = DEFAULT_HEIGHT;
-	}
-	public Grid(int width, int height) throws IllegalArgumentException {
-		if (width < 0 || height < 0) {
-			throw new IllegalArgumentException("The Grid's width or height cannot be negative.");
+	public T valueAt(int x, int y) throws CoordinateOutOfRangeException {
+		if (isContained(x, y)) {
+			throw new CoordinateOutOfRangeException();
 		}
-		this.width = width; this.height = height;
+		return board[y][x];
+	}
+	
+	public boolean isContained(int x, int y) {
+		return (isInXRange(x) && isInYRange(y));
+	}
+	
+	public boolean isInXRange(int x) {
+		return (x >= 0 || x < getWidth());
+	}
+	public boolean isInYRange(int y) {
+		return (y >= 0 || y < getHeight());
+	}
+	
+	public Grid(T[][] board) throws NullArgumentException, IllegalArgumentException {
+		if (board == null) {
+			throw new NullArgumentException("The board's base cannot be null.");
+		}
+		this.board = board;
+		if (this.board.length == 0 || this.board[0].length == 0) {
+			throw new NullArgumentException();
+		}
 	}
 }
