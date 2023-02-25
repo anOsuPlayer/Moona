@@ -23,11 +23,29 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		return (gb.getBaseGrid().equals(this));
 	}
 	
-	public T valueAt(int x, int y) throws CoordinateOutOfRangeException {
-		if (isContained(x, y)) {
+	public T get(int x, int y) throws CoordinateOutOfRangeException {
+		if (!isContained(x, y)) {
 			throw new CoordinateOutOfRangeException();
 		}
 		return board[y][x];
+	}
+	public void set(T value, int x, int y) throws CoordinateOutOfRangeException {
+		if (!isContained(x, y)) {
+			throw new CoordinateOutOfRangeException();
+		}
+		board[y][x] = value;
+	}
+	
+	public void fill(T value) {
+		for (T[] arr : board) {
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = value;
+			}
+		}
+	}
+	
+	public void clear() {
+		fill(null);
 	}
 	
 	public boolean isContained(int x, int y) {
@@ -47,7 +65,7 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		}
 		this.board = board;
 		if (this.board.length == 0 || this.board[0].length == 0) {
-			throw new NullArgumentException();
+			throw new IllegalArgumentException("The Grid's dimensions cannot be less than 1.");
 		}
 	}
 }
