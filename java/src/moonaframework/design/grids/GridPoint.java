@@ -2,30 +2,30 @@ package moonaframework.design.grids;
 
 import moonaframework.design.bidimensional.Movable2D;
 
-public class GridPoint implements Movable2D<Long> {
+public class GridPoint implements Movable2D<Integer> {
 
-	private long x;
+	private int x;
 	
-	public @Override Long getX() {
-		return Long.valueOf(x);
+	public @Override Integer getX() {
+		return Integer.valueOf(x);
 	}
-	public @Override void setX(Long x) {
-		this.x = x.longValue();
+	public @Override void setX(Integer x) {
+		this.x = x.intValue();
 	}
 	
-	private long y;
+	private int y;
 	
-	public @Override Long getY() {
-		return Long.valueOf(x);
+	public @Override Integer getY() {
+		return Integer.valueOf(x);
 	}
-	public @Override void setY(Long y) {
-		this.y = y.longValue();
+	public @Override void setY(Integer y) {
+		this.y = y.intValue();
 	}
 	
 	public GridPoint() {
 		this.x = 0; this.y = 0;
 	}
-	public GridPoint(long x, long y) {
+	public GridPoint(int x, int y) {
 		this.x = x; this.y = y;
 	}
 }
