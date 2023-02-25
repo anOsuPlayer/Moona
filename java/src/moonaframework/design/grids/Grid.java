@@ -20,10 +20,10 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		return Integer.valueOf(board.length);
 	}
 	
-	public GridBox<T> getPoint(int x, int y) {
-		return new GridBox<>(this, x, y);
+	public GridSpot<T> getPoint(int x, int y) {
+		return new GridSpot<>(this, x, y);
 	}
-	public boolean belongs(GridBox<T> gb) {
+	public boolean belongs(GridSpot<T> gb) {
 		return (gb.getBaseGrid().equals(this));
 	}
 	

@@ -4,7 +4,7 @@ import moonaframework.design.bidimensional.Positional2D;
 import moonaframework.util.exception.CoordinateOutOfRangeException;
 import moonaframework.util.exception.NullArgumentException;
 
-public class GridBox<T> implements Positional2D<Integer> {
+public class GridSpot<T> implements Positional2D<Integer> {
 	
 	private final int x;
 	
@@ -27,7 +27,7 @@ public class GridBox<T> implements Positional2D<Integer> {
 		return this.base.get(x, y);
 	}
 	
-	public GridBox(Grid<T> base, int x, int y) throws NullArgumentException, CoordinateOutOfRangeException {
+	public GridSpot(Grid<T> base, int x, int y) throws NullArgumentException, CoordinateOutOfRangeException {
 		if (base == null) {
 			throw new NullArgumentException("The base Grid cannot be null.");
 		}
