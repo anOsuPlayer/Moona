@@ -6,7 +6,7 @@ import moonaframework.util.exception.NullArgumentException;
 
 public class Grid<T> implements Dimensional2D<Integer> {
 
-	private final T[][] board;
+	protected final T[][] board;
 	
 	public @Override Integer getWidth() {
 		return Integer.valueOf(board[0].length);
@@ -36,6 +36,15 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		board[y][x] = value;
 	}
 	
+	private T defaultValue;
+	
+	public T getDefaultValue() {
+		return this.defaultValue;
+	}
+	public void setDefaultValue(T value) {
+		this.defaultValue = value;
+	}
+	
 	public void fill(T value) {
 		for (T[] arr : board) {
 			for (int i = 0; i < arr.length; i++) {
@@ -43,9 +52,8 @@ public class Grid<T> implements Dimensional2D<Integer> {
 			}
 		}
 	}
-	
 	public void clear() {
-		fill(null);
+		fill(defaultValue);
 	}
 	
 	public boolean isContained(int x, int y) {
