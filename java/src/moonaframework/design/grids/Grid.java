@@ -8,6 +8,10 @@ public class Grid<T> implements Dimensional2D<Integer> {
 
 	protected final T[][] board;
 	
+	public T[][] getBoard() {
+		return board;
+	}
+	
 	public @Override Integer getWidth() {
 		return Integer.valueOf(board[0].length);
 	}
