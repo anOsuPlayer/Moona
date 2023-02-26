@@ -1,11 +1,10 @@
 package moonaframework.design.grids;
 
-import moonaframework.design.bidimensional.Positional2D;
-import moonaframework.design.bidimensional.Positional2D.IntPositional2D;
+import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
 import moonaframework.util.exception.CoordinateOutOfRangeException;
 import moonaframework.util.exception.NullArgumentException;
 
-public class GridSpot<T> implements IntPositional2D {
+public class GridSpot<T> implements IntegralPositional2D {
 	
 	private final int x;
 	

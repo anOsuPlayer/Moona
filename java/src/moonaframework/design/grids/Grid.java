@@ -1,11 +1,10 @@
 package moonaframework.design.grids;
 
-import moonaframework.design.bidimensional.Dimensional2D;
-import moonaframework.design.bidimensional.Dimensional2D.IntDimensional2D;
+import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
 import moonaframework.util.exception.CoordinateOutOfRangeException;
 import moonaframework.util.exception.NullArgumentException;
 
-public class Grid<T> implements IntDimensional2D {
+public class Grid<T> implements IntegralDimensional2D {
 
 	protected final T[][] board;
 	
