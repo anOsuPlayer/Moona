@@ -2,13 +2,13 @@ package moonaframework.design.bidimensional;
 
 import moonaframework.design.bidimensional.Dimensional2D.IntDimensional2D;
 
-public sealed interface Movable2D<P extends Number> extends Positional2D<P> permits Movable2D.IntMovable2D, Movable2D.LongMovable2D, Movable2D.FloatMovable2D, Movable2D.DoubleMovable2D, Adjustable2D<P> {
+public sealed interface Movable2D<P extends Number> extends Positional2D<P> permits Movable2D.IntMovable2D, Movable2D.LongMovable2D, Movable2D.FloatMovable2D, Movable2D.DoubleMovable2D, Adjustable2D<P>, BidimensionalPoint<P> {
 
 	void changeX(Number x);
 	
 	void changeY(Number y);
 	
-	public non-sealed interface IntMovable2D extends Movable2D<Integer>, IntDimensional2D {
+	public non-sealed interface IntMovable2D extends Movable2D<Integer>, IntPositional2D {
 		
 		default @Override void changeX(Number x) {
 			setX(x.intValue());
