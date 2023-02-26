@@ -4,13 +4,13 @@ import moonaframework.design.bidimensional.Dimensional2DType.Dimensional2D;
 import moonaframework.design.bidimensional.Dimensional2DType.DoubleDimensional2D;
 import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
 
-public interface Resizable2DType<T extends Number> extends Positional2DType<T> {
+public sealed interface Resizable2DType<T extends Number> extends Dimensional2DType<T> permits Adjustable2DType<T>, Resizable2DType.IntegralResizable2D, Resizable2DType.Resizable2D, Resizable2DType.DoubleResizable2D {
 
 	void setWrappedWidth(T x);
 	
 	void setWrappedHeight(T y);
 	
-	public interface IntegralResizable2D extends Resizable2DType<Integer>, IntegralDimensional2D {
+	public non-sealed static interface IntegralResizable2D extends Resizable2DType<Integer>, IntegralDimensional2D {
 		
 		default @Override void setWrappedWidth(Integer x) {
 			setWidth(x.intValue());
@@ -25,7 +25,7 @@ public interface Resizable2DType<T extends Number> extends Positional2DType<T> {
 		void setHeight(int y);
 	}
 	
-	public interface Resizable2D extends Resizable2DType<Float>, Dimensional2D {
+	public non-sealed static interface Resizable2D extends Resizable2DType<Float>, Dimensional2D {
 		
 		default @Override void setWrappedWidth(Float x) {
 			setWidth(x.floatValue());
@@ -40,7 +40,7 @@ public interface Resizable2DType<T extends Number> extends Positional2DType<T> {
 		void setHeight(float y);
 	}
 	
-	public interface DoubleResizable2D extends Resizable2DType<Double>, DoubleDimensional2D {
+	public non-sealed static interface DoubleResizable2D extends Resizable2DType<Double>, DoubleDimensional2D {
 		
 		default @Override void setWrappedWidth(Double x) {
 			setWidth(x.doubleValue());

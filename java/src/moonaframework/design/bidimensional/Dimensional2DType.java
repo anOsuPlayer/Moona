@@ -1,12 +1,12 @@
 package moonaframework.design.bidimensional;
 
-public interface Dimensional2DType<T extends Number> {
+public sealed interface Dimensional2DType<T extends Number> permits Spatial2DType<T>, Resizable2DType<T>, Dimensional2DType.IntegralDimensional2D, Dimensional2DType.Dimensional2D, Dimensional2DType.DoubleDimensional2D {
 
 	T getWrappedWidth();
 	
 	T getWrappedHeight();
 	
-	public interface IntegralDimensional2D extends Dimensional2DType<Integer> {
+	public non-sealed static interface IntegralDimensional2D extends Dimensional2DType<Integer> {
 		
 		default @Override Integer getWrappedWidth() {
 			return Integer.valueOf(getWidth());
@@ -21,7 +21,7 @@ public interface Dimensional2DType<T extends Number> {
 		int getHeight();
 	}
 	
-	public interface Dimensional2D extends Dimensional2DType<Float> {
+	public non-sealed static interface Dimensional2D extends Dimensional2DType<Float> {
 		
 		default @Override Float getWrappedWidth() {
 			return Float.valueOf(getWidth());
@@ -36,7 +36,7 @@ public interface Dimensional2DType<T extends Number> {
 		float getHeight();
 	}
 	
-	public interface DoubleDimensional2D extends Dimensional2DType<Double> {
+	public non-sealed static interface DoubleDimensional2D extends Dimensional2DType<Double> {
 		
 		default @Override Double getWrappedWidth() {
 			return Double.valueOf(getWidth());
