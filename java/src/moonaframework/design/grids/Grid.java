@@ -1,10 +1,11 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.bidimensional.Dimensional2D;
+import moonaframework.design.bidimensional.Dimensional2D.IntDimensional2D;
 import moonaframework.util.exception.CoordinateOutOfRangeException;
 import moonaframework.util.exception.NullArgumentException;
 
-public class Grid<T> implements Dimensional2D<Integer> {
+public class Grid<T> implements IntDimensional2D {
 
 	protected final T[][] board;
 	
@@ -12,12 +13,12 @@ public class Grid<T> implements Dimensional2D<Integer> {
 		return board;
 	}
 	
-	public @Override Integer getWidth() {
-		return Integer.valueOf(board[0].length);
+	public @Override int getWidth() {
+		return board[0].length;
 	}
 	
-	public @Override Integer getHeight() {
-		return Integer.valueOf(board.length);
+	public @Override int getHeight() {
+		return board.length;
 	}
 	
 	public GridSpot<T> getPoint(int x, int y) {
