@@ -15,7 +15,8 @@ public final class Benchmark {
 		return System.nanoTime()-beg;
 	}
 	public static void showTime(Snippet s) throws NullArgumentException {
-		System.out.println(Benchmark.time(s) + " ns");
+		long time = Benchmark.time(s);
+		System.out.println(time + " ns | " + ((double) time) * 10e-10 + " s");
 	}
 	
 	public static double stress(int cycles, Snippet s) throws IllegalArgumentException, NullArgumentException {
