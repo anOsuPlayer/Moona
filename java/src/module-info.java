@@ -1,10 +1,11 @@
-module moona {
+module Moona {
 	
 	exports moonaframework.util;
 	exports moonaframework.design.bidimensional;
 	exports moonaframework.util.time;
 	exports moonaframework.util.reflection;
 	exports moonaframework.util.superobject;
+	exports test;
 	exports moonaframework.util.reflection.filters;
 	exports moonaframework.design.bidimensional.geometry;
 	exports moonaframework.util.annotation;

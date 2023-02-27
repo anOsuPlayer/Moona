@@ -1,8 +1,9 @@
 package moonaframework.design.bidimensional;
 
+import moonaframework.design.bidimensional.geometry.BidimensionalFixedPosition;
 import moonaframework.design.bidimensional.geometry.BidimensionalFixedPoint;
 
-public sealed interface Positional2DType<T extends Number> permits Spatial2DType<T>, Movable2DType<T>, BidimensionalFixedPoint<T>, Positional2DType.IntegralPositional2D, Positional2DType.Positional2D, Positional2DType.DoublePositional2D {
+public sealed interface Positional2DType<T extends Number> permits Spatial2DType<T>, Movable2DType<T>, BidimensionalFixedPosition<T>, BidimensionalFixedPoint<T>, Positional2DType.IntegralPositional2D, Positional2DType.Positional2D, Positional2DType.DoublePositional2D {
 
 	T getWrappedX();
 	

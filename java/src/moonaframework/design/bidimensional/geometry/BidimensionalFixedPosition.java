@@ -1,22 +1,13 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Positional2DType;
-import moonaframework.design.bidimensional.geometry.BidimensionalPoint.DoublePoint2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalPoint.IntegralPoint2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalPoint.Point2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.DoublePosition2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.IntegralPosition2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.Position2D;
 
-public sealed abstract class BidimensionalFixedPoint<T extends Number> implements Positional2DType<T> permits BidimensionalPoint<T>, BidimensionalFixedPoint.IntegralFixedPoint2D, BidimensionalFixedPoint.FixedPoint2D, BidimensionalFixedPoint.DoubleFixedPoint2D {
-
-	protected abstract BidimensionalPoint<T> unfixed();
+public sealed interface BidimensionalFixedPosition<T extends Number> extends Positional2DType<T> permits BidimensionalPosition<T>, BidimensionalFixedPoint<T>, BidimensionalFixedPosition.IntegralFixedPosition2D, BidimensionalFixedPosition.FixedPosition2D, BidimensionalFixedPosition.DoubleFixedPosition2D {
 	
-	protected BidimensionalFixedPoint(T x, T y) {
-		
-	}
-	protected BidimensionalFixedPoint() {
-		
-	}
-	
-	public non-sealed static class IntegralFixedPoint2D extends BidimensionalFixedPoint<Integer> implements IntegralPositional2D {
+	public non-sealed static class IntegralFixedPosition2D implements BidimensionalFixedPosition<Integer>, IntegralPositional2D {
 		
 		protected int x;
 		
@@ -30,22 +21,34 @@ public sealed abstract class BidimensionalFixedPoint<T extends Number> implement
 			return this.y;
 		}
 		
-		public IntegralPoint2D unfixed() {
-			return new IntegralPoint2D(x, y);
+		public IntegralPosition2D unfixed() {
+			return new IntegralPosition2D(x, y);
 		}
 		
-		public IntegralFixedPoint2D(int x, int y) {
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof IntegralPositional2D pos) ? pos.getX() == this.x && pos.getY() == this.y : false;
+		}
+		
+		public @Override IntegralFixedPosition2D clone() {
+			return new IntegralFixedPosition2D(x, y);
+		}
+		
+		public IntegralFixedPosition2D(int x, int y) {
 			this.x = x; this.y = y;
 		}
-		public IntegralFixedPoint2D(Integer x, Integer y) {
+		public IntegralFixedPosition2D(Integer x, Integer y) {
 			this(x.intValue(), y.intValue());
 		}
-		public IntegralFixedPoint2D() {
+		public IntegralFixedPosition2D() {
 			this(0, 0);
 		}
 	}
 	
-	public non-sealed static class FixedPoint2D extends BidimensionalFixedPoint<Float> implements Positional2D {
+	public non-sealed static class FixedPosition2D implements BidimensionalFixedPosition<Float>, Positional2D {
 		
 		protected float x;
 		
@@ -59,22 +62,34 @@ public sealed abstract class BidimensionalFixedPoint<T extends Number> implement
 			return this.y;
 		}
 		
-		public Point2D unfixed() {
-			return new Point2D(x, y);
+		public Position2D unfixed() {
+			return new Position2D(x, y);
 		}
 		
-		public FixedPoint2D(float x, float y) {
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof Positional2D pos) ? pos.getX() == this.x && pos.getY() == this.y : false;
+		}
+		
+		public @Override FixedPosition2D clone() {
+			return new FixedPosition2D(x, y);
+		}
+		
+		public FixedPosition2D(float x, float y) {
 			this.x = x; this.y = y;
 		}
-		public FixedPoint2D(Float x, Float y) {
+		public FixedPosition2D(Float x, Float y) {
 			this(x.floatValue(), y.floatValue());
 		}
-		public FixedPoint2D() {
+		public FixedPosition2D() {
 			this(0, 0);
 		}
 	}
 	
-	public non-sealed static class DoubleFixedPoint2D extends BidimensionalFixedPoint<Double> implements DoublePositional2D {
+	public non-sealed static class DoubleFixedPosition2D implements BidimensionalFixedPosition<Double>, DoublePositional2D {
 		
 		protected double x;
 		
@@ -88,17 +103,29 @@ public sealed abstract class BidimensionalFixedPoint<T extends Number> implement
 			return this.y;
 		}
 		
-		public DoublePoint2D unfixed() {
-			return new DoublePoint2D(x, y);
+		public DoublePosition2D unfixed() {
+			return new DoublePosition2D(x, y);
 		}
 		
-		public DoubleFixedPoint2D(double x, double y) {
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof DoublePositional2D pos) ? pos.getX() == this.x && pos.getY() == this.y : false;
+		}
+		
+		public @Override DoubleFixedPosition2D clone() {
+			return new DoubleFixedPosition2D(x, y);
+		}
+		
+		public DoubleFixedPosition2D(double x, double y) {
 			this.x = x; this.y = y;
 		}
-		public DoubleFixedPoint2D(Double x, Double y) {
+		public DoubleFixedPosition2D(Double x, Double y) {
 			this(x.doubleValue(), y.doubleValue());
 		}
-		public DoubleFixedPoint2D() {
+		public DoubleFixedPosition2D() {
 			this(0, 0);
 		}
 	}
