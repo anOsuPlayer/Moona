@@ -8,7 +8,7 @@ public interface Resizable1DType<T extends Number> extends Positional1DType<T> {
 
 	void setWidth(T width);
 	
-	void resizeX(T dWidth);
+	void resizeWidth(T dWidth);
 	
 	public static interface IntegralResizable1D extends Resizable1DType<Integer>, IntegralDimensional1D {
 		
@@ -18,11 +18,12 @@ public interface Resizable1DType<T extends Number> extends Positional1DType<T> {
 		
 		void setWidth(int width);
 		
-		default @Override void resizeX(Integer dWidth) {
-			resizeX(dWidth.intValue());
+		default @Override void resizeWidth(Integer dWidth) {
+			resizeWidth(dWidth.intValue());
 		}
-		
-		void resizeX(int dWidth);
+		default void resizeWidth(int dWidth) {
+			setWidth(getWidth() + dWidth);
+		}
 	}
 	
 	public static interface Resizable1D extends Resizable1DType<Float>, Dimensional1D {
@@ -33,11 +34,12 @@ public interface Resizable1DType<T extends Number> extends Positional1DType<T> {
 		
 		void setWidth(float width);
 		
-		default @Override void resizeX(Float dWidth) {
-			resizeX(dWidth.floatValue());
+		default @Override void resizeWidth(Float dWidth) {
+			resizeWidth(dWidth.floatValue());
 		}
-		
-		void resizeX(float dWidth);
+		default void resizeWidth(float dWidth) {
+			setWidth(getWidth() + dWidth);
+		}
 	}
 	
 	public static interface DoubleResizable1D extends Resizable1DType<Double>, DoubleDimensional1D {
@@ -48,10 +50,11 @@ public interface Resizable1DType<T extends Number> extends Positional1DType<T> {
 		
 		void setWidth(double dWidth);
 		
-		default @Override void resizeX(Double dWidth) {
-			resizeX(dWidth.doubleValue());
+		default @Override void resizeWidth(Double dWidth) {
+			resizeWidth(dWidth.doubleValue());
 		}
-		
-		void resizeX(double dWidth);
+		default void resizeWidth(double dWidth) {
+			setWidth(getWidth() + dWidth);
+		}
 	}
 }

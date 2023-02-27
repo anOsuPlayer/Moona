@@ -17,8 +17,9 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		default @Override void moveX(Integer dx) {
 			moveX(dx.intValue());
 		}
-		
-		void moveX(int dx);
+		default void moveX(int dx) {
+			setX(getX() + dx);
+		}
 	}
 	
 	public static interface Movable1D extends Movable1DType<Float>, Positional1D {
@@ -32,8 +33,9 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		default @Override void moveX(Float dx) {
 			moveX(dx.floatValue());
 		}
-		
-		void moveX(float dx);
+		default void moveX(float dx) {
+			setX(getX() + dx);
+		}
 	}
 	
 	public static interface DoubleMovable1D extends Movable1DType<Double>, DoublePositional1D {
@@ -47,7 +49,8 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		default @Override void moveX(Double dx) {
 			moveX(dx.doubleValue());
 		}
-		
-		void moveX(double dx);
+		default void moveX(double dx) {
+			setX(getX() + dx);
+		}
 	}
 }

@@ -1,16 +1,18 @@
 package moonaframework.design.bidimensional;
 
-public interface Spatial2DType<T extends Number> extends Positional2DType<T>, Dimensional2DType<T> {
+import moonaframework.design.monodimensional.Spatial1DType;
 
-	public static interface IntegralSpatial2D extends Spatial2DType<Integer>, IntegralPositional2D, IntegralDimensional2D {
+public interface Spatial2DType<T extends Number> extends Positional2DType<T>, Dimensional2DType<T>, Spatial1DType<T> {
+
+	public static interface IntegralSpatial2D extends Spatial2DType<Integer>, IntegralPositional2D, IntegralDimensional2D, IntegralSpatial1D {
 		
 	}
 	
-	public static interface Spatial2D extends Spatial2DType<Float>, Positional2D, Dimensional2D {
+	public static interface Spatial2D extends Spatial2DType<Float>, Positional2D, Dimensional2D, Spatial1D {
 		
 	}
 	
-	public static interface DoubleSpatial2D extends Spatial2DType<Double>, DoublePositional2D, DoubleDimensional2D {
+	public static interface DoubleSpatial2D extends Spatial2DType<Double>, DoublePositional2D, DoubleDimensional2D, DoubleSpatial1D {
 		
 	}
 }

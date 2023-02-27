@@ -1,20 +1,13 @@
 package moonaframework.design.bidimensional;
 
 import moonaframework.design.bidimensional.geometry.BidimensionalPosition;
+import moonaframework.design.monodimensional.Positional1DType;
 
-public interface Positional2DType<T extends Number> {
-
-	T getWrappedX();
+public interface Positional2DType<T extends Number> extends Positional1DType<T> {
 	
 	T getWrappedY();
 	
-	public static interface IntegralPositional2D extends Positional2DType<Integer> {
-		
-		default @Override Integer getWrappedX() {
-			return Integer.valueOf(getX());
-		}
-		
-		int getX();
+	public static interface IntegralPositional2D extends Positional2DType<Integer>, IntegralPositional1D {
 		
 		default @Override Integer getWrappedY() {
 			return Integer.valueOf(getY());
@@ -23,13 +16,7 @@ public interface Positional2DType<T extends Number> {
 		int getY();
 	}
 	
-	public static interface Positional2D extends Positional2DType<Float> {
-		
-		default @Override Float getWrappedX() {
-			return Float.valueOf(getX());
-		}
-		
-		float getX();
+	public static interface Positional2D extends Positional2DType<Float>, Positional1D {
 		
 		default @Override Float getWrappedY() {
 			return Float.valueOf(getY());
@@ -38,13 +25,7 @@ public interface Positional2DType<T extends Number> {
 		float getY();
 	}
 	
-	public static interface DoublePositional2D extends Positional2DType<Double> {
-		
-		default @Override Double getWrappedX() {
-			return Double.valueOf(getX());
-		}
-		
-		double getX();
+	public static interface DoublePositional2D extends Positional2DType<Double>, DoublePositional1D {
 		
 		default @Override Double getWrappedY() {
 			return Double.valueOf(getY());
