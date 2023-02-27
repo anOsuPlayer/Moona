@@ -1,7 +1,5 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.Dimensional2DType.Dimensional2D;
-import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
 import moonaframework.design.bidimensional.geometry.BidimensionalPoint;
 
 public sealed interface Movable2DType<T extends Number> extends Positional2DType<T> permits Adjustable2DType<T>, BidimensionalPoint<T>, Movable2DType.IntegralMovable2D, Movable2DType.Movable2D, Movable2DType.DoubleMovable2D {

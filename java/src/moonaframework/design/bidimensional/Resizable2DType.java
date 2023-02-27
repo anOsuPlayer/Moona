@@ -1,9 +1,5 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.Dimensional2DType.Dimensional2D;
-import moonaframework.design.bidimensional.Dimensional2DType.DoubleDimensional2D;
-import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
-
 public sealed interface Resizable2DType<T extends Number> extends Dimensional2DType<T> permits Adjustable2DType<T>, Resizable2DType.IntegralResizable2D, Resizable2DType.Resizable2D, Resizable2DType.DoubleResizable2D {
 
 	void setWrappedWidth(T x);

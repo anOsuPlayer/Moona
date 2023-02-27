@@ -1,9 +1,6 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Movable2DType;
-import moonaframework.design.bidimensional.Positional2DType.DoublePositional2D;
-import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
-import moonaframework.design.bidimensional.Positional2DType.Positional2D;
 import moonaframework.util.exception.NullArgumentException;
 
 public sealed abstract class BidimensionalPoint<T extends Number> extends BidimensionalFixedPoint<T> implements Movable2DType<T> permits BidimensionalPoint.IntegralPoint2D, BidimensionalPoint.Point2D, BidimensionalPoint.DoublePoint2D {
