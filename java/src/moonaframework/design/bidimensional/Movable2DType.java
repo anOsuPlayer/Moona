@@ -1,9 +1,8 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.geometry.BidimensionalPosition;
 import moonaframework.design.bidimensional.geometry.BidimensionalPoint;
 
-public sealed interface Movable2DType<T extends Number> extends Positional2DType<T> permits Adjustable2DType<T>, BidimensionalPoint<T>, BidimensionalPosition<T>, Movable2DType.IntegralMovable2D, Movable2DType.Movable2D, Movable2DType.DoubleMovable2D {
+public interface Movable2DType<T extends Number> extends Positional2DType<T> {
 
 	void setX(T x);
 	
@@ -13,7 +12,7 @@ public sealed interface Movable2DType<T extends Number> extends Positional2DType
 	
 	void moveY(T dy);
 	
-	public non-sealed static interface IntegralMovable2D extends Movable2DType<Integer>, IntegralPositional2D {
+	public static interface IntegralMovable2D extends Movable2DType<Integer>, IntegralPositional2D {
 		
 		default @Override void setX(Integer x) {
 			setX(x.intValue());
@@ -42,7 +41,7 @@ public sealed interface Movable2DType<T extends Number> extends Positional2DType
 		void setY(int y);
 	}
 	
-	public non-sealed static interface Movable2D extends Movable2DType<Float>, Positional2D {
+	public static interface Movable2D extends Movable2DType<Float>, Positional2D {
 		
 		default @Override void setX(Float x) {
 			setX(x.floatValue());
@@ -71,7 +70,7 @@ public sealed interface Movable2DType<T extends Number> extends Positional2DType
 		void setY(float y);
 	}
 	
-	public non-sealed static interface DoubleMovable2D extends Movable2DType<Double>, DoublePositional2D {
+	public static interface DoubleMovable2D extends Movable2DType<Double>, DoublePositional2D {
 		
 		default @Override void setX(Double x) {
 			setX(x.doubleValue());

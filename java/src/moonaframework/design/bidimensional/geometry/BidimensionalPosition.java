@@ -1,83 +1,78 @@
 package moonaframework.design.bidimensional.geometry;
 
-import moonaframework.design.bidimensional.Movable2DType;
+import moonaframework.design.bidimensional.Positional2DType;
 
-public sealed interface BidimensionalPosition<T extends Number> extends BidimensionalFixedPosition<T>, Movable2DType<T> permits BidimensionalPoint<T>, BidimensionalPosition.IntegralPosition2D, BidimensionalPosition.Position2D, BidimensionalPosition.DoublePosition2D {
+public interface BidimensionalPosition<T extends Number> extends Positional2DType<T> {
 
-	BidimensionalFixedPosition<T> fixed();
-	
-	public non-sealed static class IntegralPosition2D extends IntegralFixedPosition2D implements BidimensionalPosition<Integer>, IntegralMovable2D {
+	public static class IntegralPosition2D implements BidimensionalPosition<Integer>, IntegralPositional2D {
 		
-		public @Override void setX(int x) {
-			this.x = x;
+		protected int x;
+		
+		public @Override int getX() {
+			return this.x;
 		}
 		
-		public @Override void setY(int y) {
-			this.y = y;
-		}
+		protected int y;
 		
-		public IntegralFixedPosition2D fixed() {
-			return new IntegralFixedPosition2D(x, y);
-		}
-		
-		public @Override IntegralPosition2D clone() {
-			return new IntegralPosition2D(x, y);
+		public @Override int getY() {
+			return this.y;
 		}
 		
 		public IntegralPosition2D(int x, int y) {
-			setX(x); setY(y);
+			this.x = x; this.y = y;
+		}
+		public IntegralPosition2D(Integer x, Integer y) {
+			this(x.intValue(), y.intValue());
 		}
 		public IntegralPosition2D() {
 			this(0, 0);
 		}
 	}
 	
-	public non-sealed static class Position2D extends FixedPosition2D implements BidimensionalPosition<Float>, Movable2D {
+	public static class Position2D implements BidimensionalPosition<Float>, Positional2D {
 		
-		public @Override void setX(float x) {
-			this.x = x;
-		}
-
-		public @Override void setY(float y) {
-			this.y = y;
+		protected float x;
+		
+		public @Override float getX() {
+			return this.x;
 		}
 		
-		public FixedPosition2D fixed() {
-			return new FixedPosition2D(x, y);
-		}
+		protected float y;
 		
-		public @Override Position2D clone() {
-			return new Position2D(x, y);
+		public @Override float getY() {
+			return this.y;
 		}
 		
 		public Position2D(float x, float y) {
-			setX(x); setY(y);
+			this.x = x; this.y = y;
+		}
+		public Position2D(Float x, Float y) {
+			this(x.floatValue(), y.floatValue());
 		}
 		public Position2D() {
 			this(0, 0);
 		}
 	}
-	
-	public non-sealed static class DoublePosition2D extends DoubleFixedPosition2D implements BidimensionalPosition<Double>, DoubleMovable2D {
 
-		public @Override void setX(double x) {
-			this.x = x;
+	public static class DoublePosition2D implements BidimensionalPosition<Double>, DoublePositional2D {
+		
+		protected double x;
+		
+		public @Override double getX() {
+			return this.x;
 		}
 		
-		public @Override void setY(double y) {
-			this.y = y;
-		}
+		protected double y;
 		
-		public DoubleFixedPosition2D fixed() {
-			return new DoubleFixedPosition2D(x, y);
-		}
-		
-		public @Override DoublePosition2D clone() {
-			return new DoublePosition2D(x, y);
+		public @Override double getY() {
+			return this.y;
 		}
 		
 		public DoublePosition2D(double x, double y) {
-			setX(x); setY(y);
+			this.x = x; this.y = y;
+		}
+		public DoublePosition2D(Double x, Double y) {
+			this(x.doubleValue(), y.doubleValue());
 		}
 		public DoublePosition2D() {
 			this(0, 0);
