@@ -1,6 +1,4 @@
-package moonaframework.util;
-
-import moonaframework.design.CoordinateOutOfRangeException;
+package moonaframework.design;
 
 public final class WatchDog {
 

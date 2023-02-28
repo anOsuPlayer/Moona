@@ -1,7 +1,6 @@
 package moonaframework.design.monodimensional.geometry;
 
 import moonaframework.design.monodimensional.Dimensional1DType;
-import moonaframework.util.WatchDog;
 
 public interface MonodimensionalSize<T extends Number> extends Dimensional1DType<T>, Cloneable {
 
@@ -14,7 +13,6 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public IntegralSize1D(int width) {
-			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
 		public IntegralSize1D(Integer width) throws NullPointerException {
@@ -40,7 +38,6 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public Size1D(float width) {
-			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
 		public Size1D(Float width) throws NullPointerException {
@@ -66,7 +63,6 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public DoubleSize1D(double width) {
-			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
 		public DoubleSize1D(Double width) throws NullPointerException {
