@@ -32,6 +32,12 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		public IntegralPosition1D(Integer x) {
 			this(x.intValue());
 		}
+		public IntegralPosition1D(IntegralPositional1D pos) {
+			this(pos.getX());
+		}
+		public IntegralPosition1D(Positional1DType<?> pos) {
+			this(pos.getWrappedX().intValue());
+		}
 		public IntegralPosition1D() {
 			this.x = 0;
 		}
@@ -65,6 +71,12 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		public Position1D(Float x) {
 			this(x.floatValue());
 		}
+		public Position1D(Positional1D pos) {
+			this(pos.getX());
+		}
+		public Position1D(Positional1DType<?> pos) {
+			this(pos.getWrappedX().floatValue());
+		}
 		public Position1D() {
 			this.x = 0;
 		}
@@ -97,6 +109,12 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		}
 		public DoublePosition1D(Double x) {
 			this(x.doubleValue());
+		}
+		public DoublePosition1D(DoublePositional1D pos) {
+			this(pos.getX());
+		}
+		public DoublePosition1D(Positional1DType<?> pos) {
+			this(pos.getWrappedX().doubleValue());
 		}
 		public DoublePosition1D() {
 			this.x = 0;

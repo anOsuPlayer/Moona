@@ -1,6 +1,7 @@
 package moonaframework.design.monodimensional.geometry;
 
 import moonaframework.design.monodimensional.Movable1DType;
+import moonaframework.design.monodimensional.Positional1DType;
 
 public interface MonodimensionalPoint<T extends Number> extends MonodimensionalPosition<T>, Movable1DType<T> {
 
@@ -23,6 +24,12 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 		}
 		public IntegralPoint1D(Integer x) {
 			super(x);
+		}
+		public IntegralPoint1D(IntegralPositional1D pos) {
+			super(pos);
+		}
+		public IntegralPoint1D(Positional1DType<?> pos) {
+			super(pos);
 		}
 		public IntegralPoint1D() {
 			super(0);
@@ -49,6 +56,12 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 		public Point1D(Float x) {
 			super(x);
 		}
+		public Point1D(Positional1D pos) {
+			super(pos);
+		}
+		public Point1D(Positional1DType<?> pos) {
+			super(pos);
+		}
 		public Point1D() {
 			super(0);
 		}
@@ -73,6 +86,12 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 		}
 		public DoublePoint1D(Double x) {
 			super(x);
+		}
+		public DoublePoint1D(DoublePositional1D pos) {
+			super(pos);
+		}
+		public DoublePoint1D(Positional1DType<?> pos) {
+			super(pos);
 		}
 		public DoublePoint1D() {
 			super(0);

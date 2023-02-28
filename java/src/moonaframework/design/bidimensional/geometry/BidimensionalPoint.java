@@ -1,6 +1,7 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Movable2DType;
+import moonaframework.design.bidimensional.Positional2DType;
 import moonaframework.design.monodimensional.geometry.MonodimensionalPoint;
 
 public interface BidimensionalPoint<T extends Number> extends BidimensionalPosition<T>, Movable2DType<T>, MonodimensionalPoint<T> {
@@ -28,6 +29,12 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		}
 		public IntegralPoint2D(Integer x, Integer y) {
 			super(x, y);
+		}
+		public IntegralPoint2D(IntegralPositional2D pos) {
+			super(pos);
+		}
+		public IntegralPoint2D(Positional2DType<?> pos) {
+			super(pos);
 		}
 		public IntegralPoint2D() {
 			super(0, 0);
@@ -58,6 +65,12 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		public Point2D(Float x, Float y) {
 			super(x, y);
 		}
+		public Point2D(Positional2D pos) {
+			super(pos);
+		}
+		public Point2D(Positional2DType<?> pos) {
+			super(pos);
+		}
 		public Point2D() {
 			super(0, 0);
 		}
@@ -86,6 +99,12 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		}
 		public DoublePoint2D(Double x, Double y) {
 			super(x, y);
+		}
+		public DoublePoint2D(DoublePositional2D pos) {
+			super(pos);
+		}
+		public DoublePoint2D(Positional2DType<?> pos) {
+			super(pos);
 		}
 		public DoublePoint2D() {
 			super(0, 0);

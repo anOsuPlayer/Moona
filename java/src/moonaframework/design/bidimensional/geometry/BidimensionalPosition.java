@@ -33,6 +33,12 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public IntegralPosition2D(Integer x, Integer y) {
 			this(x.intValue(), y.intValue());
 		}
+		public IntegralPosition2D(IntegralPositional2D pos) {
+			this(pos.getX(), pos.getY());
+		}
+		public IntegralPosition2D(Positional2DType<?> pos) {
+			this(pos.getWrappedX().intValue(), pos.getWrappedY().intValue());
+		}
 		public IntegralPosition2D() {
 			this(0, 0);
 		}
@@ -66,6 +72,12 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public Position2D(Float x, Float y) {
 			this(x.floatValue(), y.floatValue());
 		}
+		public Position2D(Positional2D pos) {
+			this(pos.getX(), pos.getY());
+		}
+		public Position2D(Positional2DType<?> pos) {
+			this(pos.getWrappedX().floatValue(), pos.getWrappedY().floatValue());
+		}
 		public Position2D() {
 			this(0, 0);
 		}
@@ -98,6 +110,12 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		}
 		public DoublePosition2D(Double x, Double y) {
 			this(x.doubleValue(), y.doubleValue());
+		}
+		public DoublePosition2D(DoublePositional2D pos) {
+			this(pos.getX(), pos.getY());
+		}
+		public DoublePosition2D(Positional2DType<?> pos) {
+			this(pos.getWrappedX().doubleValue(), pos.getWrappedY().doubleValue());
 		}
 		public DoublePosition2D() {
 			this(0, 0);
