@@ -1,23 +1,13 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.CoordinateOutOfRangeException;
+import moonaframework.design.bidimensional.Positional2DType;
 import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.IntegralPosition2D;
 import moonaframework.util.exception.NullArgumentException;
 
-public class GridSpot<T> implements IntegralPositional2D {
-	
-	private final int x;
-	
-	public @Override int getX() {
-		return x;
-	}
-	
-	private final int y;
-	
-	public @Override int getY() {
-		return y;
-	}
-	
+public class GridSpot<T> extends IntegralPosition2D {
+
 	private final Grid<T> base;
 	
 	public Grid<T> getBaseGrid() {

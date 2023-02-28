@@ -3,7 +3,7 @@ package moonaframework.design.monodimensional.geometry;
 import moonaframework.design.monodimensional.Positional1DType;
 
 public interface MonodimensionalPosition<T extends Number> extends Positional1DType<T>, Cloneable {
-
+	
 	public static class IntegralPosition1D implements MonodimensionalPosition<Integer>, IntegralPositional1D {
 		
 		protected int x;
@@ -11,7 +11,7 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		public @Override int getX() {
 			return this.x;
 		}
-		
+
 		public @Override String toString() {
 			return "[ " + x + " ]";
 		}

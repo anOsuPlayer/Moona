@@ -1,5 +1,9 @@
 package moonaframework.design.bidimensional;
 
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.DoublePosition2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.IntegralPosition2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalPosition.Position2D;
 import moonaframework.design.monodimensional.Positional1DType;
 
 public interface Positional2DType<T extends Number> extends Positional1DType<T> {

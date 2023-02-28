@@ -95,7 +95,7 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		}
 	}
 
-	public static class DoublePosition2D extends DoublePosition1D implements BidimensionalPosition<Double>, DoublePositional2D {
+	public static class DoublePosition2D implements BidimensionalPosition<Double>, DoublePositional2D {
 		
 		protected double x;
 		

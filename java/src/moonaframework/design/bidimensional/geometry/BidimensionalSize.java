@@ -1,11 +1,16 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Dimensional2DType;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.Bounds2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.DoubleBounds2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.IntegralBounds2D;
 import moonaframework.design.monodimensional.geometry.MonodimensionalSize;
+import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.*;
+import moonaframework.design.monodimensional.geometry.MonodimensionalSize.IntegralSize1D;
 
 public interface BidimensionalSize<T extends Number> extends MonodimensionalSize<T>, Dimensional2DType<T> {
 
-	public static class IntegralSize2D implements BidimensionalSize<Integer>, IntegralDimensional2D {
+	public static class IntegralSize2D implements BidimensionalSize<Integer>, IntegralDimensional2D, IntegralDimensional1D {
 		
 		protected int width;
 		
@@ -36,7 +41,7 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 	}
 	
-	public static class Size2D implements BidimensionalSize<Float>, Dimensional2D {
+	public static class Size2D implements BidimensionalSize<Float>, Dimensional2D, Dimensional1D {
 		
 		protected float width;
 		
@@ -67,7 +72,7 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 	}
 
-	public static class DoubleSize2D implements BidimensionalSize<Double>, DoubleDimensional2D {
+	public static class DoubleSize2D implements BidimensionalSize<Double>, DoubleDimensional2D, DoubleDimensional1D {
 		
 		protected double width;
 		
