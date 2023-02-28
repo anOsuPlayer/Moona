@@ -13,10 +13,10 @@ public class CoordinateOutOfRangeException extends RuntimeException {
 	}
 	
 	public CoordinateOutOfRangeException(double coordinate) {
-		super(coordinate + ": coordinate out of range.");
+		super(coordinate + " : coordinate out of range.");
 	}
 	
 	public CoordinateOutOfRangeException(double coordinate, double upperBound, double lowerBound) {
-		super(coordinate + ": coordinate out of range [ " + lowerBound + " - " + upperBound + " ].");
+		super(coordinate + " : coordinate out of range [ " + lowerBound + " - " + upperBound + " ].");
 	}
 }

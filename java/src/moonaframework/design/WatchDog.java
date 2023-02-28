@@ -16,7 +16,7 @@ public final class WatchDog {
 	public static void requiresPositive(double...values) throws IllegalArgumentException {
 		for (double d : values) {
 			if (d < 0) {
-				throw new IllegalArgumentException(d + ": negative values are not allowed.");
+				throw new IllegalArgumentException(d + " : negative values are not allowed.");
 			}
 		}
 	}
