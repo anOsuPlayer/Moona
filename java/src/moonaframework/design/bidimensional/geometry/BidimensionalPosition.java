@@ -1,7 +1,6 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Positional2DType;
-import moonaframework.design.monodimensional.Positional1DType;
 import moonaframework.design.monodimensional.geometry.MonodimensionalPosition;
 
 public interface BidimensionalPosition<T extends Number> extends MonodimensionalPosition<T>, Positional2DType<T> {
@@ -20,8 +19,8 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof IntegralPositional2D pos) ? pos.getX() == x && pos.getY() == y :
-				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().intValue() == x &&
-				postype.getWrappedX().intValue() == y : false;
+				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().intValue() == x &&
+				postype.getWrappedY().intValue() == y : false;
 		}
 		
 		public @Override IntegralPosition2D clone() {
@@ -53,8 +52,8 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof Positional2D pos) ? pos.getX() == x && pos.getY() == y :
-				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().floatValue() == x &&
-				postype.getWrappedX().floatValue() == y : false;
+				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().floatValue() == x &&
+				postype.getWrappedY().floatValue() == y : false;
 		}
 		
 		public @Override Position2D clone() {
@@ -86,8 +85,8 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof DoublePositional2D pos) ? pos.getX() == x && pos.getY() == y :
-				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().doubleValue() == x &&
-				postype.getWrappedX().doubleValue() == y : false;
+				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().doubleValue() == x &&
+				postype.getWrappedY().doubleValue() == y : false;
 		}
 		
 		public @Override DoublePosition2D clone() {
