@@ -27,13 +27,13 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		public IntegralPoint2D(int x, int y) {
 			super(x, y);
 		}
-		public IntegralPoint2D(Integer x, Integer y) {
+		public IntegralPoint2D(Integer x, Integer y) throws NullPointerException {
 			super(x, y);
 		}
-		public IntegralPoint2D(IntegralPositional2D pos) {
+		public IntegralPoint2D(IntegralPositional2D pos) throws NullPointerException {
 			super(pos);
 		}
-		public IntegralPoint2D(Positional2DType<?> pos) {
+		public IntegralPoint2D(Positional2DType<?> pos) throws NullPointerException {
 			super(pos);
 		}
 		public IntegralPoint2D() {
@@ -62,13 +62,13 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		public Point2D(float x, float y) {
 			super(x, y);
 		}
-		public Point2D(Float x, Float y) {
+		public Point2D(Float x, Float y) throws NullPointerException {
 			super(x, y);
 		}
-		public Point2D(Positional2D pos) {
+		public Point2D(Positional2D pos) throws NullPointerException {
 			super(pos);
 		}
-		public Point2D(Positional2DType<?> pos) {
+		public Point2D(Positional2DType<?> pos) throws NullPointerException {
 			super(pos);
 		}
 		public Point2D() {
@@ -97,13 +97,13 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		public DoublePoint2D(double x, double y) {
 			super(x, y);
 		}
-		public DoublePoint2D(Double x, Double y) {
+		public DoublePoint2D(Double x, Double y) throws NullPointerException {
 			super(x, y);
 		}
-		public DoublePoint2D(DoublePositional2D pos) {
+		public DoublePoint2D(DoublePositional2D pos) throws NullPointerException {
 			super(pos);
 		}
-		public DoublePoint2D(Positional2DType<?> pos) {
+		public DoublePoint2D(Positional2DType<?> pos) throws NullPointerException {
 			super(pos);
 		}
 		public DoublePoint2D() {

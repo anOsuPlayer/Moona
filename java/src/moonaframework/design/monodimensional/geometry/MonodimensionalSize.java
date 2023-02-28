@@ -1,6 +1,7 @@
 package moonaframework.design.monodimensional.geometry;
 
 import moonaframework.design.monodimensional.Dimensional1DType;
+import moonaframework.util.WatchDog;
 
 public interface MonodimensionalSize<T extends Number> extends Dimensional1DType<T>, Cloneable {
 
@@ -13,15 +14,16 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public IntegralSize1D(int width) {
+			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
-		public IntegralSize1D(Integer width) {
+		public IntegralSize1D(Integer width) throws NullPointerException {
 			this(width.intValue());
 		}
-		public IntegralSize1D(IntegralDimensional1D dim) {
+		public IntegralSize1D(IntegralDimensional1D dim) throws NullPointerException {
 			this(dim.getWidth());
 		}
-		public IntegralSize1D(Dimensional1DType<?> dim) {
+		public IntegralSize1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().intValue());
 		}
 		public IntegralSize1D() {
@@ -38,15 +40,16 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public Size1D(float width) {
+			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
-		public Size1D(Float width) {
+		public Size1D(Float width) throws NullPointerException {
 			this(width.floatValue());
 		}
-		public Size1D(IntegralDimensional1D dim) {
+		public Size1D(IntegralDimensional1D dim) throws NullPointerException {
 			this(dim.getWidth());
 		}
-		public Size1D(Dimensional1DType<?> dim) {
+		public Size1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().floatValue());
 		}
 		public Size1D() {
@@ -63,15 +66,16 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public DoubleSize1D(double width) {
+			WatchDog.requiresPositive(width);
 			this.width = width;
 		}
-		public DoubleSize1D(Double width) {
+		public DoubleSize1D(Double width) throws NullPointerException {
 			this(width.doubleValue());
 		}
-		public DoubleSize1D(IntegralDimensional1D dim) {
+		public DoubleSize1D(IntegralDimensional1D dim) throws NullPointerException {
 			this(dim.getWidth());
 		}
-		public DoubleSize1D(Dimensional1DType<?> dim) {
+		public DoubleSize1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().doubleValue());
 		}
 		public DoubleSize1D() {

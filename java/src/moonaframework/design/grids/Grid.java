@@ -1,7 +1,7 @@
 package moonaframework.design.grids;
 
+import moonaframework.design.CoordinateOutOfRangeException;
 import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
-import moonaframework.util.exception.CoordinateOutOfRangeException;
 import moonaframework.util.exception.NullArgumentException;
 
 public class Grid<T> implements IntegralDimensional2D {

@@ -22,13 +22,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		public IntegralSize2D(int width, int height) {
 			this.width = width; this.height = height;
 		}
-		public IntegralSize2D(Integer width, Integer height) {
+		public IntegralSize2D(Integer width, Integer height) throws NullPointerException {
 			this(width.intValue(), height.intValue());
 		}
-		public IntegralSize2D(IntegralDimensional2D dim) {
+		public IntegralSize2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());
 		}
-		public IntegralSize2D(Dimensional2DType<?> dim) {
+		public IntegralSize2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().intValue(), dim.getWrappedHeight().intValue());
 		}
 		public IntegralSize2D() {
@@ -53,13 +53,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		public Size2D(float width, float height) {
 			this.width = width; this.height = height;
 		}
-		public Size2D(Float width, Float height) {
+		public Size2D(Float width, Float height) throws NullPointerException {
 			this(width.floatValue(), height.floatValue());
 		}
-		public Size2D(IntegralDimensional2D dim) {
+		public Size2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());
 		}
-		public Size2D(Dimensional2DType<?> dim) {
+		public Size2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().floatValue(), dim.getWrappedHeight().floatValue());
 		}
 		public Size2D() {
@@ -84,13 +84,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		public DoubleSize2D(double width, double height) {
 			this.width = width; this.height = height;
 		}
-		public DoubleSize2D(Double width, Double height) {
+		public DoubleSize2D(Double width, Double height) throws NullPointerException {
 			this(width.doubleValue(), height.doubleValue());
 		}
-		public DoubleSize2D(IntegralDimensional2D dim) {
+		public DoubleSize2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());
 		}
-		public DoubleSize2D(Dimensional2DType<?> dim) {
+		public DoubleSize2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this(dim.getWrappedWidth().doubleValue(), dim.getWrappedHeight().doubleValue());
 		}
 		public DoubleSize2D() {

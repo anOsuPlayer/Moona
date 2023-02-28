@@ -23,7 +23,7 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 			return "[ " + x + "; " + y + " ]";
 		}
 		
-		public @Override boolean equals(Object o) {
+		public @Override boolean equals(Object o) throws NullPointerException {
 			return (o instanceof IntegralPositional2D pos) ? pos.getX() == x && pos.getY() == y :
 				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().intValue() == x &&
 				postype.getWrappedY().intValue() == y : false;
@@ -36,13 +36,13 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public IntegralPosition2D(int x, int y) {
 			this.x = x; this.y = y;
 		}
-		public IntegralPosition2D(Integer x, Integer y) {
+		public IntegralPosition2D(Integer x, Integer y) throws NullPointerException {
 			this(x.intValue(), y.intValue());
 		}
-		public IntegralPosition2D(IntegralPositional2D pos) {
+		public IntegralPosition2D(IntegralPositional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());
 		}
-		public IntegralPosition2D(Positional2DType<?> pos) {
+		public IntegralPosition2D(Positional2DType<?> pos) throws NullPointerException {
 			this(pos.getWrappedX().intValue(), pos.getWrappedY().intValue());
 		}
 		public IntegralPosition2D() {
@@ -68,7 +68,7 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 			return "[ " + x + "; " + y + " ]";
 		}
 		
-		public @Override boolean equals(Object o) {
+		public @Override boolean equals(Object o) throws NullPointerException {
 			return (o instanceof Positional2D pos) ? pos.getX() == x && pos.getY() == y :
 				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().floatValue() == x &&
 				postype.getWrappedY().floatValue() == y : false;
@@ -81,13 +81,13 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public Position2D(float x, float y) {
 			this.x = x; this.y = y;
 		}
-		public Position2D(Float x, Float y) {
+		public Position2D(Float x, Float y) throws NullPointerException {
 			this(x.floatValue(), y.floatValue());
 		}
-		public Position2D(Positional2D pos) {
+		public Position2D(Positional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());
 		}
-		public Position2D(Positional2DType<?> pos) {
+		public Position2D(Positional2DType<?> pos) throws NullPointerException {
 			this(pos.getWrappedX().floatValue(), pos.getWrappedY().floatValue());
 		}
 		public Position2D() {
@@ -113,7 +113,7 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 			return "[ " + x + "; " + y + " ]";
 		}
 		
-		public @Override boolean equals(Object o) {
+		public @Override boolean equals(Object o) throws NullPointerException {
 			return (o instanceof DoublePositional2D pos) ? pos.getX() == x && pos.getY() == y :
 				(o instanceof Positional2DType<?> postype) ? postype.getWrappedX().doubleValue() == x &&
 				postype.getWrappedY().doubleValue() == y : false;
@@ -126,13 +126,13 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public DoublePosition2D(double x, double y) {
 			this.x = x; this.y = y;
 		}
-		public DoublePosition2D(Double x, Double y) {
+		public DoublePosition2D(Double x, Double y) throws NullPointerException {
 			this(x.doubleValue(), y.doubleValue());
 		}
-		public DoublePosition2D(DoublePositional2D pos) {
+		public DoublePosition2D(DoublePositional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());
 		}
-		public DoublePosition2D(Positional2DType<?> pos) {
+		public DoublePosition2D(Positional2DType<?> pos) throws NullPointerException {
 			this(pos.getWrappedX().doubleValue(), pos.getWrappedY().doubleValue());
 		}
 		public DoublePosition2D() {

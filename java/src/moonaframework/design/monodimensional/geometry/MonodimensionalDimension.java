@@ -14,13 +14,13 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 		public IntegralDimension1D(int width) {
 			super(width);
 		}
-		public IntegralDimension1D(Integer width) {
+		public IntegralDimension1D(Integer width) throws NullPointerException {
 			super(width);
 		}
-		public IntegralDimension1D(IntegralDimensional1D dim) {
+		public IntegralDimension1D(IntegralDimensional1D dim) throws NullPointerException {
 			super(dim);
 		}
-		public IntegralDimension1D(Dimensional1DType<?> dim) {
+		public IntegralDimension1D(Dimensional1DType<?> dim) throws NullPointerException {
 			super(dim);
 		}
 		public IntegralDimension1D() {
@@ -37,13 +37,13 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 		public Dimension1D(float width) {
 			super(width);
 		}
-		public Dimension1D(Float width) {
+		public Dimension1D(Float width) throws NullPointerException {
 			super(width);
 		}
-		public Dimension1D(IntegralDimensional1D dim) {
+		public Dimension1D(Dimensional1D dim) throws NullPointerException {
 			super(dim);
 		}
-		public Dimension1D(Dimensional1DType<?> dim) {
+		public Dimension1D(Dimensional1DType<?> dim) throws NullPointerException {
 			super(dim);
 		}
 		public Dimension1D() {
@@ -60,13 +60,13 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 		public DoubleDimension1D(double width) {
 			super(width);
 		}
-		public DoubleDimension1D(Double width) {
+		public DoubleDimension1D(Double width) throws NullPointerException {
 			super(width);
 		}
-		public DoubleDimension1D(IntegralDimensional1D dim) {
+		public DoubleDimension1D(DoubleDimensional1D dim) throws NullPointerException {
 			super(dim);
 		}
-		public DoubleDimension1D(Dimensional1DType<?> dim) {
+		public DoubleDimension1D(Dimensional1DType<?> dim) throws NullPointerException {
 			super(dim);
 		}
 		public DoubleDimension1D() {

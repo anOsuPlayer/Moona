@@ -1,4 +1,4 @@
-package moonaframework.util.exception;
+package moonaframework.design;
 
 public class CoordinateOutOfRangeException extends RuntimeException {
 
