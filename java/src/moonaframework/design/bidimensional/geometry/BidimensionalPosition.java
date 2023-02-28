@@ -1,16 +1,12 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Positional2DType;
+import moonaframework.design.bidimensional.geometry.BidimensionalPoint.DoublePoint2D;
+import moonaframework.design.monodimensional.geometry.MonodimensionalPosition;
 
-public interface BidimensionalPosition<T extends Number> extends Positional2DType<T> {
+public interface BidimensionalPosition<T extends Number> extends MonodimensionalPosition<T>, Positional2DType<T> {
 
-	public static class IntegralPosition2D implements BidimensionalPosition<Integer>, IntegralPositional2D {
-		
-		protected int x;
-		
-		public @Override int getX() {
-			return this.x;
-		}
+	public static class IntegralPosition2D extends IntegralPosition1D implements BidimensionalPosition<Integer>, IntegralPositional2D {
 		
 		protected int y;
 		
@@ -29,13 +25,7 @@ public interface BidimensionalPosition<T extends Number> extends Positional2DTyp
 		}
 	}
 	
-	public static class Position2D implements BidimensionalPosition<Float>, Positional2D {
-		
-		protected float x;
-		
-		public @Override float getX() {
-			return this.x;
-		}
+	public static class Position2D extends Position1D implements BidimensionalPosition<Float>, Positional2D {
 		
 		protected float y;
 		
@@ -54,13 +44,7 @@ public interface BidimensionalPosition<T extends Number> extends Positional2DTyp
 		}
 	}
 
-	public static class DoublePosition2D implements BidimensionalPosition<Double>, DoublePositional2D {
-		
-		protected double x;
-		
-		public @Override double getX() {
-			return this.x;
-		}
+	public static class DoublePosition2D extends DoublePosition1D implements BidimensionalPosition<Double>, DoublePositional2D {
 		
 		protected double y;
 		

@@ -1,8 +1,9 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Movable2DType;
+import moonaframework.design.monodimensional.geometry.MonodimensionalPoint;
 
-public interface BidimensionalPoint<T extends Number> extends BidimensionalPosition<T>, Movable2DType<T> {
+public interface BidimensionalPoint<T extends Number> extends BidimensionalPosition<T>, Movable2DType<T>, MonodimensionalPoint<T> {
 
 	public static class IntegralPoint2D extends IntegralPosition2D implements BidimensionalPoint<Integer>, IntegralMovable2D {
 		
