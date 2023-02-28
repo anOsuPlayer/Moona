@@ -1,7 +1,7 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Positional2DType;
-import moonaframework.design.bidimensional.geometry.BidimensionalPoint.DoublePoint2D;
+import moonaframework.design.monodimensional.Positional1DType;
 import moonaframework.design.monodimensional.geometry.MonodimensionalPosition;
 
 public interface BidimensionalPosition<T extends Number> extends MonodimensionalPosition<T>, Positional2DType<T> {
@@ -12,6 +12,20 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override int getY() {
 			return this.y;
+		}
+		
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof IntegralPositional2D pos) ? pos.getX() == x && pos.getY() == y :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().intValue() == x &&
+				postype.getWrappedX().intValue() == y : false;
+		}
+		
+		public @Override IntegralPosition2D clone() {
+			return new IntegralPosition2D(x, y);
 		}
 		
 		public IntegralPosition2D(int x, int y) {
@@ -33,6 +47,20 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 			return this.y;
 		}
 		
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof Positional2D pos) ? pos.getX() == x && pos.getY() == y :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().floatValue() == x &&
+				postype.getWrappedX().floatValue() == y : false;
+		}
+		
+		public @Override Position2D clone() {
+			return new Position2D(x, y);
+		}
+		
 		public Position2D(float x, float y) {
 			this.x = x; this.y = y;
 		}
@@ -50,6 +78,20 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override double getY() {
 			return this.y;
+		}
+		
+		public @Override String toString() {
+			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof DoublePositional2D pos) ? pos.getX() == x && pos.getY() == y :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().doubleValue() == x &&
+				postype.getWrappedX().doubleValue() == y : false;
+		}
+		
+		public @Override DoublePosition2D clone() {
+			return new DoublePosition2D(x, y);
 		}
 		
 		public DoublePosition2D(double x, double y) {

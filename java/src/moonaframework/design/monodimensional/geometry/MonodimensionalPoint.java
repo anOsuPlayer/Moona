@@ -10,6 +10,14 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 			this.x = x;
 		}
 		
+		public @Override String toString() {
+			return "( " + x + " )";
+		}
+		
+		public @Override IntegralPoint1D clone() {
+			return new IntegralPoint1D(x);
+		}
+		
 		public IntegralPoint1D(int x) {
 			super(x);
 		}
@@ -27,6 +35,14 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 			this.x = x;
 		}
 		
+		public @Override String toString() {
+			return "( " + x + " )";
+		}
+		
+		public @Override Point1D clone() {
+			return new Point1D(x);
+		}
+		
 		public Point1D(float x) {
 			super(x);
 		}
@@ -42,6 +58,14 @@ public interface MonodimensionalPoint<T extends Number> extends MonodimensionalP
 		
 		public @Override void setX(double x) {
 			this.x = x;
+		}
+		
+		public @Override String toString() {
+			return "( " + x + " )";
+		}
+		
+		public @Override DoublePoint1D clone() {
+			return new DoublePoint1D(x);
 		}
 		
 		public DoublePoint1D(double x) {

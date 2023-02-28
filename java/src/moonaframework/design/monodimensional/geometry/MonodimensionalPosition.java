@@ -2,7 +2,7 @@ package moonaframework.design.monodimensional.geometry;
 
 import moonaframework.design.monodimensional.Positional1DType;
 
-public interface MonodimensionalPosition<T extends Number> extends Positional1DType<T> {
+public interface MonodimensionalPosition<T extends Number> extends Positional1DType<T>, Cloneable {
 
 	public static class IntegralPosition1D implements MonodimensionalPosition<Integer>, IntegralPositional1D {
 		
@@ -10,6 +10,20 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		
 		public @Override int getX() {
 			return this.x;
+		}
+		
+		public @Override String toString() {
+			return "[ " + x + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof IntegralPositional1D pos) ? pos.getX() == x :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().intValue() == x :
+				false;
+		}
+		
+		public @Override IntegralPosition1D clone() {
+			return new IntegralPosition1D(x);
 		}
 		
 		public IntegralPosition1D(int x) {
@@ -31,6 +45,20 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 			return this.x;
 		}
 		
+		public @Override String toString() {
+			return "[ " + x + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof Positional1D pos) ? pos.getX() == x :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().floatValue() == x :
+				false;
+		}
+		
+		public @Override Position1D clone() {
+			return new Position1D(x);
+		}
+		
 		public Position1D(float x) {
 			this.x = x;
 		}
@@ -48,6 +76,20 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		
 		public @Override double getX() {
 			return this.x;
+		}
+		
+		public @Override String toString() {
+			return "[ " + x + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof DoublePositional1D pos) ? pos.getX() == x :
+				(o instanceof Positional1DType<?> postype) ? postype.getWrappedX().doubleValue() == x :
+				false;
+		}
+		
+		public @Override DoublePosition1D clone() {
+			return new DoublePosition1D(x);
 		}
 		
 		public DoublePosition1D(double x) {

@@ -1,6 +1,5 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.geometry.BidimensionalPoint;
 import moonaframework.design.monodimensional.Movable1DType;
 
 public interface Movable2DType<T extends Number> extends Positional2DType<T>, Movable1DType<T> {
