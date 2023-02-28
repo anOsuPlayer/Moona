@@ -5,7 +5,13 @@ import moonaframework.design.monodimensional.geometry.MonodimensionalSize;
 
 public interface BidimensionalSize<T extends Number> extends MonodimensionalSize<T>, Dimensional2DType<T> {
 
-	public static class IntegralSize2D extends IntegralSize1D implements BidimensionalSize<Integer>, IntegralDimensional2D {
+	public static class IntegralSize2D implements BidimensionalSize<Integer>, IntegralDimensional2D {
+		
+		protected int width;
+		
+		public @Override int getWidth() {
+			return this.width;
+		}
 		
 		protected int height;
 		
@@ -30,7 +36,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 	}
 	
-	public static class Size2D extends Size1D implements BidimensionalSize<Float>, Dimensional2D {
+	public static class Size2D implements BidimensionalSize<Float>, Dimensional2D {
+		
+		protected float width;
+		
+		public @Override float getWidth() {
+			return this.width;
+		}
 		
 		protected float height;
 		
@@ -55,7 +67,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 	}
 
-	public static class DoubleSize2D extends DoubleSize1D implements BidimensionalSize<Double>, DoubleDimensional2D {
+	public static class DoubleSize2D implements BidimensionalSize<Double>, DoubleDimensional2D {
+		
+		protected double width;
+		
+		public @Override double getWidth() {
+			return this.width;
+		}
 		
 		protected double height;
 		

@@ -5,7 +5,13 @@ import moonaframework.design.monodimensional.geometry.MonodimensionalPosition;
 
 public interface BidimensionalPosition<T extends Number> extends MonodimensionalPosition<T>, Positional2DType<T> {
 
-	public static class IntegralPosition2D extends IntegralPosition1D implements BidimensionalPosition<Integer>, IntegralPositional2D {
+	public static class IntegralPosition2D implements BidimensionalPosition<Integer>, IntegralPositional2D {
+		
+		protected int x;
+		
+		public @Override int getX() {
+			return this.x;
+		}
 		
 		protected int y;
 		
@@ -44,7 +50,13 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		}
 	}
 	
-	public static class Position2D extends Position1D implements BidimensionalPosition<Float>, Positional2D {
+	public static class Position2D implements BidimensionalPosition<Float>, Positional2D {
+		
+		protected float x;
+		
+		public @Override float getX() {
+			return this.x;
+		}
 		
 		protected float y;
 		
@@ -84,6 +96,12 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 	}
 
 	public static class DoublePosition2D extends DoublePosition1D implements BidimensionalPosition<Double>, DoublePositional2D {
+		
+		protected double x;
+		
+		public @Override double getX() {
+			return this.x;
+		}
 		
 		protected double y;
 		

@@ -6,7 +6,7 @@ import moonaframework.design.monodimensional.geometry.MonodimensionalDimension;
 
 public interface BidimensionalDimension<T extends Number> extends BidimensionalSize<T>, Resizable2DType<T>, MonodimensionalDimension<T>  {
 
-	public static class IntegralDimension2D extends IntegralSize2D implements BidimensionalSize<Integer>, IntegralResizable2D {
+	public static class IntegralDimension2D extends IntegralSize2D implements BidimensionalDimension<Integer>, IntegralResizable2D {
 		
 		public @Override void setWidth(int width) {
 			this.width = width;
@@ -33,7 +33,7 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		}
 	}
 	
-	public static class Dimension2D extends Size2D implements BidimensionalSize<Float>, Resizable2D {
+	public static class Dimension2D extends Size2D implements BidimensionalDimension<Float>, Resizable2D {
 		
 		public @Override void setWidth(float width) {
 			this.width = width;
@@ -61,7 +61,7 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 	}
 
 
-	public static class DoubleDimension2D extends DoubleSize2D implements BidimensionalSize<Double>, DoubleResizable2D {
+	public static class DoubleDimension2D extends DoubleSize2D implements BidimensionalDimension<Double>, DoubleResizable2D {
 		
 		public @Override void setWidth(double width) {
 			this.width = width;
