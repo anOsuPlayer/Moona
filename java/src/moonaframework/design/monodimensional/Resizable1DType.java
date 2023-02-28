@@ -1,10 +1,6 @@
 package moonaframework.design.monodimensional;
 
-import moonaframework.design.monodimensional.Dimensional1DType.Dimensional1D;
-import moonaframework.design.monodimensional.Dimensional1DType.DoubleDimensional1D;
-import moonaframework.design.monodimensional.Dimensional1DType.IntegralDimensional1D;
-
-public interface Resizable1DType<T extends Number> extends Positional1DType<T> {
+public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> {
 
 	void setWidth(T width);
 	
