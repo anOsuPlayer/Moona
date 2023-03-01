@@ -19,6 +19,10 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 			return this.y;
 		}
 		
+		public @Override IntegralPosition2D getPosition() {
+			return new IntegralPosition2D(x, y);
+		}
+		
 		public @Override String toString() {
 			return "[ " + x + "; " + y + " ]";
 		}
@@ -62,6 +66,10 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override float getY() {
 			return this.y;
+		}
+		
+		public @Override Position2D getPosition() {
+			return new Position2D(x, y);
 		}
 		
 		public @Override String toString() {
@@ -111,6 +119,10 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		
 		public @Override String toString() {
 			return "[ " + x + "; " + y + " ]";
+		}
+		
+		public @Override DoublePosition2D getPosition() {
+			return new DoublePosition2D(x, y);
 		}
 		
 		public @Override boolean equals(Object o) throws NullPointerException {

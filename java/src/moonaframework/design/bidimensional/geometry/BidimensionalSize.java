@@ -1,6 +1,9 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Dimensional2DType;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.Bounds2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.DoubleBounds2D;
+import moonaframework.design.bidimensional.geometry.BidimensionalBounds.IntegralBounds2D;
 import moonaframework.design.monodimensional.geometry.MonodimensionalSize;
 
 public interface BidimensionalSize<T extends Number> extends MonodimensionalSize<T>, Dimensional2DType<T> {
@@ -17,6 +20,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		
 		public @Override int getHeight() {
 			return this.height;
+		}
+		
+		public @Override IntegralSize2D getSize() {
+			return new IntegralSize2D(width, height);
+		}
+		public @Override IntegralBounds2D getBounds() {
+			return new IntegralBounds2D(this);
 		}
 
 		public IntegralSize2D(int width, int height) {
@@ -50,6 +60,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 			return this.height;
 		}
 		
+		public @Override Size2D getSize() {
+			return new Size2D(width, height);
+		}
+		public @Override Bounds2D getBounds() {
+			return new Bounds2D(this);
+		}
+		
 		public Size2D(float width, float height) {
 			this.width = width; this.height = height;
 		}
@@ -79,6 +96,13 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		
 		public @Override double getHeight() {
 			return this.height;
+		}
+		
+		public @Override DoubleSize2D getSize() {
+			return new DoubleSize2D(width, height);
+		}
+		public @Override DoubleBounds2D getBounds() {
+			return new DoubleBounds2D(this);
 		}
 		
 		public DoubleSize2D(double width, double height) {

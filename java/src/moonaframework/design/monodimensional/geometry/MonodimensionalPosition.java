@@ -11,6 +11,10 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		public @Override int getX() {
 			return this.x;
 		}
+		
+		public @Override IntegralPosition1D getPosition() {
+			return new IntegralPosition1D(x);
+		}
 
 		public @Override String toString() {
 			return "[ " + x + " ]";
@@ -51,6 +55,10 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 			return this.x;
 		}
 		
+		public @Override Position1D getPosition() {
+			return new Position1D(x);
+		}
+		
 		public @Override String toString() {
 			return "[ " + x + " ]";
 		}
@@ -88,6 +96,10 @@ public interface MonodimensionalPosition<T extends Number> extends Positional1DT
 		
 		public @Override double getX() {
 			return this.x;
+		}
+		
+		public @Override DoublePosition1D getPosition() {
+			return new DoublePosition1D(x);
 		}
 		
 		public @Override String toString() {

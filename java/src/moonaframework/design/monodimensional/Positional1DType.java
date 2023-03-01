@@ -19,7 +19,7 @@ public interface Positional1DType<T extends Number> {
 		
 		int getX();
 		
-		default @Override IntegralPosition1D getPosition() {
+		default @Override MonodimensionalPosition<Integer> getPosition() {
 			return new IntegralPosition1D(getX());
 		}
 	}
@@ -32,7 +32,7 @@ public interface Positional1DType<T extends Number> {
 		
 		float getX();
 		
-		default @Override Position1D getPosition() {
+		default @Override MonodimensionalPosition<Float> getPosition() {
 			return new Position1D(getX());
 		}
 	}
@@ -43,7 +43,7 @@ public interface Positional1DType<T extends Number> {
 			return Double.valueOf(getX());
 		}
 		
-		default @Override DoublePosition1D getPosition() {
+		default @Override MonodimensionalPosition<Double> getPosition() {
 			return new DoublePosition1D(getX());
 		}
 		
