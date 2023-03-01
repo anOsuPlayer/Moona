@@ -7,6 +7,14 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 
 	public static class IntegralBounds1D extends IntegralSize1D implements MonodimensionalBounds<Integer> {
 		
+		public @Override String toString() {
+			return "| " + width + " |";
+		}
+		
+		public @Override IntegralBounds1D clone() {
+			return new IntegralBounds1D(width);
+		}
+		
 		public IntegralBounds1D(int width) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width);
 			this.width = width;
@@ -25,6 +33,14 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 	
 	public static class Bounds1D extends Size1D implements MonodimensionalBounds<Float> {
 		
+		public @Override String toString() {
+			return "| " + width + " |";
+		}
+		
+		public @Override Bounds1D clone() {
+			return new Bounds1D(width);
+		}
+		
 		public Bounds1D(float width) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width);
 			this.width = width;
@@ -42,6 +58,14 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 	}
 	
 	public static class DoubleBounds1D extends DoubleSize1D implements MonodimensionalBounds<Double> {
+		
+		public @Override String toString() {
+			return "| " + width + " |";
+		}
+		
+		public @Override DoubleBounds1D clone() {
+			return new DoubleBounds1D(width);
+		}
 		
 		public DoubleBounds1D(double width) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width);

@@ -11,6 +11,14 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 			this.width = width;
 		}
 		
+		public @Override String toString() {
+			return "( " + width + " )";
+		}
+		
+		public @Override IntegralDimension1D clone() {
+			return new IntegralDimension1D(width);
+		}
+		
 		public IntegralDimension1D(int width) {
 			super(width);
 		}
@@ -34,6 +42,14 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 			this.width = width;
 		}
 		
+		public @Override String toString() {
+			return "( " + width + " )";
+		}
+		
+		public @Override Dimension1D clone() {
+			return new Dimension1D(width);
+		}
+		
 		public Dimension1D(float width) {
 			super(width);
 		}
@@ -55,6 +71,14 @@ public interface MonodimensionalDimension<T extends Number> extends Monodimensio
 		
 		public @Override void setWidth(double width) {
 			this.width = width;
+		}
+		
+		public @Override String toString() {
+			return "( " + width + " )";
+		}
+		
+		public @Override DoubleDimension1D clone() {
+			return new DoubleDimension1D(width);
 		}
 		
 		public DoubleDimension1D(double width) {

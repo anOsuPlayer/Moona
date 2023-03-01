@@ -22,6 +22,20 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 			return new IntegralBounds1D(this);
 		}
 		
+		public @Override String toString() {
+			return "[ " + width + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof IntegralDimensional1D pos) ? pos.getWidth() == width :
+				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().intValue() == width :
+				false;
+		}
+		
+		public @Override IntegralSize1D clone() {
+			return new IntegralSize1D(width);
+		}
+		
 		public IntegralSize1D(int width) {
 			this.width = width;
 		}
@@ -54,6 +68,20 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 			return new Bounds1D(this);
 		}
 		
+		public @Override String toString() {
+			return "[ " + width + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof Dimensional1D pos) ? pos.getWidth() == width :
+				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().floatValue() == width :
+				false;
+		}
+		
+		public @Override Size1D clone() {
+			return new Size1D(width);
+		}
+		
 		public Size1D(float width) {
 			this.width = width;
 		}
@@ -84,6 +112,20 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		public @Override DoubleBounds1D getBounds() {
 			return new DoubleBounds1D(this);
+		}
+		
+		public @Override String toString() {
+			return "[ " + width + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			return (o instanceof DoubleDimensional1D pos) ? pos.getWidth() == width :
+				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().doubleValue() == width :
+				false;
+		}
+		
+		public @Override DoubleSize1D clone() {
+			return new DoubleSize1D(width);
 		}
 		
 		public DoubleSize1D(double width) {

@@ -28,6 +28,20 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		public @Override IntegralBounds2D getBounds() {
 			return new IntegralBounds2D(this);
 		}
+		
+		public @Override String toString() {
+			return "[ " + width + " x " + height + " ]";
+		}
+		
+		public @Override boolean equals(Object o) throws NullPointerException {
+			return (o instanceof IntegralDimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+				(o instanceof Dimensional2DType<?> postype) ? postype.getWrappedWidth().intValue() == width &&
+				postype.getWrappedWidth().intValue() == height : false;
+		}
+		
+		public @Override IntegralSize2D clone() {
+			return new IntegralSize2D(width, height);
+		}
 
 		public IntegralSize2D(int width, int height) {
 			this.width = width; this.height = height;
@@ -58,6 +72,20 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		
 		public @Override float getHeight() {
 			return this.height;
+		}
+		
+		public @Override String toString() {
+			return "[ " + width + " x " + height + " ]";
+		}
+		
+		public @Override boolean equals(Object o) throws NullPointerException {
+			return (o instanceof Dimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+				(o instanceof Dimensional2DType<?> postype) ? postype.getWrappedWidth().floatValue() == width &&
+				postype.getWrappedWidth().floatValue() == height : false;
+		}
+		
+		public @Override Size2D clone() {
+			return new Size2D(width, height);
 		}
 		
 		public @Override Size2D getSize() {
@@ -96,6 +124,20 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		
 		public @Override double getHeight() {
 			return this.height;
+		}
+		
+		public @Override String toString() {
+			return "[ " + width + " x " + height + " ]";
+		}
+		
+		public @Override boolean equals(Object o) throws NullPointerException {
+			return (o instanceof DoubleDimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+				(o instanceof Dimensional2DType<?> postype) ? postype.getWrappedWidth().doubleValue() == width &&
+				postype.getWrappedWidth().doubleValue() == height : false;
+		}
+		
+		public @Override DoubleSize2D clone() {
+			return new DoubleSize2D(width, height);
 		}
 		
 		public @Override DoubleSize2D getSize() {

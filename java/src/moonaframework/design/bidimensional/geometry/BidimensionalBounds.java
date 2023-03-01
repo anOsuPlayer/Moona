@@ -8,6 +8,14 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 
 	public static class IntegralBounds2D extends IntegralSize2D implements BidimensionalBounds<Integer> {
 		
+		public @Override String toString() {
+			return "| " + width + " x " + height + " |";
+		}
+		
+		public @Override IntegralBounds2D clone() {
+			return new IntegralBounds2D(width, height);
+		}
+		
 		public IntegralBounds2D(int width, int height) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width, height);
 			this.width = width; this.height = height;
@@ -28,6 +36,14 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 	
 	public static class Bounds2D extends Size2D implements BidimensionalBounds<Float> {
 		
+		public @Override String toString() {
+			return "| " + width + " x " + height + " |";
+		}
+		
+		public @Override Bounds2D clone() {
+			return new Bounds2D(width, height);
+		}
+		
 		public Bounds2D(float width, float height) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width, height);
 			this.width = width; this.height = height;
@@ -47,6 +63,14 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 	}
 	
 	public static class DoubleBounds2D extends DoubleSize2D implements BidimensionalBounds<Double> {
+		
+		public @Override String toString() {
+			return "| " + width + " x " + height + " |";
+		}
+		
+		public @Override DoubleBounds2D clone() {
+			return new DoubleBounds2D(width, height);
+		}
 		
 		public DoubleBounds2D(double width, double height) throws IllegalArgumentException {
 			WatchDog.requiresPositive(width, height);

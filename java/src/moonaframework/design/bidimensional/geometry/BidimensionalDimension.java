@@ -16,6 +16,14 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 			this.height = height;
 		}
 		
+		public @Override String toString() {
+			return "( " + width + " x " + height + " )";
+		}
+		
+		public @Override IntegralDimension2D clone() {
+			return new IntegralDimension2D(width, height);
+		}
+		
 		public IntegralDimension2D(int width, int height) {
 			this.width = width; this.height = height;
 		}
@@ -41,6 +49,14 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		
 		public @Override void setHeight(float height) {
 			this.height = height;
+		}
+		
+		public @Override String toString() {
+			return "( " + width + " x " + height + " )";
+		}
+		
+		public @Override Dimension2D clone() {
+			return new Dimension2D(width, height);
 		}
 		
 		public Dimension2D(float width, float height) {
@@ -69,6 +85,14 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		
 		public @Override void setHeight(double height) {
 			this.height = height;
+		}
+		
+		public @Override String toString() {
+			return "( " + width + " x " + height + " )";
+		}
+		
+		public @Override DoubleDimension2D clone() {
+			return new DoubleDimension2D(width, height);
 		}
 		
 		public DoubleDimension2D(double width, double height) {
