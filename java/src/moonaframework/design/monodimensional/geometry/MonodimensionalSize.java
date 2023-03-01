@@ -1,7 +1,6 @@
 package moonaframework.design.monodimensional.geometry;
 
 import moonaframework.design.monodimensional.Dimensional1DType;
-import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.*;
 
 public interface MonodimensionalSize<T extends Number> extends Dimensional1DType<T>, Cloneable {
 

@@ -1,17 +1,6 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.Bounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.DoubleBounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.IntegralBounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalDimension.IntegralDimension2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalSize.DoubleSize2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalSize.IntegralSize2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalSize.Size2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalSize;
 import moonaframework.design.monodimensional.Dimensional1DType;
-import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.IntegralBounds1D;
-import moonaframework.design.monodimensional.geometry.MonodimensionalSize.IntegralSize1D;
 
 public interface Dimensional2DType<T extends Number> extends Dimensional1DType<T> {
 	

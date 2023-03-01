@@ -1,12 +1,7 @@
 package moonaframework.design.bidimensional.geometry;
 
 import moonaframework.design.bidimensional.Dimensional2DType;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.Bounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.DoubleBounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.IntegralBounds2D;
 import moonaframework.design.monodimensional.geometry.MonodimensionalSize;
-import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.*;
-import moonaframework.design.monodimensional.geometry.MonodimensionalSize.IntegralSize1D;
 
 public interface BidimensionalSize<T extends Number> extends MonodimensionalSize<T>, Dimensional2DType<T> {
 

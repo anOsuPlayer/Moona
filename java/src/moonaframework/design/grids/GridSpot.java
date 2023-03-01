@@ -1,8 +1,6 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.CoordinateOutOfRangeException;
-import moonaframework.design.bidimensional.Positional2DType;
-import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
 import moonaframework.design.bidimensional.geometry.BidimensionalPosition.IntegralPosition2D;
 import moonaframework.util.exception.NullArgumentException;
 
