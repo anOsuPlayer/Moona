@@ -6,6 +6,8 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 	
 	void moveX(T dx) throws NullPointerException;
 	
+	void setPosition(Positional1DType<T> pos) throws NullPointerException;
+	
 	public static interface IntegralMovable1D extends Movable1DType<Integer>, IntegralPositional1D {
 		
 		default @Override void setX(Integer x) throws NullPointerException {
@@ -19,6 +21,15 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		}
 		default void moveX(int dx) {
 			setX(getX() + dx);
+		}
+		
+		default @Override void setPosition(Positional1DType<Integer> pos) {
+			if (pos instanceof IntegralPositional1D actual) {
+				setX((int) actual.getX());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
 		}
 	}
 	
@@ -36,6 +47,15 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		default void moveX(float dx) {
 			setX(getX() + dx);
 		}
+		
+		default @Override void setPosition(Positional1DType<Float> pos) {
+			if (pos instanceof Positional1D actual) {
+				setX((float) actual.getX());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
+		}
 	}
 	
 	public static interface DoubleMovable1D extends Movable1DType<Double>, DoublePositional1D {
@@ -51,6 +71,15 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		}
 		default void moveX(double dx) {
 			setX(getX() + dx);
+		}
+		
+		default @Override void setPosition(Positional1DType<Double> pos) {
+			if (pos instanceof DoublePositional1D actual) {
+				setX((double) actual.getX());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
 		}
 	}
 }

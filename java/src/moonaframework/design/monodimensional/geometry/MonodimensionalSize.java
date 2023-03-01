@@ -28,7 +28,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof IntegralDimensional1D pos) ? pos.getWidth() == width :
-				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().intValue() == width :
+				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().intValue() == width :
 				false;
 		}
 		
@@ -74,7 +74,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof Dimensional1D pos) ? pos.getWidth() == width :
-				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().floatValue() == width :
+				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().floatValue() == width :
 				false;
 		}
 		
@@ -120,7 +120,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		
 		public @Override boolean equals(Object o) {
 			return (o instanceof DoubleDimensional1D pos) ? pos.getWidth() == width :
-				(o instanceof Dimensional1DType<?> postype) ? postype.getWrappedWidth().doubleValue() == width :
+				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().doubleValue() == width :
 				false;
 		}
 		

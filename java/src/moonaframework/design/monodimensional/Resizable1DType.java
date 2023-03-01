@@ -1,10 +1,14 @@
 package moonaframework.design.monodimensional;
 
+import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
+
 public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> {
 
 	void setWidth(T width) throws NullPointerException;
 	
 	void resizeWidth(T dWidth) throws NullPointerException;
+	
+	void setSize(Dimensional1DType<T> dim);
 	
 	public static interface IntegralResizable1D extends Resizable1DType<Integer>, IntegralDimensional1D {
 		
@@ -19,6 +23,15 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		}
 		default void resizeWidth(int dWidth) {
 			setWidth(getWidth() + dWidth);
+		}
+		
+		default @Override void setSize(Dimensional1DType<Integer> dim) {
+			if (dim instanceof IntegralDimensional1D actual) {
+				setWidth((int) actual.getWidth());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
 		}
 	}
 	
@@ -36,6 +49,15 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		default void resizeWidth(float dWidth) {
 			setWidth(getWidth() + dWidth);
 		}
+		
+		default @Override void setSize(Dimensional1DType<Float> dim) {
+			if (dim instanceof Dimensional1D actual) {
+				setWidth((float) actual.getWidth());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
+		}
 	}
 	
 	public static interface DoubleResizable1D extends Resizable1DType<Double>, DoubleDimensional1D {
@@ -51,6 +73,15 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		}
 		default void resizeWidth(double dWidth) {
 			setWidth(getWidth() + dWidth);
+		}
+		
+		default @Override void setSize(Dimensional1DType<Double> dim) {
+			if (dim instanceof DoubleDimensional1D actual) {
+				setWidth((double) actual.getWidth());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
 		}
 	}
 }

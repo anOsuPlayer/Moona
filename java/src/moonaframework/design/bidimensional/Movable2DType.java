@@ -1,6 +1,8 @@
 package moonaframework.design.bidimensional;
 
 import moonaframework.design.monodimensional.Movable1DType;
+import moonaframework.design.monodimensional.Positional1DType;
+import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
 
 public interface Movable2DType<T extends Number> extends Positional2DType<T>, Movable1DType<T> {
 	
@@ -22,6 +24,18 @@ public interface Movable2DType<T extends Number> extends Positional2DType<T>, Mo
 		default void moveY(int dy) {
 			setY(getY() + dy);
 		}
+		
+		default @Override void setPosition(Positional1DType<Integer> pos) {
+			if (pos instanceof IntegralPositional2D actual) {
+				setX((int) actual.getX()); setY(actual.getY());
+			}
+			else if (pos instanceof Positional2DType<Integer> general) {
+				setX(general.getWrappedX()); setY(general.getWrappedY());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
+		}
 	}
 	
 	public static interface Movable2D extends Movable2DType<Float>, Positional2D, Movable1D {
@@ -38,6 +52,18 @@ public interface Movable2DType<T extends Number> extends Positional2DType<T>, Mo
 		default void moveY(float dy) {
 			setY(getY() + dy);
 		}
+		
+		default @Override void setPosition(Positional1DType<Float> pos) {
+			if (pos instanceof Positional2D actual) {
+				setX((float) actual.getX()); setY(actual.getY());
+			}
+			else if (pos instanceof Positional2DType<Float> general) {
+				setX(general.getWrappedX()); setY(general.getWrappedY());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
+		}
 	}
 	
 	public static interface DoubleMovable2D extends Movable2DType<Double>, DoublePositional2D, DoubleMovable1D {
@@ -53,6 +79,18 @@ public interface Movable2DType<T extends Number> extends Positional2DType<T>, Mo
 		}
 		default void moveY(double dy) {
 			setY(getY() + dy);
+		}
+		
+		default @Override void setPosition(Positional1DType<Double> pos) {
+			if (pos instanceof DoublePositional2D actual) {
+				setX((double) actual.getX()); setY(actual.getY());
+			}
+			else if (pos instanceof Positional2DType<Double> general) {
+				setX(general.getWrappedX()); setY(general.getWrappedY());
+			}
+			else {
+				setX(pos.getWrappedX());
+			}
 		}
 	}
 }

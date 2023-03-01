@@ -1,5 +1,8 @@
 package moonaframework.design.bidimensional;
 
+import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
+import moonaframework.design.monodimensional.Dimensional1DType;
+import moonaframework.design.monodimensional.Positional1DType;
 import moonaframework.design.monodimensional.Resizable1DType;
 
 public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>, Resizable1DType<T> {
@@ -22,6 +25,18 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		default void resizeHeight(int dHeight) {
 			setHeight(getHeight() + dHeight);
 		}
+		
+		default @Override void setSize(Dimensional1DType<Integer> dim) {
+			if (dim instanceof IntegralDimensional2D actual) {
+				setWidth((int) actual.getWidth()); setHeight(actual.getHeight());
+			}
+			else if (dim instanceof Dimensional2DType<Integer> general) {
+				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
+		}
 	}
 	
 	public static interface Resizable2D extends Resizable2DType<Float>, Dimensional2D, Resizable1D {
@@ -38,6 +53,18 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		default void resizeHeight(float dHeight) {
 			setHeight(getHeight() + dHeight);
 		}
+		
+		default @Override void setSize(Dimensional1DType<Float> dim) {
+			if (dim instanceof Dimensional2D actual) {
+				setWidth((float) actual.getWidth()); setHeight(actual.getHeight());
+			}
+			else if (dim instanceof Dimensional2DType<Float> general) {
+				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
+		}
 	}
 	
 	public static interface DoubleResizable2D extends Resizable2DType<Double>, DoubleDimensional2D, DoubleResizable1D {
@@ -53,6 +80,18 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		}
 		default void resizeHeight(double dHeight) {
 			setHeight(getHeight() + dHeight);
+		}
+		
+		default @Override void setSize(Dimensional1DType<Double> dim) {
+			if (dim instanceof DoubleDimensional2D actual) {
+				setWidth((double) actual.getWidth()); setHeight(actual.getHeight());
+			}
+			else if (dim instanceof Dimensional2DType<Double> general) {
+				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
+			}
+			else {
+				setWidth(dim.getWrappedWidth());
+			}
 		}
 	}
 }
