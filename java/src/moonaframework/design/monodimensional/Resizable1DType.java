@@ -1,6 +1,7 @@
 package moonaframework.design.monodimensional;
 
 import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
+import moonaframework.design.monodimensional.geometry.MonodimensionalBounds;
 
 public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> {
 
@@ -9,6 +10,8 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 	void resizeWidth(T dWidth) throws NullPointerException;
 	
 	void setSize(Dimensional1DType<T> dim);
+	
+	void setBounds(MonodimensionalBounds<T> bounds);
 	
 	public static interface IntegralResizable1D extends Resizable1DType<Integer>, IntegralDimensional1D {
 		
@@ -31,6 +34,14 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 			}
 			else {
 				setWidth(dim.getWrappedWidth());
+			}
+		}
+		default @Override void setBounds(MonodimensionalBounds<Integer> bounds) {
+			if (bounds instanceof IntegralDimensional1D actual) {
+				setWidth((int) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+			else {
+				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
 			}
 		}
 	}
@@ -58,6 +69,14 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 				setWidth(dim.getWrappedWidth());
 			}
 		}
+		default @Override void setBounds(MonodimensionalBounds<Float> bounds) {
+			if (bounds instanceof Dimensional1D actual) {
+				setWidth((float) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+			else {
+				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+		}
 	}
 	
 	public static interface DoubleResizable1D extends Resizable1DType<Double>, DoubleDimensional1D {
@@ -81,6 +100,14 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 			}
 			else {
 				setWidth(dim.getWrappedWidth());
+			}
+		}
+		default @Override void setBounds(MonodimensionalBounds<Double> bounds) {
+			if (bounds instanceof DoubleDimensional1D actual) {
+				setWidth((double) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+			else {
+				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
 			}
 		}
 	}
