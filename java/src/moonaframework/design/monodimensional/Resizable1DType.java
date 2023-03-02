@@ -29,7 +29,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		
 		default @Override void setSize(Dimensional1DType<Integer> dim) {
 			if (dim instanceof IntegralDimensional1D actual) {
-				setWidth((int) actual.getWidth());
+				setWidth(actual.getWidth());
 			}
 			else {
 				setWidth(dim.getWrappedWidth());
@@ -37,7 +37,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		}
 		default @Override void setBounds(MonodimensionalBounds<Integer> bounds) {
 			if (bounds instanceof IntegralDimensional1D actual) {
-				setWidth((int) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
 			}
 			else {
 				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
@@ -62,7 +62,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		
 		default @Override void setSize(Dimensional1DType<Float> dim) {
 			if (dim instanceof Dimensional1D actual) {
-				setWidth((float) actual.getWidth());
+				setWidth(actual.getWidth());
 			}
 			else {
 				setWidth(dim.getWrappedWidth());
@@ -70,7 +70,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		}
 		default @Override void setBounds(MonodimensionalBounds<Float> bounds) {
 			if (bounds instanceof Dimensional1D actual) {
-				setWidth((float) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
 			}
 			else {
 				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
@@ -95,7 +95,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		
 		default @Override void setSize(Dimensional1DType<Double> dim) {
 			if (dim instanceof DoubleDimensional1D actual) {
-				setWidth((double) actual.getWidth());
+				setWidth(actual.getWidth());
 			}
 			else {
 				setWidth(dim.getWrappedWidth());
@@ -103,7 +103,7 @@ public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> 
 		}
 		default @Override void setBounds(MonodimensionalBounds<Double> bounds) {
 			if (bounds instanceof DoubleDimensional1D actual) {
-				setWidth((double) actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1));
 			}
 			else {
 				setWidth(bounds.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));

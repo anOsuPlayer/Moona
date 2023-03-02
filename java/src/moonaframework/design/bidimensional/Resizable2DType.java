@@ -1,9 +1,7 @@
 package moonaframework.design.bidimensional;
 
-import moonaframework.design.bidimensional.Positional2DType.IntegralPositional2D;
 import moonaframework.design.bidimensional.geometry.BidimensionalBounds;
 import moonaframework.design.monodimensional.Dimensional1DType;
-import moonaframework.design.monodimensional.Positional1DType;
 import moonaframework.design.monodimensional.Resizable1DType;
 import moonaframework.design.monodimensional.geometry.MonodimensionalBounds;
 
@@ -12,6 +10,14 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 	void setHeight(T height) throws NullPointerException;
 	
 	void resizeHeight(T dHeight) throws NullPointerException;
+	
+	default void asWidth(Dimensional1DType<T> dim) {
+		setWidth(dim.getWrappedWidth());
+	}
+	
+	default void asHeight(Dimensional1DType<T> dim) {
+		setHeight(dim.getWrappedWidth());
+	}
 	
 	public static interface IntegralResizable2D extends Resizable2DType<Integer>, IntegralDimensional2D, IntegralResizable1D {
 		
@@ -30,7 +36,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		
 		default @Override void setSize(Dimensional1DType<Integer> dim) {
 			if (dim instanceof IntegralDimensional2D actual) {
-				setWidth((int) actual.getWidth()); setHeight(actual.getHeight());
+				setWidth(actual.getWidth()); setHeight(actual.getHeight());
 			}
 			else if (dim instanceof Dimensional2DType<Integer> general) {
 				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
@@ -41,7 +47,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		}
 		default @Override void setBounds(MonodimensionalBounds<Integer> dim) {
 			if (dim instanceof IntegralDimensional2D actual) {
-				setWidth((int) actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
 						* ((getHeight() < 0) ? -1 : 1));
 			}
 			else if (dim instanceof BidimensionalBounds<Integer> general) {
@@ -50,6 +56,23 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 			}
 			else {
 				setWidth(dim.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+		}
+		
+		default @Override void asWidth(Dimensional1DType<Integer> pos) throws NullPointerException {
+			if (pos instanceof IntegralDimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setWidth(pos.getWrappedWidth());
+			}
+		}
+		default @Override void asHeight(Dimensional1DType<Integer> pos) throws NullPointerException {
+			if (pos instanceof IntegralDimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setHeight(pos.getWrappedWidth());
 			}
 		}
 	}
@@ -71,7 +94,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		
 		default @Override void setSize(Dimensional1DType<Float> dim) {
 			if (dim instanceof Dimensional2D actual) {
-				setWidth((float) actual.getWidth()); setHeight(actual.getHeight());
+				setWidth(actual.getWidth()); setHeight(actual.getHeight());
 			}
 			else if (dim instanceof Dimensional2DType<Float> general) {
 				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
@@ -82,7 +105,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		}
 		default @Override void setBounds(MonodimensionalBounds<Float> dim) {
 			if (dim instanceof Dimensional2D actual) {
-				setWidth((float) actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
 						* ((getHeight() < 0) ? -1 : 1));
 			}
 			else if (dim instanceof BidimensionalBounds<Float> general) {
@@ -91,6 +114,23 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 			}
 			else {
 				setWidth(dim.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+		}
+		
+		default @Override void asWidth(Dimensional1DType<Float> pos) throws NullPointerException {
+			if (pos instanceof Dimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setWidth(pos.getWrappedWidth());
+			}
+		}
+		default @Override void asHeight(Dimensional1DType<Float> pos) throws NullPointerException {
+			if (pos instanceof Dimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setHeight(pos.getWrappedWidth());
 			}
 		}
 	}
@@ -112,7 +152,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		
 		default @Override void setSize(Dimensional1DType<Double> dim) {
 			if (dim instanceof DoubleDimensional2D actual) {
-				setWidth((double) actual.getWidth()); setHeight(actual.getHeight());
+				setWidth(actual.getWidth()); setHeight(actual.getHeight());
 			}
 			else if (dim instanceof Dimensional2DType<Double> general) {
 				setWidth(general.getWrappedWidth()); setHeight(general.getWrappedHeight());
@@ -123,7 +163,7 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 		}
 		default @Override void setBounds(MonodimensionalBounds<Double> dim) {
 			if (dim instanceof DoubleDimensional2D actual) {
-				setWidth((double) actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
+				setWidth(actual.getWidth() * ((getWidth() < 0) ? -1 : 1)); setHeight(actual.getHeight()
 						* ((getHeight() < 0) ? -1 : 1));
 			}
 			else if (dim instanceof BidimensionalBounds<Double> general) {
@@ -132,6 +172,23 @@ public interface Resizable2DType<T extends Number> extends Dimensional2DType<T>,
 			}
 			else {
 				setWidth(dim.getWrappedWidth() * ((getWidth() < 0) ? -1 : 1));
+			}
+		}
+		
+		default @Override void asWidth(Dimensional1DType<Double> pos) throws NullPointerException {
+			if (pos instanceof DoubleDimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setWidth(pos.getWrappedWidth());
+			}
+		}
+		default @Override void asHeight(Dimensional1DType<Double> pos) throws NullPointerException {
+			if (pos instanceof DoubleDimensional1D specific) {
+				setWidth(specific.getWidth());
+			}
+			else {
+				setHeight(pos.getWrappedWidth());
 			}
 		}
 	}

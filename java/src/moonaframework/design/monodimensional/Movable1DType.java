@@ -25,7 +25,7 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		
 		default @Override void setPosition(Positional1DType<Integer> pos) {
 			if (pos instanceof IntegralPositional1D actual) {
-				setX((int) actual.getX());
+				setX(actual.getX());
 			}
 			else {
 				setX(pos.getWrappedX());
@@ -50,7 +50,7 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		
 		default @Override void setPosition(Positional1DType<Float> pos) {
 			if (pos instanceof Positional1D actual) {
-				setX((float) actual.getX());
+				setX(actual.getX());
 			}
 			else {
 				setX(pos.getWrappedX());
@@ -75,7 +75,7 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 		
 		default @Override void setPosition(Positional1DType<Double> pos) {
 			if (pos instanceof DoublePositional1D actual) {
-				setX((double) actual.getX());
+				setX(actual.getX());
 			}
 			else {
 				setX(pos.getWrappedX());
