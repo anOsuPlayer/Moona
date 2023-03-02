@@ -1,6 +1,5 @@
 package moonaframework.design.monodimensional;
 
-import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
 import moonaframework.design.monodimensional.geometry.MonodimensionalBounds;
 
 public interface Resizable1DType<T extends Number> extends Dimensional1DType<T> {

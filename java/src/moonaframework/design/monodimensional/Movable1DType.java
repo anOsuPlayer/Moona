@@ -7,7 +7,7 @@ public interface Movable1DType<T extends Number> extends Positional1DType<T> {
 	void moveX(T dx) throws NullPointerException;
 	
 	void setPosition(Positional1DType<T> pos) throws NullPointerException;
-	
+
 	public static interface IntegralMovable1D extends Movable1DType<Integer>, IntegralPositional1D {
 		
 		default @Override void setX(Integer x) throws NullPointerException {
