@@ -4,7 +4,7 @@ import moonaframework.design.WatchDog;
 import moonaframework.design.monodimensional.Dimensional1DType;
 
 public interface MonodimensionalBounds<T extends Number> extends MonodimensionalSize<T> {
-
+	
 	public static class IntegralBounds1D extends IntegralSize1D implements MonodimensionalBounds<Integer> {
 		
 		public @Override String toString() {

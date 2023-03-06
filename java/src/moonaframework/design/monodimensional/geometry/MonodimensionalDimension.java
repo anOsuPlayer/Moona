@@ -4,7 +4,7 @@ import moonaframework.design.monodimensional.Dimensional1DType;
 import moonaframework.design.monodimensional.Resizable1DType;
 
 public interface MonodimensionalDimension<T extends Number> extends MonodimensionalSize<T>, Resizable1DType<T> {
-
+	
 	public static class IntegralDimension1D extends IntegralSize1D implements MonodimensionalDimension<Integer>, IntegralResizable1D {
 		
 		public @Override void setWidth(int width) {

@@ -6,7 +6,7 @@ import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.Doub
 import moonaframework.design.monodimensional.geometry.MonodimensionalBounds.IntegralBounds1D;
 
 public interface MonodimensionalSize<T extends Number> extends Dimensional1DType<T>, Cloneable {
-
+	
 	public static class IntegralSize1D implements MonodimensionalSize<Integer>, IntegralDimensional1D {
 		
 		protected int width;
@@ -27,7 +27,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public @Override boolean equals(Object o) {
-			return (o instanceof IntegralDimensional1D pos) ? pos.getWidth() == width :
+			return (o instanceof IntegralDimensional1D dim) ? dim.getWidth() == width :
 				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().intValue() == width :
 				false;
 		}
@@ -73,7 +73,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public @Override boolean equals(Object o) {
-			return (o instanceof Dimensional1D pos) ? pos.getWidth() == width :
+			return (o instanceof Dimensional1D dim) ? dim.getWidth() == width :
 				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().floatValue() == width :
 				false;
 		}
@@ -119,7 +119,7 @@ public interface MonodimensionalSize<T extends Number> extends Dimensional1DType
 		}
 		
 		public @Override boolean equals(Object o) {
-			return (o instanceof DoubleDimensional1D pos) ? pos.getWidth() == width :
+			return (o instanceof DoubleDimensional1D dim) ? dim.getWidth() == width :
 				(o instanceof Dimensional1DType<?> dimtype) ? dimtype.getWrappedWidth().doubleValue() == width :
 				false;
 		}

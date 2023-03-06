@@ -34,7 +34,7 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 		
 		public @Override boolean equals(Object o) throws NullPointerException {
-			return (o instanceof IntegralDimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+			return (o instanceof IntegralDimensional2D dim) ? dim.getWidth() == width && dim.getHeight() == height :
 				(o instanceof Dimensional2DType<?> dimtype) ? dimtype.getWrappedWidth().intValue() == width &&
 				dimtype.getWrappedWidth().intValue() == height : false;
 		}
@@ -79,7 +79,7 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 		
 		public @Override boolean equals(Object o) throws NullPointerException {
-			return (o instanceof Dimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+			return (o instanceof Dimensional2D dim) ? dim.getWidth() == width && dim.getHeight() == height :
 				(o instanceof Dimensional2DType<?> dimtype) ? dimtype.getWrappedWidth().floatValue() == width &&
 				dimtype.getWrappedWidth().floatValue() == height : false;
 		}
@@ -131,7 +131,7 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 		
 		public @Override boolean equals(Object o) throws NullPointerException {
-			return (o instanceof DoubleDimensional2D pos) ? pos.getWidth() == width && pos.getHeight() == height :
+			return (o instanceof DoubleDimensional2D dim) ? dim.getWidth() == width && dim.getHeight() == height :
 				(o instanceof Dimensional2DType<?> dimtype) ? dimtype.getWrappedWidth().doubleValue() == width &&
 				dimtype.getWrappedWidth().doubleValue() == height : false;
 		}
