@@ -22,10 +22,10 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		public IntegralBounds1D(Integer width) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue());
 		}
-		public IntegralBounds1D(IntegralDimensional1D dim) {
+		public IntegralBounds1D(IntegralDimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
 		}
-		public IntegralBounds1D(Dimensional1DType<?> dim) {
+		public IntegralBounds1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().intValue() > 0) ? dim.getWrappedWidth().intValue() :
 				dim.getWrappedWidth().intValue() * -1);
 		}
@@ -48,10 +48,10 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		public Bounds1D(Float width) throws IllegalArgumentException, NullPointerException {
 			this(width.floatValue());
 		}
-		public Bounds1D(Dimensional1D dim) {
+		public Bounds1D(Dimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
 		}
-		public Bounds1D(Dimensional1DType<?> dim) {
+		public Bounds1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().floatValue() > 0) ? dim.getWrappedWidth().floatValue() :
 				dim.getWrappedWidth().floatValue() * -1);
 		}
@@ -74,10 +74,10 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		public DoubleBounds1D(Double width) throws IllegalArgumentException, NullPointerException {
 			this(width.doubleValue());
 		}
-		public DoubleBounds1D(Dimensional1D dim) {
+		public DoubleBounds1D(Dimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
 		}
-		public DoubleBounds1D(Dimensional1DType<?> dim) {
+		public DoubleBounds1D(Dimensional1DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().doubleValue() > 0) ? dim.getWrappedWidth().doubleValue() :
 				dim.getWrappedWidth().doubleValue() * -1);
 		}

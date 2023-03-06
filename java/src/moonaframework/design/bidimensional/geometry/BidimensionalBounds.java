@@ -23,11 +23,11 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		public IntegralBounds2D(Integer width, Integer height) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue(), height.intValue());
 		}
-		public IntegralBounds2D(IntegralDimensional2D dim) {
+		public IntegralBounds2D(IntegralDimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
 					(dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1);
 		}
-		public IntegralBounds2D(Dimensional2DType<?> dim) {
+		public IntegralBounds2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().intValue() > 0) ? dim.getWrappedWidth().intValue() :
 				dim.getWrappedWidth().intValue() * -1, (dim.getWrappedWidth().intValue() > 0) ?
 				dim.getWrappedWidth().intValue() : dim.getWrappedWidth().intValue() * -1);
@@ -51,11 +51,11 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		public Bounds2D(Float width, Float height) throws IllegalArgumentException, NullPointerException {
 			this(width.floatValue(), height.floatValue());
 		}
-		public Bounds2D(Dimensional2D dim) {
+		public Bounds2D(Dimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
 					(dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1);
 		}
-		public Bounds2D(Dimensional2DType<?> dim) {
+		public Bounds2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().floatValue() > 0) ? dim.getWrappedWidth().floatValue() :
 				dim.getWrappedWidth().floatValue() * -1, (dim.getWrappedWidth().floatValue() > 0) ?
 				dim.getWrappedWidth().floatValue() : dim.getWrappedWidth().floatValue() * -1);
@@ -79,11 +79,11 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		public DoubleBounds2D(Double width, Double height) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue(), height.intValue());
 		}
-		public DoubleBounds2D(DoubleDimensional2D dim) {
+		public DoubleBounds2D(DoubleDimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
 					(dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1);
 		}
-		public DoubleBounds2D(Dimensional2DType<?> dim) {
+		public DoubleBounds2D(Dimensional2DType<?> dim) throws NullPointerException {
 			this((dim.getWrappedWidth().doubleValue() > 0) ? dim.getWrappedWidth().doubleValue() :
 				dim.getWrappedWidth().doubleValue() * -1, (dim.getWrappedWidth().doubleValue() > 0) ?
 				dim.getWrappedWidth().doubleValue() : dim.getWrappedWidth().doubleValue() * -1);
