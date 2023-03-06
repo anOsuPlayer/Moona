@@ -2,7 +2,6 @@ package moonaframework.design.tridimensional;
 
 import moonaframework.design.bidimensional.Movable2DType;
 import moonaframework.design.monodimensional.Positional1DType;
-import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
 
 public interface Movable3DType<T extends Number> extends Positional3DType<T>, Movable2DType<T> {
 

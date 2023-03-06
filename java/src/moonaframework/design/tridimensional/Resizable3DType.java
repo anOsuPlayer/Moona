@@ -2,8 +2,6 @@ package moonaframework.design.tridimensional;
 
 import moonaframework.design.bidimensional.Resizable2DType;
 import moonaframework.design.monodimensional.Dimensional1DType;
-import moonaframework.design.monodimensional.Positional1DType;
-import moonaframework.design.monodimensional.Positional1DType.IntegralPositional1D;
 
 public interface Resizable3DType<T extends Number> extends Dimensional3DType<T>, Resizable2DType<T> {
 
