@@ -1,9 +1,13 @@
 package moonaframework.design.geometry.bidimensional;
 
+import moonaframework.design.geometry.Size;
 import moonaframework.design.geometry.bidimensional.BidimensionalBounds.Bounds2D;
 import moonaframework.design.geometry.bidimensional.BidimensionalBounds.DoubleBounds2D;
 import moonaframework.design.geometry.bidimensional.BidimensionalBounds.IntegralBounds2D;
 import moonaframework.design.geometry.monodimensional.MonodimensionalSize;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.Dimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.DoubleDimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.IntegralDimensional3D;
 
 public interface BidimensionalSize<T extends Number> extends MonodimensionalSize<T>, Dimensional2DType<T> {
 
@@ -47,6 +51,18 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 		public IntegralSize2D(Integer width, Integer height) throws NullPointerException {
 			this(width.intValue(), height.intValue());
+		}
+		public IntegralSize2D(IntegralDimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = dim.getWidth();
+				case HEIGHT -> this.width = dim.getHeight();
+				case DEPTH -> this.width = dim.getDepth();
+			}
+			switch (height) {
+				case WIDTH -> this.height = dim.getWidth();
+				case HEIGHT -> this.height = dim.getHeight();
+				case DEPTH -> this.height = dim.getDepth();
+			}
 		}
 		public IntegralSize2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());
@@ -100,6 +116,18 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		public Size2D(Float width, Float height) throws NullPointerException {
 			this(width.floatValue(), height.floatValue());
 		}
+		public Size2D(Dimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = dim.getWidth();
+				case HEIGHT -> this.width = dim.getHeight();
+				case DEPTH -> this.width = dim.getDepth();
+			}
+			switch (height) {
+				case WIDTH -> this.height = dim.getWidth();
+				case HEIGHT -> this.height = dim.getHeight();
+				case DEPTH -> this.height = dim.getDepth();
+			}
+		}
 		public Size2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());
 		}
@@ -151,6 +179,18 @@ public interface BidimensionalSize<T extends Number> extends MonodimensionalSize
 		}
 		public DoubleSize2D(Double width, Double height) throws NullPointerException {
 			this(width.doubleValue(), height.doubleValue());
+		}
+		public DoubleSize2D(DoubleDimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = dim.getWidth();
+				case HEIGHT -> this.width = dim.getHeight();
+				case DEPTH -> this.width = dim.getDepth();
+			}
+			switch (height) {
+				case WIDTH -> this.height = dim.getWidth();
+				case HEIGHT -> this.height = dim.getHeight();
+				case DEPTH -> this.height = dim.getDepth();
+			}
 		}
 		public DoubleSize2D(IntegralDimensional2D dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight());

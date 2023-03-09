@@ -1,6 +1,10 @@
 package moonaframework.design.geometry.bidimensional;
 
+import moonaframework.design.geometry.Size;
 import moonaframework.design.geometry.monodimensional.MonodimensionalDimension;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.Dimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.DoubleDimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.IntegralDimensional3D;
 
 public interface BidimensionalDimension<T extends Number> extends BidimensionalSize<T>, Resizable2DType<T>, MonodimensionalDimension<T>  {
 
@@ -23,19 +27,22 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		}
 		
 		public IntegralDimension2D(int width, int height) {
-			this.width = width; this.height = height;
+			super(width, height);
 		}
 		public IntegralDimension2D(Integer width, Integer height) throws NullPointerException {
-			this(width.intValue(), height.intValue());
+			super(width.intValue(), height.intValue());
+		}
+		public IntegralDimension2D(IntegralDimensional3D dim, Size width, Size height) throws NullPointerException {
+			super(dim, width, height);
 		}
 		public IntegralDimension2D(IntegralDimensional2D dim) throws NullPointerException {
-			this(dim.getWidth(), dim.getHeight());
+			super(dim.getWidth(), dim.getHeight());
 		}
 		public IntegralDimension2D(Dimensional2DType<?> dim) throws NullPointerException {
-			this(dim.getWrappedWidth().intValue(), dim.getWrappedHeight().intValue());
+			super(dim.getWrappedWidth().intValue(), dim.getWrappedHeight().intValue());
 		}
 		public IntegralDimension2D() {
-			this(0, 0);
+			super(0, 0);
 		}
 	}
 	
@@ -58,19 +65,22 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		}
 		
 		public Dimension2D(float width, float height) {
-			this.width = width; this.height = height;
+			super(width, height);
 		}
 		public Dimension2D(Float width, Float height) throws NullPointerException {
-			this(width.floatValue(), height.floatValue());
+			super(width.floatValue(), height.floatValue());
+		}
+		public Dimension2D(Dimensional3D dim, Size width, Size height) throws NullPointerException {
+			super(dim, width, height);
 		}
 		public Dimension2D(IntegralDimensional2D dim) throws NullPointerException {
-			this(dim.getWidth(), dim.getHeight());
+			super(dim.getWidth(), dim.getHeight());
 		}
 		public Dimension2D(Dimensional2DType<?> dim) throws NullPointerException {
-			this(dim.getWrappedWidth().floatValue(), dim.getWrappedHeight().floatValue());
+			super(dim.getWrappedWidth().floatValue(), dim.getWrappedHeight().floatValue());
 		}
 		public Dimension2D() {
-			this(0, 0);
+			super(0, 0);
 		}
 	}
 
@@ -94,19 +104,22 @@ public interface BidimensionalDimension<T extends Number> extends BidimensionalS
 		}
 		
 		public DoubleDimension2D(double width, double height) {
-			this.width = width; this.height = height;
+			super(width, height);
 		}
 		public DoubleDimension2D(Double width, Double height) throws NullPointerException {
-			this(width.intValue(), height.intValue());
+			super(width.intValue(), height.intValue());
+		}
+		public DoubleDimension2D(DoubleDimensional3D dim, Size width, Size height) throws NullPointerException {
+			super(dim, width, height);
 		}
 		public DoubleDimension2D(IntegralDimensional2D dim) throws NullPointerException {
-			this(dim.getWidth(), dim.getHeight());
+			super(dim.getWidth(), dim.getHeight());
 		}
 		public DoubleDimension2D(Dimensional2DType<?> dim) throws NullPointerException {
-			this(dim.getWrappedWidth().doubleValue(), dim.getWrappedHeight().doubleValue());
+			super(dim.getWrappedWidth().doubleValue(), dim.getWrappedHeight().doubleValue());
 		}
 		public DoubleDimension2D() {
-			this(0, 0);
+			super(0, 0);
 		}
 	}
 }

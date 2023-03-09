@@ -1,6 +1,11 @@
 package moonaframework.design.geometry.bidimensional;
 
+import moonaframework.design.geometry.Coordinate;
 import moonaframework.design.geometry.monodimensional.MonodimensionalPosition;
+import moonaframework.design.geometry.tridimensional.Positional3DType.DoublePositional3D;
+import moonaframework.design.geometry.tridimensional.Positional3DType.IntegralPositional3D;
+import moonaframework.design.geometry.tridimensional.Positional3DType.Positional3D;
+import moonaframework.design.geometry.tridimensional.TridimensionalPosition.DoublePosition3D;
 
 public interface BidimensionalPosition<T extends Number> extends MonodimensionalPosition<T>, Positional2DType<T> {
 
@@ -41,6 +46,18 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		}
 		public IntegralPosition2D(Integer x, Integer y) throws NullPointerException {
 			this(x.intValue(), y.intValue());
+		}
+		public IntegralPosition2D(IntegralPositional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			switch (x) {
+				case X -> this.x = pos.getX();
+				case Y -> this.x = pos.getY();
+				case Z -> this.x = pos.getZ();
+			}
+			switch (y) {
+				case X -> this.y = pos.getX();
+				case Y -> this.y = pos.getY();
+				case Z -> this.y = pos.getZ();
+			}
 		}
 		public IntegralPosition2D(IntegralPositional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());
@@ -91,6 +108,18 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		public Position2D(Float x, Float y) throws NullPointerException {
 			this(x.floatValue(), y.floatValue());
 		}
+		public Position2D(Positional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			switch (x) {
+				case X -> this.x = pos.getX();
+				case Y -> this.x = pos.getY();
+				case Z -> this.x = pos.getZ();
+			}
+			switch (y) {
+				case X -> this.y = pos.getX();
+				case Y -> this.y = pos.getY();
+				case Z -> this.y = pos.getZ();
+			}
+		}
 		public Position2D(Positional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());
 		}
@@ -139,6 +168,18 @@ public interface BidimensionalPosition<T extends Number> extends Monodimensional
 		}
 		public DoublePosition2D(Double x, Double y) throws NullPointerException {
 			this(x.doubleValue(), y.doubleValue());
+		}
+		public DoublePosition2D(DoublePositional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			switch (x) {
+				case X -> this.x = pos.getX();
+				case Y -> this.x = pos.getY();
+				case Z -> this.x = pos.getZ();
+			}
+			switch (y) {
+				case X -> this.y = pos.getX();
+				case Y -> this.y = pos.getY();
+				case Z -> this.y = pos.getZ();
+			}
 		}
 		public DoublePosition2D(DoublePositional2D pos) throws NullPointerException {
 			this(pos.getX(), pos.getY());

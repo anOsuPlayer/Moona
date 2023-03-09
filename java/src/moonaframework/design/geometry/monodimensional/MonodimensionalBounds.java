@@ -1,6 +1,14 @@
 package moonaframework.design.geometry.monodimensional;
 
 import moonaframework.design.WatchDog;
+import moonaframework.design.geometry.Size;
+import moonaframework.design.geometry.bidimensional.Dimensional2DType.Dimensional2D;
+import moonaframework.design.geometry.bidimensional.Dimensional2DType.DoubleDimensional2D;
+import moonaframework.design.geometry.bidimensional.Dimensional2DType.IntegralDimensional2D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.Dimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.DoubleDimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.IntegralDimensional3D;
+import moonaframework.util.exception.NullArgumentException;
 
 public interface MonodimensionalBounds<T extends Number> extends MonodimensionalSize<T> {
 	
@@ -20,6 +28,20 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		}
 		public IntegralBounds1D(Integer width) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue());
+		}
+		public IntegralBounds1D(IntegralDimensional3D dim, Size width) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+		}
+		public IntegralBounds1D(IntegralDimensional2D dim, Size width) throws NullPointerException, IllegalArgumentException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> throw new IllegalArgumentException("Bidimensional Elements do not have any depth.");
+			}
 		}
 		public IntegralBounds1D(IntegralDimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
@@ -47,6 +69,20 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		public Bounds1D(Float width) throws IllegalArgumentException, NullPointerException {
 			this(width.floatValue());
 		}
+		public Bounds1D(Dimensional3D dim, Size width) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+		}
+		public Bounds1D(Dimensional2D dim, Size width) throws NullPointerException, IllegalArgumentException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> throw new IllegalArgumentException("Bidimensional Elements do not have any depth.");
+			}
+		}
 		public Bounds1D(Dimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
 		}
@@ -73,7 +109,21 @@ public interface MonodimensionalBounds<T extends Number> extends Monodimensional
 		public DoubleBounds1D(Double width) throws IllegalArgumentException, NullPointerException {
 			this(width.doubleValue());
 		}
-		public DoubleBounds1D(Dimensional1D dim) throws NullPointerException {
+		public DoubleBounds1D(DoubleDimensional3D dim, Size width) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+		}
+		public DoubleBounds1D(DoubleDimensional2D dim, Size width) throws NullPointerException, IllegalArgumentException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> throw new IllegalArgumentException("Bidimensional Elements do not have any depth.");
+			}
+		}
+		public DoubleBounds1D(DoubleDimensional1D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1);
 		}
 		public DoubleBounds1D(Dimensional1DType<?> dim) throws NullPointerException {

@@ -1,6 +1,10 @@
 package moonaframework.design.geometry.bidimensional;
 
+import moonaframework.design.geometry.Coordinate;
 import moonaframework.design.geometry.monodimensional.MonodimensionalPoint;
+import moonaframework.design.geometry.tridimensional.Positional3DType.DoublePositional3D;
+import moonaframework.design.geometry.tridimensional.Positional3DType.IntegralPositional3D;
+import moonaframework.design.geometry.tridimensional.Positional3DType.Positional3D;
 
 public interface BidimensionalPoint<T extends Number> extends BidimensionalPosition<T>, Movable2DType<T>, MonodimensionalPoint<T> {
 
@@ -27,6 +31,9 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		}
 		public IntegralPoint2D(Integer x, Integer y) throws NullPointerException {
 			super(x, y);
+		}
+		public IntegralPoint2D(IntegralPositional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			super(pos, x, y);
 		}
 		public IntegralPoint2D(IntegralPositional2D pos) throws NullPointerException {
 			super(pos);
@@ -63,6 +70,9 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		public Point2D(Float x, Float y) throws NullPointerException {
 			super(x, y);
 		}
+		public Point2D(Positional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			super(pos, x, y);
+		}
 		public Point2D(Positional2D pos) throws NullPointerException {
 			super(pos);
 		}
@@ -97,6 +107,9 @@ public interface BidimensionalPoint<T extends Number> extends BidimensionalPosit
 		}
 		public DoublePoint2D(Double x, Double y) throws NullPointerException {
 			super(x, y);
+		}
+		public DoublePoint2D(DoublePositional3D pos, Coordinate x, Coordinate y) throws NullPointerException {
+			super(pos, x, y);
 		}
 		public DoublePoint2D(DoublePositional2D pos) throws NullPointerException {
 			super(pos);

@@ -1,7 +1,12 @@
 package moonaframework.design.geometry.bidimensional;
 
 import moonaframework.design.WatchDog;
+import moonaframework.design.geometry.Coordinate;
+import moonaframework.design.geometry.Size;
 import moonaframework.design.geometry.monodimensional.MonodimensionalBounds;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.Dimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.DoubleDimensional3D;
+import moonaframework.design.geometry.tridimensional.Dimensional3DType.IntegralDimensional3D;
 
 public interface BidimensionalBounds<T extends Number> extends BidimensionalSize<T>, MonodimensionalBounds<T> {
 
@@ -21,6 +26,18 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		}
 		public IntegralBounds2D(Integer width, Integer height) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue(), height.intValue());
+		}
+		public IntegralBounds2D(IntegralDimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+			switch (height) {
+				case WIDTH -> this.height = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.height = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.height = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
 		}
 		public IntegralBounds2D(IntegralDimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
@@ -50,6 +67,18 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		public Bounds2D(Float width, Float height) throws IllegalArgumentException, NullPointerException {
 			this(width.floatValue(), height.floatValue());
 		}
+		public Bounds2D(Dimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+			switch (height) {
+				case WIDTH -> this.height = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.height = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.height = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+		}
 		public Bounds2D(Dimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
 					(dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1);
@@ -77,6 +106,18 @@ public interface BidimensionalBounds<T extends Number> extends BidimensionalSize
 		}
 		public DoubleBounds2D(Double width, Double height) throws IllegalArgumentException, NullPointerException {
 			this(width.intValue(), height.intValue());
+		}
+		public DoubleBounds2D(DoubleDimensional3D dim, Size width, Size height) throws NullPointerException {
+			switch (width) {
+				case WIDTH -> this.width = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.width = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.width = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
+			switch (height) {
+				case WIDTH -> this.height = (dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1;
+				case HEIGHT -> this.height = (dim.getHeight() > 0) ? dim.getHeight() : dim.getHeight() * -1;
+				case DEPTH -> this.height = (dim.getDepth() > 0) ? dim.getDepth() : dim.getDepth() * -1;
+			}
 		}
 		public DoubleBounds2D(DoubleDimensional2D dim) throws NullPointerException {
 			this((dim.getWidth() > 0) ? dim.getWidth() : dim.getWidth() * -1,
