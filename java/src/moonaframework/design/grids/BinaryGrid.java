@@ -1,6 +1,6 @@
 package moonaframework.design.grids;
 
-import moonaframework.design.CoordinateOutOfRangeException;
+import moonaframework.design.geometry.CoordinateOutOfRangeException;
 
 public class BinaryGrid<T> extends Grid<T> {
 

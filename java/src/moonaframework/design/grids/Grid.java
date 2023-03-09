@@ -1,9 +1,9 @@
 package moonaframework.design.grids;
 
-import moonaframework.design.CoordinateOutOfRangeException;
-import moonaframework.design.bidimensional.Dimensional2DType.IntegralDimensional2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalBounds.IntegralBounds2D;
-import moonaframework.design.bidimensional.geometry.BidimensionalSize.IntegralSize2D;
+import moonaframework.design.geometry.CoordinateOutOfRangeException;
+import moonaframework.design.geometry.bidimensional.BidimensionalBounds.IntegralBounds2D;
+import moonaframework.design.geometry.bidimensional.BidimensionalSize.IntegralSize2D;
+import moonaframework.design.geometry.bidimensional.Dimensional2DType.IntegralDimensional2D;
 import moonaframework.util.exception.NullArgumentException;
 
 public class Grid<T> implements IntegralDimensional2D {

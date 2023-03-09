@@ -1,5 +1,7 @@
 package moonaframework.design;
 
+import moonaframework.design.geometry.CoordinateOutOfRangeException;
+
 public final class WatchDog {
 
 	public static void requiresInRange(double value, double upperBound, double lowerBound) throws CoordinateOutOfRangeException {
