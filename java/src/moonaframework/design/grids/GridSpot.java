@@ -1,10 +1,10 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.geometry.CoordinateOutOfRangeException;
-import moonaframework.design.geometry.bidimensional.BidimensionalPosition.IntegralPosition2D;
+import moonaframework.design.geometry.PositionType.IntegralPosition;
 import moonaframework.util.exception.NullArgumentException;
 
-public class GridSpot<T> extends IntegralPosition2D {
+public class GridSpot<T> extends IntegralPosition {
 
 	private final Grid<T> base;
 	
@@ -12,40 +12,40 @@ public class GridSpot<T> extends IntegralPosition2D {
 		return this.base;
 	}
 	public T getValue() {
-		return this.base.get(x, y);
+		return this.base.get(pos[0], pos[1]);
 	}
 	
 	public int leftBorderDistance() {
-		return this.x;
+		return this.pos[0];
 	}
 	public boolean isOnLeftBorder() {
-		return this.x == 0;
+		return this.pos[0] == 0;
 	}
 	
 	public int rightBorderDistance() {
-		return base.getWidth() - this.x - 1;
+		return base.getWidth() - this.pos[0] - 1;
 	}
 	public boolean isOnRightBorder() {
-		return this.x == base.getWidth()-1;
+		return this.pos[0] == base.getWidth()-1;
 	}
 	
 	public int topBorderDistance() {
-		return this.y;
+		return this.pos[1];
 	}
 	public boolean isOnTopBorder() {
-		return this.y == base.getHeight()-1;
+		return this.pos[1] == base.getHeight()-1;
 	}
 	
 	public int botBorderDistance() {
-		return base.getHeight() - this.y - 1;
+		return base.getHeight() - this.pos[1] - 1;
 	}
 	public boolean isOnBotBorder() {
-		return this.y == 0;
+		return this.pos[1] == 0;
 	}
 	
 	public boolean isCorner() {
-		return (this.x == 0 && this.y == 0) || (this.x == 0 && this.y == base.getHeight()-1) ||
-				(this.x == base.getWidth()-1 && this.y == 0) || (this.x == base.getWidth()-1 || this.y == base.getHeight()-1);
+		return (this.pos[0] == 0 && this.pos[1] == 0) || (this.pos[0] == 0 && this.pos[1] == base.getHeight()-1) ||
+				(this.pos[0] == base.getWidth()-1 && this.pos[1] == 0) || (this.pos[0] == base.getWidth()-1 || this.pos[1] == base.getHeight()-1);
 	}
 	
 	public GridSpot(Grid<T> base, int x, int y) throws NullArgumentException, CoordinateOutOfRangeException {
@@ -55,7 +55,7 @@ public class GridSpot<T> extends IntegralPosition2D {
 		if (!base.isContained(x, y)) {
 			throw new CoordinateOutOfRangeException("The given GridSpot coordinates are out of range.");
 		}
-		this.x = x; this.y = y;
+		this.pos[0] = x; this.pos[1] = y;
 		this.base = base;
 	}
 }

@@ -1,12 +1,10 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.geometry.CoordinateOutOfRangeException;
-import moonaframework.design.geometry.bidimensional.BidimensionalBounds.IntegralBounds2D;
-import moonaframework.design.geometry.bidimensional.BidimensionalSize.IntegralSize2D;
-import moonaframework.design.geometry.bidimensional.Dimensional2DType.IntegralDimensional2D;
+import moonaframework.design.geometry.DimensionalType.IntegralDimensional;
 import moonaframework.util.exception.NullArgumentException;
 
-public class Grid<T> implements IntegralDimensional2D {
+public class Grid<T> implements IntegralDimensional {
 
 	protected final T[][] board;
 	
@@ -20,12 +18,8 @@ public class Grid<T> implements IntegralDimensional2D {
 	public @Override int getHeight() {
 		return board.length;
 	}
-	
-	public @Override IntegralSize2D getSize() {
-		return new IntegralSize2D(getWidth(), getHeight());
-	}
-	public @Override IntegralBounds2D getBounds() {
-		return new IntegralBounds2D(this);
+	public @Override int getDepth() {
+		return 0;
 	}
 	
 	public GridSpot<T> getPoint(int x, int y) {

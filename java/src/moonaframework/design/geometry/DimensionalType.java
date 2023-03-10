@@ -1,5 +1,9 @@
 package moonaframework.design.geometry;
 
+import moonaframework.design.geometry.ResizableType.DoubleResizable;
+import moonaframework.design.geometry.ResizableType.IntegralResizable;
+import moonaframework.design.geometry.ResizableType.Resizable;
+
 public interface DimensionalType<T extends Number> extends Cloneable {
 
 	T getWrappedWidth();
@@ -21,17 +25,41 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 		default @Override Integer getWrappedWidth() {
 			return Integer.valueOf(getWidth());
 		}
+		default @Override void applyWidth(ResizableType<Integer> res) {
+			if (res instanceof IntegralResizable realres) {
+				realres.setWidth(getWidth());
+			}
+			else {
+				res.setWidth(getWrappedWidth());
+			}
+		}
 		
 		int getHeight();
 		
 		default @Override Integer getWrappedHeight() {
 			return Integer.valueOf(getHeight());
 		}
+		default @Override void applyHeight(ResizableType<Integer> res) {
+			if (res instanceof IntegralResizable realres) {
+				realres.setHeight(getHeight());
+			}
+			else {
+				res.setHeight(getWrappedHeight());
+			}
+		}
 		
 		int getDepth();
 		
 		default @Override Integer getWrappedDepth() {
 			return Integer.valueOf(getDepth());
+		}
+		default @Override void applyDepth(ResizableType<Integer> res) {
+			if (res instanceof IntegralResizable realres) {
+				realres.setDepth(getDepth());
+			}
+			else {
+				res.setDepth(getWrappedDepth());
+			}
 		}
 	}
 	
@@ -42,17 +70,41 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 		default @Override Float getWrappedWidth() {
 			return Float.valueOf(getWidth());
 		}
+		default @Override void applyWidth(ResizableType<Float> res) {
+			if (res instanceof Resizable realres) {
+				realres.setWidth(getWidth());
+			}
+			else {
+				res.setWidth(getWrappedWidth());
+			}
+		}
 		
 		float getHeight();
 		
 		default @Override Float getWrappedHeight() {
 			return Float.valueOf(getHeight());
 		}
+		default @Override void applyHeight(ResizableType<Float> res) {
+			if (res instanceof Resizable realres) {
+				realres.setHeight(getHeight());
+			}
+			else {
+				res.setHeight(getWrappedHeight());
+			}
+		}
 		
 		float getDepth();
 		
 		default @Override Float getWrappedDepth() {
 			return Float.valueOf(getDepth());
+		}
+		default @Override void applyDepth(ResizableType<Float> res) {
+			if (res instanceof Resizable realres) {
+				realres.setDepth(getDepth());
+			}
+			else {
+				res.setDepth(getWrappedDepth());
+			}
 		}
 	}
 	
@@ -63,17 +115,41 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 		default @Override Double getWrappedWidth() {
 			return Double.valueOf(getWidth());
 		}
+		default @Override void applyWidth(ResizableType<Double> res) {
+			if (res instanceof DoubleResizable realres) {
+				realres.setWidth(getWidth());
+			}
+			else {
+				res.setWidth(getWrappedWidth());
+			}
+		}
 		
 		double getHeight();
 		
 		default @Override Double getWrappedHeight() {
 			return Double.valueOf(getHeight());
 		}
+		default @Override void applyHeight(ResizableType<Double> res) {
+			if (res instanceof DoubleResizable realres) {
+				realres.setHeight(getHeight());
+			}
+			else {
+				res.setHeight(getWrappedHeight());
+			}
+		}
 		
 		double getDepth();
 		
 		default @Override Double getWrappedDepth() {
 			return Double.valueOf(getDepth());
+		}
+		default @Override void applyDepth(ResizableType<Double> res) {
+			if (res instanceof DoubleResizable realres) {
+				realres.setDepth(getDepth());
+			}
+			else {
+				res.setDepth(getWrappedDepth());
+			}
 		}
 	}
 }

@@ -1,9 +1,5 @@
 package moonaframework.design.geometry;
 
-import moonaframework.design.geometry.PositionalType.Positional;
-import moonaframework.design.geometry.PositionalType.DoublePositional;
-import moonaframework.design.geometry.PositionalType.IntegralPositional;
-
 public interface MovableType<T extends Number> extends PositionalType<T> {
 
 	void setX(T x);
