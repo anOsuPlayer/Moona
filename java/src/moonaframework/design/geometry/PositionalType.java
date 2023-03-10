@@ -4,7 +4,7 @@ import moonaframework.design.geometry.MovableType.DoubleMovable;
 import moonaframework.design.geometry.MovableType.IntegralMovable;
 import moonaframework.design.geometry.MovableType.Movable;
 
-public interface PositionalType<T extends Number> extends Cloneable {
+public interface PositionalType<T extends Number> extends GeometricalEntity, Cloneable {
 
 	T getWrappedX();
 	
@@ -61,6 +61,14 @@ public interface PositionalType<T extends Number> extends Cloneable {
 				mov.setZ(getWrappedZ());
 			}
 		}
+		
+		default int[] toArray() {
+			return switch (this.getOrder()) {
+				case MONODIMENSIONAL: yield new int[] {getX()};
+				case BIDIMENSIONAL: yield new int[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new int[] {getX(), getY(), getZ()};
+			};
+		}
 	}
 	
 	public static interface Positional extends PositionalType<Float> {
@@ -106,6 +114,14 @@ public interface PositionalType<T extends Number> extends Cloneable {
 				mov.setZ(getWrappedZ());
 			}
 		}
+		
+		default float[] toArray() {
+			return switch (this.getOrder()) {
+				case MONODIMENSIONAL: yield new float[] {getX()};
+				case BIDIMENSIONAL: yield new float[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new float[] {getX(), getY(), getZ()};
+			};
+		}
 	}
 	
 	public static interface DoublePositional extends PositionalType<Double> {
@@ -150,6 +166,14 @@ public interface PositionalType<T extends Number> extends Cloneable {
 			else {
 				mov.setZ(getWrappedZ());
 			}
+		}
+		
+		default double[] toArray() {
+			return switch (this.getOrder()) {
+				case MONODIMENSIONAL: yield new double[] {getX()};
+				case BIDIMENSIONAL: yield new double[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new double[] {getX(), getY(), getZ()};
+			};
 		}
 	}
 }

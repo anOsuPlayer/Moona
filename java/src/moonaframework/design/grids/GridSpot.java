@@ -49,13 +49,13 @@ public class GridSpot<T> extends IntegralPosition {
 	}
 	
 	public GridSpot(Grid<T> base, int x, int y) throws NullArgumentException, CoordinateOutOfRangeException {
+		super(x, y);
 		if (base == null) {
 			throw new NullArgumentException("The base Grid cannot be null.");
 		}
 		if (!base.isContained(x, y)) {
 			throw new CoordinateOutOfRangeException("The given GridSpot coordinates are out of range.");
 		}
-		this.pos[0] = x; this.pos[1] = y;
 		this.base = base;
 	}
 }
