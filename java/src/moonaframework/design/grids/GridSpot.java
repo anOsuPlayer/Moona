@@ -49,7 +49,7 @@ public class GridSpot<T> extends IntegralPosition {
 	}
 	
 	public GridSpot(Grid<T> base, int x, int y) throws NullArgumentException, CoordinateOutOfRangeException {
-		super(x, y);
+		super(x, y, 0);
 		if (base == null) {
 			throw new NullArgumentException("The base Grid cannot be null.");
 		}

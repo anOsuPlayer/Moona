@@ -4,7 +4,7 @@ import moonaframework.design.geometry.ResizableType.DoubleResizable;
 import moonaframework.design.geometry.ResizableType.IntegralResizable;
 import moonaframework.design.geometry.ResizableType.Resizable;
 
-public interface DimensionalType<T extends Number> extends GeometricalEntity, Cloneable {
+public interface DimensionalType<T extends Number> extends Cloneable {
 
 	T getWrappedWidth();
 	
@@ -61,14 +61,6 @@ public interface DimensionalType<T extends Number> extends GeometricalEntity, Cl
 				res.setDepth(getWrappedDepth());
 			}
 		}
-		
-		default int[] toArray() {
-			return switch (this.getOrder()) {
-				case MONODIMENSIONAL: yield new int[] {getWidth()};
-				case BIDIMENSIONAL: yield new int[] {getWidth(), getHeight()};
-				case TRIDIMENSIONAL: yield new int[] {getWidth(), getHeight(), getDepth()};
-			};
-		}
 	}
 	
 	public static interface Dimensional extends DimensionalType<Float> {
@@ -114,14 +106,6 @@ public interface DimensionalType<T extends Number> extends GeometricalEntity, Cl
 				res.setDepth(getWrappedDepth());
 			}
 		}
-		
-		default float[] toArray() {
-			return switch (this.getOrder()) {
-				case MONODIMENSIONAL: yield new float[] {getWidth()};
-				case BIDIMENSIONAL: yield new float[] {getWidth(), getHeight()};
-				case TRIDIMENSIONAL: yield new float[] {getWidth(), getHeight(), getDepth()};
-			};
-		}
 	}
 	
 	public static interface DoubleDimensional extends DimensionalType<Double> {
@@ -166,14 +150,6 @@ public interface DimensionalType<T extends Number> extends GeometricalEntity, Cl
 			else {
 				res.setDepth(getWrappedDepth());
 			}
-		}
-		
-		default double[] toArray() {
-			return switch (this.getOrder()) {
-				case MONODIMENSIONAL: yield new double[] {getWidth()};
-				case BIDIMENSIONAL: yield new double[] {getWidth(), getHeight()};
-				case TRIDIMENSIONAL: yield new double[] {getWidth(), getHeight(), getDepth()};
-			};
 		}
 	}
 }

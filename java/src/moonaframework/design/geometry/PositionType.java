@@ -6,10 +6,6 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		protected int[] pos;
 		
-		public @Override DimensionalOrder getOrder() {
-			return DimensionalOrder.fromNumber(pos.length);
-		}
-		
 		public @Override int getX() {
 			return pos[0];
 		}
@@ -25,40 +21,17 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public IntegralPosition(int x, int y, int z) {
 			this.pos = new int[] {x, y, z};
 		}
-		public IntegralPosition(int x, int y) {
-			this.pos = new int[] {x, y};
-		}
-		public IntegralPosition(int x) {
-			this.pos = new int[] {x};
-		}
 		public IntegralPosition(Integer x, Integer y, Integer z) throws NullPointerException {
 			this(x.intValue(), y.intValue(), z.intValue());
 		}
-		public IntegralPosition(Integer x, Integer y) throws NullPointerException {
-			this(x.intValue(), y.intValue());
-		}
-		public IntegralPosition(Integer x) throws NullPointerException {
-			this(x.intValue());
-		}
 		public IntegralPosition(IntegralPositional pos) throws NullPointerException {
-			this.pos = pos.toArray();
-		}
-		public IntegralPosition(DimensionalOrder ord) throws NullPointerException {
-			this.pos = switch (ord) {
-				case MONODIMENSIONAL: yield new int[] {0};
-				case BIDIMENSIONAL: yield new int[] {0, 0};
-				case TRIDIMENSIONAL: yield new int[] {0, 0, 0};
-			};
+			this(pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 	
 	public static class Position implements PositionType<Float>, Positional {
 		
 		protected float[] pos;
-		
-		public @Override DimensionalOrder getOrder() {
-			return DimensionalOrder.fromNumber(pos.length);
-		}
 		
 		public @Override float getX() {
 			return pos[0];
@@ -75,40 +48,17 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public Position(float x, float y, float z) {
 			this.pos = new float[] {x, y, z};
 		}
-		public Position(float x, float y) {
-			this.pos = new float[] {x, y};
-		}
-		public Position(float x) {
-			this.pos = new float[] {x};
-		}
 		public Position(Float x, Float y, Float z) throws NullPointerException {
 			this(x.floatValue(), y.floatValue(), z.floatValue());
 		}
-		public Position(Float x, Float y) throws NullPointerException {
-			this(x.floatValue(), y.floatValue());
-		}
-		public Position(Float x) throws NullPointerException {
-			this(x.floatValue());
-		}
 		public Position(Positional pos) throws NullPointerException {
-			this.pos = pos.toArray();
-		}
-		public Position(DimensionalOrder ord) throws NullPointerException {
-			this.pos = switch (ord) {
-				case MONODIMENSIONAL: yield new float[] {0};
-				case BIDIMENSIONAL: yield new float[] {0, 0};
-				case TRIDIMENSIONAL: yield new float[] {0, 0, 0};
-			};
+			this(pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 
 	public static class DoublePosition implements PositionType<Double>, DoublePositional {
 		
 		protected double[] pos;
-		
-		public @Override DimensionalOrder getOrder() {
-			return DimensionalOrder.fromNumber(pos.length);
-		}
 		
 		public @Override double getX() {
 			return pos[0];
@@ -125,30 +75,11 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public DoublePosition(double x, double y, double z) {
 			this.pos = new double[] {x, y, z};
 		}
-		public DoublePosition(double x, double y) {
-			this.pos = new double[] {x, y};
-		}
-		public DoublePosition(double x) {
-			this.pos = new double[] {x};
-		}
 		public DoublePosition(Double x, Double y, Double z) throws NullPointerException {
 			this(x.doubleValue(), y.doubleValue(), z.doubleValue());
 		}
-		public DoublePosition(Double x, Double y) throws NullPointerException {
-			this(x.doubleValue(), y.doubleValue());
-		}
-		public DoublePosition(Double x) throws NullPointerException {
-			this(x.doubleValue());
-		}
 		public DoublePosition(DoublePositional pos) throws NullPointerException {
-			this.pos = pos.toArray();
-		}
-		public DoublePosition(DimensionalOrder ord) throws NullPointerException {
-			this.pos = switch (ord) {
-				case MONODIMENSIONAL: yield new double[] {0};
-				case BIDIMENSIONAL: yield new double[] {0, 0};
-				case TRIDIMENSIONAL: yield new double[] {0, 0, 0};
-			};
+			this(pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 }

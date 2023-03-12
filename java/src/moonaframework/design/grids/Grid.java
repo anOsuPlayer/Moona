@@ -1,7 +1,6 @@
 package moonaframework.design.grids;
 
 import moonaframework.design.geometry.CoordinateOutOfRangeException;
-import moonaframework.design.geometry.DimensionalOrder;
 import moonaframework.design.geometry.DimensionalType.IntegralDimensional;
 import moonaframework.util.exception.NullArgumentException;
 
@@ -11,10 +10,6 @@ public class Grid<T> implements IntegralDimensional {
 	
 	public T[][] getBoard() {
 		return board;
-	}
-	
-	public @Override DimensionalOrder getOrder() {
-		return DimensionalOrder.BIDIMENSIONAL;
 	}
 	
 	public @Override int getWidth() {
