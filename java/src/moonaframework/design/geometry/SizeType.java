@@ -6,6 +6,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		
 		protected int[] dim;
 		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(dim.length);
+		}
+		
 		public @Override int getWidth() {
 			return dim[0];
 		}
@@ -52,6 +56,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		
 		protected float[] dim;
 		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(dim.length);
+		}
+		
 		public @Override float getWidth() {
 			return dim[0];
 		}
@@ -97,6 +105,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 	public static class DoubleSize implements SizeType<Double>, DoubleDimensional {
 		
 		protected double[] dim;
+		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(dim.length);
+		}
 		
 		public @Override double getWidth() {
 			return dim[0];

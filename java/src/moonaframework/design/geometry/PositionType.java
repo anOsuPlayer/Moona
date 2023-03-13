@@ -1,10 +1,14 @@
 package moonaframework.design.geometry;
 
 public interface PositionType<T extends Number> extends PositionalType<T> {
-
+	
 	public static class IntegralPosition implements PositionType<Integer>, IntegralPositional {
 		
 		protected int[] pos;
+		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(pos.length);
+		}
 		
 		public @Override int getX() {
 			return pos[0];
@@ -52,6 +56,10 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		protected float[] pos;
 		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(pos.length);
+		}
+		
 		public @Override float getX() {
 			return pos[0];
 		}
@@ -97,6 +105,10 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 	public static class DoublePosition implements PositionType<Double>, DoublePositional {
 		
 		protected double[] pos;
+		
+		public @Override DimensionalOrder order() {
+			return DimensionalOrder.fromCode(pos.length);
+		}
 		
 		public @Override double getX() {
 			return pos[0];

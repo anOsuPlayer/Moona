@@ -4,7 +4,7 @@ import moonaframework.design.geometry.MovableType.DoubleMovable;
 import moonaframework.design.geometry.MovableType.IntegralMovable;
 import moonaframework.design.geometry.MovableType.Movable;
 
-public interface PositionalType<T extends Number> extends Cloneable {
+public interface PositionalType<T extends Number> extends Cloneable, GeometricElement<T> {
 
 	T getWrappedX();
 	
@@ -18,7 +18,7 @@ public interface PositionalType<T extends Number> extends Cloneable {
 	
 	void applyZ(MovableType<T> mov);
 	
-	public static interface IntegralPositional extends PositionalType<Integer> {
+	public static interface IntegralPositional extends PositionalType<Integer>, IntegralGeometricElement {
 		
 		int getX();
 		
@@ -61,9 +61,17 @@ public interface PositionalType<T extends Number> extends Cloneable {
 				mov.setZ(getWrappedZ());
 			}
 		}
+		
+		default @Override int[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new int[] {getX()};
+				case BIDIMENSIONAL: yield new int[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new int[] {getX(), getY(), getZ()};
+			};
+		}
 	}
 	
-	public static interface Positional extends PositionalType<Float> {
+	public static interface Positional extends PositionalType<Float>, FloatGeometricElement {
 		
 		float getX();
 		
@@ -106,9 +114,17 @@ public interface PositionalType<T extends Number> extends Cloneable {
 				mov.setZ(getWrappedZ());
 			}
 		}
+		
+		default @Override float[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new float[] {getX()};
+				case BIDIMENSIONAL: yield new float[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new float[] {getX(), getY(), getZ()};
+			};
+		}
 	}
 	
-	public static interface DoublePositional extends PositionalType<Double> {
+	public static interface DoublePositional extends PositionalType<Double>, DoubleGeometricElement {
 		
 		double getX();
 		
@@ -150,6 +166,14 @@ public interface PositionalType<T extends Number> extends Cloneable {
 			else {
 				mov.setZ(getWrappedZ());
 			}
+		}
+		
+		default @Override double[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new double[] {getX()};
+				case BIDIMENSIONAL: yield new double[] {getX(), getY()};
+				case TRIDIMENSIONAL: yield new double[] {getX(), getY(), getZ()};
+			};
 		}
 	}
 }

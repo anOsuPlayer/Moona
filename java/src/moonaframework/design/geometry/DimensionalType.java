@@ -4,7 +4,7 @@ import moonaframework.design.geometry.ResizableType.DoubleResizable;
 import moonaframework.design.geometry.ResizableType.IntegralResizable;
 import moonaframework.design.geometry.ResizableType.Resizable;
 
-public interface DimensionalType<T extends Number> extends Cloneable {
+public interface DimensionalType<T extends Number> extends Cloneable, GeometricElement<T> {
 
 	T getWrappedWidth();
 	
@@ -18,7 +18,7 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 	
 	void applyDepth(ResizableType<T> res);
 	
-	public static interface IntegralDimensional extends DimensionalType<Integer> {
+	public static interface IntegralDimensional extends DimensionalType<Integer>, IntegralGeometricElement {
 		
 		int getWidth();
 		
@@ -61,9 +61,17 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 				res.setDepth(getWrappedDepth());
 			}
 		}
+		
+		default @Override int[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new int[] {getWidth()};
+				case BIDIMENSIONAL: yield new int[] {getWidth(), getHeight()};
+				case TRIDIMENSIONAL: yield new int[] {getWidth(), getHeight(), getDepth()};
+			};
+		}
 	}
 	
-	public static interface Dimensional extends DimensionalType<Float> {
+	public static interface Dimensional extends DimensionalType<Float>, FloatGeometricElement {
 		
 		float getWidth();
 		
@@ -106,9 +114,17 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 				res.setDepth(getWrappedDepth());
 			}
 		}
+		
+		default @Override float[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new float[] {getWidth()};
+				case BIDIMENSIONAL: yield new float[] {getWidth(), getHeight()};
+				case TRIDIMENSIONAL: yield new float[] {getWidth(), getHeight(), getDepth()};
+			};
+		}
 	}
 	
-	public static interface DoubleDimensional extends DimensionalType<Double> {
+	public static interface DoubleDimensional extends DimensionalType<Double>, DoubleGeometricElement {
 		
 		double getWidth();
 		
@@ -150,6 +166,14 @@ public interface DimensionalType<T extends Number> extends Cloneable {
 			else {
 				res.setDepth(getWrappedDepth());
 			}
+		}
+		
+		default @Override double[] toArray() {
+			return switch (order()) {
+				case MONODIMENSIONAL: yield new double[] {getWidth()};
+				case BIDIMENSIONAL: yield new double[] {getWidth(), getHeight()};
+				case TRIDIMENSIONAL: yield new double[] {getWidth(), getHeight(), getDepth()};
+			};
 		}
 	}
 }
