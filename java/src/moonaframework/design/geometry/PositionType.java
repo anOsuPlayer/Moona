@@ -18,6 +18,25 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 			return pos[2];
 		}
 		
+		public @Override String toString() {
+			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			if (o instanceof IntegralPositional pos) {
+				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+			}
+			else if (o instanceof PositionalType<?> pos) {
+				return pos.getWrappedX().intValue() == getX() && pos.getWrappedY().intValue() == getY() &&
+						pos.getWrappedZ().intValue() == getZ();
+			}
+			return false;
+		}
+		
+		public @Override IntegralPosition clone() {
+			return new IntegralPosition(this);
+		}
+		
 		public IntegralPosition(int x, int y, int z) {
 			this.pos = new int[] {x, y, z};
 		}
@@ -45,6 +64,25 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 			return pos[2];
 		}
 		
+		public @Override String toString() {
+			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			if (o instanceof Positional pos) {
+				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+			}
+			else if (o instanceof PositionalType<?> pos) {
+				return pos.getWrappedX().floatValue() == getX() && pos.getWrappedY().floatValue() == getY() &&
+						pos.getWrappedZ().floatValue() == getZ();
+			}
+			return false;
+		}
+		
+		public @Override Position clone() {
+			return new Position(this);
+		}
+		
 		public Position(float x, float y, float z) {
 			this.pos = new float[] {x, y, z};
 		}
@@ -70,6 +108,25 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		public @Override double getZ() {
 			return pos[2];
+		}
+		
+		public @Override String toString() {
+			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+		}
+		
+		public @Override boolean equals(Object o) {
+			if (o instanceof DoublePositional pos) {
+				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+			}
+			else if (o instanceof PositionalType<?> pos) {
+				return pos.getWrappedX().doubleValue() == getX() && pos.getWrappedY().doubleValue() == getY() &&
+						pos.getWrappedZ().doubleValue() == getZ();
+			}
+			return false;
+		}
+		
+		public @Override DoublePosition clone() {
+			return new DoublePosition(this);
 		}
 		
 		public DoublePosition(double x, double y, double z) {
