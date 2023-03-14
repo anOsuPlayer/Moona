@@ -8,15 +8,15 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 
 	T getWrappedWidth();
 	
-	void applyWidth(ResizableType<T> res);
+	void applyWidth(ResizableType<T> res) throws NullPointerException;
 	
-	T getWrappedHeight();
+	T getWrappedHeight() throws LowerDimensionalOrderException;
 	
-	void applyHeight(ResizableType<T> res);
+	void applyHeight(ResizableType<T> res) throws NullPointerException, LowerDimensionalOrderException;
 	
-	T getWrappedDepth();
+	T getWrappedDepth() throws LowerDimensionalOrderException;
 	
-	void applyDepth(ResizableType<T> res);
+	void applyDepth(ResizableType<T> res) throws NullPointerException, LowerDimensionalOrderException;
 	
 	public static interface IntegralDimensional extends DimensionalType<Integer>, IntegralGeometricElement {
 		
@@ -25,7 +25,7 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 		default @Override Integer getWrappedWidth() {
 			return Integer.valueOf(getWidth());
 		}
-		default @Override void applyWidth(ResizableType<Integer> res) {
+		default @Override void applyWidth(ResizableType<Integer> res) throws NullPointerException {
 			if (res instanceof IntegralResizable realres) {
 				realres.setWidth(getWidth());
 			}
@@ -34,12 +34,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		int getHeight();
+		int getHeight() throws LowerDimensionalOrderException;
 		
-		default @Override Integer getWrappedHeight() {
+		default @Override Integer getWrappedHeight() throws LowerDimensionalOrderException {
 			return Integer.valueOf(getHeight());
 		}
-		default @Override void applyHeight(ResizableType<Integer> res) {
+		default @Override void applyHeight(ResizableType<Integer> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof IntegralResizable realres) {
 				realres.setHeight(getHeight());
 			}
@@ -48,12 +48,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		int getDepth();
+		int getDepth() throws LowerDimensionalOrderException;
 		
-		default @Override Integer getWrappedDepth() {
+		default @Override Integer getWrappedDepth() throws LowerDimensionalOrderException {
 			return Integer.valueOf(getDepth());
 		}
-		default @Override void applyDepth(ResizableType<Integer> res) {
+		default @Override void applyDepth(ResizableType<Integer> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof IntegralResizable realres) {
 				realres.setDepth(getDepth());
 			}
@@ -78,7 +78,7 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 		default @Override Float getWrappedWidth() {
 			return Float.valueOf(getWidth());
 		}
-		default @Override void applyWidth(ResizableType<Float> res) {
+		default @Override void applyWidth(ResizableType<Float> res) throws NullPointerException {
 			if (res instanceof Resizable realres) {
 				realres.setWidth(getWidth());
 			}
@@ -87,12 +87,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		float getHeight();
+		float getHeight() throws LowerDimensionalOrderException;
 		
-		default @Override Float getWrappedHeight() {
+		default @Override Float getWrappedHeight() throws LowerDimensionalOrderException {
 			return Float.valueOf(getHeight());
 		}
-		default @Override void applyHeight(ResizableType<Float> res) {
+		default @Override void applyHeight(ResizableType<Float> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof Resizable realres) {
 				realres.setHeight(getHeight());
 			}
@@ -101,12 +101,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		float getDepth();
+		float getDepth() throws LowerDimensionalOrderException;
 		
-		default @Override Float getWrappedDepth() {
+		default @Override Float getWrappedDepth() throws LowerDimensionalOrderException {
 			return Float.valueOf(getDepth());
 		}
-		default @Override void applyDepth(ResizableType<Float> res) {
+		default @Override void applyDepth(ResizableType<Float> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof Resizable realres) {
 				realres.setDepth(getDepth());
 			}
@@ -131,7 +131,7 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 		default @Override Double getWrappedWidth() {
 			return Double.valueOf(getWidth());
 		}
-		default @Override void applyWidth(ResizableType<Double> res) {
+		default @Override void applyWidth(ResizableType<Double> res) throws NullPointerException {
 			if (res instanceof DoubleResizable realres) {
 				realres.setWidth(getWidth());
 			}
@@ -140,12 +140,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		double getHeight();
+		double getHeight() throws LowerDimensionalOrderException;
 		
-		default @Override Double getWrappedHeight() {
+		default @Override Double getWrappedHeight() throws LowerDimensionalOrderException {
 			return Double.valueOf(getHeight());
 		}
-		default @Override void applyHeight(ResizableType<Double> res) {
+		default @Override void applyHeight(ResizableType<Double> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof DoubleResizable realres) {
 				realres.setHeight(getHeight());
 			}
@@ -154,12 +154,12 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
-		double getDepth();
+		double getDepth() throws LowerDimensionalOrderException;
 		
-		default @Override Double getWrappedDepth() {
+		default @Override Double getWrappedDepth() throws LowerDimensionalOrderException{
 			return Double.valueOf(getDepth());
 		}
-		default @Override void applyDepth(ResizableType<Double> res) {
+		default @Override void applyDepth(ResizableType<Double> res) throws NullPointerException, LowerDimensionalOrderException {
 			if (res instanceof DoubleResizable realres) {
 				realres.setDepth(getDepth());
 			}

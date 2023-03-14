@@ -8,15 +8,15 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 
 	T getWrappedX();
 	
-	void applyX(MovableType<T> mov);
+	void applyX(MovableType<T> mov) throws NullPointerException;
 	
-	T getWrappedY();
+	T getWrappedY() throws LowerDimensionalOrderException;
 	
-	void applyY(MovableType<T> mov);
+	void applyY(MovableType<T> mov) throws NullPointerException, LowerDimensionalOrderException;
 	
-	T getWrappedZ();
+	T getWrappedZ() throws LowerDimensionalOrderException;
 	
-	void applyZ(MovableType<T> mov);
+	void applyZ(MovableType<T> mov) throws NullPointerException, LowerDimensionalOrderException;
 	
 	public static interface IntegralPositional extends PositionalType<Integer>, IntegralGeometricElement {
 		
@@ -25,7 +25,7 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 		default @Override Integer getWrappedX() {
 			return Integer.valueOf(getX());
 		}
-		default @Override void applyX(MovableType<Integer> mov) {
+		default @Override void applyX(MovableType<Integer> mov) throws NullPointerException {
 			if (mov instanceof IntegralMovable realmov) {
 				realmov.setX(getX());
 			}
@@ -34,12 +34,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		int getY();
+		int getY() throws LowerDimensionalOrderException;
 		
-		default @Override Integer getWrappedY() {
+		default @Override Integer getWrappedY() throws LowerDimensionalOrderException {
 			return Integer.valueOf(getY());
 		}
-		default @Override void applyY(MovableType<Integer> mov) {
+		default @Override void applyY(MovableType<Integer> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof IntegralMovable realmov) {
 				realmov.setY(getY());
 			}
@@ -48,12 +48,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		int getZ();
+		int getZ() throws LowerDimensionalOrderException;
 		
-		default @Override Integer getWrappedZ() {
+		default @Override Integer getWrappedZ() throws LowerDimensionalOrderException {
 			return Integer.valueOf(getZ());
 		}
-		default @Override void applyZ(MovableType<Integer> mov) {
+		default @Override void applyZ(MovableType<Integer> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof IntegralMovable realmov) {
 				realmov.setZ(getZ());
 			}
@@ -78,7 +78,7 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 		default @Override Float getWrappedX() {
 			return Float.valueOf(getX());
 		}
-		default @Override void applyX(MovableType<Float> mov) {
+		default @Override void applyX(MovableType<Float> mov) throws NullPointerException {
 			if (mov instanceof Movable realmov) {
 				realmov.setX(getX());
 			}
@@ -87,12 +87,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		float getY();
+		float getY() throws LowerDimensionalOrderException;
 		
-		default @Override Float getWrappedY() {
+		default @Override Float getWrappedY() throws LowerDimensionalOrderException {
 			return Float.valueOf(getY());
 		}
-		default @Override void applyY(MovableType<Float> mov) {
+		default @Override void applyY(MovableType<Float> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof Movable realmov) {
 				realmov.setY(getY());
 			}
@@ -101,12 +101,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		float getZ();
+		float getZ() throws LowerDimensionalOrderException;
 		
-		default @Override Float getWrappedZ() {
+		default @Override Float getWrappedZ() throws LowerDimensionalOrderException {
 			return Float.valueOf(getZ());
 		}
-		default @Override void applyZ(MovableType<Float> mov) {
+		default @Override void applyZ(MovableType<Float> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof Movable realmov) {
 				realmov.setZ(getZ());
 			}
@@ -131,7 +131,7 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 		default @Override Double getWrappedX() {
 			return Double.valueOf(getX());
 		}
-		default @Override void applyX(MovableType<Double> mov) {
+		default @Override void applyX(MovableType<Double> mov) throws NullPointerException {
 			if (mov instanceof DoubleMovable realmov) {
 				realmov.setX(getX());
 			}
@@ -140,12 +140,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		double getY();
+		double getY() throws LowerDimensionalOrderException;
 		
-		default @Override Double getWrappedY() {
+		default @Override Double getWrappedY() throws LowerDimensionalOrderException {
 			return Double.valueOf(getY());
 		}
-		default @Override void applyY(MovableType<Double> mov) {
+		default @Override void applyY(MovableType<Double> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof DoubleMovable realmov) {
 				realmov.setY(getY());
 			}
@@ -154,12 +154,12 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
-		double getZ();
+		double getZ() throws LowerDimensionalOrderException;
 		
-		default @Override Double getWrappedZ() {
+		default @Override Double getWrappedZ() throws LowerDimensionalOrderException {
 			return Double.valueOf(getZ());
 		}
-		default @Override void applyZ(MovableType<Double> mov) {
+		default @Override void applyZ(MovableType<Double> mov) throws NullPointerException, LowerDimensionalOrderException {
 			if (mov instanceof DoubleMovable realmov) {
 				realmov.setZ(getZ());
 			}
