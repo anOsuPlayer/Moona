@@ -29,7 +29,11 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -88,7 +92,11 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -147,7 +155,11 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {

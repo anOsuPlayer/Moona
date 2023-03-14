@@ -23,7 +23,11 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 		}
 		
 		public @Override String toString() {
-			return "( " + getX() + "; " + getY() + "; " + getZ() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " )";
 		}
 		
 		public @Override IntegralPoint clone() {
@@ -65,7 +69,11 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 		}
 		
 		public @Override String toString() {
-			return "( " + getX() + "; " + getY() + "; " + getZ() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " )";
 		}
 		
 		public @Override Point clone() {
@@ -107,7 +115,11 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 		}
 		
 		public @Override String toString() {
-			return "( " + getX() + "; " + getY() + "; " + getZ() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " )";
 		}
 		
 		public @Override DoublePoint clone() {

@@ -23,7 +23,11 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " )";
 		}
 		
 		public @Override IntegralDimension clone() {
@@ -65,7 +69,11 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " )";
 		}
 		
 		public @Override Dimension clone() {
@@ -107,7 +115,11 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
+			return "( " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " )";
 		}
 		
 		public @Override DoubleDimension clone() {

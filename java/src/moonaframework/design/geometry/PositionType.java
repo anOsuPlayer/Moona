@@ -29,7 +29,11 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -88,7 +92,11 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -147,7 +155,11 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		}
 		
 		public @Override String toString() {
-			return "[ " + getX() + "; " + getY() + "; " + getZ() + " ]";
+			return "[ " + switch (order()) {
+				case MONODIMENSIONAL: yield getX();
+				case BIDIMENSIONAL: yield getX() + "; " + getY();
+				case TRIDIMENSIONAL: yield getX() + "; " + getY() + "; " + getZ();
+			} + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
