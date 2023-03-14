@@ -8,11 +8,17 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 			super.pos[0] = x;
 		}
 		
-		public @Override void setY(int y) {
+		public @Override void setY(int y) throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.pos[1] = y;
 		}
 		
-		public @Override void setZ(int z) {
+		public @Override void setZ(int z) throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.pos[2] = z;
 		}
 		
@@ -27,8 +33,11 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 		public IntegralPoint(int x, int y, int z) {
 			super(x, y, z);
 		}
-		public IntegralPoint(Integer x, Integer y, Integer z) throws NullPointerException {
-			super(x, y, z);
+		public IntegralPoint(int x, int y) {
+			super(x, y);
+		}
+		public IntegralPoint(int x) {
+			super(x);
 		}
 		public IntegralPoint(IntegralPositional pos) throws NullPointerException {
 			super(pos);
@@ -41,11 +50,17 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 			super.pos[0] = x;
 		}
 		
-		public @Override void setY(float y) {
+		public @Override void setY(float y) throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.pos[1] = y;
 		}
 		
-		public @Override void setZ(float z) {
+		public @Override void setZ(float z) throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.pos[2] = z;
 		}
 		
@@ -60,8 +75,11 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 		public Point(float x, float y, float z) {
 			super(x, y, z);
 		}
-		public Point(Float x, Float y, Float z) throws NullPointerException {
-			super(x, y, z);
+		public Point(float x, float y) {
+			super(x, y);
+		}
+		public Point(float x) {
+			super(x);
 		}
 		public Point(Positional pos) throws NullPointerException {
 			super(pos);
@@ -74,11 +92,17 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 			super.pos[0] = x;
 		}
 		
-		public @Override void setY(double y) {
+		public @Override void setY(double y) throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.pos[1] = y;
 		}
 		
-		public @Override void setZ(double z) {
+		public @Override void setZ(double z) throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.pos[2] = z;
 		}
 		
@@ -90,11 +114,14 @@ public interface PointType<T extends Number> extends PositionType<T>, MovableTyp
 			return new DoublePoint(this);
 		}
 		
-		public DoublePoint(int x, int y, int z) {
+		public DoublePoint(double x, double y, double z) {
 			super(x, y, z);
 		}
-		public DoublePoint(Double x, Double y, Double z) throws NullPointerException {
-			super(x, y, z);
+		public DoublePoint(double x, double y) {
+			super(x, y);
+		}
+		public DoublePoint(double x) {
+			super(x);
 		}
 		public DoublePoint(DoublePositional pos) throws NullPointerException {
 			super(pos);

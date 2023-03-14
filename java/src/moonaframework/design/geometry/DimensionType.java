@@ -8,16 +8,22 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 			super.dim[0] = width;
 		}
 		
-		public @Override void setHeight(int height) {
+		public @Override void setHeight(int height) throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.dim[1] = height;
 		}
 		
-		public @Override void setDepth(int depth) {
+		public @Override void setDepth(int depth) throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.dim[2] = depth;
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " x " + getHeight() + " x " + getDepth() + " )";
+			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
 		}
 		
 		public @Override IntegralDimension clone() {
@@ -27,8 +33,11 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 		public IntegralDimension(int width, int height, int depth) {
 			super(width, height, depth);
 		}
-		public IntegralDimension(Integer width, Integer height, Integer depth) throws NullPointerException {
-			super(width, height, depth);
+		public IntegralDimension(int width, int height) {
+			super(width, height);
+		}
+		public IntegralDimension(int width) {
+			super(width);
 		}
 		public IntegralDimension(IntegralDimensional dim) throws NullPointerException {
 			super(dim);
@@ -41,16 +50,22 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 			super.dim[0] = width;
 		}
 		
-		public @Override void setHeight(float height) {
+		public @Override void setHeight(float height) throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.dim[1] = height;
 		}
 		
-		public @Override void setDepth(float depth) {
+		public @Override void setDepth(float depth) throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.dim[2] = depth;
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " x " + getHeight() + " x " + getDepth() + " )";
+			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
 		}
 		
 		public @Override Dimension clone() {
@@ -60,8 +75,11 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 		public Dimension(float width, float height, float depth) {
 			super(width, height, depth);
 		}
-		public Dimension(Float width, Float height, Float depth) throws NullPointerException {
-			super(width, height, depth);
+		public Dimension(float width, float height) {
+			super(width, height);
+		}
+		public Dimension(float width) {
+			super(width);
 		}
 		public Dimension(Dimensional dim) throws NullPointerException {
 			super(dim);
@@ -74,27 +92,36 @@ public interface DimensionType<T extends Number> extends SizeType<T>, ResizableT
 			super.dim[0] = width;
 		}
 		
-		public @Override void setHeight(double height) {
+		public @Override void setHeight(double height) throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			super.dim[1] = height;
 		}
 		
-		public @Override void setDepth(double depth) {
+		public @Override void setDepth(double depth) throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			super.dim[2] = depth;
 		}
 		
 		public @Override String toString() {
-			return "( " + getWidth() + " x " + getHeight() + " x " + getDepth() + " )";
+			return "( " + getWidth() + " width " + getHeight() + " width " + getDepth() + " )";
 		}
 		
 		public @Override DoubleDimension clone() {
 			return new DoubleDimension(this);
 		}
 		
-		public DoubleDimension(int width, int height, int depth) {
+		public DoubleDimension(double width, double height, double depth) {
 			super(width, height, depth);
 		}
-		public DoubleDimension(Double width, Double height, Double depth) throws NullPointerException {
-			super(width, height, depth);
+		public DoubleDimension(double width, double height) {
+			super(width, height);
+		}
+		public DoubleDimension(double width) {
+			super(width);
 		}
 		public DoubleDimension(DoubleDimensional dim) throws NullPointerException {
 			super(dim);

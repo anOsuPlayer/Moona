@@ -14,16 +14,22 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 			return dim[0];
 		}
 		
-		public @Override int getHeight() {
+		public @Override int getHeight() throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			return dim[1];
 		}
 		
-		public @Override int getDepth() {
+		public @Override int getDepth() throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensional.");
+			}
 			return dim[2];
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " x " + getHeight() + " x " + getDepth() + " ]";
+			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -44,11 +50,14 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		public IntegralSize(int width, int height, int depth) {
 			this.dim = new int[] {width, height, depth};
 		}
-		public IntegralSize(Integer width, Integer height, Integer depth) throws NullPointerException {
-			this(width.intValue(), height.intValue(), depth.intValue());
+		public IntegralSize(int width, int height) {
+			this.dim = new int[] {width, height};
 		}
-		public IntegralSize(IntegralDimensional dim) throws NullPointerException {
-			this(dim.getWidth(), dim.getHeight(), dim.getDepth());
+		public IntegralSize(int width) {
+			this.dim = new int[] {width};
+		}
+		public IntegralSize(IntegralDimensional pos) throws NullPointerException {
+			this.dim = pos.toArray();
 		}
 	}
 	
@@ -64,16 +73,22 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 			return dim[0];
 		}
 		
-		public @Override float getHeight() {
+		public @Override float getHeight() throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			return dim[1];
 		}
 		
-		public @Override float getDepth() {
+		public @Override float getDepth() throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			return dim[2];
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " x " + getHeight() + " x " + getDepth() + " ]";
+			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -94,8 +109,11 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		public Size(float width, float height, float depth) {
 			this.dim = new float[] {width, height, depth};
 		}
-		public Size(Float width, Float height, Float depth) throws NullPointerException {
-			this(width.floatValue(), height.floatValue(), depth.floatValue());
+		public Size(float width, float height) {
+			this.dim = new float[] {width, height};
+		}
+		public Size(float width) {
+			this.dim = new float[] {width};
 		}
 		public Size(Dimensional dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight(), dim.getDepth());
@@ -114,16 +132,22 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 			return dim[0];
 		}
 		
-		public @Override double getHeight() {
+		public @Override double getHeight() throws LowerDimensionalOrderException {
+			if (dim.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensionals.");
+			}
 			return dim[1];
 		}
 		
-		public @Override double getDepth() {
+		public @Override double getDepth() throws LowerDimensionalOrderException {
+			if (dim.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensionals.");
+			}
 			return dim[2];
 		}
 		
 		public @Override String toString() {
-			return "[ " + getWidth() + " x " + getHeight() + " x " + getDepth() + " ]";
+			return "[ " + getWidth() + " width " + getHeight() + " width " + getDepth() + " ]";
 		}
 		
 		public @Override boolean equals(Object o) {
@@ -144,8 +168,11 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		public DoubleSize(double width, double height, double depth) {
 			this.dim = new double[] {width, height, depth};
 		}
-		public DoubleSize(Double width, Double height, Double depth) throws NullPointerException {
-			this(width.doubleValue(), height.doubleValue(), depth.doubleValue());
+		public DoubleSize(double width, double height) {
+			this.dim = new double[] {width, height};
+		}
+		public DoubleSize(double width) {
+			this.dim = new double[] {width};
 		}
 		public DoubleSize(DoubleDimensional dim) throws NullPointerException {
 			this(dim.getWidth(), dim.getHeight(), dim.getDepth());

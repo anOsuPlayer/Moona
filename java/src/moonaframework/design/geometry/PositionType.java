@@ -14,11 +14,17 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 			return pos[0];
 		}
 		
-		public @Override int getY() {
+		public @Override int getY() throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensional.");
+			}
 			return pos[1];
 		}
 		
-		public @Override int getZ() {
+		public @Override int getZ() throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensional.");
+			}
 			return pos[2];
 		}
 		
@@ -44,11 +50,14 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public IntegralPosition(int x, int y, int z) {
 			this.pos = new int[] {x, y, z};
 		}
-		public IntegralPosition(Integer x, Integer y, Integer z) throws NullPointerException {
-			this(x.intValue(), y.intValue(), z.intValue());
+		public IntegralPosition(int x, int y) {
+			this.pos = new int[] {x, y};
+		}
+		public IntegralPosition(int x) {
+			this.pos = new int[] {x};
 		}
 		public IntegralPosition(IntegralPositional pos) throws NullPointerException {
-			this(pos.getX(), pos.getY(), pos.getZ());
+			this.pos = pos.toArray();
 		}
 	}
 	
@@ -64,11 +73,17 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 			return pos[0];
 		}
 		
-		public @Override float getY() {
+		public @Override float getY() throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensional.");
+			}
 			return pos[1];
 		}
 		
-		public @Override float getZ() {
+		public @Override float getZ() throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensional.");
+			}
 			return pos[2];
 		}
 		
@@ -94,11 +109,14 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public Position(float x, float y, float z) {
 			this.pos = new float[] {x, y, z};
 		}
-		public Position(Float x, Float y, Float z) throws NullPointerException {
-			this(x.floatValue(), y.floatValue(), z.floatValue());
+		public Position(float x, float y) {
+			this.pos = new float[] {x, y};
+		}
+		public Position(float x) {
+			this.pos = new float[] {x};
 		}
 		public Position(Positional pos) throws NullPointerException {
-			this(pos.getX(), pos.getY(), pos.getZ());
+			this.pos = pos.toArray();
 		}
 	}
 
@@ -114,11 +132,17 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 			return pos[0];
 		}
 		
-		public @Override double getY() {
+		public @Override double getY() throws LowerDimensionalOrderException {
+			if (pos.length < 2) {
+				throw new LowerDimensionalOrderException("This element is not Bidimensional or Tridimensional.");
+			}
 			return pos[1];
 		}
 		
-		public @Override double getZ() {
+		public @Override double getZ() throws LowerDimensionalOrderException {
+			if (pos.length < 3) {
+				throw new LowerDimensionalOrderException("This element is not Tridimensional.");
+			}
 			return pos[2];
 		}
 		
@@ -144,11 +168,14 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		public DoublePosition(double x, double y, double z) {
 			this.pos = new double[] {x, y, z};
 		}
-		public DoublePosition(Double x, Double y, Double z) throws NullPointerException {
-			this(x.doubleValue(), y.doubleValue(), z.doubleValue());
+		public DoublePosition(double x, double y) {
+			this.pos = new double[] {x, y};
+		}
+		public DoublePosition(double x) {
+			this.pos = new double[] {x};
 		}
 		public DoublePosition(DoublePositional pos) throws NullPointerException {
-			this(pos.getX(), pos.getY(), pos.getZ());
+			this.pos = pos.toArray();
 		}
 	}
 }
