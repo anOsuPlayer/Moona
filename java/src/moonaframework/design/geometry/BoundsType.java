@@ -9,22 +9,11 @@ public interface BoundsType<T extends Number> extends SizeType<T> {
 	public static class IntegralBounds extends IntegralSize implements BoundsType<Integer> {
 		
 		public @Override String toString() {
-			return "[ " + switch (order()) {
+			return "| " + switch (order()) {
 				case MONODIMENSIONAL: yield getWidth();
 				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
 				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
-			} + " ]";
-		}
-		
-		public @Override boolean equals(Object o) {
-			if (o instanceof IntegralDimensional dim) {
-				return getWidth() == dim.getWidth() && getHeight() == dim.getHeight() && getDepth() == dim.getDepth();
-			}
-			else if (o instanceof DimensionalType<?> dim) {
-				return dim.getWrappedWidth().intValue() == getWidth() && dim.getWrappedHeight().intValue() == getHeight() &&
-						dim.getWrappedDepth().intValue() == getDepth();
-			}
-			return false;
+			} + " |";
 		}
 		
 		public @Override IntegralBounds clone() {
@@ -57,6 +46,18 @@ public interface BoundsType<T extends Number> extends SizeType<T> {
 	
 	public static class Bounds extends Size implements BoundsType<Float> {
 		
+		public @Override String toString() {
+			return "| " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " |";
+		}
+		
+		public @Override Bounds clone() {
+			return new Bounds(this);
+		}
+		
 		public Bounds(float width, float height, float depth) throws IllegalArgumentException {
 			super(width, height, depth);
 			WatchDog.requiresPositive(width, height, depth);
@@ -82,6 +83,18 @@ public interface BoundsType<T extends Number> extends SizeType<T> {
 	}
 	
 	public static class DoubleBounds extends DoubleSize implements BoundsType<Double> {
+		
+		public @Override String toString() {
+			return "| " + switch (order()) {
+				case MONODIMENSIONAL: yield getWidth();
+				case BIDIMENSIONAL: yield getWidth() + " x " + getHeight();
+				case TRIDIMENSIONAL: yield getWidth() + " x " + getHeight() + " x " + getDepth();
+			} + " |";
+		}
+		
+		public @Override DoubleBounds clone() {
+			return new DoubleBounds(this);
+		}
 		
 		public DoubleBounds(double width, double height, double depth) throws IllegalArgumentException {
 			super(width, height, depth);
