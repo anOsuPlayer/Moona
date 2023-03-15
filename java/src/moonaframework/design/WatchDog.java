@@ -4,12 +4,12 @@ import moonaframework.design.geometry.CoordinateOutOfRangeException;
 
 public final class WatchDog {
 
-	public static void requiresInRange(double value, double upperBound, double lowerBound) throws CoordinateOutOfRangeException {
+	public static void requiresInStrictRange(double value, double upperBound, double lowerBound) throws CoordinateOutOfRangeException {
 		if (value < lowerBound || value > upperBound) {
 			throw new CoordinateOutOfRangeException(value, upperBound, lowerBound);
 		}
 	}
-	public static void requiresInStrictRange(double value, double upperBound, double lowerBound) throws CoordinateOutOfRangeException {
+	public static void requiresInRange(double value, double upperBound, double lowerBound) throws CoordinateOutOfRangeException {
 		if (value <= lowerBound || value >= upperBound) {
 			throw new CoordinateOutOfRangeException(value, upperBound, lowerBound);
 		}
