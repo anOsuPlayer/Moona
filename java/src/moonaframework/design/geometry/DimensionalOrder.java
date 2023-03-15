@@ -8,7 +8,11 @@ public enum DimensionalOrder {
 	
 	TRIDIMENSIONAL(3, "Tridimensional Entity");
 	
-	private final int index;
+	private final int number;
+	
+	public final int number() {
+		return this.number;
+	}
 	
 	private final String message;
 	
@@ -18,12 +22,12 @@ public enum DimensionalOrder {
 	
 	static DimensionalOrder fromCode(int code) {
 		for (DimensionalOrder d : DimensionalOrder.values()) {
-			if (d.index == code) { return d; }
+			if (d.number == code) { return d; }
 		}
 		return null;
 	}
 	
 	private DimensionalOrder(int index, String message) {
-		this.index = index; this.message = message;
+		this.number = index; this.message = message;
 	}
 }

@@ -1,5 +1,9 @@
 package moonaframework.design.geometry;
 
+import java.util.Arrays;
+
+import moonaframework.design.geometry.PositionalType.IntegralPositional;
+
 public interface SizeType<T extends Number> extends DimensionalType<T> {
 
 	public static class IntegralSize implements SizeType<Integer>, IntegralDimensional {
@@ -38,11 +42,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof IntegralDimensional dim) {
-				return getWidth() == dim.getWidth() && getHeight() == dim.getHeight() && getDepth() == dim.getDepth();
+				return Arrays.equals(dim.toArray(), this.dim);
 			}
 			else if (o instanceof DimensionalType<?> dim) {
-				return dim.getWrappedWidth().intValue() == getWidth() && dim.getWrappedHeight().intValue() == getHeight() &&
-						dim.getWrappedDepth().intValue() == getDepth();
+				return Arrays.equals(this.toWrappedArray(), dim.toWrappedArray());
 			}
 			return false;
 		}
@@ -101,11 +104,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof Dimensional dim) {
-				return getWidth() == dim.getWidth() && getHeight() == dim.getHeight() && getDepth() == dim.getDepth();
+				return Arrays.equals(dim.toArray(), this.dim);
 			}
 			else if (o instanceof DimensionalType<?> dim) {
-				return dim.getWrappedWidth().floatValue() == getWidth() && dim.getWrappedHeight().floatValue() == getHeight() &&
-						dim.getWrappedDepth().floatValue() == getDepth();
+				return Arrays.equals(this.toWrappedArray(), dim.toWrappedArray());
 			}
 			return false;
 		}
@@ -164,11 +166,10 @@ public interface SizeType<T extends Number> extends DimensionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof DoubleDimensional dim) {
-				return getWidth() == dim.getWidth() && getHeight() == dim.getHeight() && getDepth() == dim.getDepth();
+				return Arrays.equals(dim.toArray(), this.dim);
 			}
 			else if (o instanceof DimensionalType<?> dim) {
-				return dim.getWrappedWidth().doubleValue() == getWidth() && dim.getWrappedHeight().doubleValue() == getHeight() &&
-						dim.getWrappedDepth().doubleValue() == getDepth();
+				return Arrays.equals(this.toWrappedArray(), dim.toWrappedArray());
 			}
 			return false;
 		}

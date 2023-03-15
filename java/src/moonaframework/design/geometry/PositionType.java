@@ -1,5 +1,7 @@
 package moonaframework.design.geometry;
 
+import java.util.Arrays;
+
 public interface PositionType<T extends Number> extends PositionalType<T> {
 	
 	public static class IntegralPosition implements PositionType<Integer>, IntegralPositional {
@@ -38,11 +40,10 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof IntegralPositional pos) {
-				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+				return Arrays.equals(pos.toArray(), this.pos);
 			}
 			else if (o instanceof PositionalType<?> pos) {
-				return pos.getWrappedX().intValue() == getX() && pos.getWrappedY().intValue() == getY() &&
-						pos.getWrappedZ().intValue() == getZ();
+				return Arrays.equals(this.toWrappedArray(), pos.toWrappedArray());
 			}
 			return false;
 		}
@@ -101,11 +102,10 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof Positional pos) {
-				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+				return Arrays.equals(pos.toArray(), this.pos);
 			}
 			else if (o instanceof PositionalType<?> pos) {
-				return pos.getWrappedX().floatValue() == getX() && pos.getWrappedY().floatValue() == getY() &&
-						pos.getWrappedZ().floatValue() == getZ();
+				return Arrays.equals(this.toWrappedArray(), pos.toWrappedArray());
 			}
 			return false;
 		}
@@ -164,11 +164,10 @@ public interface PositionType<T extends Number> extends PositionalType<T> {
 		
 		public @Override boolean equals(Object o) {
 			if (o instanceof DoublePositional pos) {
-				return getX() == pos.getX() && getY() == pos.getY() && getZ() == pos.getZ();
+				return Arrays.equals(pos.toArray(), this.pos);
 			}
 			else if (o instanceof PositionalType<?> pos) {
-				return pos.getWrappedX().doubleValue() == getX() && pos.getWrappedY().doubleValue() == getY() &&
-						pos.getWrappedZ().doubleValue() == getZ();
+				return Arrays.equals(this.toWrappedArray(), pos.toWrappedArray());
 			}
 			return false;
 		}
