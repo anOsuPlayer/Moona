@@ -14,12 +14,7 @@ public interface MovableType<T extends Number> extends PositionalType<T> {
 	
 	void moveZ(T dz) throws NullPointerException, LowerDimensionalOrderException;
 	
-	default void move(T dx, T dy, T dz) throws NullPointerException, LowerDimensionalOrderException {
-		moveX(dx); moveY(dy); moveZ(dz);
-	}
-	default void move(T dx, T dy) throws NullPointerException, LowerDimensionalOrderException {
-		moveX(dx); moveY(dy);
-	}
+	void setPosition(PositionalType<T> pos) throws NullPointerException;
 	
 	public static interface IntegralMovable extends MovableType<Integer>, IntegralPositional {
 		
@@ -59,17 +54,25 @@ public interface MovableType<T extends Number> extends PositionalType<T> {
 			moveZ(dz.intValue());
 		}
 		
-		default @Override void move(Integer dx, Integer dy, Integer dz) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.intValue()); moveY(dy.intValue()); moveZ(dz.intValue());
-		}
-		default void move(int dx, int dy, int dz) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy); moveZ(dz);
-		}
-		default @Override void move(Integer dx, Integer dy) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.intValue()); moveY(dy.intValue());
-		}
-		default void move(int dx, int dy) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy);
+		default @Override void setPosition(PositionalType<Integer> pos) throws NullPointerException {
+			if (pos instanceof IntegralPositional ipos) {
+				ipos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					ipos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					ipos.applyZ(this);
+				}
+			}
+			else {
+				pos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					pos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					pos.applyZ(this);
+				}
+			}
 		}
 	}
 	
@@ -111,17 +114,25 @@ public interface MovableType<T extends Number> extends PositionalType<T> {
 			moveZ(dz.floatValue());
 		}
 		
-		default @Override void move(Float dx, Float dy, Float dz) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.floatValue()); moveY(dy.floatValue()); moveZ(dz.floatValue());
-		}
-		default void move(float dx, float dy, float dz) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy); moveZ(dz);
-		}
-		default @Override void move(Float dx, Float dy) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.floatValue()); moveY(dy.floatValue());
-		}
-		default void move(float dx, float dy) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy);
+		default @Override void setPosition(PositionalType<Float> pos) throws NullPointerException {
+			if (pos instanceof Positional fpos) {
+				fpos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					fpos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					fpos.applyZ(this);
+				}
+			}
+			else {
+				pos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					pos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					pos.applyZ(this);
+				}
+			}
 		}
 	}
 	
@@ -163,17 +174,25 @@ public interface MovableType<T extends Number> extends PositionalType<T> {
 			moveZ(dz.doubleValue());
 		}
 		
-		default @Override void move(Double dx, Double dy, Double dz) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.doubleValue()); moveY(dy.doubleValue()); moveZ(dz.doubleValue());
-		}
-		default void move(double dx, double dy, double dz) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy); moveZ(dz);
-		}
-		default @Override void move(Double dx, Double dy) throws NullPointerException, LowerDimensionalOrderException {
-			moveX(dx.doubleValue()); moveY(dy.doubleValue());
-		}
-		default void move(double dx, double dy) throws LowerDimensionalOrderException {
-			moveX(dx); moveY(dy);
+		default @Override void setPosition(PositionalType<Double> pos) throws NullPointerException {
+			if (pos instanceof DoublePositional dpos) {
+				dpos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					dpos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					dpos.applyZ(this);
+				}
+			}
+			else {
+				pos.applyX(this);
+				if (pos.order().satisfies(DimensionalOrder.BIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.BIDIMENSIONAL)) {
+					pos.applyY(this);
+				}
+				if (pos.order().satisfies(DimensionalOrder.TRIDIMENSIONAL) && this.order().satisfies(DimensionalOrder.TRIDIMENSIONAL)) {
+					pos.applyZ(this);
+				}
+			}
 		}
 	}
 }

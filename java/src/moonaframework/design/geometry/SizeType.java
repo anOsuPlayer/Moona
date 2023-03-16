@@ -2,8 +2,6 @@ package moonaframework.design.geometry;
 
 import java.util.Arrays;
 
-import moonaframework.design.geometry.PositionalType.IntegralPositional;
-
 public interface SizeType<T extends Number> extends DimensionalType<T> {
 
 	public static class IntegralSize implements SizeType<Integer>, IntegralDimensional {

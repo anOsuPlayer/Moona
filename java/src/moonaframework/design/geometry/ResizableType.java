@@ -14,13 +14,6 @@ public interface ResizableType<T extends Number> extends DimensionalType<T> {
 	
 	void resizeDepth(T dDepth) throws NullPointerException, LowerDimensionalOrderException;
 	
-	default void resize(T dWidth, T dHeight, T dDepth) throws NullPointerException, LowerDimensionalOrderException {
-		resizeWidth(dWidth); resizeHeight(dHeight); resizeDepth(dDepth);
-	}
-	default void resize(T dWdith, T dHeight) throws NullPointerException, LowerDimensionalOrderException {
-		resizeWidth(dWdith); resizeHeight(dHeight);
-	}
-	
 	public static interface IntegralResizable extends ResizableType<Integer>, IntegralDimensional {
 		
 		void setWidth(int width);
@@ -57,19 +50,6 @@ public interface ResizableType<T extends Number> extends DimensionalType<T> {
 		}
 		default @Override void resizeDepth(Integer dDepth) throws NullPointerException, LowerDimensionalOrderException {
 			resizeDepth(dDepth.intValue());
-		}
-		
-		default @Override void resize(Integer dWidth, Integer dHeight, Integer dDepth) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue()); resizeDepth(dDepth.intValue());
-		}
-		default void resize(int dWidth, int dHeight, int dDepth) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight); resizeDepth(dDepth);
-		}
-		default @Override void resize(Integer dWidth, Integer dHeight) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue());
-		}
-		default void resize(int dWidth, int dHeight) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight);
 		}
 	}
 	
@@ -110,19 +90,6 @@ public interface ResizableType<T extends Number> extends DimensionalType<T> {
 		default @Override void resizeDepth(Float dDepth) throws NullPointerException, LowerDimensionalOrderException {
 			resizeDepth(dDepth.floatValue());
 		}
-		
-		default @Override void resize(Float dWidth, Float dHeight, Float dDepth) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue()); resizeDepth(dDepth.intValue());
-		}
-		default void resize(float dWidth, float dHeight, float dDepth) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight); resizeDepth(dDepth);
-		}
-		default @Override void resize(Float dWidth, Float dHeight) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue());
-		}
-		default void resize(float dWidth, float dHeight) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight);
-		}
 	}
 	
 	public static interface DoubleResizable extends ResizableType<Double>, DoubleDimensional {
@@ -161,19 +128,6 @@ public interface ResizableType<T extends Number> extends DimensionalType<T> {
 		}
 		default @Override void resizeDepth(Double dDepth) throws NullPointerException, LowerDimensionalOrderException {
 			resizeDepth(dDepth.doubleValue());
-		}
-		
-		default @Override void resize(Double dWidth, Double dHeight, Double dDepth) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue()); resizeDepth(dDepth.intValue());
-		}
-		default void resize(double dWidth, double dHeight, double dDepth) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight); resizeDepth(dDepth);
-		}
-		default @Override void resize(Double dWidth, Double dHeight) throws NullPointerException, LowerDimensionalOrderException {
-			resizeWidth(dWidth.intValue()); resizeHeight(dHeight.intValue());
-		}
-		default void resize(double dWidth, double dHeight) throws LowerDimensionalOrderException {
-			resizeWidth(dWidth); resizeHeight(dHeight);
 		}
 	}
 }

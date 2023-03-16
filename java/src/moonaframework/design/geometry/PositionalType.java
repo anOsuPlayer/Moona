@@ -3,6 +3,9 @@ package moonaframework.design.geometry;
 import moonaframework.design.geometry.MovableType.DoubleMovable;
 import moonaframework.design.geometry.MovableType.IntegralMovable;
 import moonaframework.design.geometry.MovableType.Movable;
+import moonaframework.design.geometry.PositionType.DoublePosition;
+import moonaframework.design.geometry.PositionType.IntegralPosition;
+import moonaframework.design.geometry.PositionType.Position;
 
 public interface PositionalType<T extends Number> extends Cloneable, GeometricElement<T> {
 
@@ -17,6 +20,8 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 	T getWrappedZ() throws LowerDimensionalOrderException;
 	
 	void applyZ(MovableType<T> mov) throws NullPointerException, LowerDimensionalOrderException;
+	
+	PositionType<T> getPosition();
 	
 	public static interface IntegralPositional extends PositionalType<Integer>, IntegralGeometricElement {
 		
@@ -60,6 +65,10 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			else {
 				mov.setZ(getWrappedZ());
 			}
+		}
+		
+		default @Override IntegralPosition getPosition() {
+			return new IntegralPosition(this);
 		}
 		
 		default @Override int[] toArray() {
@@ -115,6 +124,10 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			}
 		}
 		
+		default @Override Position getPosition() {
+			return new Position(this);
+		}
+		
 		default @Override float[] toArray() {
 			return switch (order()) {
 				case MONODIMENSIONAL: yield new float[] {getX()};
@@ -166,6 +179,10 @@ public interface PositionalType<T extends Number> extends Cloneable, GeometricEl
 			else {
 				mov.setZ(getWrappedZ());
 			}
+		}
+		
+		default @Override DoublePosition getPosition() {
+			return new DoublePosition(this);
 		}
 		
 		default @Override double[] toArray() {

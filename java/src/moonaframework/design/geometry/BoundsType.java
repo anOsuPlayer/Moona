@@ -1,8 +1,6 @@
 package moonaframework.design.geometry;
 
 import moonaframework.design.WatchDog;
-import moonaframework.design.geometry.DimensionalType.IntegralDimensional;
-import moonaframework.design.geometry.SizeType.IntegralSize;
 
 public interface BoundsType<T extends Number> extends SizeType<T> {
 	

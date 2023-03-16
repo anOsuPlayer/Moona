@@ -20,11 +20,15 @@ public enum DimensionalOrder {
 		return this.message;
 	}
 	
-	static DimensionalOrder fromCode(int code) {
+	public static DimensionalOrder fromCode(int code) {
 		for (DimensionalOrder d : DimensionalOrder.values()) {
 			if (d.number == code) { return d; }
 		}
 		return null;
+	}
+	
+	public boolean satisfies(DimensionalOrder dim) {
+		return dim.number <= number;
 	}
 	
 	private DimensionalOrder(int index, String message) {

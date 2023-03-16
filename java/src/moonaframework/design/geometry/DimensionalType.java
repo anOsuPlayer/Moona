@@ -1,8 +1,14 @@
 package moonaframework.design.geometry;
 
+import moonaframework.design.geometry.BoundsType.Bounds;
+import moonaframework.design.geometry.BoundsType.DoubleBounds;
+import moonaframework.design.geometry.BoundsType.IntegralBounds;
 import moonaframework.design.geometry.ResizableType.DoubleResizable;
 import moonaframework.design.geometry.ResizableType.IntegralResizable;
 import moonaframework.design.geometry.ResizableType.Resizable;
+import moonaframework.design.geometry.SizeType.DoubleSize;
+import moonaframework.design.geometry.SizeType.IntegralSize;
+import moonaframework.design.geometry.SizeType.Size;
 
 public interface DimensionalType<T extends Number> extends Cloneable, GeometricElement<T> {
 
@@ -17,6 +23,10 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 	T getWrappedDepth() throws LowerDimensionalOrderException;
 	
 	void applyDepth(ResizableType<T> res) throws NullPointerException, LowerDimensionalOrderException;
+	
+	SizeType<?> getSize();
+	
+	BoundsType<?> getBounds();
 	
 	public static interface IntegralDimensional extends DimensionalType<Integer>, IntegralGeometricElement {
 		
@@ -60,6 +70,13 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			else {
 				res.setDepth(getWrappedDepth());
 			}
+		}
+		
+		default @Override IntegralSize getSize() {
+			return new IntegralSize(this);
+		}
+		default @Override IntegralBounds getBounds() {
+			return new IntegralBounds(this);
 		}
 		
 		default @Override int[] toArray() {
@@ -115,6 +132,13 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			}
 		}
 		
+		default @Override Size getSize() {
+			return new Size(this);
+		}
+		default @Override Bounds getBounds() {
+			return new Bounds(this);
+		}
+		
 		default @Override float[] toArray() {
 			return switch (order()) {
 				case MONODIMENSIONAL: yield new float[] {getWidth()};
@@ -166,6 +190,13 @@ public interface DimensionalType<T extends Number> extends Cloneable, GeometricE
 			else {
 				res.setDepth(getWrappedDepth());
 			}
+		}
+		
+		default @Override DoubleSize getSize() {
+			return new DoubleSize(this);
+		}
+		default @Override DoubleBounds getBounds() {
+			return new DoubleBounds(this);
 		}
 		
 		default @Override double[] toArray() {
