@@ -20,9 +20,9 @@ public final class Setting extends Status<Boolean> {
 	}
 	
 	public @Override Boolean evaluate() {
-		Boolean value = Boolean.valueOf(super.evaluate());
+		boolean value = super.evaluate().booleanValue();
 		for (Setting s : dependencies) {
-			value &= s.evaluate();
+			value &= s.evaluate().booleanValue();
 		}
 		return value;
 	}
