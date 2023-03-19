@@ -24,7 +24,7 @@ public final class Setting extends Status<Boolean> {
 		for (Setting s : dependencies) {
 			value &= s.evaluate().booleanValue();
 		}
-		return value;
+		return Boolean.valueOf(value);
 	}
 	
 	public Setting(boolean init, Setting...settings) {
