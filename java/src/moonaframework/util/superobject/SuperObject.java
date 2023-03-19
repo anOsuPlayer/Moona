@@ -1,5 +1,7 @@
 package moonaframework.util.superobject;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import moonaframework.util.condition.Conditional;
@@ -25,5 +27,13 @@ public interface SuperObject<O> extends OperativeState<O>, StandardState<O> {
 	}
 	static <O> SuperObject<O> of(O value) {
 		return new BaseObject<>(value);
+	}
+	static <O> SuperObject<O> of(Optional<O> opt) {
+		try {
+			return new BaseObject<>(opt.get());
+		}
+		catch (NoSuchElementException e) {
+			return new BaseObject<>();
+		}
 	}
 }
