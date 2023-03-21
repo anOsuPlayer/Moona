@@ -5,7 +5,5 @@
     
     #include "base/base.hpp"
     #include "conditions/conditions.hpp"
-    #include "dll/dllutil.hpp"
-    #include "java/javaimpl.hpp"
 
 #endif
