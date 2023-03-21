@@ -4,6 +4,7 @@
     #define MOONA_ASSERTION
 
     #include "../base/entity.hpp"
+    #include "../dll/dllutil.hpp"
 
     namespace moona {
 

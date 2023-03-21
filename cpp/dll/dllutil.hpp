@@ -5,10 +5,10 @@
 
     #include <windows.h>
 
-    #define DLL HANDLE
+    #define DLL HMODULE
 
-    #define DLLExport __declspec(dllexport)
-    #define DLLInport __declspec(dllinport)
+    #define DLLExport extern "C" __declspec(dllexport)
+    #define DLLImport extern "C" __declspec(dllinport)
 
     #define DLLEntryPoint int WINAPI DllEntryPoint
 

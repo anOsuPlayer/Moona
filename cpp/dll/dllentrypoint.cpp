@@ -7,7 +7,3 @@ DLLEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved) {
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     return 0;
 }
-
-DLLExport int hello(int a) {
-    return a;
-}
