@@ -3,6 +3,8 @@
 #ifndef MOONA_CLASS
     #define MOONA_CLASS
 
+    #include <jni.h>
+
     #include "object.hpp"
     #include "../conditions/conditional.hpp"
 

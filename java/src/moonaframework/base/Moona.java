@@ -38,6 +38,7 @@ public final class Moona {
 	}
 	
 	private static void loadLibaries() throws UnsatisfiedLinkError {
+		System.loadLibrary("Moona");
 		libraries.forEach(lib -> System.loadLibrary(lib));
 	}
 	
@@ -47,6 +48,7 @@ public final class Moona {
 		}
 		
 		loadLibaries();
+		nativeInit();
 		
 		if (loadReflections.evaluate()) {
 			Mirror.loadReflections();
