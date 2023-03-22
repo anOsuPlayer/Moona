@@ -29,10 +29,24 @@ public final class Moona {
 	
 	public static final Setting unsafeReflectionLoading = new Setting(false, loadReflections);
 	
+	private static native void nativeInit();
+	
+	private static final List<String> libraries = new ArrayList<>();
+	
+	public static void addLibrary(String lib) {
+		libraries.add(lib);
+	}
+	
+	private static void loadLibaries() throws UnsatisfiedLinkError {
+		libraries.forEach(lib -> System.loadLibrary(lib));
+	}
+	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
+		
+		loadLibaries();
 		
 		if (loadReflections.evaluate()) {
 			Mirror.loadReflections();
