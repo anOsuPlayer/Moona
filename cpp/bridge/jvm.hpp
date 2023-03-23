@@ -17,6 +17,8 @@
                 JavaVM* jvm;
                 JNIEnv* env;
 
+                static inline HMODULE dll;
+
                 typedef int (__jvmbuilder)(JavaVM**, void**, void*);
                 typedef int (__jvmfinder)(JavaVM**, jint, jint*);
 

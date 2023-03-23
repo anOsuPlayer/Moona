@@ -7,13 +7,14 @@ namespace moona {
     }
 
     JVM::~JVM() {
+        JVM::destroyJVM();
+        FreeLibrary(JVM::dll);
     }
 
     void JVM::loadJVMLibraries() {
-        HMODULE dll = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
-        JVM::jvmbuilder = (__jvmbuilder*)GetProcAddress(dll, "JNI_CreateJavaVM");
-        JVM::jvmfinder = (__jvmfinder*)GetProcAddress(dll, "JNI_GetCreatedJavaVMs");
-        FreeLibrary(dll);
+        JVM::dll = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
+        JVM::jvmbuilder = (__jvmbuilder*)GetProcAddress(JVM::dll, "JNI_CreateJavaVM");
+        JVM::jvmfinder = (__jvmfinder*)GetProcAddress(JVM::dll, "JNI_GetCreatedJavaVMs");
     }
 
     void JVM::buildJVM() {
@@ -25,11 +26,7 @@ namespace moona {
         args.options = opts;
         args.ignoreUnrecognized = false;
 
-        std::cout << "AAAAAAAAAA";
-
         jint rc = jvmbuilder(&this->jvm, (void**)&this->env, &args);
-
-        std::cout << rc;
     }
 
     void JVM::destroyJVM() {
