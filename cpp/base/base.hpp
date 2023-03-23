@@ -3,6 +3,7 @@
 #ifndef MOONA_BASE
     #define MOONA_BASE
 
+    #include "notation.hpp"
     #include "moonaclass.hpp"
     #include "moonaconcepts.hpp"
     #include "benchmark.hpp"

@@ -6,6 +6,7 @@
     #include <jni.h>
 
     #include "object.hpp"
+    #include "notation.hpp"
     #include "../bridge/jvm.hpp"
     #include "../conditions/conditional.hpp"
 
@@ -16,11 +17,10 @@
                 Moona();
                 ~Moona();
 
-                inline static JVM* jvm;
+                staticfield JVM* jvm;
 
-                static void postMain() __attribute__((destructor));
-
-                static void preMain() __attribute__((constructor));
+                static void initialize() PreMain;
+                static void finalize() PostMain;
 
             public:
                 static void init();
