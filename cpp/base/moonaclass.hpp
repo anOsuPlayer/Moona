@@ -4,6 +4,7 @@
     #define MOONA_CLASS
 
     #include <jni.h>
+    #include <iostream>
 
     #include "object.hpp"
     #include "notation.hpp"
@@ -19,11 +20,19 @@
 
                 staticfield JVM* jvm;
 
-                static void initialize() PreMain;
-                static void finalize() PostMain;
+                #ifdef MOONA_MAIN
+                    PreMain static void initialize() {
+                        std::cout << "hello";
+                    }
+                    PostMain static void finalize() {
+                        Moona::jvm->~JVM();
+                    }
+                #endif
 
             public:
                 static void init();
+
+                static void jinit(JNIEnv* env);
 
                 template <typename B> struct isMoonaElement : public Conditional {
                     isMoonaElement() {

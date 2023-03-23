@@ -9,9 +9,6 @@
 
     namespace moona {
 
-        typedef int (_jvmbuilder)(JavaVM**, void**, void*);
-        typedef int (_jvmfinder)(JavaVM**, jint, jint*);
-
         class JVM {
             private:
                 JavaVM* jvm;
@@ -29,6 +26,7 @@
 
             public:
                 JVM();
+                JVM(JNIEnv* env);
                 ~JVM();
 
                 bool isBuilt() const;

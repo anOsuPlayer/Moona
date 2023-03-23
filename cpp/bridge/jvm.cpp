@@ -1,15 +1,20 @@
 #include "jvm.hpp"
-#include <iostream>
 
 namespace moona {
 
     JVM::JVM() {
     }
+    JVM::JVM(JNIEnv* env) {
+        this->env = env;
+    }
 
     JVM::~JVM() {
-        JVM::destroyJVM();
-        delete &this->jvm, &this->env, &this->jvmbuilder, &this->jvmfinder;
-        FreeLibrary(JVM::dll);
+        if (JVM::jvm != nullptr) {
+            JVM::destroyJVM();
+        }
+        if (JVM::dll != nullptr) {
+            FreeLibrary(JVM::dll);
+        }
     }
 
     void JVM::loadJVMLibraries() {
@@ -19,6 +24,9 @@ namespace moona {
     }
 
     void JVM::buildJVM() {
+        if (JVM::dll == nullptr) {
+            JVM::loadJVMLibraries();
+        }
         JavaVMInitArgs args;
         JavaVMOption* opts = new JavaVMOption[1];
         opts[0].optionString = (char*)"-Djava.class.path=../java/bin";
@@ -31,10 +39,12 @@ namespace moona {
     }
 
     void JVM::destroyJVM() {
-        jvm->DestroyJavaVM();
+        if (jvm != nullptr) {
+            jvm->DestroyJavaVM();
+        }
     }
 
     bool JVM::isBuilt() const {
-        return this->jvm != nullptr;
+        return this->env != nullptr;
     }
 }
