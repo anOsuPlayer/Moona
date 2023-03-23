@@ -8,13 +8,14 @@ namespace moona {
 
     JVM::~JVM() {
         JVM::destroyJVM();
+        delete &this->jvm, &this->env, &this->jvmbuilder, &this->jvmfinder;
         FreeLibrary(JVM::dll);
     }
 
     void JVM::loadJVMLibraries() {
         JVM::dll = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
-        JVM::jvmbuilder = (__jvmbuilder*)GetProcAddress(JVM::dll, "JNI_CreateJavaVM");
-        JVM::jvmfinder = (__jvmfinder*)GetProcAddress(JVM::dll, "JNI_GetCreatedJavaVMs");
+        JVM::jvmbuilder = (_jvmbuilder*)GetProcAddress(JVM::dll, "JNI_CreateJavaVM");
+        JVM::jvmfinder = (_jvmfinder*)GetProcAddress(JVM::dll, "JNI_GetCreatedJavaVMs");
     }
 
     void JVM::buildJVM() {

@@ -21,4 +21,12 @@ namespace moona {
         Moona::jvm = new JVM();
         Moona::jvm->buildJVM();
     }
+
+    void Moona::preMain() {
+
+    }
+
+    void Moona::postMain() {
+        Moona::jvm->~JVM();
+    }
 }

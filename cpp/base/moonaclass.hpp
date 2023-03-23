@@ -18,8 +18,11 @@
 
                 inline static JVM* jvm;
 
-            public:
+                static void postMain() __attribute__((destructor));
 
+                static void preMain() __attribute__((constructor));
+
+            public:
                 static void init();
 
                 template <typename B> struct isMoonaElement : public Conditional {

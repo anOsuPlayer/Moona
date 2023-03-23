@@ -9,8 +9,8 @@
 
     namespace moona {
 
-        typedef int (__jvmbuilder)(JavaVM**, void**, void*);
-        typedef int (__jvmfinder)(JavaVM**, jint, jint*);
+        typedef int (_jvmbuilder)(JavaVM**, void**, void*);
+        typedef int (_jvmfinder)(JavaVM**, jint, jint*);
 
         class JVM {
             private:
@@ -19,11 +19,11 @@
 
                 static inline HMODULE dll;
 
-                typedef int (__jvmbuilder)(JavaVM**, void**, void*);
-                typedef int (__jvmfinder)(JavaVM**, jint, jint*);
+                typedef int (_jvmbuilder)(JavaVM**, void**, void*);
+                typedef int (_jvmfinder)(JavaVM**, jint, jint*);
 
-                inline static __jvmbuilder* jvmbuilder;
-                inline static __jvmfinder* jvmfinder;
+                inline static _jvmbuilder* jvmbuilder;
+                inline static _jvmfinder* jvmfinder;
 
                 static void loadJVMLibraries();
 
