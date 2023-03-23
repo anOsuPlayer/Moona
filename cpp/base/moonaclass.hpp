@@ -4,12 +4,11 @@
     #define MOONA_CLASS
 
     #include <jni.h>
-    #include <iostream>
 
     #include "object.hpp"
     #include "notation.hpp"
     #include "../bridge/jvm.hpp"
-    #include "../conditions/conditional.hpp"
+    #include "../util/conditional.hpp"
 
     namespace moona {
 
@@ -18,11 +17,11 @@
                 Moona();
                 ~Moona();
 
-                staticfield JVM* jvm;
+                static_field JVM* jvm;
 
                 #ifdef MOONA_MAIN
                     PreMain static void initialize() {
-                        std::cout << "hello";
+                        
                     }
                     PostMain static void finalize() {
                         Moona::jvm->~JVM();

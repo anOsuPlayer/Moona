@@ -7,6 +7,8 @@
     #include <windows.h>
     #include <tchar.h>
 
+    #include "../base/notation.hpp"
+
     namespace moona {
 
         class JVM {
@@ -14,7 +16,7 @@
                 JavaVM* jvm;
                 JNIEnv* env;
 
-                static inline HMODULE dll;
+                static_field HMODULE source;
 
                 typedef int (_jvmbuilder)(JavaVM**, void**, void*);
                 typedef int (_jvmfinder)(JavaVM**, jint, jint*);

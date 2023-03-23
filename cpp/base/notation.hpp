@@ -6,6 +6,6 @@
     #define PreMain __attribute__((constructor))
     #define PostMain __attribute__((destructor))
 
-    #define staticfield inline static
+    #define static_field inline static
 
 #endif
