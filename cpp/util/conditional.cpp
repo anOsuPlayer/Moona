@@ -5,10 +5,10 @@ namespace moona {
     Conditional::Conditional() {
     }
 
-    Conditional::~Conditional() {
+    Conditional::Conditional(const bool& value) {
+        this->value = value;
     }
 
-    Conditional::operator bool() const {
-        return this->value;
+    Conditional::~Conditional() {
     }
 }

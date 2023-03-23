@@ -4,18 +4,15 @@
     #define MOONA_ASSERTION
 
     #include "../base/entity.hpp"
+    #include "property.hpp"
 
     namespace moona {
 
-        struct Conditional : public Entity<Conditional> {
+        struct Conditional : public Entity<Conditional, Property<bool>> {
             protected:
-                bool value;
-
                 Conditional();
+                Conditional(const bool& value);
                 ~Conditional();
-
-            public:
-                operator bool() const;
         };
     }
 
