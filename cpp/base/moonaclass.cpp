@@ -5,6 +5,7 @@ namespace moona {
 
     extern "C" {
         JNIEXPORT void JNICALL Java_moonaframework_base_Moona_nativeInit(JNIEnv* env, jclass clazz) {
+            #define MOONA_JAVA_APPROACH
             Moona::init();
         }
     }
@@ -16,6 +17,8 @@ namespace moona {
     }
 
     void Moona::init() {
-
+        JVM::loadJVMLibraries();
+        Moona::jvm = new JVM();
+        Moona::jvm->buildJVM();
     }
 }

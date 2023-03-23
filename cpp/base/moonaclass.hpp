@@ -6,6 +6,7 @@
     #include <jni.h>
 
     #include "object.hpp"
+    #include "../bridge/jvm.hpp"
     #include "../conditions/conditional.hpp"
 
     namespace moona {
@@ -15,7 +16,10 @@
                 Moona();
                 ~Moona();
 
+                inline static JVM* jvm;
+
             public:
+
                 static void init();
 
                 template <typename B> struct isMoonaElement : public Conditional {
