@@ -13,12 +13,13 @@
             protected:
                 T value;
 
-            public:
                 Property() {
                 }
                 Property(const T& value) {
                     this->value = value;
                 }
+
+            public:
                 ~Property() {
                 }
 
@@ -26,7 +27,7 @@
                     return this->value;
                 }
 
-                T& evaluate() const {
+                const T& evaluate() const {
                     return this->value;
                 }
                 void set(const T& value) {

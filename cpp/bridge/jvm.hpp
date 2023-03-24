@@ -21,8 +21,8 @@
                 typedef int (_jvmbuilder)(JavaVM**, void**, void*);
                 typedef int (_jvmfinder)(JavaVM**, jint, jint*);
 
-                inline static _jvmbuilder* jvmbuilder;
-                inline static _jvmfinder* jvmfinder;
+                static_field _jvmbuilder* jvmbuilder;
+                static_field _jvmfinder* jvmfinder;
 
                 static void loadJVMLibraries();
 

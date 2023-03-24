@@ -11,4 +11,11 @@ namespace moona {
 
     Conditional::~Conditional() {
     }
+
+    void Conditional::reverse() {
+        this->value = !value;
+    }
+    Conditional Conditional::opposite() const {
+        return Conditional(this->value);
+    }
 }

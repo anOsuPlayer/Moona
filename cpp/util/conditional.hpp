@@ -12,7 +12,13 @@
             protected:
                 Conditional();
                 Conditional(const bool& value);
+
+            public:
                 ~Conditional();
+
+                void reverse();
+
+                Conditional opposite() const;
         };
     }
 
