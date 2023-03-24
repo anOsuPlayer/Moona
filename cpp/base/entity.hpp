@@ -17,7 +17,7 @@
             template <typename E, typename... super> friend class Entity;
         };
 
-        template <typename E, typename... super> class Entity : public Base<E>, public super... {
+        template <typename E, typename... super> class Entity : public Base<E>, super... {
             protected:
                 Entity() {
                 }

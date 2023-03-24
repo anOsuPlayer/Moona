@@ -8,7 +8,7 @@
 
     namespace moona {
 
-        struct Conditional : public Entity<Conditional, Property<bool>> {
+        struct Conditional : public Entity<Conditional>, public Property<bool> {
             protected:
                 Conditional();
                 Conditional(const bool& value);

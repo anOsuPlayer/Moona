@@ -8,10 +8,11 @@
     #include <tchar.h>
 
     #include "../base/notation.hpp"
+    #include "../base/entity.hpp"
 
     namespace moona {
 
-        class JVM {
+        class JVM : public Entity<JVM> {
             private:
                 JavaVM* jvm;
                 JNIEnv* env;
@@ -26,9 +27,9 @@
                 static_field _jvmbuilder* jvmbuilder;
                 static_field _jvmfinder* jvmfinder;
 
+            public:
                 static void loadJVMLibraries();
 
-            public:
                 JVM();
                 JVM(JNIEnv* env);
                 ~JVM();

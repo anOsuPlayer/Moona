@@ -17,9 +17,11 @@ namespace moona {
     }
 
     void JVM::loadJVMLibraries() {
-        JVM::source = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
-        JVM::jvmbuilder = (_jvmbuilder*)GetProcAddress(JVM::source, "JNI_CreateJavaVM");
-        JVM::jvmfinder = (_jvmfinder*)GetProcAddress(JVM::source, "JNI_GetCreatedJavaVMs");
+        if (JVM::source == nullptr) {
+            JVM::source = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
+            JVM::jvmbuilder = (_jvmbuilder*)GetProcAddress(JVM::source, "JNI_CreateJavaVM");
+            JVM::jvmfinder = (_jvmfinder*)GetProcAddress(JVM::source, "JNI_GetCreatedJavaVMs");
+        }
     }
 
     void JVM::buildJVM() {
