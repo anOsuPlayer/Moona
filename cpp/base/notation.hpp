@@ -8,4 +8,6 @@
 
     #define static_field inline static
 
+    #define JavaImpl extern "C" JNIEXPORT JNICALL
+
 #endif

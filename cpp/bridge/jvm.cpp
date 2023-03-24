@@ -5,13 +5,12 @@ namespace moona {
     JVM::JVM() {
     }
     JVM::JVM(JNIEnv* env) {
+        this->JNIStatus = JNI_OK;
         this->env = env;
     }
 
     JVM::~JVM() {
-        if (JVM::jvm != nullptr) {
-            JVM::destroyJVM();
-        }
+        JVM::destroyJVM();
         if (JVM::source != nullptr) {
             FreeLibrary(JVM::source);
         }
@@ -35,15 +34,19 @@ namespace moona {
         args.options = opts;
         args.ignoreUnrecognized = false;
 
-        jint rc = jvmbuilder(&this->jvm, (void**)&this->env, &args);
+        this->JNIStatus = jvmbuilder(&this->jvm, (void**)&this->env, &args);
+        delete opts;
     }
 
     void JVM::destroyJVM() {
-        if (jvm != nullptr) {
+        if (this->jvm != nullptr) {
             jvm->DestroyJavaVM();
         }
     }
 
+    bool JVM::isSafe() const {
+        return this->JNIStatus == JNI_OK;
+    }
     bool JVM::isBuilt() const {
         return this->env != nullptr;
     }

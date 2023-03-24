@@ -16,6 +16,8 @@
                 JavaVM* jvm;
                 JNIEnv* env;
 
+                jint JNIStatus;
+
                 static_field HMODULE source;
 
                 typedef int (_jvmbuilder)(JavaVM**, void**, void*);
@@ -31,6 +33,7 @@
                 JVM(JNIEnv* env);
                 ~JVM();
 
+                bool isSafe() const;
                 bool isBuilt() const;
 
                 void buildJVM();
