@@ -1,6 +1,6 @@
 #pragma once
 
-#if !defined(MOONA_CONCEPTS) && __cplusplus >= 202002L
+#if !defined(MOONA_CONCEPTS) && __cplusplus features __cpp_concepts
     #define MOONA_CONCEPTS
 
     #include <concepts>
