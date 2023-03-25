@@ -52,4 +52,8 @@ namespace moona {
     bool JVM::isBuilt() const {
         return this->env != nullptr;
     }
+
+    bool JVM::isLoaded() const {
+        return this->source != nullptr;
+    }
 }

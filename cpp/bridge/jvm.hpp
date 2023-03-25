@@ -37,6 +37,8 @@
                 bool isSafe() const;
                 bool isBuilt() const;
 
+                bool isLoaded() const;
+
                 void buildJVM();
 
                 void destroyJVM();

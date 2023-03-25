@@ -5,5 +5,6 @@
 
     #include "javanotation.hpp"
     #include "jvm.hpp"
+    #include "cppimpl.hpp"
 
 #endif

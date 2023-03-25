@@ -4,6 +4,5 @@
     #define MOONA_JAVA_NOTATION
 
     #define JavaImpl extern "C" JNIEXPORT JNICALL
-    #define MoonaJava Java_moonaframework
 
 #endif
