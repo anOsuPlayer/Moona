@@ -8,8 +8,6 @@
 
     #define static_field inline static
 
-    #define JavaImpl extern "C" JNIEXPORT JNICALL
-
     #define features >=
     #define is / 100 >=
 

@@ -7,6 +7,7 @@
 
     #include "object.hpp"
     #include "notation.hpp"
+    #include "../bridge/javanotation.hpp"
     #include "../bridge/jvm.hpp"
     #include "../util/conditional.hpp"
 
