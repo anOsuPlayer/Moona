@@ -6,16 +6,17 @@ namespace moona {
         this->value = false;
     }
 
-    Setting::Setting(bool value) : Property<bool>(value) {
+    Setting::Setting(bool value) {
+        this->value = value;
     }
 
     Setting::~Setting() {
     }
 
-    void Setting::enable() {
+    void Setting::enable() const {
         this->value = true;
     }
-    void Setting::disable() {
+    void Setting::disable() const {
         this->value = false;
     }
 }

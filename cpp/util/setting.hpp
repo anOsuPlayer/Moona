@@ -14,9 +14,9 @@
                 Setting(bool value);
                 ~Setting();
 
-                void enable();
+                void enable() const;
 
-                void disable();
+                void disable() const;
         };
     }
 

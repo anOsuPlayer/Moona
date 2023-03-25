@@ -11,7 +11,7 @@
 
         template <typename T> struct Property : Entity<Property<T>> {
             protected:
-                T value;
+                mutable T value;
 
                 Property() {
                 }
@@ -30,7 +30,7 @@
                 const T& evaluate() const {
                     return this->value;
                 }
-                void set(const T& value) {
+                void set(const T& value) const {
                     this->value = value;
                 }
         };

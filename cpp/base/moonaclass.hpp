@@ -10,6 +10,7 @@
     #include "../bridge/javanotation.hpp"
     #include "../bridge/jvm.hpp"
     #include "../util/conditional.hpp"
+    #include "../util/setting.hpp"
 
     namespace moona {
 
@@ -18,21 +19,28 @@
                 Moona();
                 ~Moona();
 
+                static_field bool isOn = false;
                 static_field JVM* jvm;
 
                 #ifdef MOONA_MAIN
                     PreMain static void initialize() {
-                        
+
                     }
                     PostMain static void finalize() {
-                        Moona::jvm->~JVM();
+                        if (jvm != nullptr) {
+                            delete jvm;
+                        }
                     }
                 #endif
 
             public:
+                const static_field Setting initializeJavaVM = Setting(false);
+
                 static void init();
 
                 static void jinit(JNIEnv* env);
+
+                static bool isJVMinitialized();
 
                 template <typename B> struct isMoonaElement : public Conditional {
                     isMoonaElement() {

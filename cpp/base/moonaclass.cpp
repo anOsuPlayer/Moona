@@ -13,11 +13,21 @@ namespace moona {
     }
 
     void Moona::init() {
-        JVM::loadJVMLibraries();
-        Moona::jvm = new JVM();
-        Moona::jvm->buildJVM();
+        Moona::isOn = true;
+
+        if (Moona::initializeJavaVM) {
+            JVM::loadJVMLibraries();
+            Moona::jvm = new JVM();
+            Moona::jvm->buildJVM();
+        }
     }
     void Moona::jinit(JNIEnv* env) {
+        Moona::isOn = true;
+
         Moona::jvm = new JVM(env);
+    }
+
+    bool Moona::isJVMinitialized() {
+        return Moona::jvm != nullptr;
     }
 }
