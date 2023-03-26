@@ -14,8 +14,12 @@ namespace moona {
     Moona::~Moona() {
     }
 
-    void Moona::init() {
+    void Moona::commonInit() {
         Moona::isOn = true;
+    }
+
+    void Moona::init() {
+        Moona::commonInit();
 
         if (Moona::initializeJavaVM) {
             JVM::loadJVMLibraries();
@@ -24,8 +28,8 @@ namespace moona {
         }
     }
     void Moona::jinit(JNIEnv* env) {
-        Moona::isOn = true;
-
+        Moona::commonInit();
+        
         Moona::jvm = new JVM(env);
     }
 

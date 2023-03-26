@@ -33,6 +33,8 @@
                     }
                 #endif
 
+                static void commonInit();
+
             public:
                 const static_field Setting initializeJavaVM = Setting(false);
 
@@ -65,6 +67,8 @@
                     ~isMoonaObject() {
                     }
                 };
+            
+            friend class RawMemory;
         };
     }
 

@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 import moonaframework.util.annotation.Functional;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.functional.Property;
-import moonaframework.util.functional.Satellite;
+import moonaframework.util.functional.Translatable;
 
-public @Functional class Delegate<T> implements Property<T>, Satellite<Supplier<T>> {
+public @Functional class Delegate<T> implements Property<T>, Translatable<Supplier<T>> {
 	
 	private Supplier<T> method;
 	

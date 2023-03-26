@@ -1,6 +1,5 @@
 package moonaframework.util.functional;
 
-public @FunctionalInterface interface Satellite<E> {
+public interface Satellite<E> extends Buildable<E>, Translatable<E> {
 	
-	E translate();
 }
