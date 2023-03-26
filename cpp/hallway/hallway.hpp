@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MOONA_BRIDGE
-    #define MOONA_BRIDGE
+#ifndef MOONA_HALLWAY
+    #define MOONA_HALLWAY
 
     #include "javanotation.hpp"
     #include "jvm.hpp"

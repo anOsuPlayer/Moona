@@ -1,5 +1,7 @@
 #include "moonaclass.hpp"
 
+#include <cstdint>
+
 namespace moona {
 
     JavaImpl void Java_moonaframework_base_Moona_nativeInit(JNIEnv* env, jclass clazz) {

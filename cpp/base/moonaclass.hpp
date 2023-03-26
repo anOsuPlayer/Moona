@@ -7,8 +7,8 @@
 
     #include "object.hpp"
     #include "notation.hpp"
-    #include "../bridge/javanotation.hpp"
-    #include "../bridge/jvm.hpp"
+    #include "../hallway/javanotation.hpp"
+    #include "../hallway/jvm.hpp"
     #include "../util/conditional.hpp"
     #include "../util/setting.hpp"
 

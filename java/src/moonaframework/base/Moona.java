@@ -29,12 +29,16 @@ public final class Moona {
 	
 	public static final Setting unsafeReflectionLoading = new Setting(false, loadReflections);
 	
+	public static final Setting enableHallwayAccess = new Setting(true);
+	
 	private static native void nativeInit();
 	
 	private static final List<String> libraries = new ArrayList<>();
 	
 	public static void addLibrary(String lib) {
-		libraries.add(lib);
+		if (enableHallwayAccess.evaluate()) {
+			libraries.add(lib);
+		}
 	}
 	
 	private static void loadLibaries() throws UnsatisfiedLinkError {
@@ -47,8 +51,10 @@ public final class Moona {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
 		
-		loadLibaries();
-		nativeInit();
+		if (enableHallwayAccess.evaluate()) {
+			loadLibaries();
+			nativeInit();
+		}
 		
 		if (loadReflections.evaluate()) {
 			Mirror.loadReflections();
