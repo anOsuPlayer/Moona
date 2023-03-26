@@ -21,8 +21,8 @@
 
                 static_field HMODULE source;
 
-                typedef int (_jvmbuilder)(JavaVM**, void**, void*);
-                typedef int (_jvmfinder)(JavaVM**, jint, jint*);
+                typedef int _jvmbuilder(JavaVM**, void**, void*);
+                typedef int _jvmfinder(JavaVM**, jint, jint*);
 
                 static_field _jvmbuilder* jvmbuilder;
                 static_field _jvmfinder* jvmfinder;

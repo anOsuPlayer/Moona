@@ -1,4 +1,5 @@
 #include "cppimpl.hpp"
+#include <stdlib.h>
 
 namespace moona {
 

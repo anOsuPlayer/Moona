@@ -3,7 +3,7 @@ package moonaframework.bridge;
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 
-public class Cplusplus {
+public final class Cplusplus {
 
 	public static native long version();
 	
