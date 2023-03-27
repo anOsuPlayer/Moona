@@ -12,6 +12,9 @@
     #include "../util/conditional.hpp"
     #include "../util/setting.hpp"
 
+    #define DefaultJVM Moona::jvm
+    #define DefaultENV Moona::jvm->env
+
     namespace moona {
 
         class Moona {
@@ -36,7 +39,7 @@
                 static void commonInit();
 
             public:
-                const static_field Setting initializeJavaVM = Setting(false);
+                const static_field Setting allowHallwayAccess = Setting(false);
 
                 static void init();
 
@@ -67,8 +70,6 @@
                     ~isMoonaObject() {
                     }
                 };
-            
-            friend class RawMemory;
         };
     }
 

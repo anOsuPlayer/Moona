@@ -19,18 +19,28 @@ namespace moona {
     }
 
     void Moona::init() {
-        Moona::commonInit();
+        if (!Moona::isOn) {
+            Moona::commonInit();
 
-        if (Moona::initializeJavaVM) {
-            JVM::loadJVMLibraries();
-            Moona::jvm = new JVM();
-            Moona::jvm->buildJVM();
+            if (Moona::allowHallwayAccess) {
+                JVM::loadJVMLibraries();
+                DefaultJVM = new JVM();
+                DefaultJVM->buildJVM();
+
+                jclass moonaclass = DefaultENV->FindClass("moonaframework/base/Moona");
+                jmethodID id = DefaultENV->GetStaticMethodID(moonaclass, "init", "()V");
+                DefaultENV->CallStaticVoidMethod(moonaclass, id);
+            }
         }
     }
     void Moona::jinit(JNIEnv* env) {
-        Moona::commonInit();
-        
-        Moona::jvm = new JVM(env);
+        if (!Moona::isOn) {
+            Moona::commonInit();
+            
+            if (Moona::jvm == nullptr) {
+                Moona::jvm = new JVM(env);
+            }
+        }
     }
 
     bool Moona::isJVMinitialized() {
