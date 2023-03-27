@@ -13,50 +13,27 @@
 
         class ChainedPointer : public Entity<ChainedPointer> {
             private:
-                ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev) {
-                    this->value = value;
-                    this->next = next;
-                    this->prev = prev;
-                }
-                
-                ChainedPointer(ChainedPointer* next, ChainedPointer* prev) : ChainedPointer(nullptr, next, prev) {
+                mutable std::any* value;
 
-                }
+                ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev);
+                ChainedPointer(ChainedPointer* next, ChainedPointer* prev);
+                ChainedPointer();
                 
-                ChainedPointer() : ChainedPointer(nullptr, nullptr, nullptr) {
-
-                }
-                
-                ~ChainedPointer() {
-                    delete this->value;
-                    delete this->next;
-                }
+                ~ChainedPointer();
 
                 mutable ChainedPointer* prev;
 
-                void setPrev(ChainedPointer* prev) const {
-                    this->prev = prev;
-                }
+                void setPrev(ChainedPointer* prev) const;
 
                 mutable ChainedPointer* next;
 
-                void setNext(ChainedPointer* next) const {
-                    this->next = next;
-                }
-
-                mutable std::any* value;
+                void setNext(ChainedPointer* next) const;
 
             public:
-                const std::any& get() const {
-                    return *this->value;
-                }
+                const std::any& get() const;
 
-                const ChainedPointer* getNext() const {
-                    return this->next;
-                }
-                const ChainedPointer* getPrev() const {
-                    return this->prev;
-                }
+                const ChainedPointer* getNext() const;
+                const ChainedPointer* getPrev() const;
 
             friend class RawMemory;
         };
