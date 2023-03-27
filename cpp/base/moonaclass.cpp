@@ -22,7 +22,7 @@ namespace moona {
         if (!Moona::isOn) {
             Moona::commonInit();
 
-            if (Moona::allowHallwayAccess) {
+            if (Moona::enableHallwayAccess) {
                 JVM::loadJVMLibraries();
                 DefaultJVM = new JVM();
                 DefaultJVM->buildJVM();

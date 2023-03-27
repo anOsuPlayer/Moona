@@ -39,7 +39,7 @@
                 static void commonInit();
 
             public:
-                const static_field Setting allowHallwayAccess = Setting(false);
+                const static_field Setting enableHallwayAccess = Setting(false);
 
                 static void init();
 

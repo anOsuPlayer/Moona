@@ -4,7 +4,6 @@
     #define MOONA_OBJECT
 
     #include "entity.hpp"
-    #include "moonaclass.hpp"
 
     namespace moona {
 
