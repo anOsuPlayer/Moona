@@ -32,6 +32,9 @@ namespace moona {
                 DefaultENV->CallStaticVoidMethod(moonaclass, id);
             }
         }
+        else {
+            throw MoonaHandlingException("Moona::init() method can only be invoked once.");
+        }
     }
     void Moona::jinit(JNIEnv* env) {
         if (!Moona::isOn) {
@@ -40,6 +43,9 @@ namespace moona {
             if (Moona::jvm == nullptr) {
                 Moona::jvm = new JVM(env);
             }
+        }
+        else {
+            throw MoonaHandlingException("Moona::init() method can only be invoked once.");
         }
     }
 

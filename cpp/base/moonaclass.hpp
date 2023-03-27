@@ -7,6 +7,7 @@
 
     #include "object.hpp"
     #include "notation.hpp"
+    #include "moonahandlingexception.hpp"
     #include "../hallway/javanotation.hpp"
     #include "../hallway/jvm.hpp"
     #include "../util/conditional.hpp"
