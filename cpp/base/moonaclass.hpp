@@ -20,17 +20,17 @@
 
         class Moona {
             private:
-                Moona();
-                ~Moona();
+                Moona() = delete;
+                ~Moona() = delete;
 
                 static_field bool isOn = false;
                 static_field JVM* jvm;
 
                 #ifdef MOONA_MAIN
-                    PreMain static void initialize() {
+                    PreMain static void initialize() noexcept {
 
                     }
-                    PostMain static void finalize() {
+                    PostMain static void finalize() noexcept {
                         if (jvm != nullptr) {
                             delete jvm;
                         }
@@ -46,7 +46,7 @@
 
                 static void jinit(JNIEnv* env);
 
-                static bool isJVMinitialized();
+                static bool isJVMinitialized() noexcept;
 
                 template <typename B> struct isMoonaElement : public Conditional {
                     isMoonaElement() {

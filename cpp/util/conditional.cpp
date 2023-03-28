@@ -12,10 +12,10 @@ namespace moona {
     Conditional::~Conditional() {
     }
 
-    void Conditional::reverse() {
+    void Conditional::reverse() const noexcept {
         this->value = !value;
     }
-    Conditional Conditional::opposite() const {
+    Conditional Conditional::opposite() const noexcept {
         return Conditional(this->value);
     }
 }

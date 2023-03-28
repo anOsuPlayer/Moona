@@ -14,15 +14,15 @@
                 ~Object() {
                 }
 
-                virtual Object<O, super...>* clone() const {
+                virtual Object<O, super...>* clone() const noexcept {
                     return new Object<O, super...>();
                 }
 
-                virtual const char* toString() const {
+                virtual const char* toString() const noexcept {
                     return this->type()->name();
                 }
 
-                virtual bool equals(const Object* obj2) const {
+                virtual bool equals(const Object* obj2) const noexcept {
                     return this == obj2;
                 }
         };

@@ -16,9 +16,9 @@
             public:
                 ~Conditional();
 
-                void reverse();
+                void reverse() const noexcept;
 
-                Conditional opposite() const;
+                Conditional opposite() const noexcept;
         };
     }
 

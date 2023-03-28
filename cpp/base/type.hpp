@@ -15,11 +15,11 @@
                 ~Type() {
                 }
 
-                constexpr const char* name() const {
+                constexpr const char* name() const noexcept {
                     return typeid(T).name();
                 }
 
-                constexpr const unsigned short int size() const {
+                constexpr const unsigned short int typeSize() const noexcept {
                     return sizeof(T);
                 }
         };

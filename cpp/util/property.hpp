@@ -23,14 +23,14 @@
                 ~Property() {
                 }
 
-                operator T() const {
+                operator T() const noexcept {
                     return this->value;
                 }
 
-                const T& evaluate() const {
+                const T& evaluate() const noexcept {
                     return this->value;
                 }
-                void set(const T& value) const {
+                void set(const T& value) const noexcept {
                     this->value = value;
                 }
         };

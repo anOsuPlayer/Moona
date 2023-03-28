@@ -8,12 +8,6 @@ namespace moona {
         Moona::jinit(env);
     }
 
-    Moona::Moona() {
-    }
-
-    Moona::~Moona() {
-    }
-
     void Moona::commonInit() {
         Moona::isOn = true;
     }
@@ -49,7 +43,7 @@ namespace moona {
         }
     }
 
-    bool Moona::isJVMinitialized() {
+    bool Moona::isJVMinitialized() noexcept {
         return Moona::jvm != nullptr;
     }
 }

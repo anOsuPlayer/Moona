@@ -14,9 +14,9 @@
                 Setting(bool value);
                 ~Setting();
 
-                void enable() const;
+                void enable() const noexcept;
 
-                void disable() const;
+                void disable() const noexcept;
         };
     }
 

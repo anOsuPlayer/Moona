@@ -9,11 +9,9 @@ namespace moona {
     }
 
     ChainedPointer::ChainedPointer(ChainedPointer* next, ChainedPointer* prev) : ChainedPointer(nullptr, next, prev) {
-
     }
 
     ChainedPointer::ChainedPointer() : ChainedPointer(nullptr, nullptr, nullptr) {
-
     }
 
     ChainedPointer::~ChainedPointer() {
@@ -55,7 +53,7 @@ namespace moona {
         delete this->begin;
     }
 
-    int RawMemory::getSize() const {
+    int RawMemory::getSize() const noexcept {
         return this->size;
     }
 }

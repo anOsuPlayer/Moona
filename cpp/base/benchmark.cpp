@@ -2,13 +2,7 @@
 
 namespace moona {
 
-    Benchmark::Benchmark() {
-    }
-
-    Benchmark::~Benchmark() {
-    }
-
-    void Benchmark::printAssertion(const bool& value) {
+    void Benchmark::printAssertion(const bool& value) noexcept {
         std::cout << std::boolalpha << value << std::noboolalpha;
     }
 }

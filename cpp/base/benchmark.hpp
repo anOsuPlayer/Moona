@@ -9,11 +9,11 @@
 
         class Benchmark {
             private:
-                Benchmark();
-                ~Benchmark();
+                Benchmark() = delete;
+                ~Benchmark() = delete;
 
             public:
-                static void printAssertion(const bool& value);
+                static void printAssertion(const bool& value) noexcept;
         };
     }
 

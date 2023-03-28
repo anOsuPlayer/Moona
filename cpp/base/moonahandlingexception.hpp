@@ -9,8 +9,8 @@
 
         class MoonaHandlingException : public Exception {
             public:
-                MoonaHandlingException();
-                MoonaHandlingException(const char* message);
+                explicit MoonaHandlingException();
+                explicit MoonaHandlingException(const char* message);
                 ~MoonaHandlingException();
         };
     }

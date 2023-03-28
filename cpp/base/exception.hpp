@@ -15,8 +15,8 @@
                 const char* message;
 
             public:
-                Exception();
-                Exception(const char* message);
+                explicit Exception() = delete;
+                explicit Exception(const char* message);
                 ~Exception();
 
                 virtual const char* what() const noexcept override final;

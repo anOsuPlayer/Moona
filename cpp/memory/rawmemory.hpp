@@ -15,8 +15,8 @@
             private:
                 mutable std::any* value;
 
-                ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev);
-                ChainedPointer(ChainedPointer* next, ChainedPointer* prev);
+                explicit ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev);
+                explicit ChainedPointer(ChainedPointer* next, ChainedPointer* prev);
                 ChainedPointer();
                 
                 ~ChainedPointer();
@@ -40,7 +40,7 @@
 
         class RawMemory : public Object<RawMemory> {
             private:
-                RawMemory(ChainedPointer* begin, ChainedPointer* end);
+                explicit RawMemory(ChainedPointer* begin, ChainedPointer* end);
 
                 mutable unsigned int size = 0;
 
@@ -51,17 +51,17 @@
                 RawMemory();
                 ~RawMemory();
 
-                template <typename T> void allocate(const T& obj) const {
+                template <typename T> void allocate(const T& obj) const noexcept {
                     this->end->prev->next = new ChainedPointer(new std::any(obj), this->end, this->end->prev);
                     this->end->prev = this->end->prev->next;
 
                     this->size++;
                 };
-                template <typename T> void allocate(const T* obj) const {
+                template <typename T> void allocate(const T* obj) const noexcept {
                     this->allocate(*obj);
                 };
 
-                template <typename T> const T& get(int at) const {
+                template <typename T> const T& get(int at) const noexcept {
                     ChainedPointer* ptr = this->begin;
                     for (int i = 0; i <= at; i++) {
                         ptr = ptr->next;
@@ -69,9 +69,9 @@
                     return *std::any_cast<T>(ptr->value);
                 };
 
-                int getSize() const;
+                int getSize() const noexcept;
 
-                virtual RawMemory* clone() const override final {
+                virtual RawMemory* clone() const noexcept override final {
                     return new RawMemory(this->begin, this->end);
                 }
         };

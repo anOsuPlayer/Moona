@@ -13,10 +13,10 @@ namespace moona {
     Setting::~Setting() {
     }
 
-    void Setting::enable() const {
+    void Setting::enable() const noexcept {
         this->value = true;
     }
-    void Setting::disable() const {
+    void Setting::disable() const noexcept {
         this->value = false;
     }
 }

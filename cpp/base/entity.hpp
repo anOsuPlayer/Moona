@@ -25,12 +25,16 @@
                 }
 
             public:
-                Type<E, super...>* type() const {
+                constexpr Type<E, super...>* type() const noexcept {
                     return new Type<E, super...>();
                 }
 
-                template <typename T> constexpr bool instanceof() const {
+                template <typename T> constexpr bool instanceof() const noexcept {
                     return std::is_base_of<T, E>() || std::is_same<T, E>();
+                }
+
+                constexpr const unsigned short int size() const noexcept {
+                    return sizeof(*this);
                 }
         };
     }
