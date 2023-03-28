@@ -33,7 +33,7 @@
                     return std::is_base_of<T, E>() || std::is_same<T, E>();
                 }
 
-                constexpr const unsigned short int size() const noexcept {
+                constexpr const unsigned short int thisSize() const noexcept {
                     return sizeof(*this);
                 }
         };

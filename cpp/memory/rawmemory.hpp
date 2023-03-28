@@ -67,9 +67,9 @@
                     return *((T*)(ptr->value));
                 };
 
-                int memsize() const noexcept;
+                int size() const noexcept;
 
-                const unsigned short int size() const noexcept;
+                const unsigned short int thisSize() const noexcept;
         };
     }
 
