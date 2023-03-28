@@ -6,7 +6,6 @@
     #include "notation.hpp"
     #include "moonaclass.hpp"
     #include "moonaconcepts.hpp"
-    #include "exception.hpp"
     #include "benchmark.hpp"
     #include "object.hpp"
     #include "entity.hpp"

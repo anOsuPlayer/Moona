@@ -3,7 +3,7 @@
 #ifndef MOONA_HANDLING_EXCEPTION
     #define MOONA_HANDLING_EXCEPTION
 
-    #include "exception.hpp"
+    #include "../exceptions/exception.hpp"
 
     namespace moona {
 

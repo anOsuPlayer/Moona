@@ -53,7 +53,7 @@ namespace moona {
     }
 
     const unsigned short int RawMemory::thisSize() const noexcept {
-        short totalSize = sizeof(*this); const ChainedPointer* ptr = this->begin;
+        short totalSize = sizeof(*this); const ChainedPointer* ptr = this->begin->next;
         for (int i = 0; i < this->size(); i++) {
             totalSize += sizeof(*ptr);
             ptr = ptr->next;

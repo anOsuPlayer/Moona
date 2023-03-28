@@ -59,6 +59,19 @@
                     this->allocate(*obj);
                 };
 
+                template <typename T> void deallocate(unsigned int at) const noexcept {
+                    ChainedPointer* ptr = this->begin;
+                    for (int i = 0; i <= at; i++) {
+                        ptr = ptr->next;
+                    }
+
+                    ChainedPointer* prevPtr = ptr->prev;
+                    ptr->prev->next = ptr->next;
+                    ptr->next->prev = prevPtr;
+
+                    this->elements--;
+                }
+
                 template <typename T> const T& get(int at) const noexcept {
                     ChainedPointer* ptr = this->begin;
                     for (int i = 0; i <= at; i++) {
