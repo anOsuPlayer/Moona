@@ -13,9 +13,9 @@
 
         class ChainedPointer : public Entity<ChainedPointer> {
             private:
-                mutable std::any* value;
+                mutable void* value;
 
-                explicit ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev);
+                explicit ChainedPointer(void* value, ChainedPointer* next, ChainedPointer* prev);
                 explicit ChainedPointer(ChainedPointer* next, ChainedPointer* prev);
                 ChainedPointer();
                 
@@ -30,19 +30,17 @@
                 void setNext(ChainedPointer* next) const;
 
             public:
-                const std::any& get() const;
-
                 const ChainedPointer* getNext() const;
                 const ChainedPointer* getPrev() const;
 
             friend class RawMemory;
         };
 
-        class RawMemory : public Object<RawMemory> {
+        class RawMemory : public Entity<RawMemory> {
             private:
                 explicit RawMemory(ChainedPointer* begin, ChainedPointer* end);
 
-                mutable unsigned int size = 0;
+                mutable unsigned int elements = 0;
 
                 mutable ChainedPointer* begin;
                 mutable ChainedPointer* end;
@@ -52,10 +50,10 @@
                 ~RawMemory();
 
                 template <typename T> void allocate(const T& obj) const noexcept {
-                    this->end->prev->next = new ChainedPointer(new std::any(obj), this->end, this->end->prev);
+                    this->end->prev->next = new ChainedPointer((T*)&obj, this->end, this->end->prev);
                     this->end->prev = this->end->prev->next;
 
-                    this->size++;
+                    this->elements++;
                 };
                 template <typename T> void allocate(const T* obj) const noexcept {
                     this->allocate(*obj);
@@ -66,14 +64,12 @@
                     for (int i = 0; i <= at; i++) {
                         ptr = ptr->next;
                     }
-                    return *std::any_cast<T>(ptr->value);
+                    return *((T*)(ptr->value));
                 };
 
-                int getSize() const noexcept;
+                int memsize() const noexcept;
 
-                virtual RawMemory* clone() const noexcept override final {
-                    return new RawMemory(this->begin, this->end);
-                }
+                const unsigned short int size() const noexcept;
         };
     }
 

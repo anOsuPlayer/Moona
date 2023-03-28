@@ -2,7 +2,7 @@
 
 namespace moona {
 
-    ChainedPointer::ChainedPointer(std::any* value, ChainedPointer* next, ChainedPointer* prev) {
+    ChainedPointer::ChainedPointer(void* value, ChainedPointer* next, ChainedPointer* prev) {
         this->value = value;
         this->next = next;
         this->prev = prev;
@@ -15,7 +15,6 @@ namespace moona {
     }
 
     ChainedPointer::~ChainedPointer() {
-        delete this->value;
         delete this->next;
     }
 
@@ -24,10 +23,6 @@ namespace moona {
     }
     void ChainedPointer::setNext(ChainedPointer* next) const {
         this->next = next;
-    }
-
-    const std::any& ChainedPointer::get() const {
-        return *this->value;
     }
 
     const ChainedPointer* ChainedPointer::getPrev() const {
@@ -53,7 +48,16 @@ namespace moona {
         delete this->begin;
     }
 
-    int RawMemory::getSize() const noexcept {
-        return this->size;
+    int RawMemory::memsize() const noexcept {
+        return this->elements;
+    }
+
+    const unsigned short int RawMemory::size() const noexcept {
+        short totalSize = sizeof(*this); const ChainedPointer* ptr = this->begin;
+        for (int i = 0; i < this->memsize(); i++) {
+            totalSize += sizeof(*ptr);
+            ptr = ptr->next;
+        }
+        return totalSize;
     }
 }
