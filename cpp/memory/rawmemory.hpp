@@ -69,6 +69,8 @@
                     ptr->prev->next = ptr->next;
                     ptr->next->prev = prevPtr;
 
+                    delete ptr;
+
                     this->elements--;
                 }
 

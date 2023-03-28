@@ -15,7 +15,10 @@ namespace moona {
     }
 
     ChainedPointer::~ChainedPointer() {
-        delete this->next;
+        if (prev == nullptr) {
+            delete this->next;
+        }
+        std::cout << "deleted\n";
     }
 
     void ChainedPointer::setPrev(ChainedPointer* prev) const {
