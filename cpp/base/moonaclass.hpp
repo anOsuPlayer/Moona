@@ -23,7 +23,7 @@
                 Moona() = delete;
                 ~Moona() = delete;
 
-                static_field bool isOn = false;
+                static_field bool on = false;
                 static_field JVM* jvm;
 
                 #ifdef MOONA_MAIN
@@ -45,6 +45,8 @@
                 static void init();
 
                 static void jinit(JNIEnv* env);
+
+                static bool isOn() noexcept;
 
                 static bool isJVMinitialized() noexcept;
 

@@ -5,15 +5,17 @@
 namespace moona {
 
     JavaImpl void Java_moonaframework_base_Moona_nativeInit(JNIEnv* env, jclass clazz) {
-        Moona::jinit(env);
+        if (!Moona::isOn()) {
+            Moona::jinit(env);
+        }
     }
 
     void Moona::commonInit() {
-        Moona::isOn = true;
+        Moona::on = true;
     }
 
     void Moona::init() {
-        if (!Moona::isOn) {
+        if (!Moona::on) {
             Moona::commonInit();
 
             if (Moona::enableHallwayAccess) {
@@ -31,7 +33,7 @@ namespace moona {
         }
     }
     void Moona::jinit(JNIEnv* env) {
-        if (!Moona::isOn) {
+        if (!Moona::on) {
             Moona::commonInit();
             
             if (Moona::jvm == nullptr) {
@@ -41,6 +43,10 @@ namespace moona {
         else {
             throw MoonaHandlingException("Moona::init() method can only be invoked once.");
         }
+    }
+
+    bool Moona::isOn() noexcept {
+        return Moona::on;
     }
 
     bool Moona::isJVMinitialized() noexcept {
