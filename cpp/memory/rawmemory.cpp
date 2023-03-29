@@ -2,35 +2,25 @@
 
 namespace moona {
 
-    ChainedPointer::ChainedPointer(void* value, ChainedPointer* next, ChainedPointer* prev) {
+    ChainedPointer::ChainedPointer(void* value, ChainedPointer* next) {
         this->value = value;
         this->next = next;
-        this->prev = prev;
     }
 
-    ChainedPointer::ChainedPointer(ChainedPointer* next, ChainedPointer* prev) : ChainedPointer(nullptr, next, prev) {
+    ChainedPointer::ChainedPointer(ChainedPointer* next) : ChainedPointer(nullptr, next) {
     }
 
-    ChainedPointer::ChainedPointer() : ChainedPointer(nullptr, nullptr, nullptr) {
+    ChainedPointer::ChainedPointer() : ChainedPointer(nullptr, nullptr) {
     }
 
-    ChainedPointer::~ChainedPointer() {
-        if (prev == nullptr) {
-            delete this->next;
-        }
+    ChainedPointer::~ChainedPointer() {        
         std::cout << "deleted\n";
     }
 
-    void ChainedPointer::setPrev(ChainedPointer* prev) const {
-        this->prev = prev;
-    }
     void ChainedPointer::setNext(ChainedPointer* next) const {
         this->next = next;
     }
 
-    const ChainedPointer* ChainedPointer::getPrev() const {
-        return this->prev;
-    }
     const ChainedPointer* ChainedPointer::getNext() const {
         return this->next;
     }
@@ -43,12 +33,18 @@ namespace moona {
         this->begin = new ChainedPointer();
         this->end = new ChainedPointer();
 
-        this->begin->setNext(end); this->begin->setPrev(nullptr);
-        this->end->setNext(nullptr); this->end->setPrev(begin);
+        this->begin->setNext(end);
+        this->end->setNext(nullptr);
     }
 
     RawMemory::~RawMemory() {
-        delete this->begin;
+        ChainedPointer* first = this->begin; ChainedPointer* later = this->begin->next;
+        for (int i = 0; i <= this->elements; i++) {
+            delete first;
+            first = later;
+            later = later->next;
+        }
+        delete this->end;
     }
 
     int RawMemory::size() const noexcept {

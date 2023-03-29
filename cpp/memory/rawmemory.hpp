@@ -15,15 +15,11 @@
             private:
                 mutable void* value;
 
-                explicit ChainedPointer(void* value, ChainedPointer* next, ChainedPointer* prev);
-                explicit ChainedPointer(ChainedPointer* next, ChainedPointer* prev);
+                explicit ChainedPointer(void* value, ChainedPointer* next);
+                explicit ChainedPointer(ChainedPointer* next);
                 ChainedPointer();
                 
                 ~ChainedPointer();
-
-                mutable ChainedPointer* prev;
-
-                void setPrev(ChainedPointer* prev) const;
 
                 mutable ChainedPointer* next;
 
@@ -31,7 +27,6 @@
 
             public:
                 const ChainedPointer* getNext() const;
-                const ChainedPointer* getPrev() const;
 
             friend class RawMemory;
         };
@@ -50,26 +45,28 @@
                 ~RawMemory();
 
                 template <typename T> void allocate(const T& obj) const noexcept {
-                    this->end->prev->next = new ChainedPointer((T*)&obj, this->end, this->end->prev);
-                    this->end->prev = this->end->prev->next;
+                    this->end->next = new ChainedPointer((T*)&obj, nullptr);
+                    this->end = this->end->next;
 
                     this->elements++;
                 };
                 template <typename T> void allocate(const T* obj) const noexcept {
-                    this->allocate(*obj);
+                    this->end->next = new ChainedPointer((T*)obj, nullptr);
+                    this->end = this->end->next;
+
+                    this->elements++;
                 };
 
-                template <typename T> void deallocate(unsigned int at) const noexcept {
+                template <typename T> void deallocate(int at) const noexcept {
                     ChainedPointer* ptr = this->begin;
-                    for (int i = 0; i <= at; i++) {
+                    for (int i = 0; i <= at-1; i++) {
                         ptr = ptr->next;
                     }
 
-                    ChainedPointer* prevPtr = ptr->prev;
-                    ptr->prev->next = ptr->next;
-                    ptr->next->prev = prevPtr;
+                    ChainedPointer* del = ptr->next;
+                    ptr->next = ptr->next->next;
 
-                    delete ptr;
+                    delete del;
 
                     this->elements--;
                 }
