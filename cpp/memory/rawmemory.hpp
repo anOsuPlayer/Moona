@@ -33,38 +33,48 @@
 
         class RawMemory : public Entity<RawMemory> {
             private:
-                explicit RawMemory(ChainedPointer* begin, ChainedPointer* end);
-
                 mutable unsigned int elements = 0;
 
                 mutable ChainedPointer* begin;
                 mutable ChainedPointer* end;
 
             public:
-                RawMemory();
+                RawMemory() = default;
                 ~RawMemory();
 
                 template <typename T> void allocate(const T& obj) const noexcept {
+                    if (this->elements == 0) {
+                        this->begin = new ChainedPointer((T*)&obj, nullptr);
+                        this->elements++;
+                        return;
+                    }
+                    else if (this->elements == 1) {
+                        this->begin->next = new ChainedPointer((T*)&obj, nullptr);
+                        this->end = this->begin->next;
+                        this->elements++;
+                        return;
+                    }
+
                     this->end->next = new ChainedPointer((T*)&obj, nullptr);
                     this->end = this->end->next;
 
                     this->elements++;
                 };
                 template <typename T> void allocate(const T* obj) const noexcept {
-                    this->end->next = new ChainedPointer((T*)obj, nullptr);
-                    this->end = this->end->next;
-
-                    this->elements++;
+                    this->allocate<T>(obj);
                 };
 
-                template <typename T> void deallocate(int at) const noexcept {
+                template <typename T> void deallocate(unsigned int at) const noexcept {
                     ChainedPointer* ptr = this->begin;
-                    for (int i = 0; i <= at-1; i++) {
+                    for (int i = 0; i < at; i++) {
                         ptr = ptr->next;
                     }
 
-                    ChainedPointer* del = ptr->next;
-                    ptr->next = ptr->next->next;
+                    ChainedPointer* del = ptr;
+                    if (ptr != this->end) {
+                        ptr->next = ptr->next->next;
+                    }
+                    del->next = nullptr;
 
                     delete del;
 
@@ -73,7 +83,7 @@
 
                 template <typename T> const T& get(int at) const noexcept {
                     ChainedPointer* ptr = this->begin;
-                    for (int i = 0; i <= at; i++) {
+                    for (int i = 0; i < at; i++) {
                         ptr = ptr->next;
                     }
                     return *((T*)(ptr->value));
