@@ -8,6 +8,8 @@
 
     #include "../base/entity.hpp"
     #include "../base/object.hpp"
+    #include "../exceptions/nullptrexception.hpp"
+    #include "../exceptions/indexexception.hpp"
 
     namespace moona {
 
@@ -22,11 +24,6 @@
                 ~ChainedPointer();
 
                 mutable ChainedPointer* next;
-
-                void setNext(ChainedPointer* next) const;
-
-            public:
-                const ChainedPointer* getNext() const;
 
             friend class RawMemory;
         };
@@ -60,28 +57,26 @@
 
                     this->elements++;
                 };
-                template <typename T> void allocate(const T* obj) const noexcept {
+                template <typename T> void allocate(const T* obj) const {
+                    if (obj == nullptr) {
+                        throw NullPointerException("Cannot allocate a nullptr.");
+                    }
                     this->allocate<T>(obj);
                 };
 
-                template <typename T> void deallocate(unsigned int at) const noexcept {
-                    ChainedPointer* ptr = this->begin;
-                    for (int i = 0; i < at; i++) {
-                        ptr = ptr->next;
+                template <typename T> void deallocate(unsigned int at) const {
+                    if (at >= this->elements || at < 0) {
+                        throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
                     }
-
-                    ChainedPointer* del = ptr;
-                    if (ptr != this->end) {
-                        ptr->next = ptr->next->next;
-                    }
-                    del->next = nullptr;
-
-                    delete del;
 
                     this->elements--;
                 }
 
-                template <typename T> const T& get(int at) const noexcept {
+                template <typename T> const T& get(int at) const {
+                    if (at >= this->elements || at < 0) {
+                        throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
+                    }
+
                     ChainedPointer* ptr = this->begin;
                     for (int i = 0; i < at; i++) {
                         ptr = ptr->next;

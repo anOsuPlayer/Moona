@@ -20,14 +20,6 @@ namespace moona {
         std::cout << "deleted\n";
     }
 
-    void ChainedPointer::setNext(ChainedPointer* next) const {
-        this->next = next;
-    }
-
-    const ChainedPointer* ChainedPointer::getNext() const {
-        return this->next;
-    }
-
     RawMemory::~RawMemory() {
         if (this->begin != nullptr) {
             delete this->begin;
