@@ -10,7 +10,6 @@
     #include "moonahandlingexception.hpp"
     #include "../hallway/javanotation.hpp"
     #include "../hallway/jvm.hpp"
-    #include "../memory/rawmemory.hpp"
     #include "../util/conditional.hpp"
     #include "../util/setting.hpp"
 
