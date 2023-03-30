@@ -10,7 +10,7 @@
         class IndexOutOfBoundsException : public Exception {
             public:
                 IndexOutOfBoundsException() = delete;
-                IndexOutOfBoundsException(const char* message);
+                explicit IndexOutOfBoundsException(const char* message);
         };
     }
 

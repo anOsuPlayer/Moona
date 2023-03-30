@@ -10,7 +10,7 @@
         class IllegalArgumentException : public Exception {
             public:
                 IllegalArgumentException() = delete;
-                IllegalArgumentException(const char* message);
+                explicit IllegalArgumentException(const char* message);
         };
     }
 

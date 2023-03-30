@@ -10,7 +10,7 @@
         class NullPointerException : public Exception {
             public:
                 NullPointerException() = delete;
-                NullPointerException(const char* message);
+                explicit NullPointerException(const char* message);
         };
     }
 

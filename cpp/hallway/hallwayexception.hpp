@@ -10,8 +10,8 @@
 
         class HallwayAccessException : public Exception {
             public:
-                HallwayAccessException();
-                HallwayAccessException(const char* message);
+                explicit HallwayAccessException();
+                explicit HallwayAccessException(const char* message);
                 ~HallwayAccessException();
         };
     }
