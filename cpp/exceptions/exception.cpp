@@ -12,4 +12,7 @@ namespace moona {
     const char* Exception::what() const noexcept {
         return this->message;
     }
+    const char* Exception::toString() const noexcept {
+        return this->message;
+    }
 }

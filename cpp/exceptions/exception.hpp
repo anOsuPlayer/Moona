@@ -7,10 +7,11 @@
     #include <exception>
 
     #include "../base/entity.hpp"
+    #include "../interfaces/printable.hpp"
 
     namespace moona {
 
-        class Exception : public Entity<Exception>, public std::exception {
+        class Exception : public Object<Exception>, public Printable, public std::exception {
             private:
                 const char* message;
 
@@ -20,6 +21,7 @@
                 ~Exception();
 
                 virtual const char* what() const noexcept override final;
+                virtual const char* toString() const noexcept override final;
         };
     }
 
