@@ -9,7 +9,7 @@ public final class Cpp {
 	
 	public static void printVersion() throws MoonaHandlingException {
 		if (!Moona.isOn()) {
-			throw new NativeAccessException();
+			throw new HallwayAccessException();
 		}
 		long version = version();
 		System.out.println("C++ v." + version / 100 + "-" + version % 100);
