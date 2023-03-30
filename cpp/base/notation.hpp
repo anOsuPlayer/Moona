@@ -8,6 +8,8 @@
 
     #define static_field inline static
 
+    #define abstract =0;
+
     #define features >=
 
     #define cpp23 202300L
