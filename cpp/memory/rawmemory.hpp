@@ -56,13 +56,20 @@
                     this->end = this->end->next;
 
                     this->elements++;
-                };
+                }
                 template <typename T> void allocate(const T* obj) const {
                     if (obj == nullptr) {
                         throw NullPointerException("Cannot allocate a nullptr.");
                     }
                     this->allocate<T>(obj);
-                };
+                }
+
+                template <typename T> static void allocateOnMoona(const T& obj) noexcept {
+                    Moona::moonastack->allocate<T>(obj);
+                }
+                template <typename T> static void allocateOnMoona(const T* obj) noexcept {
+                    Moona::moonastack->allocate<T>(obj);
+                }
 
                 template <typename T> void deallocate(unsigned int at) const {
                     if (at >= this->elements) {
@@ -98,6 +105,10 @@
                     }
                 }
 
+                template <typename T> static void deallocateFromMoona(unsigned int at) {
+                    Moona::moonastack->deallocate<T>(at);
+                }
+
                 template <typename T> const T& get(unsigned int at) const {
                     if (at >= this->elements) {
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
@@ -109,6 +120,10 @@
                     }
                     return *((T*)(ptr->value));
                 };
+
+                template <typename T> static const T& getFromMoona(unsigned int at) {
+                    return Moona::moonastack->get<T>(at);
+                }
 
                 int size() const noexcept;
 

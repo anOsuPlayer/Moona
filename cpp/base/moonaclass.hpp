@@ -27,6 +27,7 @@
                 static_field bool on = false;
                 
                 static_field JVM* jvm;
+                static_field RawMemory* moonastack;
 
                 #ifdef MOONA_MAIN
                     PreMain static void initialize() noexcept {
@@ -35,6 +36,7 @@
                     PostMain static void finalize() noexcept {
                         if (jvm != nullptr) {
                             delete jvm;
+                            delete moonastack;
                         }
                     }
                 #endif
@@ -45,11 +47,9 @@
                 const static_field Setting enableHallwayAccess = Setting(false);
 
                 static void init();
-
                 static void jinit(JNIEnv* env);
 
                 static bool isOn() noexcept;
-
                 static bool isJVMinitialized() noexcept;
 
                 template <typename B> struct isMoonaElement : public Conditional {
