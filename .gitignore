@@ -1,4 +1,3 @@
-/.metadata/
 /java/.metadata/
 /java/.settings/
 /java/src/test/
@@ -9,3 +8,4 @@
 /cpp/moona.exe
 /cpp/Moona.dll
 /java/lwjgl/
+/.metadata/

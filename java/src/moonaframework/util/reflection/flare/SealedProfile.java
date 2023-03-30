@@ -15,14 +15,14 @@ public final class SealedProfile extends Flare<Type> {
 		return this.target;
 	}
 	
-	public List<Type> getPermittedSubclasses() throws UndefinedReflectionException {
+	public List<Type> getPermittedSubclasses() {
 		if (!super.hasGenerated) {
 			reflect();
 		}
 
 		return super.value;
 	}
-	public Type getPermittedSubclass(int index) throws UndefinedReflectionException, IndexOutOfBoundsException {
+	public Type getPermittedSubclass(int index) throws IndexOutOfBoundsException {
 		if (!super.hasGenerated) {
 			reflect();
 		}
