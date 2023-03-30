@@ -29,7 +29,7 @@ public final class Moona {
 	
 	public static final Setting unsafeReflectionLoading = new Setting(false, loadReflections);
 	
-	public static final Setting enableHallwayAccess = new Setting(true);
+	public static final Setting enableHallwayAccess = new Setting(false);
 	
 	private static native void nativeInit();
 	

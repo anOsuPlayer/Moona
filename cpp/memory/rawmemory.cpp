@@ -17,7 +17,6 @@ namespace moona {
         if (next != nullptr) {
             delete this->next;
         }
-        std::cout << "deleted\n";
     }
 
     RawMemory::~RawMemory() {

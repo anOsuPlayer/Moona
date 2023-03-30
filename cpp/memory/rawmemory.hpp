@@ -69,7 +69,33 @@
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
                     }
 
-                    this->elements--;
+                    if (at == 0) {
+                        ChainedPointer* oldBeg = this->begin;
+                        this->begin = this->begin->next;
+                        oldBeg->next = nullptr;
+
+                        delete oldBeg;
+                        this->elements--;
+                        return;
+                    }
+                    else {
+                        ChainedPointer* ref = this->begin;
+                        for (int i = 0; i < at-1; i++) {
+                            ref = ref->next;
+                        }
+
+                        ChainedPointer* del = ref->next;
+                        ref->next = ref->next->next;
+                        del->next = nullptr;
+                        
+                        if (at == this->elements-1) {
+                            this->end = ref;
+                        }
+
+                        delete del;
+                        this->elements--;
+                        return;
+                    }
                 }
 
                 template <typename T> const T& get(int at) const {
