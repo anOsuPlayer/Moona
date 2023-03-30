@@ -65,7 +65,7 @@
                 };
 
                 template <typename T> void deallocate(unsigned int at) const {
-                    if (at >= this->elements || at < 0) {
+                    if (at >= this->elements) {
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
                     }
 
@@ -98,8 +98,8 @@
                     }
                 }
 
-                template <typename T> const T& get(int at) const {
-                    if (at >= this->elements || at < 0) {
+                template <typename T> const T& get(unsigned int at) const {
+                    if (at >= this->elements) {
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this RawMemory.");
                     }
 

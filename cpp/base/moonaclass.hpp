@@ -10,6 +10,7 @@
     #include "moonahandlingexception.hpp"
     #include "../hallway/javanotation.hpp"
     #include "../hallway/jvm.hpp"
+    #include "../memory/rawmemory.hpp"
     #include "../util/conditional.hpp"
     #include "../util/setting.hpp"
 
@@ -24,6 +25,7 @@
                 ~Moona() = delete;
 
                 static_field bool on = false;
+                
                 static_field JVM* jvm;
 
                 #ifdef MOONA_MAIN
