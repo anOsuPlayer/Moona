@@ -23,7 +23,7 @@
             public:
                 ~Property() = default;
 
-                virtual const Property<T>& operator = (const T& ref) const noexcept override final {
+                virtual const Property<T>& operator = (const T& ref) noexcept override final {
                     this->value = ref;
 
                     return *this;

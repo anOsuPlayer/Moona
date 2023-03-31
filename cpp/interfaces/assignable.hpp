@@ -13,7 +13,7 @@
                 ~Assignable() = default;
 
             public:
-                virtual const Assignable<T>& operator = (const T& ref) const noexcept abstract;
+                virtual const Assignable<T>& operator = (T ref) noexcept abstract;
         };
     }
 

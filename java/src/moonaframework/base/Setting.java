@@ -31,7 +31,7 @@ public final class Setting extends Status<Boolean> {
 		setValue(init);
 		this.dependencies = settings;
 	}
-	public Setting(Setting...settings) {
+	public Setting(Setting...settings) {		
 		this(false, settings);
 	}
 	public Setting(boolean init) {
