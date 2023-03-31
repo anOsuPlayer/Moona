@@ -34,14 +34,16 @@
                 JVM(JNIEnv* env);
                 ~JVM();
 
-                bool isSafe() const;
-                bool isBuilt() const;
+                void buildJVM() noexcept;
+                void destroyJVM() noexcept;
 
-                bool isLoaded() const;
+                const JavaVM& getJavaVM() const noexcept;
+                const JNIEnv& getJNIEnv() const noexcept;
 
-                void buildJVM();
+                bool isSafe() const noexcept;
+                bool isBuilt() const noexcept;
 
-                void destroyJVM();
+                bool isLoaded() const noexcept;
 
             friend class Moona;
         };

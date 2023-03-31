@@ -39,11 +39,17 @@ namespace moona {
         this->JNIStatus = jvmbuilder(&this->jvm, (void**)&this->env, &args);
         delete opts;
     }
-
     void JVM::destroyJVM() {
         if (this->jvm != nullptr) {
             jvm->DestroyJavaVM();
         }
+    }
+
+    const JavaVM& JVM::getJavaVM() const noexcept {
+        return *this->jvm;
+    }
+    const JNIEnv& JVM::getJNIEnv() const noexcept {
+        return *this->env;
     }
 
     bool JVM::isSafe() const {
