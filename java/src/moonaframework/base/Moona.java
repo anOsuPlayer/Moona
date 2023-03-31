@@ -45,6 +45,16 @@ public final class Moona {
 		libraries.forEach(lib -> System.loadLibrary(lib));
 	}
 	
+	private static final Runnable ender = new Runnable() {
+		public @Override void run() {
+			for (MoonaObject mo : elements) {
+				if (mo instanceof Endexpr ex) {
+					ex.code.run();
+				}
+			}
+		}
+	};
+	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
@@ -66,6 +76,8 @@ public final class Moona {
 				cx.code.run();
 			}
 		}
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(ender));
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {
