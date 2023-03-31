@@ -16,7 +16,7 @@
 
             public:
                 JavaPackage() = delete;
-                JavaPackage(const char* package);
+                explicit JavaPackage(const char* package);
                 ~JavaPackage() = default;
 
                 virtual const char* toString() const noexcept override final;
