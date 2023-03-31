@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MOONA_STRING
-    #define MOONA_STRING
+#ifndef MOONA_WIDE_STRING
+    #define MOONA_WIDE_WSTRING
 
     #include "rawstring.hpp"
     #include "../base/object.hpp"

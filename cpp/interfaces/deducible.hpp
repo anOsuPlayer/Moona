@@ -4,10 +4,11 @@
     #define MOONA_DEDUCIBLE_INTERFACE
 
     #include "../base/notation.hpp"
+    #include "../base/entity.hpp"
 
     namespace moona {
 
-        template <typename T> class Deducible {
+        template <typename T> class Deducible : public Entity<Deducible<T>> {
             protected:
                 Deducible() = default;
                 ~Deducible() = default;

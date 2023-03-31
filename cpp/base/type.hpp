@@ -10,10 +10,8 @@
         
         template <typename T, typename... super> class Type {
             public:
-                explicit Type() {
-                }
-                ~Type() {
-                }
+                explicit Type() = default;
+                ~Type() = default;
 
                 constexpr const char* name() const noexcept {
                     return typeid(T).name();

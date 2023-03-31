@@ -4,6 +4,7 @@
     #define MOONA_OBJECT
 
     #include "entity.hpp"
+    #include "type.hpp"
     #include "../interfaces/printable.hpp"
     #include "../interfaces/cloneable.hpp"
     #include "../interfaces/equalable.hpp"
@@ -17,6 +18,10 @@
                 ~Object() {
                 }
 
+                virtual constexpr const Type<O, super...> type() const noexcept final {
+                    return Type<O, super...>();
+                }
+
                 virtual Object<O, super...>* clone() const noexcept override {
                     return new Object<O, super...>();
                 }
@@ -25,8 +30,8 @@
                     return this->type().name();
                 }
 
-                virtual bool equals(const Equalable* obj2) const noexcept override {
-                    return this == obj2;
+                virtual bool equals(const Equalable& obj2) const noexcept override {
+                    return this == &obj2;
                 }
         };
     }

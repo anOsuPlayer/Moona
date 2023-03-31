@@ -4,10 +4,11 @@
     #define MOONA_CLONEABLE_INTERFACE
 
     #include "../base/notation.hpp"
+    #include "../base/entity.hpp"
 
     namespace moona {
 
-        class Cloneable {
+        class Cloneable : public Entity<Cloneable> {
             protected:
                 Cloneable() = default;
                 ~Cloneable() = default;
