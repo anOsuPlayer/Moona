@@ -11,7 +11,7 @@
 
     namespace moona {
 
-        template <typename T> class Property : public Object<Property<T>>, public Deducible<T>, public Assignable<T> {
+        template <typename T> class Property : public Object<Property<T>>, public Deducible<T>, public Assignable<const T&> {
             protected:
                 mutable T value;
 
