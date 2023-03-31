@@ -25,8 +25,8 @@
                     return this->type().name();
                 }
 
-                virtual bool equals(const Equalable& obj2) const noexcept override {
-                    return this == &obj2;
+                virtual bool equals(const Equalable* obj2) const noexcept override {
+                    return this == obj2;
                 }
         };
     }
