@@ -7,5 +7,6 @@
     #include "cloneable.hpp"
     #include "equalable.hpp"
     #include "deducible.hpp"
+    #include "assignable.hpp"
 
 #endif

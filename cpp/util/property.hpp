@@ -7,10 +7,11 @@
 
     #include "../base/object.hpp"
     #include "../interfaces/deducible.hpp"
+    #include "../interfaces/assignable.hpp"
 
     namespace moona {
 
-        template <typename T> class Property : public Object<Property<T>>, public Deducible<T> {
+        template <typename T> class Property : public Object<Property<T>>, public Deducible<T>, public Assignable<T> {
             protected:
                 mutable T value;
 
@@ -22,6 +23,11 @@
             public:
                 ~Property() = default;
 
+                virtual const Property<T>& operator = (const T& ref) const noexcept override final {
+                    this->value = ref;
+
+                    return *this;
+                }
                 operator T() const noexcept override {
                     return this->value;
                 }
@@ -31,6 +37,10 @@
                 }
                 void set(const T& value) const noexcept {
                     this->value = value;
+                }
+
+                virtual const char* toString() const noexcept override {
+                    return "Property";
                 }
         };
     }

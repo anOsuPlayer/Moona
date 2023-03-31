@@ -14,4 +14,8 @@ namespace moona {
     void Setting::disable() const noexcept {
         this->value = false;
     }
+
+    const char* Setting::toString() const noexcept {
+        return (this->value) ? "1" : "0";
+    }
 }

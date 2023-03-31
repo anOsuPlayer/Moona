@@ -16,6 +16,8 @@
 
                 void enable() const noexcept;
                 void disable() const noexcept;
+
+                virtual const char* toString() const noexcept override;
         };
     }
 
