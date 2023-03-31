@@ -52,14 +52,14 @@ namespace moona {
         return *this->env;
     }
 
-    bool JVM::isSafe() const {
+    bool JVM::isSafe() const noexcept {
         return this->JNIStatus == JNI_OK;
     }
-    bool JVM::isBuilt() const {
+    bool JVM::isBuilt() const noexcept {
         return this->env != nullptr;
     }
 
-    bool JVM::isLoaded() const {
+    bool JVM::isLoaded() const noexcept {
         return this->source != nullptr;
     }
 }

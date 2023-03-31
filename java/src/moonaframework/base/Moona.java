@@ -40,7 +40,6 @@ public final class Moona {
 			libraries.add(lib);
 		}
 	}
-	
 	private static void loadLibaries() throws UnsatisfiedLinkError {
 		System.loadLibrary("shared/Moona");
 		libraries.forEach(lib -> System.loadLibrary(lib));

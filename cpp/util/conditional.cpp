@@ -2,14 +2,10 @@
 
 namespace moona {
 
-    Conditional::Conditional() {
+    Conditional::Conditional() : Property<bool>(false) {
     }
 
-    Conditional::Conditional(const bool& value) {
-        this->value = value;
-    }
-
-    Conditional::~Conditional() {
+    Conditional::Conditional(bool value) : Property<bool>(value) {
     }
 
     void Conditional::reverse() const noexcept {

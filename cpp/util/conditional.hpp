@@ -3,18 +3,18 @@
 #ifndef MOONA_ASSERTION
     #define MOONA_ASSERTION
 
-    #include "../base/entity.hpp"
+    #include "../base/object.hpp"
     #include "property.hpp"
 
     namespace moona {
 
-        struct Conditional : public Entity<Conditional>, public Property<bool> {
+        struct Conditional : public Object<Conditional>, public Property<bool> {
             protected:
                 Conditional();
-                Conditional(const bool& value);
+                Conditional(bool value);
 
             public:
-                ~Conditional();
+                ~Conditional() = default;
 
                 void reverse() const noexcept;
 

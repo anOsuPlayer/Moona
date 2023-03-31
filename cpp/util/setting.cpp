@@ -2,15 +2,10 @@
 
 namespace moona {
 
-    Setting::Setting() {
-        this->value = false;
+    Setting::Setting() : Property<bool>(false) {
     }
 
-    Setting::Setting(bool value) {
-        this->value = value;
-    }
-
-    Setting::~Setting() {
+    Setting::Setting(bool value) : Property<bool>(value) {
     }
 
     void Setting::enable() const noexcept {

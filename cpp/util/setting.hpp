@@ -8,14 +8,13 @@
 
     namespace moona {
 
-        class Setting : public Entity<Setting>, public Property<bool> {
+        class Setting : public Object<Setting>, public Property<bool> {
             public:
                 Setting();
                 Setting(bool value);
-                ~Setting();
+                ~Setting() = default;
 
                 void enable() const noexcept;
-
                 void disable() const noexcept;
         };
     }

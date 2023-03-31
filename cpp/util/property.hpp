@@ -5,25 +5,24 @@
 
     #include <iostream>
 
-    #include "../base/entity.hpp"
+    #include "../base/object.hpp"
+    #include "../interfaces/deducible.hpp"
 
     namespace moona {
 
-        template <typename T> struct Property : Entity<Property<T>> {
+        template <typename T> class Property : public Object<Property<T>>, public Deducible<T> {
             protected:
                 mutable T value;
 
-                Property() {
-                }
+                Property() = default;
                 Property(const T& value) {
                     this->value = value;
                 }
 
             public:
-                ~Property() {
-                }
+                ~Property() = default;
 
-                operator T() const noexcept {
+                operator T() const noexcept override {
                     return this->value;
                 }
 
