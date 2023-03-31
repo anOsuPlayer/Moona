@@ -10,7 +10,7 @@
         
         template <typename T, typename... super> class Type {
             public:
-                Type() {
+                explicit Type() {
                 }
                 ~Type() {
                 }

@@ -7,7 +7,7 @@
 
     namespace moona {
 
-        interface Cloneable {
+        class Cloneable {
             protected:
                 Cloneable() = default;
                 ~Cloneable() = default;

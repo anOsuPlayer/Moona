@@ -8,7 +8,6 @@
 
     #define static_field inline static
 
-    #define interface class
     #define abstract =0;
 
     #define features >=

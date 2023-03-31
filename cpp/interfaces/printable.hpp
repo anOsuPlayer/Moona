@@ -9,7 +9,7 @@
 
     namespace moona {
 
-        interface Printable {
+        class Printable {
             protected:
                 Printable() = default;
                 ~Printable() = default;

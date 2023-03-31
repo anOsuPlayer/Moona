@@ -10,8 +10,7 @@
 
     namespace moona {
 
-        template <typename O, typename... super> class Object : public Entity<O>, public Printable, public Cloneable,
-                public Equalable {
+        template <typename O, typename... super> class Object : public Entity<O>, public Printable, public Cloneable, public Equalable {
             public:
                 Object() {
                 }
@@ -23,10 +22,10 @@
                 }
 
                 virtual const char* toString() const noexcept override {
-                    return this->type()->name();
+                    return this->type().name();
                 }
 
-                virtual bool equals(const Object& obj2) const noexcept override {
+                virtual bool equals(const Equalable& obj2) const noexcept override {
                     return this == &obj2;
                 }
         };
