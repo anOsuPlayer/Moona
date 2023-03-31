@@ -8,6 +8,7 @@
     #include "object.hpp"
     #include "notation.hpp"
     #include "moonahandlingexception.hpp"
+    #include "../hallway/hallwayexception.hpp"
     #include "../hallway/javanotation.hpp"
     #include "../hallway/jvm.hpp"
     #include "../util/conditional.hpp"
@@ -48,6 +49,8 @@
 
                 static bool isOn() noexcept;
                 static bool isJVMinitialized() noexcept;
+
+                static const JVM& getMoonaJVM();
 
                 template <typename B> struct isMoonaElement : public Conditional {
                     isMoonaElement() {

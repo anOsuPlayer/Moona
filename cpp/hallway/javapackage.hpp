@@ -3,7 +3,6 @@
 #ifndef MOONA_JAVA_PACKAGE
     #define MOONA_JAVA_PACKAGE
 
-    #include "hallwayexception.hpp"
     #include "../base/moonaclass.hpp"
     #include "../base/object.hpp"
     #include "../exceptions/nullptrexception.hpp"

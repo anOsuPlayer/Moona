@@ -3,9 +3,6 @@
 namespace moona {
 
     JavaPackage::JavaPackage(const char* package) {
-        if (!Moona::isOn() || !Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
         if (package == nullptr) {
             throw NullPointerException("Unable to link a Java Package to a nullptr.");
         }

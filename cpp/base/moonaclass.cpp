@@ -52,4 +52,12 @@ namespace moona {
     bool Moona::isJVMinitialized() noexcept {
         return Moona::jvm != nullptr;
     }
+
+    const JVM& Moona::getMoonaJVM() {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        return *Moona::jvm;
+    } 
 }
