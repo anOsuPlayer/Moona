@@ -17,7 +17,6 @@
                 ~Conditional() = default;
 
                 void reverse() const noexcept;
-
                 Conditional opposite() const noexcept;
         };
     }
