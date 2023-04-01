@@ -30,7 +30,7 @@
                 }
 
                 template <typename T> constexpr bool instanceof() const noexcept {
-                    return std::is_base_of<T, E>() || std::is_same<T, E>();
+                    return std::is_base_of<E, T>() || std::is_base_of<T, E>() || std::is_same<E, T>();
                 }
                 constexpr const unsigned short int thisSize() const noexcept {
                     return sizeof(*this);
