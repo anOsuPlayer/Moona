@@ -14,10 +14,11 @@
     #include "../interfaces/assignable.hpp"
     #include "../interfaces/deducible.hpp"
     #include "../interfaces/comparable.hpp"
+    #include "../interfaces/indexable.hpp"
 
     namespace moona {
 
-        template <CharacterType C> class RawString : public Object<RawString<C>>, public Assignable<const C*>, public Deducible<const C*>, public Comparable {
+        template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<C, unsigned int>, public Assignable<const C*>, public Deducible<const C*> {
             protected:
                 const C* str;
 
@@ -47,7 +48,7 @@
                     return this->str;
                 }
 
-                virtual const C& operator [] (unsigned int i) const {
+                virtual const C& operator [] (const unsigned int& i) const {
                     if (i >= this->length()) {
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this String.");
                     }
@@ -63,7 +64,7 @@
                 }
 
                 const unsigned int length() const noexcept {
-                    if (this->str = nullptr) {
+                    if (this->str == nullptr) {
                         return 0;
                     }
 
