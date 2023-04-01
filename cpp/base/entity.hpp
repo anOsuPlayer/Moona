@@ -35,6 +35,8 @@
                 constexpr const unsigned short int thisSize() const noexcept {
                     return sizeof(*this);
                 }
+
+            friend class Cleaner;
         };
     }
 

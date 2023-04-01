@@ -9,6 +9,7 @@
 
     #include "strconcepts.hpp"
     #include "../base/object.hpp"
+    #include "../base/moonaclass.hpp"
     #include "../exceptions/indexexception.hpp"
     #include "../exceptions/illegalexception.hpp"
     #include "../interfaces/assignable.hpp"
@@ -25,9 +26,19 @@
             public:
                 RawString() = default;
                 RawString(const C* str) {
-                    this->str = str;
+                    unsigned int size;
+                    for (size = 0; str[size] != '\0'; size++);
+                    C* newstr = new C[++size];
+
+                    for (int i = 0; i < size; i++) {
+                        newstr[i] = str[i];
+                    }
+
+                    this->str = newstr;
                 }
-                virtual ~RawString() = default;
+                ~RawString() {
+                    delete[] this->str;
+                }
 
                 virtual RawString<C>& operator = (const C* str) noexcept override final {
                     this->str = str;
