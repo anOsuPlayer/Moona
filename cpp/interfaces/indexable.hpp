@@ -14,7 +14,7 @@
                 ~Indexable() = default;
 
             public:
-                virtual const T& operator [] (const I& index) const abstract;
+                virtual T operator [] (I index) const abstract;
         };
     }
 

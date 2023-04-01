@@ -18,26 +18,16 @@
 
     namespace moona {
 
-        template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<C, unsigned int>, public Assignable<const C*>, public Deducible<const C*> {
+        template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<const C&, unsigned int>, public Assignable<const C*>, public Deducible<const C*> {
             protected:
                 const C* str;
 
             public:
                 RawString() = default;
                 RawString(const C* str) {
-                    unsigned int size;
-                    for (size = 0; str[size] != '\0'; size++);
-                    C* newstr = new C[++size];
-
-                    for (int i = 0; i < size; i++) {
-                        newstr[i] = str[i];
-                    }
-
-                    this->str = newstr;
+                    this->str = str;
                 }
-                ~RawString() {
-                    delete this->str;
-                }
+                virtual ~RawString() = default;
 
                 virtual RawString<C>& operator = (const C* str) noexcept override final {
                     this->str = str;
@@ -48,7 +38,7 @@
                     return this->str;
                 }
 
-                virtual const C& operator [] (const unsigned int& i) const {
+                virtual const C& operator [] (unsigned int i) const {
                     if (i >= this->length()) {
                         throw IndexOutOfBoundsException("The given index goes out of bounds for this String.");
                     }
@@ -63,7 +53,7 @@
                     return dynamic_cast<const RawString&>(other).length() <=> this->length();
                 }
 
-                const unsigned int length() const noexcept {
+                virtual const unsigned int length() const noexcept final {
                     if (this->str == nullptr) {
                         return 0;
                     }
