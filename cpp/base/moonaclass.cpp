@@ -4,7 +4,7 @@
 
 namespace moona {
 
-    JavaImpl void Java_moonaframework_base_Moona_nativeInit(JNIEnv* env, jclass clazz) {
+    JavaImpl void Java_moonaframework_base_Moona_nativeInit(StaticArgs) {
         if (!Moona::isOn()) {
             Moona::jinit(env);
         }
