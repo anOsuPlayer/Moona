@@ -7,11 +7,12 @@
     #include <typeinfo>
     #include <type_traits>
 
+    #include "../base/object.hpp"
     #include "../exceptions/castexception.hpp"
 
     namespace moona {
 
-        class Any {
+        class Any : public Object<Any> {
             private:
                 const void* data;
                 const std::type_info* info;

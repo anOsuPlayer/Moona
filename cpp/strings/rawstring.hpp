@@ -16,10 +16,11 @@
     #include "../interfaces/deducible.hpp"
     #include "../interfaces/comparable.hpp"
     #include "../interfaces/indexable.hpp"
+    #include "../interfaces/anyconvertible.hpp"
 
     namespace moona {
 
-        template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<const C&, unsigned int>, public Assignable<const C*>, public Deducible<const C*> {
+        template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<const C&, unsigned int>, public Assignable<const C*>, public Deducible<const C*>, public AnyConvertible<RawString> {
             protected:
                 const C* str;
 
@@ -38,6 +39,10 @@
                 }
                 ~RawString() {
                     delete[] this->str;
+                }
+
+                virtual operator RawString<Any>() const noexcept final {
+                    return RawString<Any>(this->str);
                 }
 
                 virtual RawString<C>& operator = (const C* str) noexcept override final {
