@@ -34,20 +34,6 @@ public final class Moona {
 	
 	private static native void nativeInit();
 	
-	private static final List<String> libraries = new ArrayList<>();
-	
-	public static void addLibrary(String lib) {
-		if (enableHallwayAccess.evaluate()) {
-			libraries.add(lib);
-		}
-	}
-	private static void loadLibaries() throws UnsatisfiedLinkError {
-		System.loadLibrary("shared/Moona");
-		libraries.forEach(lib -> System.loadLibrary(lib));
-	}
-	
-	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
-	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
@@ -58,7 +44,7 @@ public final class Moona {
 		wasInitialized = true;
 		
 		if (enableHallwayAccess.evaluate()) {
-			loadLibaries();
+			System.loadLibrary("shared/Moona");
 			nativeInit();
 		}
 		
@@ -76,6 +62,9 @@ public final class Moona {
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(ender));
 	}
+	
+	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
+	
 	public static void interrupt() throws MoonaHandlingException {
 		if (!isOn) {
 			throw new MoonaHandlingException("Moona cannot be interrupted if not previously started.");
