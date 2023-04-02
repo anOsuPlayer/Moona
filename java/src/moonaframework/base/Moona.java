@@ -14,6 +14,7 @@ public final class Moona {
 	static final List<MoonaObject> elements = new ArrayList<>();
 	
 	static boolean isOn = false;
+	static boolean wasInitialized = false;
 	
 	public static boolean isOn() {
 		return isOn;
@@ -51,6 +52,10 @@ public final class Moona {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
 		}
+		if (wasInitialized) {
+			throw new MoonaHandlingException("Cannot invoke Moona.init() method after invoking Moona.interrupt().");
+		}
+		wasInitialized = true;
 		
 		if (enableHallwayAccess.evaluate()) {
 			loadLibaries();
@@ -81,6 +86,11 @@ public final class Moona {
 				ex.code.run();
 			}
 		}
+		
+		elements.clear();
+		
+		Processor.collapse();
+		Agent.collapse();
 		
 		isOn = false;
 	}
