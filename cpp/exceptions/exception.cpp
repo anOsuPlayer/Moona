@@ -6,9 +6,6 @@ namespace moona {
         this->message = message;
     }
 
-    Exception::~Exception() {
-    }
-
     const char* Exception::what() const noexcept {
         return this->message;
     }

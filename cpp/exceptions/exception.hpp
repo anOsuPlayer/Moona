@@ -18,7 +18,7 @@
             public:
                 explicit Exception() = delete;
                 explicit Exception(const char* message);
-                ~Exception();
+                ~Exception() = default;
 
                 virtual const char* what() const noexcept override final;
                 virtual const char* toString() const noexcept override;

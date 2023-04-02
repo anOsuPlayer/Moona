@@ -4,10 +4,11 @@
     #define MOONA_NULLPTR_EXCEPTION
 
     #include "exception.hpp"
+    #include "../base/object.hpp"
 
     namespace moona {
 
-        class NullPointerException : public Exception {
+        class NullPointerException : public Object<NullPointerException>, public Exception {
             public:
                 NullPointerException() = delete;
                 explicit NullPointerException(const char* message);

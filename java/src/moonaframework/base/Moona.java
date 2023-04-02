@@ -45,15 +45,7 @@ public final class Moona {
 		libraries.forEach(lib -> System.loadLibrary(lib));
 	}
 	
-	private static final Runnable ender = new Runnable() {
-		public @Override void run() {
-			for (MoonaObject mo : elements) {
-				if (mo instanceof Endexpr ex) {
-					ex.code.run();
-				}
-			}
-		}
-	};
+	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
 	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
@@ -78,6 +70,19 @@ public final class Moona {
 		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(ender));
+	}
+	public static void interrupt() throws MoonaHandlingException {
+		if (!isOn) {
+			throw new MoonaHandlingException("Moona cannot be interrupted if not previously started.");
+		}
+		
+		for (MoonaObject mo : elements) {
+			if (mo instanceof Endexpr ex) {
+				ex.code.run();
+			}
+		}
+		
+		isOn = false;
 	}
 	
 	public static void checkOn() throws MoonaHandlingException {

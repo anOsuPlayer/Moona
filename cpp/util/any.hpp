@@ -7,16 +7,17 @@
     #include <typeinfo>
     #include <type_traits>
 
-    #include "../base/object.hpp"
+    #include "../exceptions/castexception.hpp"
 
     namespace moona {
 
-        class Any : public Object<Any> {
+        class Any {
             private:
                 const void* data;
                 const std::type_info* info;
 
             public:
+                Any() = default;
                 template <typename T> Any(const T& value) noexcept {
                     this->data = &value;
                     this->info = &typeid(T);
@@ -28,11 +29,21 @@
                 virtual ~Any() noexcept final {
                 }
 
-                template <typename T> operator const T() {
+                template <typename T> const Any& operator = (const T& ref) {
+                    this->data = &ref;
+                    this->info = &typeid(T);
+
+                    return *this;
+                }
+
+                template <typename T> operator const T() const {
                     if (typeid(T) != *this->info) {
-                        throw std::bad_cast();
+                        throw BadCastException("Illegal cast.");
                     }
                     return *static_cast<const T*>(this->data);
+                }
+                operator const void*() const noexcept {
+                    return this->data;
                 }
         };
     }
