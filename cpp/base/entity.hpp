@@ -9,20 +9,16 @@
 
         template <typename B> class Base {
             private:
-                Base() {
-                }
-                ~Base() {
-                }
+                Base() = default;
+                ~Base() = default;
             
             template <typename E, typename... super> friend class Entity;
         };
 
         template <typename E, typename... super> class Entity : public Base<E>, super... {
             protected:
-                Entity() {
-                }
-                ~Entity() {
-                }
+                Entity() = default;
+                ~Entity() = default;
 
             public:
                 constexpr const Type<E, super...> type() const noexcept {

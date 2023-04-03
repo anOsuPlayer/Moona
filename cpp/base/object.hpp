@@ -13,10 +13,8 @@
 
         template <typename O, typename... super> class Object : public Entity<O>, public Printable, public Cloneable, public Equalable {
             public:
-                Object() {
-                }
-                ~Object() {
-                }
+                Object() = default;
+                ~Object() = default;
 
                 virtual constexpr const Type<O, super...> type() const noexcept final {
                     return Type<O, super...>();
