@@ -1,25 +1,20 @@
 #pragma once
 
-#ifndef MOONA_JAVA_PACKAGE
-    #define MOONA_JAVA_PACKAGE
+#include "../base/moonaclass.hpp"
+#include "../base/object.hpp"
+#include "../exceptions/nullptrexception.hpp"
 
-    #include "../base/moonaclass.hpp"
-    #include "../base/object.hpp"
-    #include "../exceptions/nullptrexception.hpp"
+namespace moona {
 
-    namespace moona {
+    class JavaPackage : public Object<JavaPackage> {
+        private:
+            const char* package;
 
-        class JavaPackage : public Object<JavaPackage> {
-            private:
-                const char* package;
+        public:
+            JavaPackage() = delete;
+            explicit JavaPackage(const char* package);
+            ~JavaPackage() = default;
 
-            public:
-                JavaPackage() = delete;
-                explicit JavaPackage(const char* package);
-                ~JavaPackage() = default;
-
-                virtual const char* toString() const noexcept override final;
-        };
-    }
-
-#endif
+            virtual const char* toString() const noexcept override final;
+    };
+}

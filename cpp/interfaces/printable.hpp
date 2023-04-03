@@ -1,25 +1,20 @@
 #pragma once
 
-#ifndef MOONA_PRINTABLE_INTERFACE
-    #define MOONA_PRINTABLE_INTERFACE
+#include <fstream>
 
-    #include <fstream>
+#include "../base/notation.hpp"
+#include "../base/entity.hpp"
 
-    #include "../base/notation.hpp"
-    #include "../base/entity.hpp"
+namespace moona {
 
-    namespace moona {
+    class Printable : public Entity<Printable> {
+        protected:
+            Printable() = default;
+            ~Printable() = default;
 
-        class Printable : public Entity<Printable> {
-            protected:
-                Printable() = default;
-                ~Printable() = default;
+        public:
+            virtual const char* toString() const noexcept abstract;
 
-            public:
-                virtual const char* toString() const noexcept abstract;
-
-                friend std::ostream& operator << (std::ostream& os, const Printable& obj);
-        };
-    }
-
-#endif
+            friend std::ostream& operator << (std::ostream& os, const Printable& obj);
+    };
+}

@@ -1,11 +1,6 @@
 #pragma once
 
-#ifndef MOONA_DEFAULT_COLLECTION
-    #define MOONA_DEFAULT_COLLECTION
+namespace moona {
 
-    namespace moona {
-
-        
-    }
-
-#endif
+    
+}

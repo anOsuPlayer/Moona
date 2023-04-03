@@ -1,21 +1,16 @@
 #pragma once
 
-#ifndef MOONA_ASSIGNABLE_INTERFACE
-    #define MOONA_ASSIGNABLE_INTERFACE
+#include "../base/notation.hpp"
+#include "../base/entity.hpp"
 
-    #include "../base/notation.hpp"
-    #include "../base/entity.hpp"
+namespace moona {
 
-    namespace moona {
+    template <typename T> class Assignable : public Entity<Assignable<T>> {
+        protected:
+            Assignable() = default;
+            ~Assignable() = default;
 
-        template <typename T> class Assignable : public Entity<Assignable<T>> {
-            protected:
-                Assignable() = default;
-                ~Assignable() = default;
-
-            public:
-                virtual const Assignable<T>& operator = (T ref) noexcept abstract;
-        };
-    }
-
-#endif
+        public:
+            virtual const Assignable<T>& operator = (T ref) noexcept abstract;
+    };
+}

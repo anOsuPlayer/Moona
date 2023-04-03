@@ -1,24 +1,19 @@
 #pragma once
 
-#ifndef MOONA_ASSERTION
-    #define MOONA_ASSERTION
+#include "../base/object.hpp"
+#include "property.hpp"
 
-    #include "../base/object.hpp"
-    #include "property.hpp"
+namespace moona {
 
-    namespace moona {
+    struct Conditional : public Object<Conditional>, public Property<bool> {
+        protected:
+            Conditional();
+            Conditional(bool value);
 
-        struct Conditional : public Object<Conditional>, public Property<bool> {
-            protected:
-                Conditional();
-                Conditional(bool value);
+        public:
+            ~Conditional() = default;
 
-            public:
-                ~Conditional() = default;
-
-                void reverse() const noexcept;
-                Conditional opposite() const noexcept;
-        };
-    }
-
-#endif  
+            void reverse() const noexcept;
+            Conditional opposite() const noexcept;
+    };
+}

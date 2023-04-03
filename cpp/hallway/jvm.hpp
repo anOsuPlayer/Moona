@@ -1,52 +1,47 @@
 #pragma once
 
-#ifndef MOONA_JVM_IMPL
-    #define MOONA_JVM_IMPL
+#include <jni.h>
+#include <windows.h>
+#include <tchar.h>
 
-    #include <jni.h>
-    #include <windows.h>
-    #include <tchar.h>
+#include "../base/notation.hpp"
+#include "../base/entity.hpp"
 
-    #include "../base/notation.hpp"
-    #include "../base/entity.hpp"
+namespace moona {
 
-    namespace moona {
+    class JVM : public Entity<JVM> {
+        private:
+            JavaVM* jvm;
+            JNIEnv* env;
 
-        class JVM : public Entity<JVM> {
-            private:
-                JavaVM* jvm;
-                JNIEnv* env;
+            jint JNIStatus;
 
-                jint JNIStatus;
+            static_field HMODULE source;
 
-                static_field HMODULE source;
+            typedef int _jvmbuilder(JavaVM**, void**, void*);
+            typedef int _jvmfinder(JavaVM**, jint, jint*);
 
-                typedef int _jvmbuilder(JavaVM**, void**, void*);
-                typedef int _jvmfinder(JavaVM**, jint, jint*);
+            static_field _jvmbuilder* jvmbuilder;
+            static_field _jvmfinder* jvmfinder;
 
-                static_field _jvmbuilder* jvmbuilder;
-                static_field _jvmfinder* jvmfinder;
+        public:
+            static void loadJVMLibraries();
 
-            public:
-                static void loadJVMLibraries();
+            JVM();
+            JVM(JNIEnv* env);
+            ~JVM();
 
-                JVM();
-                JVM(JNIEnv* env);
-                ~JVM();
+            void buildJVM();
+            void destroyJVM();
 
-                void buildJVM();
-                void destroyJVM();
+            const JavaVM& getJavaVM() const noexcept;
+            const JNIEnv& getJNIEnv() const noexcept;
 
-                const JavaVM& getJavaVM() const noexcept;
-                const JNIEnv& getJNIEnv() const noexcept;
+            bool isSafe() const noexcept;
+            bool isBuilt() const noexcept;
 
-                bool isSafe() const noexcept;
-                bool isBuilt() const noexcept;
+            bool isLoaded() const noexcept;
 
-                bool isLoaded() const noexcept;
-
-            friend class Moona;
-        };
-    }
-
-#endif
+        friend class Moona;
+    };
+}
