@@ -81,7 +81,7 @@ public final class Processor {
 	}
 	
 	static void buildProcess(Process p) {
-		new Thread(p, "Process#" + Moona.generateID()).start();
+		new Thread(p, "Process#" + p.hashCode()).start();
 	}
 	
 	public @Deprecated static void mainStart(Process p) throws MoonaHandlingException, NullArgumentException {

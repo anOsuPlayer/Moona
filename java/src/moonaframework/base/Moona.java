@@ -2,7 +2,6 @@ package moonaframework.base;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Processor;
@@ -18,6 +17,9 @@ public final class Moona {
 	
 	public static boolean isOn() {
 		return isOn;
+	}
+	public static void checkOn() throws MoonaHandlingException {
+		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
 	public static final Setting autoReflections = new Setting(true);
@@ -82,16 +84,6 @@ public final class Moona {
 		Agent.collapse();
 		
 		isOn = false;
-	}
-	
-	public static void checkOn() throws MoonaHandlingException {
-		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
-	}
-	
-	private static AtomicLong idCounter = new AtomicLong(0);
-	
-	public static long generateID() {
-		return idCounter.incrementAndGet();
 	}
 	
 	public static void add(MoonaObject mo) throws MoonaHandlingException, NullArgumentException {
