@@ -24,21 +24,11 @@ namespace moona {
         public:
             RawString() = default;
             RawString(const C* str) {
-                unsigned int size;
-                for (size = 0; str[size] != '\0'; size++);
-                C* newstr = new C[++size];
-
-                for (int i = 0; i < size; i++) {
-                    newstr[i] = str[i];
-                }
-
-                this->str = newstr;
+                this->str = str;
             }
-            ~RawString() {
-                delete[] this->str;
-            }
+            virtual ~RawString() = default;
 
-            virtual operator RawString<Any>() const noexcept final {
+            virtual operator RawString<Any>() const noexcept {
                 return RawString<Any>(this->str);
             }
 
