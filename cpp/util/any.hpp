@@ -33,6 +33,12 @@ namespace moona {
 
                 return *this;
             }
+            template <typename T> const Any* operator = (const T* ptr) {
+                this->data = ptr;
+                this->info = &typeid(T);
+
+                return this;
+            }
 
             template <typename T> operator const T() const {
                 if (typeid(T) != *this->info) {

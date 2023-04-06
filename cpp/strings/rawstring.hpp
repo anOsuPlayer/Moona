@@ -24,22 +24,12 @@ namespace moona {
         public:
             RawString() = default;
             RawString(const C* str) {
-                unsigned int size;
-                for (size = 0; str[size] != '\0'; size++);
-                C* newstr = new C[++size];
-
-                for (int i = 0; i < size; i++) {
-                    newstr[i] = str[i];
-                }
-
-                this->str = newstr;
+                this->str = str;
             }
-            ~RawString() {
-                delete[] this->str;
-            }
+            ~RawString() = default;
 
             virtual operator RawString<Any>() const noexcept final {
-                return RawString<Any>(this->str);
+                return RawString<Any>();
             }
 
             virtual RawString<C>& operator = (const C* str) noexcept override final {
@@ -72,7 +62,7 @@ namespace moona {
                 }
 
                 unsigned int size;
-                for (size = 0; str[size] != '\0'; size++);
+                for (size = 0; static_cast<char>(str[size]) != '\0'; size++);
 
                 return size;
             }
@@ -82,7 +72,7 @@ namespace moona {
             }
 
             virtual const char* toString() const noexcept override final {
-                return this->str;
+                return (const char*) this->str;
             }
 
             virtual bool equals(const Equalable& str) const noexcept override {

@@ -6,6 +6,9 @@
 namespace moona {
 
     class String : public Object<String>, public RawString<char> {
-        
+        public:
+            String() = default;
+            String(const char* str);
+            ~String() = default;
     };
 }

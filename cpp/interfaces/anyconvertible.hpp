@@ -7,9 +7,12 @@
 
 namespace moona {
 
-    template <template <typename> typename T> class AnyConvertible : public Deducible<T<Any>> {
+    template <template <typename> typename T> class AnyConvertible {
         protected:
             AnyConvertible() = default;
             ~AnyConvertible() = default;
+
+        public:
+            virtual operator T<Any>() const noexcept abstract;
     };
 }
