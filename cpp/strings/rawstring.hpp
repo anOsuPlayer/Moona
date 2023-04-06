@@ -17,7 +17,7 @@
 
 namespace moona {
 
-    template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<const C&, unsigned int>, public Assignable<const C*>, public Deducible<const C*>, public AnyConvertible<RawString> {
+    template <CharacterType C> class RawString : public Object<RawString<C>>, public Comparable, public Indexable<const C&, unsigned int>, public Assignable<const C*>, public Deducible<const C*> {
         protected:
             const C* str;
 
@@ -27,10 +27,6 @@ namespace moona {
                 this->str = str;
             }
             ~RawString() = default;
-
-            virtual operator RawString<Any>() const noexcept final {
-                return RawString<Any>();
-            }
 
             virtual RawString<C>& operator = (const C* str) noexcept override final {
                 this->str = str;
