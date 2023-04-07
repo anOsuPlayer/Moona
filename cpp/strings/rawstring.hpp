@@ -13,7 +13,6 @@
 #include "../interfaces/deducible.hpp"
 #include "../interfaces/comparable.hpp"
 #include "../interfaces/indexable.hpp"
-#include "../interfaces/anyconvertible.hpp"
 
 namespace moona {
 
@@ -24,9 +23,19 @@ namespace moona {
         public:
             RawString() = default;
             RawString(const C* str) {
-                this->str = str;
+                unsigned int size;
+                for (size = 0; str[size] != '\0'; size++);
+                C* newstr = new C[++size];
+
+                for (int i = 0; i < size; i++) {
+                    newstr[i] = str[i];
+                }
+
+                this->str = newstr;
             }
-            ~RawString() = default;
+            ~RawString() {
+                delete[] this->str;
+            }
 
             virtual RawString<C>& operator = (const C* str) noexcept override final {
                 this->str = str;
@@ -37,7 +46,7 @@ namespace moona {
                 return this->str;
             }
 
-            virtual const C& operator [] (unsigned int i) const {
+            virtual const C& operator [] (unsigned int i) const override {
                 if (i >= this->length()) {
                     throw IndexOutOfBoundsException("The given index goes out of bounds for this String.");
                 }
@@ -58,7 +67,7 @@ namespace moona {
                 }
 
                 unsigned int size;
-                for (size = 0; static_cast<char>(str[size]) != '\0'; size++);
+                for (size = 0; str[size] != '\0'; size++);
 
                 return size;
             }

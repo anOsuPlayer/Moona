@@ -9,13 +9,16 @@
 
 namespace moona {
 
-    class Any : public Object<Any> {
+    class Any {
         private:
-            const void* data;
-            const std::type_info* info;
+            const mutable void* data;
+            const mutable std::type_info* info;
 
         public:
-            Any() = default;
+            Any() {
+                this->data = nullptr;
+                this->info = nullptr;
+            }
             template <typename T> Any(const T& value) noexcept {
                 this->data = &value;
                 this->info = &typeid(T);
@@ -27,17 +30,11 @@ namespace moona {
             virtual ~Any() noexcept final {
             }
 
-            template <typename T> const Any& operator = (const T& ref) {
+            template <typename T> const Any& operator = (const T& ref) const {
                 this->data = &ref;
                 this->info = &typeid(T);
 
                 return *this;
-            }
-            template <typename T> const Any* operator = (const T* ptr) {
-                this->data = ptr;
-                this->info = &typeid(T);
-
-                return this;
             }
 
             template <typename T> operator const T() const {
@@ -46,8 +43,9 @@ namespace moona {
                 }
                 return *static_cast<const T*>(this->data);
             }
-            operator const void*() const noexcept {
-                return this->data;
+
+            template <typename T> bool operator == (const T& other) const noexcept {
+                return (typeid(T) == *this->info && *static_cast<const T*>(this->data) == other);
             }
     };
 }
