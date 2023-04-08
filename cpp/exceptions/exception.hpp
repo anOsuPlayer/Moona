@@ -1,14 +1,10 @@
 #pragma once
 
-#include <string_view>
 #include <exception>
-
-#include "../base/object.hpp"
-#include "../interfaces/printable.hpp"
 
 namespace moona {
 
-    class Exception : public Object<Exception>, public std::exception {
+    class Exception : public std::exception {
         private:
             const char* message;
 
@@ -18,6 +14,5 @@ namespace moona {
             ~Exception() = default;
 
             virtual const char* what() const noexcept override final;
-            virtual const char* toString() const noexcept override;
     };
 }
