@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../base/entity.hpp"
 #include "conditional.hpp"
+#include "../base/entity.hpp"
 
 namespace moona {
 
