@@ -34,8 +34,8 @@ namespace moona {
             void buildJVM();
             void destroyJVM();
 
-            const JavaVM& getJavaVM() const noexcept;
-            const JNIEnv& getJNIEnv() const noexcept;
+            JavaVM& getJavaVM() const noexcept;
+            JNIEnv& getJNIEnv() const noexcept;
 
             bool isSafe() const noexcept;
             bool isBuilt() const noexcept;
