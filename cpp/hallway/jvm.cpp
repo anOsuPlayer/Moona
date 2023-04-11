@@ -1,9 +1,8 @@
 #include "jvm.hpp"
+#include <iostream>
 
 namespace moona {
 
-    JVM::JVM() {
-    }
     JVM::JVM(JNIEnv* env) {
         this->JNIStatus = JNI_OK;
         this->env = env;
@@ -11,9 +10,6 @@ namespace moona {
 
     JVM::~JVM() {
         JVM::destroyJVM();
-        if (JVM::source != nullptr) {
-            FreeLibrary(JVM::source);
-        }
     }
 
     void JVM::loadJVMLibraries() {
@@ -21,6 +17,11 @@ namespace moona {
             JVM::source = LoadLibrary(_T("C:\\Program Files\\Java\\jdk-19.0.1\\bin\\server\\jvm.dll"));
             JVM::jvmbuilder = (_jvmbuilder*)GetProcAddress(JVM::source, "JNI_CreateJavaVM");
             JVM::jvmfinder = (_jvmfinder*)GetProcAddress(JVM::source, "JNI_GetCreatedJavaVMs");
+        }
+    }
+    void JVM::unloadJVMLibraries() {
+        if (JVM::source != nullptr) {
+            FreeLibrary(JVM::source);
         }
     }
 

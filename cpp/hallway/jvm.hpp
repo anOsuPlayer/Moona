@@ -26,8 +26,9 @@ namespace moona {
 
         public:
             static void loadJVMLibraries();
+            static void unloadJVMLibraries();
 
-            JVM();
+            JVM() = default;
             JVM(JNIEnv* env);
             ~JVM();
 

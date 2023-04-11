@@ -18,6 +18,8 @@ namespace moona {
         if (!Moona::on) {
             Moona::commonInit();
 
+            std::atexit(Moona::finalize);
+
             if (Moona::enableHallwayAccess) {
                 JVM::loadJVMLibraries();
                 DefaultJVM = new JVM();
@@ -42,6 +44,12 @@ namespace moona {
         }
         else {
             throw MoonaHandlingException("Moona::init() method can only be invoked once.");
+        }
+    }
+
+    void Moona::finalize() noexcept {
+        if (jvm != nullptr) {
+            delete jvm;
         }
     }
 

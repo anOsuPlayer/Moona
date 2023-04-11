@@ -1,8 +1,5 @@
 #pragma once
 
-#define PreMain __attribute__((constructor))
-#define PostMain __attribute__((destructor))
-
 #define static_field inline static
 
 #define abstract =0;

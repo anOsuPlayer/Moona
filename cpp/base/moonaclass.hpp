@@ -25,16 +25,7 @@ namespace moona {
             
             static_field JVM* jvm;
 
-            #ifdef MOONA_MAIN
-                PreMain static void initialize() noexcept {
-
-                }
-                PostMain static void finalize() noexcept {
-                    if (jvm != nullptr) {
-                        delete jvm;
-                    }
-                }
-            #endif
+            static void finalize() noexcept;
 
             static void commonInit();
 
