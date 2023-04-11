@@ -5,6 +5,8 @@
 namespace moona {
 
     JavaImpl void Java_moonaframework_base_Moona_nativeInit(StaticArgs) {
+        Moona::enableHallwayAccess.enable();
+
         if (!Moona::isOn()) {
             Moona::jinit(env);
         }
@@ -66,6 +68,7 @@ namespace moona {
         }
         if (jvm != nullptr) {
             delete jvm;
+            JVM::unloadJVMLibraries();
         }
     }
 

@@ -6,13 +6,14 @@
 
 #include "../base/notation.hpp"
 #include "../base/entity.hpp"
+#include "../exceptions/nullptrexception.hpp"
 
 namespace moona {
 
     class JVM : public Entity<JVM> {
         private:
-            JavaVM* jvm = nullptr;
-            JNIEnv* env = nullptr;
+            JavaVM* jvm;
+            mutable JNIEnv* env;
 
             jint JNIStatus;
 
@@ -28,15 +29,17 @@ namespace moona {
             static void loadJVMLibraries();
             static void unloadJVMLibraries();
 
-            JVM() = default;
+            JVM();
             JVM(JNIEnv* env);
             ~JVM();
 
             void buildJVM();
             void destroyJVM();
 
-            JavaVM& getJavaVM() const noexcept;
-            JNIEnv& getJNIEnv() const noexcept;
+            const JavaVM& getJavaVM() const noexcept;
+            const JNIEnv& getJNIEnv() const noexcept;
+
+            void switchJNIEnv(JNIEnv* env) const;
 
             bool isSafe() const noexcept;
             bool isBuilt() const noexcept;

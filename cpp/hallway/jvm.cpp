@@ -3,9 +3,19 @@
 
 namespace moona {
 
+    JVM::JVM() {
+        this->jvm = nullptr;
+        this->env = nullptr;
+    }
+
     JVM::JVM(JNIEnv* env) {
-        this->JNIStatus = JNI_OK;
+        if (env == nullptr) {
+            throw NullPointerException("Unable to build JVM over a nullptr.");
+        }
+        this->jvm = nullptr;
         this->env = env;
+
+        this->JNIStatus = JNI_OK;
     }
 
     JVM::~JVM() {
@@ -41,17 +51,24 @@ namespace moona {
         delete opts;
     }
     void JVM::destroyJVM() {
-        if (this->jvm != nullptr) {
+        if (jvm != nullptr) {
             jvm->DestroyJavaVM();
         }
-        unloadJVMLibraries();
     }
 
-    JavaVM& JVM::getJavaVM() const noexcept {
+    const JavaVM& JVM::getJavaVM() const noexcept {
         return *this->jvm;
     }
-    JNIEnv& JVM::getJNIEnv() const noexcept {
+    const JNIEnv& JVM::getJNIEnv() const noexcept {
         return *this->env;
+    }
+
+    void JVM::switchJNIEnv(JNIEnv* env) const {
+        if (env == nullptr) {
+            throw NullPointerException("A JVM's JNIEnv cannot be a nullptr.");
+        }
+
+        this->env = env;
     }
 
     bool JVM::isSafe() const noexcept {
