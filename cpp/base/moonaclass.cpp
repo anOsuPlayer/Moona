@@ -10,15 +10,25 @@ namespace moona {
         }
     }
 
+    JavaImpl void Java_moonaframework_base_Moona_nativeInterrupt(StaticArgs) {
+        if (Moona::isOn()) {
+            Moona::interrupt();
+        }
+    }
+
     void Moona::commonInit() {
         Moona::on = true;
+        Moona::wasOn = true;
     }
 
     void Moona::init() {
         if (!Moona::on) {
+            if (Moona::wasOn) {
+                throw MoonaHandlingException("Cannot invoke Moona::init() function after invoking Moona::interrupt().");
+            }
             Moona::commonInit();
 
-            std::atexit(Moona::finalize);
+            std::atexit(Moona::interrupt);
 
             if (Moona::enableHallwayAccess) {
                 JVM::loadJVMLibraries();
@@ -31,11 +41,14 @@ namespace moona {
             }
         }
         else {
-            throw MoonaHandlingException("Moona::init() method can only be invoked once.");
+            throw MoonaHandlingException("Moona::init() function can only be invoked once.");
         }
     }
     void Moona::jinit(JNIEnv* env) {
         if (!Moona::on) {
+            if (Moona::wasOn) {
+                throw MoonaHandlingException("Cannot invoke Moona::init() function after invoking Moona::interrupt().");
+            }
             Moona::commonInit();
             
             if (Moona::jvm == nullptr) {
@@ -47,7 +60,10 @@ namespace moona {
         }
     }
 
-    void Moona::finalize() noexcept {
+    void Moona::interrupt() {
+        if (!Moona::on) {
+            throw MoonaHandlingException("Moona cannot be interrupted if not previously started.");
+        }
         if (jvm != nullptr) {
             delete jvm;
         }

@@ -44,6 +44,7 @@ namespace moona {
         if (this->jvm != nullptr) {
             jvm->DestroyJavaVM();
         }
+        unloadJVMLibraries();
     }
 
     JavaVM& JVM::getJavaVM() const noexcept {

@@ -11,8 +11,8 @@ namespace moona {
 
     class JVM : public Entity<JVM> {
         private:
-            JavaVM* jvm;
-            JNIEnv* env;
+            JavaVM* jvm = nullptr;
+            JNIEnv* env = nullptr;
 
             jint JNIStatus;
 

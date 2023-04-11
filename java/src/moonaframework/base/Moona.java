@@ -67,6 +67,8 @@ public final class Moona {
 	
 	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
 	
+	private static native void nativeInterrupt();
+	
 	public static void interrupt() throws MoonaHandlingException {
 		if (!isOn) {
 			throw new MoonaHandlingException("Moona cannot be interrupted if not previously started.");
@@ -82,6 +84,10 @@ public final class Moona {
 		
 		Processor.collapse();
 		Agent.collapse();
+		
+		if (Moona.enableHallwayAccess.evaluate()) {
+			nativeInterrupt();
+		}
 		
 		isOn = false;
 	}

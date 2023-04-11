@@ -22,10 +22,9 @@ namespace moona {
             ~Moona() = delete;
 
             static_field bool on = false;
+            static_field bool wasOn = false;
             
             static_field JVM* jvm;
-
-            static void finalize() noexcept;
 
             static void commonInit();
 
@@ -34,6 +33,8 @@ namespace moona {
 
             static void init();
             static void jinit(JNIEnv* env);
+
+            static void interrupt();
 
             static bool isOn() noexcept;
             static bool isJVMinitialized() noexcept;
