@@ -85,6 +85,10 @@ public final class Method extends Reference<java.lang.reflect.Method> implements
 		return mp;
 	}
 	
+	public static final Object[] NO_ARGS = new Object[0];
+	
+	public native void invoke(Object at, Object...args);
+	
 	public Method(Class<?> clazz, String name, boolean isDeclared, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
 		if (clazz == null || name == null) {
 			throw new NullArgumentException("Cannot build a Method Reference over a null class or a null"
