@@ -24,7 +24,7 @@ namespace moona {
             static const Signature FLOAT;
             static const Signature DOUBLE;
 
-            static const Signature VOOID;
+            static const Signature V0ID;
 
             Signature() = default;
             Signature(const Signature& s);
@@ -42,14 +42,6 @@ namespace moona {
 
     class ArraySignature : public Signature {
         public:
-            static const ArraySignature BOOLEAN_ARRAY;
-            static const ArraySignature BYTE_ARRAY;
-            static const ArraySignature SHORT_ARRAY;
-            static const ArraySignature INT_ARRAY;
-            static const ArraySignature LONG_ARRAY;
-            static const ArraySignature FLOAT_ARRAY;
-            static const ArraySignature DOUBLE_ARRAY;
-
             ArraySignature() = delete;
             explicit ArraySignature(const Signature& s);
             explicit ArraySignature(const char* obj);
