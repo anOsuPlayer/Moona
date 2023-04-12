@@ -8,3 +8,5 @@
 
 #include "javapackage.hpp"
 #include "javaclass.hpp"
+#include "javamethod.hpp"
+#include "javamethodsignature.hpp"
