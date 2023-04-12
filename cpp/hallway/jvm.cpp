@@ -56,10 +56,10 @@ namespace moona {
         }
     }
 
-    const JavaVM& JVM::getJavaVM() const noexcept {
+    JavaVM& JVM::getJavaVM() const noexcept {
         return *this->jvm;
     }
-    const JNIEnv& JVM::getJNIEnv() const noexcept {
+    JNIEnv& JVM::getJNIEnv() const noexcept {
         return *this->env;
     }
 
