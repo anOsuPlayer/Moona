@@ -56,7 +56,7 @@ namespace moona {
     ArraySignature::ArraySignature(const char* obj) {
         unsigned int len = strlen(obj);
         this->signature = new char[len+4];
-        this->signature[0] = '['; this->signature[0] = 'L';
+        this->signature[0] = '['; this->signature[1] = 'L';
         this->signature[len+2] = ';'; this->signature[len+3] = '\0';
 
         for (unsigned int i = 2; i < len+2; i++) {
@@ -72,5 +72,68 @@ namespace moona {
         for (unsigned int i = 1; i < len+1; i++) {
             this->signature[i] = sign[i-1];
         }
+    }
+
+    const ArraySignature ArraySignature::BOOLEAN_ARRAY = ArraySignature(Signature::BOOLEAN);
+    const ArraySignature ArraySignature::BYTE_ARRAY = ArraySignature(Signature::BYTE);
+    const ArraySignature ArraySignature::SHORT_ARRAY = ArraySignature(Signature::SHORT);
+    const ArraySignature ArraySignature::INT_ARRAY = ArraySignature(Signature::INT);
+    const ArraySignature ArraySignature::LONG_ARRAY = ArraySignature(Signature::LONG);
+    const ArraySignature ArraySignature::FLOAT_ARRAY = ArraySignature(Signature::FLOAT);
+    const ArraySignature ArraySignature::DOUBLE_ARRAY = ArraySignature(Signature::DOUBLE);
+
+    MethodSignature::MethodSignature(const PureSignature& returntype) {
+        const char* sign = returntype.getSignature();
+        unsigned int len = strlen(sign);
+        this->signature = new char[len+3];
+        this->signature[0] = '('; this->signature[1] = ')';
+        this->signature[len+2] = '\0';
+
+        for (unsigned int i = 2; i < len+2; i++) {
+            this->signature[i] = sign[i-2];
+        }
+    }
+    MethodSignature::MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args) {
+        const char** signs = new const char*[argc];
+        unsigned int* lens = new unsigned int[argc];
+        unsigned int totalLength = 0;
+
+        for (unsigned int i = 0; i < argc; i++) {
+            signs[i] = args[i].getSignature();
+            lens[i] = strlen(signs[i]);
+            totalLength += lens[i];
+        }
+
+        const char* retSign = returntype.getSignature();
+        unsigned int retLen = strlen(retSign);
+
+        this->signature = new char[totalLength+retLen+3];
+        this->signature[0] = '('; this->signature[totalLength+1] = ')'; this->signature[totalLength+retLen+2] = '\0';
+
+        unsigned int passedLen = 0;
+        for (unsigned int i = 0; i < argc; i++) {
+            for (unsigned int e = 0; e < lens[i]; e++) {
+                this->signature[1+passedLen+e] = signs[i][e];
+            }
+            passedLen += lens[i];
+        }
+
+        for (unsigned int i = totalLength+2; i < totalLength+retLen+2; i++) {
+            this->signature[i] = retSign[i-totalLength-2];
+        }
+
+        delete[] signs;
+        delete[] lens;
+    }
+    
+    MethodSignature::~MethodSignature() {
+        delete[] this->signature;
+    }
+
+    MethodSignature::operator const char*() const noexcept {
+        return this->signature;
+    }
+    const char* MethodSignature::getSignature() const noexcept {
+        return this->signature;
     }
 }

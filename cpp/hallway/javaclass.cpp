@@ -3,37 +3,58 @@
 namespace moona {
 
     JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
-        this->classname;
-        this->pack = new JavaPackage(pack.toString());
-
-        char* location; strcpy(location, pack.toString());
-        strcat(location, "/"), strcat(location, classname);
-
-        jclass clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(location);
-
-        if (clazz == nullptr) {
-            delete this->pack;
-            throw NoSuchClassException();
+        const char* packname = pack.toString();
+        unsigned int packlen = strlen(packname), classlen = strlen(classname);
+        
+        unsigned int chardelta = 0;
+        if (packname[packlen-1] == '/') {
+            chardelta = 1;
+            this->classname = new char[packlen+classlen+chardelta];
+            this->classname[packlen+classlen] = '\0';
         }
+        else {
+            chardelta = 2;
+            this->classname = new char[packlen+classlen+chardelta];
+            this->classname[packlen] = '/'; this->classname[packlen+classlen] = '\0';
+        }
+
+        for (unsigned int i = 0; i < packlen; i++) {
+            this->classname[i] = packname[i];
+        }
+        for (unsigned int i = packlen+chardelta-1; i < packlen+classlen+chardelta-1; i++) {
+            this->classname[i] = classname[i-(packlen+chardelta-1)];
+        }
+
+        this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
     }
 
     JavaClass::JavaClass(const char* packname, const char* classname) {
-        this->classname = classname;
-        this->pack = new JavaPackage(packname);
-
-        char* location; strcpy(location, packname);
-        strcat(location, "/"), strcat(location, classname);
-
-        jclass clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(location);
-
-        if (clazz == nullptr) {
-            delete this->pack;
-            throw NoSuchClassException();
+        unsigned int packlen = strlen(packname), classlen = strlen(classname);
+        
+        unsigned int chardelta = 0;
+        if (packname[packlen-1] == '/') {
+            chardelta = 1;
+            this->classname = new char[packlen+classlen+chardelta];
+            this->classname[packlen+classlen] = '\0';
         }
+        else {
+            chardelta = 2;
+            this->classname = new char[packlen+classlen+chardelta];
+            this->classname[packlen] = '/'; this->classname[packlen+classlen] = '\0';
+        }
+
+        for (unsigned int i = 0; i < packlen; i++) {
+            this->classname[i] = packname[i];
+        }
+        for (unsigned int i = packlen+chardelta-1; i < packlen+classlen+chardelta-1; i++) {
+            this->classname[i] = classname[i-(packlen+chardelta-1)];
+        }
+
+        this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
     }
 
     JavaClass::~JavaClass() {
-        delete this->pack;
+        delete this->classname;
     }
 
     const jclass& JavaClass::getJClass() const noexcept {

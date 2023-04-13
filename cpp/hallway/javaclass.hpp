@@ -12,8 +12,7 @@ namespace moona {
 
     class JavaClass : public Object<JavaClass> {
         private:
-            const char* classname;
-            const JavaPackage* pack; 
+            char* classname;
             jclass clazz;
 
         public:

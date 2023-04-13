@@ -14,10 +14,10 @@ namespace moona {
         protected:
             char* signature;
             PureSignature() = default;
-            PureSignature(const PureSignature& ps);
             explicit PureSignature(const char* signature);
         
         public:
+            PureSignature(const PureSignature& ps);
             virtual ~PureSignature();
 
             operator const char*() const noexcept;
@@ -54,9 +54,31 @@ namespace moona {
 
     class ArraySignature : public PureSignature {
         public:
+            static const ArraySignature BOOLEAN_ARRAY;
+            static const ArraySignature BYTE_ARRAY;
+            static const ArraySignature SHORT_ARRAY;
+            static const ArraySignature INT_ARRAY;
+            static const ArraySignature LONG_ARRAY;
+            static const ArraySignature FLOAT_ARRAY;
+            static const ArraySignature DOUBLE_ARRAY;
+
             ArraySignature() = delete;
             ArraySignature(const char* obj);
             ArraySignature(const PureSignature& base);
             virtual ~ArraySignature() = default;
+    };
+
+    class MethodSignature : public Entity<MethodSignature> {
+        private:
+            char* signature;
+
+        public:
+            MethodSignature() = delete;
+            MethodSignature(const PureSignature& returntype);
+            MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args);
+            ~MethodSignature();
+
+            operator const char*() const noexcept;
+            const char* getSignature() const noexcept;
     };
 }
