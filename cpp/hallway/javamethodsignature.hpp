@@ -10,10 +10,23 @@
 
 namespace moona {
 
-    class Signature {
+    class PureSignature {
         protected:
-            mutable char* sign = nullptr;
-            explicit Signature(const char* sign);
+            char* signature;
+            PureSignature() = default;
+            PureSignature(const PureSignature& ps);
+            explicit PureSignature(const char* signature);
+        
+        public:
+            virtual ~PureSignature();
+
+            operator const char*() const noexcept;
+            const char* getSignature() const noexcept;
+    };
+
+    class Signature : public PureSignature {
+        protected:
+            explicit Signature(const char* signature);
 
         public:
             static const Signature BOOLEAN;
@@ -26,38 +39,24 @@ namespace moona {
 
             static const Signature V0ID;
 
-            Signature() = default;
+            Signature() = delete;
             Signature(const Signature& s);
-            ~Signature();
-
-            const char* get() const noexcept;
+            virtual ~Signature() = default;
     };
 
-    class ObjectSignature : public Signature {
+    class ObjectSignature : public PureSignature {
         public:
             ObjectSignature() = delete;
-            explicit ObjectSignature(const char* obj);
-            ~ObjectSignature();
+            ObjectSignature(const char* obj);
+            ObjectSignature(const ObjectSignature& os);
+            virtual ~ObjectSignature() = default;
     };
 
-    class ArraySignature : public Signature {
+    class ArraySignature : public PureSignature {
         public:
             ArraySignature() = delete;
-            explicit ArraySignature(const Signature& s);
-            explicit ArraySignature(const char* obj);
-            ~ArraySignature();
-    };
-
-    class MethodSignature : public Entity<MethodSignature> {
-        private:
-            mutable char* signature = nullptr;
-
-        public:
-            MethodSignature() = delete;
-            explicit MethodSignature(const Signature& returntype);
-            explicit MethodSignature(const Signature& returntype, unsigned int argc, const Signature* args);
-            ~MethodSignature();
-
-            const char* get() const noexcept;
+            ArraySignature(const char* obj);
+            ArraySignature(const PureSignature& base);
+            virtual ~ArraySignature() = default;
     };
 }
