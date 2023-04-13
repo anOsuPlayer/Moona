@@ -2,6 +2,7 @@
 
 #include "hallwayexception.hpp"
 #include "noclassexception.hpp"
+#include "nomethodexception.hpp"
 #include "javanotation.hpp"
 #include "jvm.hpp"
 #include "cppimpl.hpp"

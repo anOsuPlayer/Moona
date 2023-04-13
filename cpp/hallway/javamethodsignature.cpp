@@ -3,10 +3,6 @@
 namespace moona {
 
     PureSignature::PureSignature(const char* signature) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         unsigned int len = strlen(signature);
         this->signature = new char[len+1];
         this->signature[len] = '\0';
@@ -45,10 +41,6 @@ namespace moona {
     const Signature Signature::V0ID = Signature("V");
 
     ObjectSignature::ObjectSignature(const char* obj) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         unsigned int len = strlen(obj);
         this->signature = new char[len+3];
         this->signature[0] = 'L';
@@ -62,10 +54,6 @@ namespace moona {
     }
 
     ArraySignature::ArraySignature(const char* obj) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         unsigned int len = strlen(obj);
         this->signature = new char[len+4];
         this->signature[0] = '['; this->signature[1] = 'L';
@@ -76,10 +64,6 @@ namespace moona {
         }
     }
     ArraySignature::ArraySignature(const PureSignature& base) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         const char* sign = base.getSignature();
         unsigned int len = strlen(sign);
         this->signature = new char[len+2];
@@ -99,10 +83,6 @@ namespace moona {
     const ArraySignature ArraySignature::DOUBLE_ARRAY = ArraySignature(Signature::DOUBLE);
 
     MethodSignature::MethodSignature(const PureSignature& returntype) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         const char* sign = returntype.getSignature();
         unsigned int len = strlen(sign);
         this->signature = new char[len+3];

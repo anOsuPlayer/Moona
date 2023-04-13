@@ -10,6 +10,8 @@
 
 namespace moona {
 
+    class JavaPackage;
+
     class JavaClass : public Object<JavaClass> {
         private:
             char* classname;
