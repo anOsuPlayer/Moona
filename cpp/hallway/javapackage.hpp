@@ -18,7 +18,8 @@ namespace moona {
 
         public:
             JavaPackage() = delete;
-            JavaPackage(const char* location);
+            explicit JavaPackage(const char* location);
+            JavaPackage(const JavaPackage& pack);
             ~JavaPackage() = default;
 
             JavaClass getClass(const char* classname) const;

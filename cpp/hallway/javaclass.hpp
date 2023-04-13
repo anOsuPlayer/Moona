@@ -19,9 +19,12 @@ namespace moona {
             jclass clazz;
 
         public:
-            JavaClass() = delete;
+            JavaClass() = default;
             explicit JavaClass(const JavaPackage& pack, const char* classname);
+            JavaClass(const JavaClass& clazz);
             ~JavaClass();
+
+            JavaClass& operator = (const JavaClass& other);
 
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;

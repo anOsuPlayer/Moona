@@ -129,6 +129,9 @@ namespace moona {
         delete[] signs;
         delete[] lens;
     }
+    MethodSignature::MethodSignature(const MethodSignature& ms) {
+        this->signature = ms.signature;
+    }
     
     MethodSignature::~MethodSignature() {
         delete[] this->signature;

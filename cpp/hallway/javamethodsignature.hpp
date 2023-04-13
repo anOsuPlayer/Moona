@@ -73,9 +73,10 @@ namespace moona {
             char* signature;
 
         public:
-            MethodSignature() = delete;
+            MethodSignature() = default;
             MethodSignature(const PureSignature& returntype);
             MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args);
+            MethodSignature(const MethodSignature& ms);
             ~MethodSignature();
 
             operator const char*() const noexcept;

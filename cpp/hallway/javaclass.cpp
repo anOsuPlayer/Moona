@@ -23,10 +23,33 @@ namespace moona {
         this->classname[packlen+classlen+1] = '\0';
 
         this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
+
+        if (this->clazz == nullptr) {
+            throw NoSuchClassException();
+        }
+        Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(this->clazz);
+    }
+    JavaClass::JavaClass(const JavaClass& clazz) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        this->classname = clazz.classname;
+        this->pack = clazz.pack;
+        this->clazz = clazz.clazz;
     }
 
     JavaClass::~JavaClass() {
         delete this->classname;
+        Moona::getMoonaJVM().getJNIEnv().DeleteGlobalRef(this->clazz);
+    }
+
+    JavaClass& JavaClass::operator = (const JavaClass& other) {
+        this->classname = other.classname;
+        this->pack = other.pack;
+        this->clazz = other.clazz;
+
+        return *this;
     }
 
     const jclass& JavaClass::getJClass() const noexcept {

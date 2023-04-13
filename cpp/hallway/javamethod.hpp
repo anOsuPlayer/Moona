@@ -3,6 +3,7 @@
 #include <jni.h>
 
 #include "hallwayexception.hpp"
+#include "nomethodexception.hpp"
 #include "javaclass.hpp"
 #include "javamethodsignature.hpp"
 #include "../base/moonaclass.hpp"
@@ -12,24 +13,23 @@ namespace moona {
 
     class JavaMethod : public Object<JavaMethod> {
         protected:
-            JavaMethod() = default;
-
             const char* name;
-            const MethodSignature* sign;
-            const JavaClass* clazz;
+            MethodSignature sign;
+            JavaClass clazz;
             jmethodID method;
 
         public:
+            JavaMethod() = default;
             explicit JavaMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
+            JavaMethod(const JavaMethod& meth);
             virtual ~JavaMethod() = default;
     };
 
     class JavaStaticMethod : public Object<JavaStaticMethod>, public JavaMethod {
-        protected:
-            JavaStaticMethod() = default;
-            
         public:
+            JavaStaticMethod() = default;
             explicit JavaStaticMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
+            JavaStaticMethod(const JavaStaticMethod& meth);
             virtual ~JavaStaticMethod() = default;
     };
 }

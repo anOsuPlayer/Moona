@@ -8,6 +8,12 @@ namespace moona {
         }
         this->location = location;
     }
+    JavaPackage::JavaPackage(const JavaPackage& pack) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+        this->location = pack.location;
+    }
     
     JavaClass JavaPackage::getClass(const char* classname) const {
         if (classname == nullptr) {
