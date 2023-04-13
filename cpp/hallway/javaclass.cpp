@@ -10,24 +10,16 @@ namespace moona {
         const char* packname = pack.toString();
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
-        unsigned int chardelta = 0;
-        if (packname[packlen-1] == '/') {
-            chardelta = 1;
-            this->classname = new char[packlen+classlen+chardelta];
-            this->classname[packlen+classlen] = '\0';
-        }
-        else {
-            chardelta = 2;
-            this->classname = new char[packlen+classlen+chardelta];
-            this->classname[packlen] = '/'; this->classname[packlen+classlen] = '\0';
-        }
+        this->classname = new char[packlen+classlen+1];
 
         for (unsigned int i = 0; i < packlen; i++) {
             this->classname[i] = packname[i];
         }
-        for (unsigned int i = packlen+chardelta-1; i < packlen+classlen+chardelta-1; i++) {
-            this->classname[i] = classname[i-(packlen+chardelta-1)];
+        this->classname[packlen] = '/';
+        for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
+            this->classname[i] = classname[i-packlen-1];
         }
+        this->classname[packlen+classlen+1] = '\0';
 
         this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
     }
@@ -36,27 +28,19 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        
+
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
-        unsigned int chardelta = 0;
-        if (packname[packlen-1] == '/') {
-            chardelta = 1;
-            this->classname = new char[packlen+classlen+chardelta];
-            this->classname[packlen+classlen] = '\0';
-        }
-        else {
-            chardelta = 2;
-            this->classname = new char[packlen+classlen+chardelta];
-            this->classname[packlen] = '/'; this->classname[packlen+classlen] = '\0';
-        }
+        this->classname = new char[packlen+classlen+1];
 
         for (unsigned int i = 0; i < packlen; i++) {
             this->classname[i] = packname[i];
         }
-        for (unsigned int i = packlen+chardelta-1; i < packlen+classlen+chardelta-1; i++) {
-            this->classname[i] = classname[i-(packlen+chardelta-1)];
+        this->classname[packlen] = '/';
+        for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
+            this->classname[i] = classname[i-packlen-1];
         }
+        this->classname[packlen+classlen+1] = '\0';
 
         this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
     }
