@@ -3,6 +3,10 @@
 namespace moona {
 
     JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
         const char* packname = pack.toString();
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
@@ -29,6 +33,10 @@ namespace moona {
     }
 
     JavaClass::JavaClass(const char* packname, const char* classname) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+        
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
         unsigned int chardelta = 0;
