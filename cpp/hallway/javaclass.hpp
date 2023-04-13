@@ -15,15 +15,16 @@ namespace moona {
     class JavaClass : public Object<JavaClass> {
         private:
             char* classname;
+            const JavaPackage* pack;
             jclass clazz;
 
         public:
             JavaClass() = delete;
             explicit JavaClass(const JavaPackage& pack, const char* classname);
-            explicit JavaClass(const char* packname, const char* classname);
             ~JavaClass();
 
             const jclass& getJClass() const noexcept;
+            const JavaPackage& getPackage() const noexcept;
 
             virtual const char* toString() const noexcept override final;
     };

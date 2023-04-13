@@ -13,7 +13,7 @@ namespace moona {
         if (classname == nullptr) {
             throw NullPointerException("Unable to find a Java Class from a nullptr.");
         }
-        return JavaClass(this->location, classname);
+        return JavaClass(*this, classname);
     }
 
     const char* JavaPackage::toString() const noexcept {
