@@ -22,21 +22,23 @@ namespace moona {
         }
         this->classname[packlen+classlen+1] = '\0';
 
-        this->clazz = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
+        jclass c = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
 
-        if (this->clazz == nullptr) {
+        if (c == nullptr) {
             throw NoSuchClassException();
         }
-        Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(this->clazz);
+        Moona::getMoonaJVM().getJNIEnv().DeleteLocalRef(c);
+        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
+        unsigned int len = strlen(clazz.classname);
+        this->classname = new char[len+1]; this->classname[len] = '\0';
+        for (unsigned int i = 0; i < len; i++) {
+            this->classname[i] = clazz.classname[i];
         }
 
-        this->classname = clazz.classname;
         this->pack = clazz.pack;
-        this->clazz = clazz.clazz;
+        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
@@ -45,9 +47,14 @@ namespace moona {
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
-        this->classname = other.classname;
+        unsigned int len = strlen(other.classname);
+        this->classname = new char[len+1]; this->classname[len] = '\0';
+        for (unsigned int i = 0; i < len; i++) {
+            this->classname[i] = other.classname[i];
+        }
+
         this->pack = other.pack;
-        this->clazz = other.clazz;
+        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(other.clazz);
 
         return *this;
     }
