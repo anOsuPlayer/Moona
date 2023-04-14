@@ -5,10 +5,10 @@ import moonaframework.util.Setting;
 public final class MoonaSetting extends Setting {
 
 	public @Override void enable() {
-		if (!isFinal && Moona.isOn()) { super.setValue(true); }
+		if (!isFinal && !Moona.isOn()) { super.setValue(true); }
 	}
 	public void disable() {
-		if (!isFinal && Moona.isOn()) { super.setValue(false); }
+		if (!isFinal && !Moona.isOn()) { super.setValue(false); }
 	}
 	
 	public MoonaSetting(boolean init, Setting...settings) {
