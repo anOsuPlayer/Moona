@@ -12,7 +12,7 @@ public final class MoonaSetting extends Setting {
 			super.setValue(true);
 		}
 	}
-	public void disable() {
+	public @Override void disable() {
 		if (!isFinal) {
 			if (Moona.isOn()) {
 				throw new MoonaHandlingException("MoonaSettings cannot be changed after Moona is started.");
