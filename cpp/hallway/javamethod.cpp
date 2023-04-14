@@ -25,6 +25,27 @@ namespace moona {
         this->method = meth.method;
     }
 
+    const jmethodID& JavaMethod::getJMethod() const noexcept {
+        return this->method;
+    }
+    const JavaClass& JavaMethod::getClass() const noexcept {
+        return this->clazz;
+    }
+    const MethodSignature& JavaMethod::getSignature() const noexcept {
+        return this->sign;
+    }
+
+    const char* JavaMethod::toString() const noexcept {
+        return this->name;
+    }
+
+    JavaMethod::operator const char*() const noexcept {
+        return this->name;
+    }
+    JavaMethod::operator const jmethodID&() const noexcept {
+        return this->method;
+    }
+
     JavaStaticMethod::JavaStaticMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();

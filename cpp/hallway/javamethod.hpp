@@ -23,6 +23,15 @@ namespace moona {
             explicit JavaMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
             JavaMethod(const JavaMethod& meth);
             virtual ~JavaMethod() = default;
+
+            const jmethodID& getJMethod() const noexcept;
+            const JavaClass& getClass() const noexcept;
+            const MethodSignature& getSignature() const noexcept;
+
+            virtual const char* toString() const noexcept override final;
+
+            operator const char*() const noexcept;
+            operator const jmethodID&() const noexcept;
     };
 
     class JavaStaticMethod : public Object<JavaStaticMethod>, public JavaMethod {
