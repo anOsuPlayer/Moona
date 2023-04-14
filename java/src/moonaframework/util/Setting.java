@@ -1,12 +1,10 @@
-package moonaframework.base;
+package moonaframework.util;
 
-import moonaframework.util.Status;
+public class Setting extends Status<Boolean> {
 
-public final class Setting extends Status<Boolean> {
-
-	private boolean isFinal = false;
+	protected boolean isFinal = false;
 	
-	private final Setting[] dependencies;
+	protected final Setting[] dependencies;
 	
 	public void enable() {
 		if (!isFinal) { super.setValue(true); }

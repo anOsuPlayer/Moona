@@ -2,7 +2,7 @@ package moonaframework.util.reflection;
 
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaObject;
-import moonaframework.base.Setting;
+import moonaframework.util.Setting;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.relation.Targetting;
 

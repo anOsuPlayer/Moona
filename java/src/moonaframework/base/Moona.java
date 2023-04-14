@@ -22,17 +22,17 @@ public final class Moona {
 		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
 	}
 	
-	public static final Setting autoReflections = new Setting(true);
+	public static final MoonaSetting autoReflections = new MoonaSetting(true);
 	
-	public static final Setting autoDeriveReferences = new Setting(true, autoReflections);
+	public static final MoonaSetting autoDeriveReferences = new MoonaSetting(true, autoReflections);
 	
-	public static final Setting deriveWhenInitialized = new Setting(false, autoDeriveReferences);
+	public static final MoonaSetting deriveWhenInitialized = new MoonaSetting(false, autoDeriveReferences);
 	
-	public static final Setting loadReflections = new Setting(true);
+	public static final MoonaSetting loadReflections = new MoonaSetting(true);
 	
-	public static final Setting unsafeReflectionLoading = new Setting(false, loadReflections);
+	public static final MoonaSetting unsafeReflectionLoading = new MoonaSetting(false, loadReflections);
 	
-	public static final Setting enableHallwayAccess = new Setting(false);
+	public static final MoonaSetting enableHallwayAccess = new MoonaSetting(false);
 	
 	private static native void nativeInit();
 	
