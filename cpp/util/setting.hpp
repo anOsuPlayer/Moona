@@ -9,10 +9,10 @@ namespace moona {
         public:
             Setting();
             Setting(bool value);
-            ~Setting() = default;
+            virtual ~Setting() = default;
 
-            void enable() const noexcept;
-            void disable() const noexcept;
+            virtual void enable() const;
+            virtual void disable() const;
 
             virtual const char* toString() const noexcept override;
     };

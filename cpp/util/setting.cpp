@@ -8,10 +8,10 @@ namespace moona {
     Setting::Setting(bool value) : Property<bool>(value) {
     }
 
-    void Setting::enable() const noexcept {
+    void Setting::enable() const {
         this->value = true;
     }
-    void Setting::disable() const noexcept {
+    void Setting::disable() const {
         this->value = false;
     }
 

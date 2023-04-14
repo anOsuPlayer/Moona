@@ -4,32 +4,30 @@
 
 #include "object.hpp"
 #include "notation.hpp"
+#include "moonacore.hpp"
+#include "moonasetting.hpp"
 #include "moonahandlingexception.hpp"
 #include "../hallway/hallwayexception.hpp"
 #include "../hallway/javanotation.hpp"
 #include "../hallway/jvm.hpp"
 #include "../util/conditional.hpp"
-#include "../util/setting.hpp"
 
 #define DefaultJVM Moona::jvm
 #define DefaultENV Moona::jvm->env
 
 namespace moona {
 
-    class Moona {
+    class Moona : private MoonaCore {
         private:
             Moona() = delete;
             ~Moona() = delete;
-
-            static_field bool on = false;
-            static_field bool wasOn = false;
             
             static_field JVM* jvm;
 
             static void commonInit();
 
         public:
-            const static_field Setting enableHallwayAccess = Setting(false);
+            const static_field MoonaSetting enableHallwayAccess = MoonaSetting(false);
 
             static void init();
             static void jinit(JNIEnv* env);

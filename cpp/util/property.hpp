@@ -16,7 +16,7 @@ namespace moona {
             }
 
         public:
-            ~Property() = default;
+            virtual ~Property() = default;
 
             virtual const Property<T>& operator = (const T& ref) noexcept final {
                 this->value = ref;
