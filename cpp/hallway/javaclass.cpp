@@ -66,6 +66,13 @@ namespace moona {
         return *this->pack;
     }
 
+    JavaClass::operator const jclass&() const noexcept {
+        return this->clazz;
+    }
+    JavaClass::operator const char*() const noexcept {
+        return this->classname;
+    }
+
     const char* JavaClass::toString() const noexcept {
         return this->classname;
     }

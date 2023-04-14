@@ -29,6 +29,9 @@ namespace moona {
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;
 
+            operator const jclass&() const noexcept;
+            operator const char*() const noexcept;
+
             virtual const char* toString() const noexcept override final;
     };
 }
