@@ -7,6 +7,7 @@
 #include "../base/moonaclass.hpp"
 #include "../base/notation.hpp"
 #include "../base/entity.hpp"
+#include "../exceptions/illegalexception.hpp"
 
 namespace moona {
 
@@ -19,6 +20,8 @@ namespace moona {
         public:
             PureSignature(const PureSignature& ps);
             virtual ~PureSignature();
+
+            bool operator == (const PureSignature& ps2) const noexcept;
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;

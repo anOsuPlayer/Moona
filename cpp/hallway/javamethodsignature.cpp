@@ -18,6 +18,10 @@ namespace moona {
         delete[] this->signature;
     }
 
+    bool PureSignature::operator == (const PureSignature& ps2) const noexcept {
+        return (strcmp(this->signature, ps2.signature) == 0);
+    }
+
     PureSignature::operator const char*() const noexcept {
         return this->signature;
     }
@@ -64,6 +68,10 @@ namespace moona {
         }
     }
     ArraySignature::ArraySignature(const PureSignature& base) {
+        if (base == Signature::V0ID) {
+            throw IllegalArgumentException("Cannot create an ArraySignature of a void array.");
+        }
+
         const char* sign = base.getSignature();
         unsigned int len = strlen(sign);
         this->signature = new char[len+2];
@@ -116,6 +124,10 @@ namespace moona {
 
         unsigned int passedLen = 0;
         for (unsigned int i = 0; i < argc; i++) {
+            if (args[i] == Signature::V0ID) {
+                throw IllegalArgumentException("Cannot build a MethodSignature accepting void as a parameter.");
+            }
+
             for (unsigned int e = 0; e < lens[i]; e++) {
                 this->signature[1+passedLen+e] = signs[i][e];
             }
