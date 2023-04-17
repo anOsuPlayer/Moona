@@ -3,6 +3,7 @@
 #include <jni.h>
 
 #include "javapackage.hpp"
+#include "javaobject.hpp"
 #include "hallwayexception.hpp"
 #include "noclassexception.hpp"
 #include "../base/moonaclass.hpp"
@@ -29,6 +30,8 @@ namespace moona {
 
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;
+
+            JavaObject newInstance() const;
 
             operator const jclass&() const noexcept;
             operator const char*() const noexcept;

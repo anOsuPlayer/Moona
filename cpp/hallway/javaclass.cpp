@@ -66,6 +66,13 @@ namespace moona {
         return *this->pack;
     }
 
+    JavaObject JavaClass::newInstance() const {
+        jobject obj = Moona::getMoonaJVM().getJNIEnv().AllocObject(this->clazz);
+        JavaObject jobj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj);
+        Moona::getMoonaJVM().getJNIEnv().DeleteLocalRef(obj);
+        return jobj;
+    }
+
     JavaClass::operator const jclass&() const noexcept {
         return this->clazz;
     }
