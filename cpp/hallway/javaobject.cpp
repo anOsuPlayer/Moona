@@ -3,9 +3,15 @@
 namespace moona {
 
     JavaObject::JavaObject(const jobject& obj) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
         this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj);
     }
     JavaObject::JavaObject(const JavaObject& obj) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
         this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj.getJObject());
     }
 
@@ -19,6 +25,10 @@ namespace moona {
         return *this;
     }
     JavaObject& JavaObject::operator = (const jobject& other) noexcept {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+        
         this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(other);
         return *this;
     }
