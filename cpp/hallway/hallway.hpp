@@ -6,8 +6,10 @@
 #include "javanotation.hpp"
 #include "jvm.hpp"
 #include "cppimpl.hpp"
+#include "nativelinkerimpl.hpp"
 
 #include "javapackage.hpp"
 #include "javaclass.hpp"
 #include "javamethod.hpp"
-#include "javamethodsignature.hpp"
+#include "javasignature.hpp"
+#include "javaobject.hpp"
