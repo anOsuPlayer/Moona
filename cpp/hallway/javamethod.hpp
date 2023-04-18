@@ -5,7 +5,7 @@
 #include "hallwayexception.hpp"
 #include "nomethodexception.hpp"
 #include "javaclass.hpp"
-#include "javamethodsignature.hpp"
+#include "javasignature.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
