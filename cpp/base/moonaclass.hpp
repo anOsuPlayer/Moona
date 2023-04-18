@@ -38,6 +38,7 @@ namespace moona {
             static bool isJVMinitialized() noexcept;
 
             static const JVM& getMoonaJVM();
+            static const JNIEnv& defaultJNIEnv();
 
             template <typename B> struct isMoonaElement : public Conditional {
                 isMoonaElement() {
