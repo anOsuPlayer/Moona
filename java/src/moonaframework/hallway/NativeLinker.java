@@ -32,11 +32,11 @@ public final class NativeLinker {
 			throw new IllegalArgumentException("A NativeArrayAllocation cannot be deleted like a regular NativeAllocation,"
 					+ " use NativeLinker.destroyArray() instead.");
 		}
-		destroyNative(address.rawAddress());
+		destroyNative(address.getRawAddress());
 	}
 	
 	public static void destroyArray(NativeArrayAllocation address) {
-		destroyNativeArray(address.rawAddress());
+		destroyNativeArray(address.getRawAddress());
 	}
 	
 	private NativeLinker() {

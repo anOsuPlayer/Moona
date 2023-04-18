@@ -1,10 +1,12 @@
 package moonaframework.base;
 
+import java.lang.foreign.MemorySession;
 import java.util.ArrayList;
 import java.util.List;
 
 import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Processor;
+import moonaframework.hallway.HallwayAccessException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Mirror;
 
@@ -13,6 +15,7 @@ public final class Moona {
 	static final List<MoonaObject> elements = new ArrayList<>();
 	
 	static boolean isOn = false;
+	
 	static boolean wasInitialized = false;
 	
 	public static boolean isOn() {
@@ -34,6 +37,18 @@ public final class Moona {
 	
 	public static final MoonaSetting enableHallwayAccess = new MoonaSetting(false);
 	
+	private static MemorySession moonastack;
+	
+	public static MemorySession moonastack() throws HallwayAccessException, MoonaHandlingException {
+		if (!enableHallwayAccess.evaluate()) {
+			throw new HallwayAccessException();
+		}
+		if (!Moona.isOn) {
+			throw new MoonaHandlingException("");
+		}
+		return moonastack;
+	}
+	
 	private static native void nativeInit();
 	
 	public static void init() throws MoonaHandlingException {
@@ -47,6 +62,7 @@ public final class Moona {
 		
 		if (enableHallwayAccess.evaluate()) {
 			System.loadLibrary("shared/Moona");
+			Moona.moonastack = MemorySession.openShared();
 			nativeInit();
 		}
 		
@@ -86,6 +102,9 @@ public final class Moona {
 		Agent.collapse();
 		
 		if (Moona.enableHallwayAccess.evaluate()) {
+			if (Moona.moonastack.isAlive()) {
+				Moona.moonastack.close();
+			}
 			nativeInterrupt();
 		}
 		

@@ -6,7 +6,7 @@ public class MemoryAddress implements Satellite<java.lang.foreign.MemoryAddress>
 
 	protected final long address;
 	
-	public long rawAddress() {
+	public long getRawAddress() {
 		return this.address;
 	}
 	
