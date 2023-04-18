@@ -6,21 +6,21 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj);
+        this->obj = Moona::defaultJNIEnv().NewGlobalRef(obj);
     }
     JavaObject::JavaObject(const JavaObject& obj) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj.getJObject());
+        this->obj = Moona::defaultJNIEnv().NewGlobalRef(obj.getJObject());
     }
 
     JavaObject::~JavaObject() {
-        Moona::getMoonaJVM().getJNIEnv().DeleteGlobalRef(this->obj);
+        Moona::defaultJNIEnv().DeleteGlobalRef(this->obj);
     }
 
     JavaObject& JavaObject::operator = (const JavaObject& other) noexcept {
-        this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(other.getJObject());
+        this->obj = Moona::defaultJNIEnv().NewGlobalRef(other.getJObject());
 
         return *this;
     }
@@ -29,7 +29,7 @@ namespace moona {
             throw HallwayAccessException();
         }
         
-        this->obj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(other);
+        this->obj = Moona::defaultJNIEnv().NewGlobalRef(other);
         return *this;
     }
 

@@ -8,7 +8,7 @@ namespace moona {
         }
 
         this->clazz = clazz; this->sign = sign;
-        this->method = Moona::getMoonaJVM().getJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
+        this->method = Moona::defaultJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
             throw new NoSuchMethodException();
@@ -52,7 +52,7 @@ namespace moona {
         }
 
         this->clazz = clazz; this->sign = sign;
-        this->method = Moona::getMoonaJVM().getJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
+        this->method = Moona::defaultJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
             throw new NoSuchMethodException();

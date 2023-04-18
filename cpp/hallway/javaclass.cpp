@@ -22,13 +22,13 @@ namespace moona {
         }
         this->classname[packlen+classlen+1] = '\0';
 
-        jclass c = Moona::getMoonaJVM().getJNIEnv().FindClass(this->classname);
+        jclass c = Moona::defaultJNIEnv().FindClass(this->classname);
 
         if (c == nullptr) {
             throw NoSuchClassException();
         }
-        Moona::getMoonaJVM().getJNIEnv().DeleteLocalRef(c);
-        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(c);
+        Moona::defaultJNIEnv().DeleteLocalRef(c);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
         unsigned int len = strlen(clazz.classname);
@@ -38,12 +38,12 @@ namespace moona {
         }
 
         this->pack = clazz.pack;
-        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(clazz.clazz);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
         delete this->classname;
-        Moona::getMoonaJVM().getJNIEnv().DeleteGlobalRef(this->clazz);
+        Moona::defaultJNIEnv().DeleteGlobalRef(this->clazz);
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
@@ -54,7 +54,7 @@ namespace moona {
         }
 
         this->pack = other.pack;
-        this->clazz = (jclass) Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(other.clazz);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(other.clazz);
 
         return *this;
     }
@@ -67,9 +67,9 @@ namespace moona {
     }
 
     JavaObject JavaClass::newInstance() const {
-        jobject obj = Moona::getMoonaJVM().getJNIEnv().AllocObject(this->clazz);
-        JavaObject jobj = Moona::getMoonaJVM().getJNIEnv().NewGlobalRef(obj);
-        Moona::getMoonaJVM().getJNIEnv().DeleteLocalRef(obj);
+        jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
+        JavaObject jobj = Moona::defaultJNIEnv().NewGlobalRef(obj);
+        Moona::defaultJNIEnv().DeleteLocalRef(obj);
         return jobj;
     }
 
