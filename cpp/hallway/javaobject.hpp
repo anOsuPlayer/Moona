@@ -17,7 +17,7 @@ namespace moona {
             ~JavaObject();
 
             JavaObject& operator = (const JavaObject& obj) noexcept;
-            JavaObject& operator = (const jobject& obj) noexcept;
+            JavaObject& operator = (const jobject& obj);
 
             operator const jobject&() const noexcept;
             

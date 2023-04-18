@@ -24,7 +24,7 @@ namespace moona {
 
         return *this;
     }
-    JavaObject& JavaObject::operator = (const jobject& other) noexcept {
+    JavaObject& JavaObject::operator = (const jobject& other) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
