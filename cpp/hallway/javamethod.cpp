@@ -6,7 +6,11 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find a JavaMethod from a nullptr.");
+        }
+        
+        this->name = name;
         this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
 
@@ -46,7 +50,11 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find a JavaMethod from a nullptr.");
+        }
 
+        this->name = name;
         this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
 

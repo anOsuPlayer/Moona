@@ -27,8 +27,8 @@ namespace moona {
         if (c == nullptr) {
             throw NoSuchClassException();
         }
-        Moona::defaultJNIEnv().DeleteLocalRef(c);
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
+        Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
         unsigned int len = strlen(clazz.classname);
@@ -42,7 +42,7 @@ namespace moona {
     }
 
     JavaClass::~JavaClass() {
-        delete this->classname;
+        delete[] this->classname;
         Moona::defaultJNIEnv().DeleteGlobalRef(this->clazz);
     }
 

@@ -174,7 +174,7 @@ namespace moona {
     }
 
     FieldSignature::~FieldSignature() {
-        delete this->signature;
+        delete[] this->signature;
     }
 
     FieldSignature::operator const char*() const noexcept {
