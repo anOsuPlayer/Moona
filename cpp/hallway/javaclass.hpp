@@ -4,8 +4,10 @@
 
 #include "javapackage.hpp"
 #include "javaobject.hpp"
+#include "javamethod.hpp"
 #include "hallwayexception.hpp"
 #include "noclassexception.hpp"
+#include "javasignature.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
@@ -13,6 +15,7 @@ namespace moona {
 
     class JavaPackage;
     class JavaMethod;
+    class JavaStaticMethod;
 
     class JavaClass : public Object<JavaClass> {
         private:
@@ -30,6 +33,9 @@ namespace moona {
 
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;
+
+            JavaMethod getMethod(const char* name, const MethodSignature& ms) const;
+            JavaStaticMethod getStaticMethod(const char* name, const MethodSignature& ms) const;
 
             JavaObject newInstance() const;
 

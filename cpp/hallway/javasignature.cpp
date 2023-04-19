@@ -155,4 +155,32 @@ namespace moona {
     const char* MethodSignature::getSignature() const noexcept {
         return this->signature;
     }
+
+    FieldSignature::FieldSignature(const PureSignature& type) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        const char* typeStr = type.getSignature();
+        unsigned int len = strlen(type);
+        this->signature = new char[len];
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->signature[i] = typeStr[i];
+        }
+    }
+    FieldSignature::FieldSignature(const FieldSignature& fs) {
+        this->signature = fs.signature;
+    }
+
+    FieldSignature::~FieldSignature() {
+        delete this->signature;
+    }
+
+    FieldSignature::operator const char*() const noexcept {
+        return this->signature;
+    }
+    const char* FieldSignature::getSignature() const noexcept {
+        return this->signature;
+    } 
 }

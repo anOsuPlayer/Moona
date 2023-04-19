@@ -10,6 +10,7 @@
 
 #include "javapackage.hpp"
 #include "javaclass.hpp"
-#include "javamethod.hpp"
 #include "javasignature.hpp"
+#include "javamethod.hpp"
+#include "javafield.hpp"
 #include "javaobject.hpp"

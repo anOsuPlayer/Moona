@@ -11,11 +11,12 @@
 
 namespace moona {
 
+    class JavaClass;
+
     class JavaMethod : public Object<JavaMethod> {
         protected:
             const char* name;
             MethodSignature sign;
-            JavaClass clazz;
             jmethodID method;
 
         public:
@@ -25,7 +26,6 @@ namespace moona {
             virtual ~JavaMethod() = default;
 
             const jmethodID& getJMethod() const noexcept;
-            const JavaClass& getClass() const noexcept;
             const MethodSignature& getSignature() const noexcept;
 
             virtual const char* toString() const noexcept override final;

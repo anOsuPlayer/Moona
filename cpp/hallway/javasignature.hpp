@@ -85,4 +85,18 @@ namespace moona {
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
     };
+
+    class FieldSignature : public Entity<FieldSignature> {
+        private:
+            char* signature;
+
+        public:
+            FieldSignature() = default;
+            FieldSignature(const PureSignature& type);
+            FieldSignature(const FieldSignature& fs);
+            ~FieldSignature();
+
+            operator const char*() const noexcept;
+            const char* getSignature() const noexcept;
+    };
 }

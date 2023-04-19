@@ -7,7 +7,7 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        this->clazz = clazz; this->sign = sign;
+        this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
@@ -21,15 +21,11 @@ namespace moona {
 
         this->name = meth.name;
         this->sign = meth.sign;
-        this->clazz = meth.clazz;
         this->method = meth.method;
     }
 
     const jmethodID& JavaMethod::getJMethod() const noexcept {
         return this->method;
-    }
-    const JavaClass& JavaMethod::getClass() const noexcept {
-        return this->clazz;
     }
     const MethodSignature& JavaMethod::getSignature() const noexcept {
         return this->sign;
@@ -51,7 +47,7 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        this->clazz = clazz; this->sign = sign;
+        this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
@@ -65,7 +61,6 @@ namespace moona {
         
         this->name = meth.name;
         this->sign = meth.sign;
-        this->clazz = meth.clazz;
         this->method = meth.method;
     }
 }

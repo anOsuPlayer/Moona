@@ -66,6 +66,19 @@ namespace moona {
         return *this->pack;
     }
 
+    JavaMethod JavaClass::getMethod(const char* name, const MethodSignature& ms) const {
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find any JavaMethod from a nullptr.");
+        }
+        return JavaMethod(name, *this, ms);
+    }
+    JavaStaticMethod JavaClass::getStaticMethod(const char* name, const MethodSignature& ms) const {
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find any JavaStaticMethod from a nullptr.");
+        }
+        return JavaStaticMethod(name, *this, ms);
+    }
+
     JavaObject JavaClass::newInstance() const {
         jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
         JavaObject jobj = Moona::defaultJNIEnv().NewGlobalRef(obj);
