@@ -54,7 +54,7 @@ public abstract class AbstractProcess implements Process {
 		this.clock = new ProcessClock(this);
 		this.status = new ProcessStatus(ProcessCondition.DEAD);
 		
-		Mirror.add(new Method(this.getClass(), "initialize"));
-		Mirror.add(new Method(this.getClass(), "end"));
+		Mirror.add(new Method(this.getClass(), "initialize", false));
+		Mirror.add(new Method(this.getClass(), "end", false));
 	}
 }
