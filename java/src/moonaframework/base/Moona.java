@@ -44,7 +44,7 @@ public final class Moona {
 			throw new HallwayAccessException();
 		}
 		if (!Moona.isOn) {
-			throw new MoonaHandlingException("");
+			throw new MoonaHandlingException("Cannot access the MoonaStack when Moona isn't on.");
 		}
 		return moonastack;
 	}
