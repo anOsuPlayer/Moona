@@ -1,6 +1,6 @@
 package moonaframework.util.reflection.filters;
 
-public interface Argumental {
+public interface Parameterized {
 
 	Class<?>[] getParameterTypes();
 }

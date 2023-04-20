@@ -10,7 +10,7 @@ import moonaframework.base.MoonaObject;
 import moonaframework.dynamic.process.Process;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
-import moonaframework.util.reflection.filters.Argumental;
+import moonaframework.util.reflection.filters.Parameterized;
 import moonaframework.util.reflection.filters.ClassElement;
 import moonaframework.util.reflection.filters.Indexed;
 import moonaframework.util.reflection.filters.Nominal;
@@ -160,7 +160,7 @@ public final class Mirror {
 		}
 		
 		public MirrorFilter<R> filterByArguments(Class<?>[] args) {
-			filtered.removeIf((R r) -> { return !(r instanceof Argumental a && a.getParameterTypes().equals(args)); });
+			filtered.removeIf((R r) -> { return !(r instanceof Parameterized a && a.getParameterTypes().equals(args)); });
 			return this;
 		}
 		
