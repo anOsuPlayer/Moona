@@ -96,10 +96,10 @@ public final class Method extends Reference<java.lang.reflect.Method> implements
 		super.mirrorInteraction(); super.valueExtraction();
 	}
 	public Method(Class<?> clazz, String name, Class<?>...args) throws IllegalArgumentException, NullArgumentException {
-		this(clazz, name, false, Mirror.NO_ARGS);
+		this(clazz, name, true, args);
 	}
 	public Method(Class<?> clazz, String name) {
-		this(clazz, name, false, Mirror.NO_ARGS);
+		this(clazz, name, true, Mirror.NO_ARGS);
 	}
 	public Method(Class<?> clazz, String name, boolean isDeclared) {
 		this(clazz, name, isDeclared, Mirror.NO_ARGS);

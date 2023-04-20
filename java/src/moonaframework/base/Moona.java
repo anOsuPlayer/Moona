@@ -22,7 +22,7 @@ public final class Moona {
 		return isOn;
 	}
 	public static void checkOn() throws MoonaHandlingException {
-		if (!isOn) { throw new MoonaHandlingException("Moona was not initialized."); }
+		if (!isOn) throw new MoonaHandlingException("Moona was not initialized.");
 	}
 	
 	public static final MoonaSetting autoReflections = new MoonaSetting(true);
@@ -36,6 +36,8 @@ public final class Moona {
 	public static final MoonaSetting unsafeReflectionLoading = new MoonaSetting(false, loadReflections);
 	
 	public static final MoonaSetting enableHallwayAccess = new MoonaSetting(false);
+	
+	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
 	
 	private static MemorySession moonastack;
 	
@@ -80,8 +82,6 @@ public final class Moona {
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(ender));
 	}
-	
-	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
 	
 	private static native void nativeInterrupt();
 	

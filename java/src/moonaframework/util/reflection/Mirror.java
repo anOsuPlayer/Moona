@@ -131,6 +131,10 @@ public final class Mirror {
 			return filtered.size();
 		}
 		
+		public @Override String toString() {
+			return this.filtered.toString();
+		}
+		
 		public MirrorFilter<R> filter(Predicate<? super R> condition) throws NullArgumentException {
 			if (condition == null) {
 				throw new NullArgumentException("Cannot filter this MirrorFilter with a null Predicate.");
@@ -174,8 +178,14 @@ public final class Mirror {
 		}
 	}
 	
+	public static MirrorFilter<Reflection<?>> allReflections() {
+		MirrorFilter<Reflection<?>> refls = new MirrorFilter<>();
+		refls.filtered.addAll(reflections);
+		return refls;
+	}
+	
 	public static MirrorFilter<Reflection<?>> getReflectionsOf(Object target) {
-		MirrorFilter<Reflection<?>> refls = new MirrorFilter<Reflection<?>>();
+		MirrorFilter<Reflection<?>> refls = new MirrorFilter<>();
 		for (Reflection<?> r : reflections) {
 			while (r.getTarget() instanceof Reflection<?> refl) {
 				r = refl;
