@@ -11,16 +11,17 @@ namespace moona {
         const char* packname = pack.toString();
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
-        this->classname = new char[packlen+classlen+1];
+        char fullname[packlen+classlen+1];
 
         for (unsigned int i = 0; i < packlen; i++) {
-            this->classname[i] = packname[i];
+            fullname[i] = packname[i];
         }
-        this->classname[packlen] = '/';
+        fullname[packlen] = '/';
         for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
-            this->classname[i] = classname[i-packlen-1];
+            fullname[i] = classname[i-packlen-1];
         }
-        this->classname[packlen+classlen+1] = '\0';
+        fullname[packlen+classlen+1] = '\0';
+        this->classname = fullname;
 
         jclass c = Moona::defaultJNIEnv().FindClass(this->classname);
 
@@ -31,28 +32,17 @@ namespace moona {
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
-        unsigned int len = strlen(clazz.classname);
-        this->classname = new char[len+1]; this->classname[len] = '\0';
-        for (unsigned int i = 0; i < len; i++) {
-            this->classname[i] = clazz.classname[i];
-        }
-
+        strcpy(this->classname, clazz.classname);
         this->pack = clazz.pack;
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
-        delete[] this->classname;
         Moona::defaultJNIEnv().DeleteGlobalRef(this->clazz);
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
-        unsigned int len = strlen(other.classname);
-        this->classname = new char[len+1]; this->classname[len] = '\0';
-        for (unsigned int i = 0; i < len; i++) {
-            this->classname[i] = other.classname[i];
-        }
-
+        strcpy(this->classname, other.classname);
         this->pack = other.pack;
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(other.clazz);
 
