@@ -11,17 +11,16 @@ namespace moona {
         const char* packname = pack.toString();
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
-        char fullname[packlen+classlen+1];
+        this->classname = new char[packlen+classlen+1];
 
         for (unsigned int i = 0; i < packlen; i++) {
-            fullname[i] = packname[i];
+            this->classname[i] = packname[i];
         }
-        fullname[packlen] = '/';
+        this->classname[packlen] = '/';
         for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
-            fullname[i] = classname[i-packlen-1];
+            this->classname[i] = classname[i-packlen-1];
         }
-        fullname[packlen+classlen+1] = '\0';
-        this->classname = fullname;
+        this->classname[packlen+classlen+1] = '\0';
 
         jclass c = Moona::defaultJNIEnv().FindClass(this->classname);
 
@@ -32,17 +31,32 @@ namespace moona {
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
-        strcpy(this->classname, clazz.classname);
+        const char* classname = clazz.classname;
+        unsigned int len = strlen(classname);
+        this->classname = new char[len+1]; this->classname[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->classname[i] = classname[i];
+        }
+
         this->pack = clazz.pack;
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
+        delete[] this->classname;
         Moona::defaultJNIEnv().DeleteGlobalRef(this->clazz);
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
-        strcpy(this->classname, other.classname);
+        const char* classname = other.classname;
+        unsigned int len = strlen(classname);
+        this->classname = new char[len+1]; this->classname[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->classname[i] = classname[i];
+        }
+
         this->pack = other.pack;
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(other.clazz);
 
