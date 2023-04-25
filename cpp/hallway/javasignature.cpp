@@ -95,7 +95,7 @@ namespace moona {
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
         unsigned int len = strlen(sign);
-        char fullname[len+3];
+        char* fullname = new char[len+3];
         fullname[0] = '('; fullname[1] = ')';
         fullname[len+2] = '\0';
 
@@ -123,8 +123,8 @@ namespace moona {
         const char* retSign = returntype.getSignature();
         unsigned int retLen = strlen(retSign);
 
-        char fullname[totalLength+retLen+3];
-        fullname[0] = '('; fullname[totalLength+1] = ')'; fullname[totalLength+retLen+2] = '\0';
+        this->signature = new char[totalLength+retLen+3];
+        this->signature[0] = '('; this->signature[totalLength+1] = ')'; this->signature[totalLength+retLen+2] = '\0';
 
         unsigned int passedLen = 0;
         for (unsigned int i = 0; i < argc; i++) {
@@ -133,22 +133,43 @@ namespace moona {
             }
 
             for (unsigned int e = 0; e < lens[i]; e++) {
-                fullname[1+passedLen+e] = signs[i][e];
+                this->signature[1+passedLen+e] = signs[i][e];
             }
             passedLen += lens[i];
         }
 
         for (unsigned int i = totalLength+2; i < totalLength+retLen+2; i++) {
-            fullname[i] = retSign[i-totalLength-2];
+            this->signature[i] = retSign[i-totalLength-2];
         }
 
         delete[] signs;
         delete[] lens;
-        
-        this->signature = fullname;
     }
     MethodSignature::MethodSignature(const MethodSignature& ms) {
-        this->signature = ms.signature;
+        const char* sign = ms.getSignature();
+        unsigned int len = strlen(sign);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->signature[i] = sign[i];
+        }
+    }
+
+    MethodSignature::~MethodSignature() {
+        delete[] this->signature;
+    }
+
+    MethodSignature& MethodSignature::operator = (const MethodSignature& ms) noexcept {
+        
+        const char* sign = ms.getSignature();
+        unsigned int len = strlen(sign);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->signature[i] = sign[i];
+        }
+
+        return *this;
     }
 
     MethodSignature::operator const char*() const noexcept {

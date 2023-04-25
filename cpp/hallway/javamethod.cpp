@@ -15,7 +15,7 @@ namespace moona {
         this->method = Moona::defaultJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
-            throw new NoSuchMethodException();
+            throw NoSuchMethodException();
         }
     }
     JavaMethod::JavaMethod(const JavaMethod& meth) {
