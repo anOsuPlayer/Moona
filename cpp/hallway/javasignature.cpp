@@ -95,7 +95,7 @@ namespace moona {
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
         unsigned int len = strlen(sign);
-        char* fullname = new char[len+3];
+        char fullname[len+3];
         fullname[0] = '('; fullname[1] = ')';
         fullname[len+2] = '\0';
 
@@ -123,7 +123,7 @@ namespace moona {
         const char* retSign = returntype.getSignature();
         unsigned int retLen = strlen(retSign);
 
-        char* fullname = new char[totalLength+retLen+3];
+        char fullname[totalLength+retLen+3];
         fullname[0] = '('; fullname[totalLength+1] = ')'; fullname[totalLength+retLen+2] = '\0';
 
         unsigned int passedLen = 0;
