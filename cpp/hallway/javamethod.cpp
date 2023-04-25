@@ -59,7 +59,7 @@ namespace moona {
         this->method = Moona::defaultJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->method == nullptr) {
-            throw new NoSuchMethodException();
+            throw NoSuchMethodException();
         }
     }
     JavaStaticMethod::JavaStaticMethod(const JavaStaticMethod& meth) {

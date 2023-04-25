@@ -36,6 +36,7 @@ namespace moona {
 
     const Signature Signature::BOOLEAN = Signature("Z");
     const Signature Signature::BYTE = Signature("B");
+    const Signature Signature::CHAR = Signature("C");
     const Signature Signature::SHORT = Signature("S");
     const Signature Signature::INT = Signature("I");
     const Signature Signature::LONG = Signature("J");
@@ -84,6 +85,7 @@ namespace moona {
 
     const ArraySignature ArraySignature::BOOLEAN_ARRAY = ArraySignature(Signature::BOOLEAN);
     const ArraySignature ArraySignature::BYTE_ARRAY = ArraySignature(Signature::BYTE);
+    const ArraySignature ArraySignature::CHAR_ARRAY = ArraySignature(Signature::CHAR);
     const ArraySignature ArraySignature::SHORT_ARRAY = ArraySignature(Signature::SHORT);
     const ArraySignature ArraySignature::INT_ARRAY = ArraySignature(Signature::INT);
     const ArraySignature ArraySignature::LONG_ARRAY = ArraySignature(Signature::LONG);
@@ -93,13 +95,15 @@ namespace moona {
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
         unsigned int len = strlen(sign);
-        this->signature = new char[len+3];
-        this->signature[0] = '('; this->signature[1] = ')';
-        this->signature[len+2] = '\0';
+        char* fullname = new char[len+3];
+        fullname[0] = '('; fullname[1] = ')';
+        fullname[len+2] = '\0';
 
         for (unsigned int i = 2; i < len+2; i++) {
-            this->signature[i] = sign[i-2];
+            fullname[i] = sign[i-2];
         }
+
+        this->signature = fullname;
     }
     MethodSignature::MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args) {
         if (!Moona::enableHallwayAccess) {
@@ -119,8 +123,8 @@ namespace moona {
         const char* retSign = returntype.getSignature();
         unsigned int retLen = strlen(retSign);
 
-        this->signature = new char[totalLength+retLen+3];
-        this->signature[0] = '('; this->signature[totalLength+1] = ')'; this->signature[totalLength+retLen+2] = '\0';
+        char* fullname = new char[totalLength+retLen+3];
+        fullname[0] = '('; fullname[totalLength+1] = ')'; fullname[totalLength+retLen+2] = '\0';
 
         unsigned int passedLen = 0;
         for (unsigned int i = 0; i < argc; i++) {
@@ -129,24 +133,22 @@ namespace moona {
             }
 
             for (unsigned int e = 0; e < lens[i]; e++) {
-                this->signature[1+passedLen+e] = signs[i][e];
+                fullname[1+passedLen+e] = signs[i][e];
             }
             passedLen += lens[i];
         }
 
         for (unsigned int i = totalLength+2; i < totalLength+retLen+2; i++) {
-            this->signature[i] = retSign[i-totalLength-2];
+            fullname[i] = retSign[i-totalLength-2];
         }
 
         delete[] signs;
         delete[] lens;
+        
+        this->signature = fullname;
     }
     MethodSignature::MethodSignature(const MethodSignature& ms) {
         this->signature = ms.signature;
-    }
-    
-    MethodSignature::~MethodSignature() {
-        delete[] this->signature;
     }
 
     MethodSignature::operator const char*() const noexcept {

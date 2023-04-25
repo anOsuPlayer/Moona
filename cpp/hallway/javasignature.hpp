@@ -34,6 +34,7 @@ namespace moona {
         public:
             static const Signature BOOLEAN;
             static const Signature BYTE;
+            static const Signature CHAR;
             static const Signature SHORT;
             static const Signature INT;
             static const Signature LONG;
@@ -59,6 +60,7 @@ namespace moona {
         public:
             static const ArraySignature BOOLEAN_ARRAY;
             static const ArraySignature BYTE_ARRAY;
+            static const ArraySignature CHAR_ARRAY;
             static const ArraySignature SHORT_ARRAY;
             static const ArraySignature INT_ARRAY;
             static const ArraySignature LONG_ARRAY;
@@ -80,7 +82,7 @@ namespace moona {
             MethodSignature(const PureSignature& returntype);
             MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args);
             MethodSignature(const MethodSignature& ms);
-            ~MethodSignature();
+            ~MethodSignature() = default;
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
