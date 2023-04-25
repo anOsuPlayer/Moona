@@ -2,10 +2,6 @@
 
 namespace moona {
 
-    JavaClass::JavaClass(char* classname, const JavaPackage* pack, jclass clazz) {
-        this->classname = classname; this->pack = pack; this->clazz = clazz;
-    }
-
     JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();

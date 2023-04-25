@@ -22,7 +22,7 @@ namespace moona {
                 return this->type().name();
             }
 
-            virtual bool equals(const Object<O, super...>& obj2) const noexcept {
+            virtual bool equals(const O& obj2) const noexcept {
                 return this == &obj2;
             }
     };
