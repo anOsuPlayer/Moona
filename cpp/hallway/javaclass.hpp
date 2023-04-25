@@ -19,6 +19,8 @@ namespace moona {
 
     class JavaClass : public Object<JavaClass> {
         private:
+            JavaClass(char* classname, const JavaPackage* pack, jclass clazz);
+
             char* classname;
             const JavaPackage* pack;
             jclass clazz;
@@ -30,6 +32,7 @@ namespace moona {
             ~JavaClass();
 
             JavaClass& operator = (const JavaClass& other);
+            bool operator == (const JavaClass& other);
 
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;
@@ -43,5 +46,6 @@ namespace moona {
             operator const char*() const noexcept;
 
             virtual const char* toString() const noexcept override final;
+            virtual bool equals(const JavaClass& other) const noexcept override final;
     };
 }

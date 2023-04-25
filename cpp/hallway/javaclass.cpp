@@ -2,6 +2,10 @@
 
 namespace moona {
 
+    JavaClass::JavaClass(char* classname, const JavaPackage* pack, jclass clazz) {
+        this->classname = classname; this->pack = pack; this->clazz = clazz;
+    }
+
     JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
@@ -62,6 +66,9 @@ namespace moona {
 
         return *this;
     }
+    bool JavaClass::operator == (const JavaClass& other) {
+        return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
+    }
 
     const jclass& JavaClass::getJClass() const noexcept {
         return this->clazz;
@@ -99,5 +106,8 @@ namespace moona {
 
     const char* JavaClass::toString() const noexcept {
         return this->classname;
+    }
+    bool JavaClass::equals(const JavaClass& other) const noexcept {
+        return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
     }
 }

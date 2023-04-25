@@ -14,8 +14,8 @@ namespace moona {
                 return Type<O, super...>();
             }
 
-            virtual Object<O, super...>* clone() const noexcept {
-                return new Object<O, super...>();
+            virtual Object<O, super...> clone() const noexcept {
+                return Object<O, super...>();
             }
 
             virtual const char* toString() const noexcept {
