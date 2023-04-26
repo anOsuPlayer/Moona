@@ -21,7 +21,8 @@ namespace moona {
             PureSignature(const PureSignature& ps);
             virtual ~PureSignature();
 
-            bool operator == (const PureSignature& ps2) const noexcept;
+            virtual PureSignature& operator = (const PureSignature& ps2) noexcept;
+            virtual bool operator == (const PureSignature& ps2) const noexcept;
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
@@ -85,6 +86,7 @@ namespace moona {
             ~MethodSignature();
 
             virtual MethodSignature& operator = (const MethodSignature& ms) noexcept;
+            virtual bool operator == (const MethodSignature& ms) const noexcept;
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
@@ -99,6 +101,9 @@ namespace moona {
             FieldSignature(const PureSignature& type);
             FieldSignature(const FieldSignature& fs);
             ~FieldSignature();
+
+            virtual FieldSignature& operator = (const FieldSignature& ms) noexcept;
+            virtual bool operator == (const FieldSignature& ms) const noexcept;
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;

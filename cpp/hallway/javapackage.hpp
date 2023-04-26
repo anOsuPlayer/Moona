@@ -22,8 +22,12 @@ namespace moona {
             JavaPackage(const JavaPackage& pack);
             ~JavaPackage() = default;
 
+            virtual JavaPackage& operator = (const JavaPackage& other) noexcept;
+            virtual bool operator == (const JavaPackage& other) const noexcept;
+
             JavaClass getClass(const char* classname) const;
 
             virtual const char* toString() const noexcept override final;
+            virtual bool equals(const JavaPackage& other) const noexcept override final;
     };
 }

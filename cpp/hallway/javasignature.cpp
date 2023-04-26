@@ -18,6 +18,17 @@ namespace moona {
         delete[] this->signature;
     }
 
+    PureSignature& PureSignature::operator = (const PureSignature& ps2) noexcept {
+        const char* sign = ps2.getSignature();
+        unsigned int len = strlen(sign);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->signature[i] = sign[i];
+        }
+
+        return *this;
+    }
     bool PureSignature::operator == (const PureSignature& ps2) const noexcept {
         return (strcmp(this->signature, ps2.signature) == 0);
     }
@@ -160,7 +171,6 @@ namespace moona {
     }
 
     MethodSignature& MethodSignature::operator = (const MethodSignature& ms) noexcept {
-        
         const char* sign = ms.getSignature();
         unsigned int len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
@@ -170,6 +180,9 @@ namespace moona {
         }
 
         return *this;
+    }
+    bool MethodSignature::operator == (const MethodSignature& ms) const noexcept {
+        return (strcmp(this->signature, ms.signature) == 0);
     }
 
     MethodSignature::operator const char*() const noexcept {
@@ -198,6 +211,21 @@ namespace moona {
 
     FieldSignature::~FieldSignature() {
         delete[] this->signature;
+    }
+
+    FieldSignature& FieldSignature::operator = (const FieldSignature& ms) noexcept {
+        const char* sign = ms.getSignature();
+        unsigned int len = strlen(sign);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+
+        for (unsigned int i = 0; i < len; i++) {
+            this->signature[i] = sign[i];
+        }
+
+        return *this;
+    }
+    bool FieldSignature::operator == (const FieldSignature& ms) const noexcept {
+        return (strcmp(this->signature, ms.signature) == 0);
     }
 
     FieldSignature::operator const char*() const noexcept {

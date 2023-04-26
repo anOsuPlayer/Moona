@@ -28,6 +28,24 @@ namespace moona {
         this->method = meth.method;
     }
 
+    JavaMethod& JavaMethod::operator = (const JavaMethod& other) noexcept {
+        this->name = other.name;
+        this->sign = other.sign;
+        this->method = other.method;
+
+        return *this;
+    }
+    bool JavaMethod::operator == (const JavaMethod& other) const noexcept {
+        return ((strcmp(this->name, other.name) == 0) && this->sign == other.sign);
+    }
+
+    JavaMethod::operator const char*() const noexcept {
+        return this->name;
+    }
+    JavaMethod::operator const jmethodID&() const noexcept {
+        return this->method;
+    }
+
     const jmethodID& JavaMethod::getJMethod() const noexcept {
         return this->method;
     }
@@ -38,12 +56,8 @@ namespace moona {
     const char* JavaMethod::toString() const noexcept {
         return this->name;
     }
-
-    JavaMethod::operator const char*() const noexcept {
-        return this->name;
-    }
-    JavaMethod::operator const jmethodID&() const noexcept {
-        return this->method;
+    bool JavaMethod::equals(const JavaMethod& other) const noexcept {
+        return ((strcmp(this->name, other.name) == 0) && this->sign == other.sign);
     }
 
     JavaStaticMethod::JavaStaticMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign) {
