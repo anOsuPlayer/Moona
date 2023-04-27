@@ -75,6 +75,16 @@ public final class Dynamo {
 		for (byte b : ng.getImplementation().getBytes()) {
 			proof += b;
 		}
+		for (String incl : ng.getRequiredImports()) {
+			for (byte b : incl.getBytes()) {
+				proof += b;
+			}
+		}
+		for (String file : ng.getRequiredFiles()) {
+			for (byte b : file.getBytes()) {
+				proof += b;
+			}
+		}
 		return proof;
 	}
 	
