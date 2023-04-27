@@ -5,7 +5,7 @@ import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 
 public final class Cpp {
-
+	
 	private static String preferredCompiler = "g++.exe";
 	
 	public static void setPreferredCompiler(String compiler) throws NullArgumentException {
