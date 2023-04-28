@@ -1,8 +1,9 @@
 package moonaframework.hallway.dynamo;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
+import moonaframework.util.reflection.Parameter;
 import moonaframework.util.reflection.flare.MethodProperty;
 
 public final class Dynamo {
@@ -21,6 +23,8 @@ public final class Dynamo {
 	private static final String exportLocation = "lib/dynamo";
 	
 	private static final List<File> implementations = new ArrayList<>();
+	
+	private static final int DYNAMO_OK = 0;
 	
 	public static void loadGenerations() throws MoonaHandlingException {
 		if (Moona.isOn()) {
@@ -53,39 +57,110 @@ public final class Dynamo {
 					
 					MethodProperty mp = gen.getSource().derive();
 					
-					String heading = "extern \"C\" JNIEXPORT " + translateType(mp) + " JNICALL Java_"
+					String heading = "extern \"C\" JNIEXPORT " + translateType(mp.getReturnType()) + " JNICALL Java_"
 							+ generateName(gen) + " (" + getParameters(mp) + ")" + "{";
 					
 					writer.println(heading);
-					
 					writer.println(gen.getImplementation());
-					
 					writer.println("}");
+					
+					compile(genID);
+					
 					writer.close();
 				}
-				catch (FileNotFoundException e) {
+				catch (IOException | UndefinedReflectionException | InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		
+		Runtime.getRuntime().gc();
+	}
+	
+	private static void compile(String genID) throws CompilationError, InterruptedException, IOException {
+		String[] shell = new String[2];
+		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+			shell[0] = "cmd.exe"; shell[1] = "/c";
+		}
+		else {
+			shell[0] = "/bin/sh"; shell[1] = "-c";
+		}
+		
+		ProcessBuilder firstComp = new ProcessBuilder(shell[0], shell[1], "g++", "-c", "-std=c++2a", "-I\"%JAVA_HOME%\\include\"", "-I\"%JAVA_HOME%\\include\\win32\"",
+				new File(exportLocation + "/" + "*.cpp").getAbsolutePath());
+		Process p1 = firstComp.start();
+		
+		if (p1.waitFor() != DYNAMO_OK) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+			String log = "", line;
+			while ((line = br.readLine()) != null) {
+				log += line + "\n";
+			}
+			br.close();
+			System.err.println(log);
+			
+			throw new CompilationError("Primary Phase failed: defective code.");
+		}
+		
+		ProcessBuilder buildLib = new ProcessBuilder(shell[0], shell[1], "g++", "-shared", "-o", exportLocation + "/" + genID + ".dll", "*.o");
+		Process p2 = buildLib.start();
+		
+		if (p1.waitFor() != DYNAMO_OK) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+			String log = "", line;
+			while ((line = br.readLine()) != null) {
+				log += line + "\n";
+			}
+			System.err.println(log);
+			br.close();
+			
+			throw new CompilationError("Secondary Phase failed: unable to compile .dll file.");
+		}
+		
+		ProcessBuilder sourceCleaner = new ProcessBuilder();
+		ProcessBuilder compilationCleaner = new ProcessBuilder();
+		
+		if (shell[0].equals("cmd.exe")) {
+			sourceCleaner.command(shell[0], shell[1], "del", exportLocation + "/" + "*.cpp");
+			compilationCleaner.command(shell[0], shell[1], "del", "*.o");
+		}
+		else {
+			sourceCleaner.command(shell[0], shell[1], "rm", exportLocation + "/" + "*.cpp");
+			compilationCleaner.command(shell[0], shell[1], "rm", "*.o");
+		}
+		
+		Process sc = sourceCleaner.start();
+		Process cc = compilationCleaner.start();
+		
+		if (p1.waitFor() != DYNAMO_OK) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
+			String log = "", line;
+			while ((line = br.readLine()) != null) {
+				log += line + "\n";
+			}
+			System.err.println(log + "\n");
+			
+			br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
+			log = "";
+			while ((line = br.readLine()) != null) {
+				log += line + "\n";
+			}
+			System.err.println(log);
+
+			
+			throw new CompilationError("Thirdiary Phase failed: unable to delete files.");
+		}
 	}
 	
 	private static long generateProof(NativeGeneration ng) {
-		long proof = 0;
-		for (byte b : ng.getImplementation().getBytes()) {
-			proof += b;
-		}
+		long proof = ng.getImplementation().hashCode();
 		for (String incl : ng.getRequiredImports()) {
-			for (byte b : incl.getBytes()) {
-				proof += b;
-			}
+			proof += incl.hashCode();
 		}
 		for (String file : ng.getRequiredFiles()) {
-			for (byte b : file.getBytes()) {
-				proof += b;
-			}
+			proof += file.hashCode();
 		}
-		return proof;
+		return (proof < 0) ? ((long)(Integer.MAX_VALUE)) * 2 + proof + 1 : proof;
 	}
 	
 	static String generateName(NativeGeneration ng) {
@@ -96,38 +171,48 @@ public final class Dynamo {
 		return generateName(ng) + "_" + generateProof(ng);
 	}
 	
-	private static String translateType(MethodProperty mp) {
+	private static String translateType(Class<?> clazz) {
 		String rettype = "";
-		try {
-			final Class<?> clazz = mp.getReturnType();
-			if (clazz.isPrimitive()) {
-				rettype = clazz.getSimpleName();
-				if (!rettype.equals("void")) {
-					rettype = "j" + rettype;
-				}
-				
-				if (clazz.isArray()) {
-					rettype += "Array";
-				}
+		if (clazz.isPrimitive()) {
+			rettype = clazz.getSimpleName();
+			if (!rettype.equals("void")) {
+				rettype = "j" + rettype;
 			}
-			else if (clazz.isArray()) {
-				if (clazz.componentType().isPrimitive()) {
-					return "j" + clazz.componentType().getSimpleName() + "Array";
-				}
-				return "jobjectArray"; 
-			}
-			else {
-				return "jobject";
+			
+			if (clazz.isArray()) {
+				rettype += "Array";
 			}
 		}
-		catch (UndefinedReflectionException e) {
-			e.printStackTrace();
+		else if (clazz.isArray()) {
+			if (clazz.componentType().isPrimitive()) {
+				return "j" + clazz.componentType().getSimpleName() + "Array";
+			}
+			return "jobjectArray"; 
+		}
+		else {
+			return (clazz.getSimpleName().equals("Class")) ? "jclass"
+					: (clazz.getSimpleName().equals("String")) ? "jstring" : "jobject";
 		}
 		
 		return rettype;
 	}
 	private static String getParameters(MethodProperty mp) {
-		return "JNIEnv* env";
+		String params = "JNIEnv* env";
+		
+		try {
+			params += (mp.getModifiers().isStatic()) ? ", jclass thisClass" : ", jobject thisObj";
+			final List<Parameter> ps = mp.getParameters();
+			
+			for (int i = 0; i < ps.size(); i++) {
+				params += (", " + translateType(ps.get(i).getType()) + " arg" + i);
+			}
+			
+			return params;
+		}
+		catch (UndefinedReflectionException ure) {
+			ure.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void add(NativeGeneration ng) throws NullArgumentException, DynamoAccessException, DuplicateGenerationException {
