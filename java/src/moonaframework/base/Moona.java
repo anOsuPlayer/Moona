@@ -7,6 +7,7 @@ import java.util.List;
 import moonaframework.dynamic.Agent;
 import moonaframework.dynamic.Processor;
 import moonaframework.hallway.HallwayAccessException;
+import moonaframework.hallway.dynamo.Dynamo;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.reflection.Mirror;
 
@@ -37,6 +38,10 @@ public final class Moona {
 	
 	public static final MoonaSetting enableHallwayAccess = new MoonaSetting(false);
 	
+	public static final MoonaSetting enableDynamo = new MoonaSetting(true);
+	
+	public static final MoonaSetting implicitDynamoInclusion = new MoonaSetting(true, enableDynamo);
+	
 	private static final Runnable ender = () -> { if (isOn) Moona.interrupt(); };
 	
 	private static MemorySession moonastack;
@@ -61,6 +66,10 @@ public final class Moona {
 			throw new MoonaHandlingException("Cannot invoke Moona.init() method after invoking Moona.interrupt().");
 		}
 		wasInitialized = true;
+		
+		if (enableDynamo.evaluate()) {
+			Dynamo.loadGenerations();
+		}
 		
 		if (enableHallwayAccess.evaluate()) {
 			System.loadLibrary("shared/Moona");
