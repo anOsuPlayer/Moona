@@ -72,6 +72,8 @@ public final class Dynamo {
 					e.printStackTrace();
 				}
 			}
+				
+			System.loadLibrary("dynamo/" + genID);
 		}
 		
 		Runtime.getRuntime().gc();
@@ -105,7 +107,7 @@ public final class Dynamo {
 		ProcessBuilder buildLib = new ProcessBuilder(shell[0], shell[1], "g++", "-shared", "-o", exportLocation + "/" + genID + ".dll", "*.o");
 		Process p2 = buildLib.start();
 		
-		if (p1.waitFor() != DYNAMO_OK) {
+		if (p2.waitFor() != DYNAMO_OK) {
 			BufferedReader br = new BufferedReader(new InputStreamReader(p2.getInputStream()));
 			String log = "", line;
 			while ((line = br.readLine()) != null) {
@@ -115,40 +117,6 @@ public final class Dynamo {
 			br.close();
 			
 			throw new CompilationError("Secondary Phase failed: unable to compile .dll file.");
-		}
-		
-		ProcessBuilder sourceCleaner = new ProcessBuilder();
-		ProcessBuilder compilationCleaner = new ProcessBuilder();
-		
-		if (shell[0].equals("cmd.exe")) {
-			sourceCleaner.command(shell[0], shell[1], "del", exportLocation + "/" + "*.cpp");
-			compilationCleaner.command(shell[0], shell[1], "del", "*.o");
-		}
-		else {
-			sourceCleaner.command(shell[0], shell[1], "rm", exportLocation + "/" + "*.cpp");
-			compilationCleaner.command(shell[0], shell[1], "rm", "*.o");
-		}
-		
-		Process sc = sourceCleaner.start();
-		Process cc = compilationCleaner.start();
-		
-		if (p1.waitFor() != DYNAMO_OK) {
-			BufferedReader br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
-			String log = "", line;
-			while ((line = br.readLine()) != null) {
-				log += line + "\n";
-			}
-			System.err.println(log + "\n");
-			
-			br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
-			log = "";
-			while ((line = br.readLine()) != null) {
-				log += line + "\n";
-			}
-			System.err.println(log);
-
-			
-			throw new CompilationError("Thirdiary Phase failed: unable to delete files.");
 		}
 	}
 	
