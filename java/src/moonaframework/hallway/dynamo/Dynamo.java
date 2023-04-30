@@ -93,7 +93,7 @@ public final class Dynamo {
 		Process p1 = firstComp.start();
 		
 		if (p1.waitFor() != DYNAMO_OK) {
-			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getErrorStream()));
 			String log = "", line;
 			while ((line = br.readLine()) != null) {
 				log += line + "\n";
@@ -101,14 +101,14 @@ public final class Dynamo {
 			br.close();
 			System.err.println(log);
 			
-			throw new CompilationError("Primary Phase failed: defective code.");
+			throw new CompilationError("First Phase failed: defective code.");
 		}
 		
 		ProcessBuilder buildLib = new ProcessBuilder(shell[0], shell[1], "g++", "-shared", "-o", exportLocation + "/" + genID + ".dll", "*.o");
 		Process p2 = buildLib.start();
 		
 		if (p2.waitFor() != DYNAMO_OK) {
-			BufferedReader br = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(p2.getErrorStream()));
 			String log = "", line;
 			while ((line = br.readLine()) != null) {
 				log += line + "\n";
@@ -116,8 +116,14 @@ public final class Dynamo {
 			System.err.println(log);
 			br.close();
 			
-			throw new CompilationError("Secondary Phase failed: unable to compile .dll file.");
+			throw new CompilationError("Second Phase failed: unable to compile .dll file.");
 		}
+		
+		File source = new File(exportLocation + "/" + genID + ".cpp");
+		File comp = new File(genID + ".o");
+		
+		source.deleteOnExit();
+		comp.delete();
 	}
 	
 	private static long generateProof(NativeGeneration ng) {
