@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import moonaframework.base.Moona;
 import moonaframework.base.MoonaHandlingException;
+import moonaframework.hallway.Cpp;
 import moonaframework.util.exception.NullArgumentException;
 import moonaframework.util.exception.UndefinedReflectionException;
 import moonaframework.util.reflection.Parameter;
@@ -20,7 +22,32 @@ public final class Dynamo {
 
 	private static final List<NativeGeneration> generations = new ArrayList<>();
 	
-	private static final String exportLocation = "lib/dynamo";
+	private static String exportLocation = "lib/dynamo";
+	
+	public static String getExportLocation() {
+		return exportLocation;
+	}
+	public static File getExportDirectory() {
+		return new File(exportLocation);
+	}
+	
+	public static void setExportLocation(String location) throws NullArgumentException, NoSuchFileException {
+		if (location == null) {
+			throw new NullArgumentException("Unable to set a null path String as Dynamo's Export Location.");
+		}
+		
+		File f = new File(location);
+		if (!f.exists()) {
+			throw new NoSuchFileException(location);
+		}
+		exportLocation = location;
+	}
+	public static void setExportDirectory(File location) throws NullArgumentException {
+		if (location == null) {
+			throw new NullArgumentException("Unable to set a null File as Dynamo's Export Location.");
+		}
+		exportLocation = location.getAbsolutePath();
+	}
 	
 	private static final List<File> implementations = new ArrayList<>();
 	
@@ -109,7 +136,7 @@ public final class Dynamo {
 			shell[0] = "/bin/sh"; shell[1] = "-c";
 		}
 		
-		ProcessBuilder firstComp = new ProcessBuilder(shell[0], shell[1], "g++", "-c", "-std=c++2a", "-I\"%JAVA_HOME%\\include\"", "-I\"%JAVA_HOME%\\include\\win32\"",
+		ProcessBuilder firstComp = new ProcessBuilder(shell[0], shell[1], Cpp.getPreferredCompiler(), "-c", "-std=c++2a", "-I\"%JAVA_HOME%\\include\"", "-I\"%JAVA_HOME%\\include\\win32\"",
 				new File(exportLocation + "/" + "*.cpp").getAbsolutePath());
 		Process p1 = firstComp.start();
 		
@@ -125,7 +152,7 @@ public final class Dynamo {
 			throw new CompilationError("First Phase failed: defective code.");
 		}
 		
-		ProcessBuilder buildLib = new ProcessBuilder(shell[0], shell[1], "g++", "-shared", "-o", exportLocation + "/" + genID + ".dll", "*.o");
+		ProcessBuilder buildLib = new ProcessBuilder(shell[0], shell[1], Cpp.getPreferredCompiler(), "-shared", "-o", exportLocation + "/" + genID + ".dll", "*.o");
 		Process p2 = buildLib.start();
 		
 		if (p2.waitFor() != DYNAMO_OK) {

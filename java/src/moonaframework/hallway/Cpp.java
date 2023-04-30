@@ -8,6 +8,9 @@ public final class Cpp {
 	
 	private static String preferredCompiler = "g++.exe";
 	
+	public static String getPreferredCompiler() {
+		return preferredCompiler;
+	}
 	public static void setPreferredCompiler(String compiler) throws NullArgumentException {
 		if (!Moona.enableHallwayAccess.evaluate()) {
 			throw new HallwayAccessException();
