@@ -64,7 +64,7 @@ public final class Dynamo {
 					writer.println(gen.getImplementation());
 					writer.println("}");
 					
-					compile(genID);
+					compile(gen);
 					
 					writer.close();
 				}
@@ -79,7 +79,9 @@ public final class Dynamo {
 		Runtime.getRuntime().gc();
 	}
 	
-	private static void compile(String genID) throws CompilationError, InterruptedException, IOException {
+	private static void compile(NativeGeneration gen) throws CompilationError, InterruptedException, IOException {
+		String genID = generationID(gen);
+		
 		String[] shell = new String[2];
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
 			shell[0] = "cmd.exe"; shell[1] = "/c";
@@ -124,6 +126,12 @@ public final class Dynamo {
 		
 		source.deleteOnExit();
 		comp.delete();
+		
+		for (File f : new File(exportLocation).listFiles()) {
+			if (f.getName().contains(generateName(gen))) {
+				f.deleteOnExit();
+			}
+		}
 	}
 	
 	private static long generateProof(NativeGeneration ng) {
