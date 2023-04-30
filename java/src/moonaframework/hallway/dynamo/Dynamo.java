@@ -75,8 +75,27 @@ public final class Dynamo {
 				
 			System.loadLibrary("dynamo/" + genID);
 		}
+		cleanup();
 		
 		Runtime.getRuntime().gc();
+	}
+	
+	private static void cleanup() {
+		File[] existing = new File(exportLocation).listFiles();
+		boolean remove = true;
+		
+		for (File f : existing) {
+			String fname = f.getName();
+			for (NativeGeneration ng : generations) {
+				if (fname.contains(generateName(ng))) {
+					remove = false;
+					break;
+				}
+			}
+			if (remove) {
+				f.deleteOnExit();
+			}
+		}
 	}
 	
 	private static void compile(NativeGeneration gen) throws CompilationError, InterruptedException, IOException {
