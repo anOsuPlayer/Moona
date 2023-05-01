@@ -5,9 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.nio.file.NoSuchFileException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import moonaframework.base.Moona;
@@ -31,14 +32,19 @@ public final class Dynamo {
 		return new File(exportLocation);
 	}
 	
-	public static void setExportLocation(String location) throws NullArgumentException, NoSuchFileException {
+	public static void setExportLocation(String location) throws NullArgumentException {
 		if (location == null) {
 			throw new NullArgumentException("Unable to set a null path String as Dynamo's Export Location.");
 		}
 		
 		File f = new File(location);
 		if (!f.exists()) {
-			throw new NoSuchFileException(location);
+			try {
+				f.createNewFile();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		exportLocation = location;
 	}
@@ -48,8 +54,6 @@ public final class Dynamo {
 		}
 		exportLocation = location.getAbsolutePath();
 	}
-	
-	private static final List<File> implementations = new ArrayList<>();
 	
 	private static final int DYNAMO_OK = 0;
 	
@@ -100,7 +104,7 @@ public final class Dynamo {
 				}
 			}
 				
-			System.loadLibrary("dynamo/" + genID);
+			Runtime.getRuntime().load(new File(exportLocation + "/" + genID + ".dll").getAbsolutePath());
 		}
 		cleanup();
 		
@@ -286,7 +290,16 @@ public final class Dynamo {
 	}
 	
 	static {
-		implementations.addAll(Arrays.asList(new File(exportLocation).listFiles()));
+		File ex = new File(exportLocation);
+		if (!ex.exists()) {
+			try {
+				Path path = Paths.get(ex.getAbsolutePath());
+				Files.createDirectories(path);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private Dynamo() {

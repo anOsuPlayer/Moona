@@ -67,14 +67,14 @@ public final class Moona {
 		}
 		wasInitialized = true;
 		
-		if (enableDynamo.evaluate()) {
-			Dynamo.loadGenerations();
-		}
-		
 		if (enableHallwayAccess.evaluate()) {
 			System.loadLibrary("shared/Moona");
 			Moona.moonastack = MemorySession.openShared();
 			nativeInit();
+			
+			if (enableDynamo.evaluate()) {
+				Dynamo.loadGenerations();
+			}
 		}
 		
 		if (loadReflections.evaluate()) {
