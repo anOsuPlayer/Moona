@@ -58,6 +58,18 @@ public final class Moona {
 	
 	private static native void nativeInit();
 	
+	private static String nativeLocation = "shared/Moona";
+	
+	public static String getNativeLocation() {
+		return nativeLocation;
+	}
+	public static void setNativeLocation(String location) throws NullArgumentException {
+		if (location == null) {
+			throw new NullArgumentException("Cannot use a null string as Native Sources Location.");
+		}
+		nativeLocation = location;
+	}
+	
 	public static void init() throws MoonaHandlingException {
 		if (isOn) {
 			throw new MoonaHandlingException("Moona.init() method can only be invoked once.");
@@ -68,7 +80,7 @@ public final class Moona {
 		wasInitialized = true;
 		
 		if (enableHallwayAccess.evaluate()) {
-			System.loadLibrary("shared/Moona");
+			System.loadLibrary(nativeLocation);
 			Moona.moonastack = MemorySession.openShared();
 			nativeInit();
 			

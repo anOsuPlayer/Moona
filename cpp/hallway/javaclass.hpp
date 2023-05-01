@@ -16,6 +16,7 @@ namespace moona {
     class JavaPackage;
     class JavaMethod;
     class JavaStaticMethod;
+    class JavaObject;
 
     class JavaClass : public Object<JavaClass> {
         private:

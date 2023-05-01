@@ -1,6 +1,7 @@
 #pragma once
 
 #include "hallwayexception.hpp"
+#include "javamethod.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
