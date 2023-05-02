@@ -8,6 +8,7 @@
 #include "cppimpl.hpp"
 #include "nativelinkerimpl.hpp"
 
+#include "javavalue.hpp"
 #include "javapackage.hpp"
 #include "javaclass.hpp"
 #include "javasignature.hpp"
