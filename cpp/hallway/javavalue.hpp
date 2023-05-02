@@ -117,6 +117,50 @@ namespace moona {
             operator const jdouble() const;
             operator const jobject() const;
 
-            friend std::ostream& operator << (std::ostream& os, const JValue& val) noexcept;
+            friend std::ostream& operator << (std::ostream& os, const JValue& val) noexcept {
+                switch (val.tag) {
+                    case ValueTag::BOOLEAN : {
+                        os << std::boolalpha << val.z << std::noboolalpha;
+                        break;
+                    }
+                    case ValueTag::BYTE : {
+                        os << val.b;
+                        break;
+                    }
+                    case ValueTag::SHORT : {
+                        os << val.s;
+                        break;
+                    }
+                    case ValueTag::CHAR : {
+                        os << val.c;
+                        break;
+                    }
+                    case ValueTag::INT : {
+                        os << val.i;
+                        break;
+                    }
+                    case ValueTag::LONG : {
+                        os << val.j;
+                        break;
+                    }
+                    case ValueTag::FLOAT : {
+                        os << val.f;
+                        break;
+                    }
+                    case ValueTag::DOUBLE : {
+                        os << val.d;
+                        break;
+                    }
+                    case ValueTag::OBJECT : {
+                        os << val.o;
+                        break;
+                    }
+                    case ValueTag::NONE : {
+                        os << "Empty JValue";
+                        break;
+                    }
+                }
+                return os;
+            }
     };
 }

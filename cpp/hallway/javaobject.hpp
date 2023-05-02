@@ -2,6 +2,7 @@
 
 #include "hallwayexception.hpp"
 #include "javamethod.hpp"
+#include "javavalue.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
@@ -19,6 +20,8 @@ namespace moona {
 
             JavaObject& operator = (const JavaObject& obj) noexcept;
             JavaObject& operator = (const jobject& obj);
+
+            JValue call(const JavaMethod& jm) const;
 
             operator const jobject&() const noexcept;
             

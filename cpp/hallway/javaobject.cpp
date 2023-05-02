@@ -33,6 +33,10 @@ namespace moona {
         return *this;
     }
 
+    JValue JavaObject::call(const JavaMethod& jm) const {
+        return JValue();
+    }
+
     JavaObject::operator const jobject&() const noexcept {
         return this->obj;
     }

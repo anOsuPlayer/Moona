@@ -66,6 +66,10 @@ namespace moona {
         return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
     }
 
+    JValue JavaClass::call(const JavaStaticMethod& jsm) const {
+        return JValue();
+    }
+
     const jclass& JavaClass::getJClass() const noexcept {
         return this->clazz;
     }
