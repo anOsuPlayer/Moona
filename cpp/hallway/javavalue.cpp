@@ -279,4 +279,49 @@ namespace moona {
         }
         return this->o;
     }
+
+    JValue::operator const jvalue() const {
+        jvalue val;
+
+        switch (this->tag) {
+            case ValueTag::BOOLEAN : {
+                val.z = this->z;
+                break;
+            }
+            case ValueTag::BYTE : {
+                val.b = this->b;
+                break;
+            }
+            case ValueTag::CHAR : {
+                val.c = this->c;
+                break;
+            }
+            case ValueTag::SHORT : {
+                val.s = this->s;
+                break;
+            }
+            case ValueTag::INT : {
+                val.i = this->i;
+                break;
+            }
+            case ValueTag::LONG : {
+                val.j = this->j;
+                break;
+            }
+            case ValueTag::FLOAT : {
+                val.f = this->f;
+                break;
+            }
+            case ValueTag::DOUBLE : {
+                val.d = this->d;
+                break;
+            }
+            case ValueTag::OBJECT : {
+                val.l = this->o;
+                break;
+            }
+        }
+
+        return val;
+    }
 }

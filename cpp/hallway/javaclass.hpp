@@ -34,7 +34,7 @@ namespace moona {
             JavaClass& operator = (const JavaClass& other);
             bool operator == (const JavaClass& other);
 
-            JValue call(const JavaStaticMethod& jsm) const;
+            JValue call(const JavaStaticMethod& jsm, const jvalue* args = nullptr) const;
 
             const jclass& getJClass() const noexcept;
             const JavaPackage& getPackage() const noexcept;

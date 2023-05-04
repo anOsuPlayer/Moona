@@ -6,6 +6,7 @@
 #include "nomethodexception.hpp"
 #include "javaclass.hpp"
 #include "javasignature.hpp"
+#include "javavalue.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
@@ -24,7 +25,7 @@ namespace moona {
             explicit JavaMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
             JavaMethod(const JavaMethod& meth);
             virtual ~JavaMethod() = default;
-
+            
             operator const char*() const noexcept;
             operator const jmethodID&() const noexcept;
 

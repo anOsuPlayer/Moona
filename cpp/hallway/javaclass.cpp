@@ -66,8 +66,18 @@ namespace moona {
         return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
     }
 
-    JValue JavaClass::call(const JavaStaticMethod& jsm) const {
-        return JValue();
+    JValue JavaClass::call(const JavaStaticMethod& jsm, const jvalue* args) const {
+        const PureSignature ret = jsm.getSignature().returnType();
+        JValue r;
+
+        switch (ret[0]) {
+            case 'Z' : {
+                if (args == nullptr) {
+                    r = Moona::defaultJNIEnv().CallStaticBooleanMethod(this->clazz, jsm.getJMethod());
+                    return r;
+                }
+            } 
+        }
     }
 
     const jclass& JavaClass::getJClass() const noexcept {

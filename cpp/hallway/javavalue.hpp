@@ -117,6 +117,8 @@ namespace moona {
             operator const jdouble() const;
             operator const jobject() const;
 
+            operator const jvalue() const;
+
             friend std::ostream& operator << (std::ostream& os, const JValue& val) noexcept {
                 switch (val.tag) {
                     case ValueTag::BOOLEAN : {
