@@ -53,6 +53,10 @@ namespace moona {
         return this->sign;
     }
 
+    JValue JavaMethod::callOn(const JavaObject& obj, const jvalue* args) const {
+        return obj.call(*this, args);
+    }
+
     const char* JavaMethod::toString() const noexcept {
         return this->name;
     }
@@ -84,5 +88,12 @@ namespace moona {
         this->name = meth.name;
         this->sign = meth.sign;
         this->method = meth.method;
+    }
+
+    JValue JavaStaticMethod::callOn(const JavaObject& obj, const jvalue* args) const {
+        throw UnsupportedOperationException("Unable to call JavaStaticMethod on a JavaObject.");
+    }
+    JValue JavaStaticMethod::callOn(const JavaClass& clazz, const jvalue* args) const {
+        return clazz.call(*this, args);
     }
 }

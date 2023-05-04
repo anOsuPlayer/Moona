@@ -7,12 +7,15 @@
 #include "javaclass.hpp"
 #include "javasignature.hpp"
 #include "javavalue.hpp"
+#include "javaobject.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
+#include "../exceptions/unsupportedexception.hpp"
 
 namespace moona {
 
     class JavaClass;
+    class JavaObject;
 
     class JavaMethod : public Object<JavaMethod> {
         protected:
@@ -35,6 +38,8 @@ namespace moona {
             const jmethodID& getJMethod() const noexcept;
             const MethodSignature& getSignature() const noexcept;
 
+            virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const;
+
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaMethod& other) const noexcept override final;
     };
@@ -45,5 +50,8 @@ namespace moona {
             explicit JavaStaticMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
             JavaStaticMethod(const JavaStaticMethod& meth);
             virtual ~JavaStaticMethod() = default;
+
+            virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const override final;
+            JValue callOn(const JavaClass& clazz, const jvalue* args = nullptr) const;
     };
 }

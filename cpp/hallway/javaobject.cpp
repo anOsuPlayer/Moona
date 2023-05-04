@@ -33,7 +33,7 @@ namespace moona {
         return *this;
     }
 
-    JValue JavaObject::call(const JavaMethod& jm) const {
+    JValue JavaObject::call(const JavaMethod& jm, const jvalue* args) const {
         return JValue();
     }
 

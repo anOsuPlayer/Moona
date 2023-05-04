@@ -23,7 +23,7 @@ namespace moona {
             JavaObject& operator = (const JavaObject& obj) noexcept;
             JavaObject& operator = (const jobject& obj);
 
-            JValue call(const JavaMethod& jm) const;
+            JValue call(const JavaMethod& jm, const jvalue* args = nullptr) const;
 
             operator const jobject&() const noexcept;
             

@@ -68,15 +68,89 @@ namespace moona {
 
     JValue JavaClass::call(const JavaStaticMethod& jsm, const jvalue* args) const {
         const PureSignature ret = jsm.getSignature().returnType();
-        JValue r;
 
         switch (ret[0]) {
             case 'Z' : {
-                if (args == nullptr) {
-                    r = Moona::defaultJNIEnv().CallStaticBooleanMethod(this->clazz, jsm.getJMethod());
-                    return r;
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticBooleanMethodA(this->clazz, jsm.getJMethod(), args);
                 }
-            } 
+                else {
+                    return Moona::defaultJNIEnv().CallStaticBooleanMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'B' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticByteMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticByteMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'S' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticShortMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticShortMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'C' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticCharMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticCharMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'I' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticIntMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticIntMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'J' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticLongMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticLongMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'F' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticFloatMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticFloatMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'D' : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticDoubleMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticDoubleMethod(this->clazz, jsm.getJMethod());
+                }
+            }
+            case 'V' : {
+                if (args != nullptr) {
+                    Moona::defaultJNIEnv().CallStaticVoidMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    Moona::defaultJNIEnv().CallStaticVoidMethod(this->clazz, jsm.getJMethod());
+                }
+                return JValue();
+            }
+            default : {
+                if (args != nullptr) {
+                    return Moona::defaultJNIEnv().CallStaticObjectMethodA(this->clazz, jsm.getJMethod(), args);
+                }
+                else {
+                    return Moona::defaultJNIEnv().CallStaticObjectMethod(this->clazz, jsm.getJMethod());
+                }
+            }
         }
     }
 

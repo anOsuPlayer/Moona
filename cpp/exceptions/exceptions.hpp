@@ -5,3 +5,4 @@
 #include "illegalexception.hpp"
 #include "nullptrexception.hpp"
 #include "castexception.hpp"
+#include "unsupportedexception.hpp"
