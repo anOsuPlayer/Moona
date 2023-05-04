@@ -192,6 +192,28 @@ namespace moona {
         return this->signature;
     }
 
+    const PureSignature MethodSignature::returnType() const noexcept {
+        unsigned int len = strlen(this->signature); char* begin = this->signature;
+        for (int i = 0; *begin != ')'; i++) { begin++; }
+        if (*(begin+1) == '[' || *(begin+1) == 'L') {
+            return ObjectSignature("placeholder");
+        }
+        else {
+            switch (*(begin+1)) {
+                case 'Z' : return Signature::BOOLEAN;
+                case 'B' : return Signature::BYTE;
+                case 'S' : return Signature::SHORT;
+                case 'C' : return Signature::BYTE;
+                case 'I' : return Signature::INT;
+                case 'J' : return Signature::LONG;
+                case 'F' : return Signature::FLOAT;
+                case 'D' : return Signature::DOUBLE;
+                case 'V' : return Signature::V0ID;
+            }
+        }
+        return Signature::V0ID;
+    }
+
     FieldSignature::FieldSignature(const PureSignature& type) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();

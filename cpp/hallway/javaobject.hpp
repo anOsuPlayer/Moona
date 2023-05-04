@@ -8,6 +8,8 @@
 
 namespace moona {
 
+    class JavaMethod;
+
     class JavaObject : public Object<JavaObject> {
         private:
             jobject obj;
