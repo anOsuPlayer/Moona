@@ -9,6 +9,7 @@
 #include "noclassexception.hpp"
 #include "javasignature.hpp"
 #include "javavalue.hpp"
+#include "jvmexception.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
