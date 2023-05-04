@@ -7,7 +7,7 @@ namespace moona {
 
     class JVMException : public Exception {
         public:
-            JVMException();
-            JVMException(const char* message);
+            explicit JVMException();
+            explicit JVMException(const char* message);
     };
 }
