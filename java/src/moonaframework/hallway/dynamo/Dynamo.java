@@ -37,16 +37,18 @@ public final class Dynamo {
 			throw new NullArgumentException("Unable to set a null path String as Dynamo's Export Location.");
 		}
 		
-		File f = new File(location);
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
+		if (location != "") {
+			File f = new File(location);
+			if (!f.exists()) {
+				try {
+					f.createNewFile();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			exportLocation = location;
 		}
-		exportLocation = location;
 	}
 	public static void setExportDirectory(File location) throws NullArgumentException {
 		if (location == null) {
@@ -104,7 +106,7 @@ public final class Dynamo {
 				}
 			}
 				
-			Runtime.getRuntime().load(new File(exportLocation + "/" + genID + ".dll").getAbsolutePath());
+			Runtime.getRuntime().load(new File(exportLocation + ((exportLocation.equals("")) ? "" : "/") + genID + ".dll").getAbsolutePath());
 		}
 		cleanup();
 		
@@ -140,8 +142,8 @@ public final class Dynamo {
 			shell[0] = "/bin/sh"; shell[1] = "-c";
 		}
 		
-		ProcessBuilder firstComp = new ProcessBuilder(shell[0], shell[1], Cpp.getPreferredCompiler(), "-c", "-std=c++2a", "-I\"%JAVA_HOME%\\include\"", "-I\"%JAVA_HOME%\\include\\win32\"",
-				new File(exportLocation + "/" + "*.cpp").getAbsolutePath());
+		ProcessBuilder firstComp = new ProcessBuilder(shell[0], shell[1], Cpp.getPreferredCompiler(), "-c", "-std=c++2a", "-I\"" + Cpp.getJNILocation() + "\"",
+				"-I\"" + Cpp.getJNILocation() + "\\win32\"", new File(exportLocation + "/" + "*.cpp").getAbsolutePath());
 		Process p1 = firstComp.start();
 		
 		if (p1.waitFor() != DYNAMO_OK) {

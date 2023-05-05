@@ -214,6 +214,15 @@ namespace moona {
         return Signature::V0ID;
     }
 
+    ConstructorSignature::ConstructorSignature(unsigned int argc, const PureSignature* args) : MethodSignature(Signature::V0ID, argc, args) {
+    }
+    ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
+    }
+
+    ConstructorSignature::~ConstructorSignature() {
+        delete[] this->signature;
+    }
+
     FieldSignature::FieldSignature(const PureSignature& type) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();

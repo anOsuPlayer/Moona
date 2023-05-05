@@ -92,6 +92,16 @@ namespace moona {
             const char* getSignature() const noexcept;
 
             const PureSignature returnType() const noexcept;
+        
+        friend class ConstructorSignature;
+    };
+
+    class ConstructorSignature : public Entity<ConstructorSignature>, public MethodSignature {
+        public:
+            ConstructorSignature() = default;
+            ConstructorSignature(unsigned int argc, const PureSignature* args);
+            ConstructorSignature(const ConstructorSignature& cs);
+            ~ConstructorSignature();
     };
 
     class FieldSignature : public Entity<FieldSignature> {
