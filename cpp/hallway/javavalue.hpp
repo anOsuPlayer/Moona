@@ -23,7 +23,7 @@ namespace moona {
         OBJECT = -2
     };
 
-    class JValue : public Object<JValue> {
+    class JValue : public Entity<JValue> {
         private:
             union {
                 jboolean z;
