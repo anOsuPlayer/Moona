@@ -20,6 +20,7 @@ namespace moona {
     class JavaMethod : public Object<JavaMethod> {
         protected:
             const char* name;
+            const JavaClass* clazz;
             MethodSignature sign;
             jmethodID method;
 
@@ -52,6 +53,6 @@ namespace moona {
             virtual ~JavaStaticMethod() = default;
 
             virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const override final;
-            JValue callOn(const JavaClass& clazz, const jvalue* args = nullptr) const;
+            JValue call(const jvalue* args = nullptr) const;
     };
 }

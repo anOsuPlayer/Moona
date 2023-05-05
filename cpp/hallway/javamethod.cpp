@@ -10,6 +10,7 @@ namespace moona {
             throw NullPointerException("Unable to find a JavaMethod from a nullptr.");
         }
         
+        this->clazz = &clazz;
         this->name = name;
         this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetMethodID(clazz.getJClass(), name, sign.getSignature());
@@ -23,12 +24,14 @@ namespace moona {
             throw HallwayAccessException();
         }
 
+        this->clazz = meth.clazz;
         this->name = meth.name;
         this->sign = meth.sign;
         this->method = meth.method;
     }
 
     JavaMethod& JavaMethod::operator = (const JavaMethod& other) noexcept {
+        this->clazz = other.clazz;
         this->name = other.name;
         this->sign = other.sign;
         this->method = other.method;
@@ -72,6 +75,7 @@ namespace moona {
             throw NullPointerException("Unable to find a JavaMethod from a nullptr.");
         }
 
+        this->clazz = &clazz;
         this->name = name;
         this->sign = sign;
         this->method = Moona::defaultJNIEnv().GetStaticMethodID(clazz.getJClass(), name, sign.getSignature());
@@ -85,6 +89,7 @@ namespace moona {
             throw HallwayAccessException();
         }
         
+        this->clazz = meth.clazz;
         this->name = meth.name;
         this->sign = meth.sign;
         this->method = meth.method;
@@ -93,7 +98,7 @@ namespace moona {
     JValue JavaStaticMethod::callOn(const JavaObject& obj, const jvalue* args) const {
         throw UnsupportedOperationException("Unable to call JavaStaticMethod on a JavaObject.");
     }
-    JValue JavaStaticMethod::callOn(const JavaClass& clazz, const jvalue* args) const {
-        return clazz.call(*this, args);
+    JValue JavaStaticMethod::call(const jvalue* args) const {
+        return this->clazz->call(*this, args);
     }
 }
