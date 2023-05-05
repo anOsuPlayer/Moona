@@ -214,6 +214,8 @@ namespace moona {
         return Signature::V0ID;
     }
 
+    ConstructorSignature::ConstructorSignature() : MethodSignature(Signature::V0ID) {
+    }
     ConstructorSignature::ConstructorSignature(unsigned int argc, const PureSignature* args) : MethodSignature(Signature::V0ID, argc, args) {
     }
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
@@ -222,6 +224,8 @@ namespace moona {
     ConstructorSignature::~ConstructorSignature() {
         delete[] this->signature;
     }
+
+    const ConstructorSignature ConstructorSignature::standard = ConstructorSignature();
 
     FieldSignature::FieldSignature(const PureSignature& type) {
         if (!Moona::enableHallwayAccess) {

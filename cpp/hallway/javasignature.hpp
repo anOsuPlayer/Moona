@@ -98,10 +98,12 @@ namespace moona {
 
     class ConstructorSignature : public Entity<ConstructorSignature>, public MethodSignature {
         public:
-            ConstructorSignature() = default;
+            ConstructorSignature();
             ConstructorSignature(unsigned int argc, const PureSignature* args);
             ConstructorSignature(const ConstructorSignature& cs);
             ~ConstructorSignature();
+
+            static const ConstructorSignature standard;
     };
 
     class FieldSignature : public Entity<FieldSignature> {
