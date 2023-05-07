@@ -17,6 +17,8 @@
 
 namespace moona {
 
+    class JVM;
+
     class Moona : private MoonaCore {
         private:
             Moona() = delete;
