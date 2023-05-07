@@ -6,18 +6,7 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        size_t len = strlen(location);
-        char loc[len+1];
-
-        for (size_t i = 0; i < len+1; i++) {
-            if (location[i] == '.') {
-                loc[i] = '/';
-                continue;
-            }
-            loc[i] = location[i];
-        }
-
-        this->location = loc;
+        this->location = location;
     }
     JavaPackage::JavaPackage(const JavaPackage& pack) {
         if (!Moona::enableHallwayAccess) {

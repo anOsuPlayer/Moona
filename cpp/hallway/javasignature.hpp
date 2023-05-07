@@ -55,6 +55,8 @@ namespace moona {
             ObjectSignature(const char* obj);
             ObjectSignature(const ObjectSignature& os);
             virtual ~ObjectSignature() = default;
+
+            static const ObjectSignature STRING;
     };
 
     class ArraySignature : public PureSignature {
@@ -72,6 +74,8 @@ namespace moona {
             static const ArraySignature LONG_ARRAY;
             static const ArraySignature FLOAT_ARRAY;
             static const ArraySignature DOUBLE_ARRAY;
+
+            static const ArraySignature STRING_ARRAY;
     };
 
     class MethodSignature : public Entity<MethodSignature> {
@@ -84,6 +88,17 @@ namespace moona {
             MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args);
             MethodSignature(const MethodSignature& ms);
             ~MethodSignature();
+
+            static const MethodSignature BOOLEAN_METHOD;
+            static const MethodSignature BYTE_METHOD;
+            static const MethodSignature SHORT_METHOD;
+            static const MethodSignature CHAR_METHOD;
+            static const MethodSignature INT_METHOD;
+            static const MethodSignature LONG_METHOD;
+            static const MethodSignature FLOAT_METHOD;
+            static const MethodSignature DOUBLE_METHOD;
+            
+            static const MethodSignature STRING_METHOD;
 
             virtual MethodSignature& operator = (const MethodSignature& ms) noexcept;
             virtual bool operator == (const MethodSignature& ms) const noexcept;
@@ -103,7 +118,7 @@ namespace moona {
             ConstructorSignature(const ConstructorSignature& cs);
             ~ConstructorSignature() = default;
 
-            static const ConstructorSignature standard;
+            static const ConstructorSignature STANDARD;
     };
 
     class FieldSignature : public Entity<FieldSignature> {
@@ -115,6 +130,17 @@ namespace moona {
             FieldSignature(const PureSignature& type);
             FieldSignature(const FieldSignature& fs);
             ~FieldSignature();
+
+            static const FieldSignature BOOLEAN_FIELD;
+            static const FieldSignature BYTE_FIELD;
+            static const FieldSignature SHORT_FIELD;
+            static const FieldSignature CHAR_FIELD;
+            static const FieldSignature INT_FIELD;
+            static const FieldSignature LONG_FIELD;
+            static const FieldSignature FLOAT_FIELD;
+            static const FieldSignature DOUBLE_FIELD;
+
+            static const FieldSignature STRING_FIELD;
 
             virtual FieldSignature& operator = (const FieldSignature& ms) noexcept;
             virtual bool operator == (const FieldSignature& ms) const noexcept;

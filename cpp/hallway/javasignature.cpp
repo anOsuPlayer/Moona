@@ -69,6 +69,8 @@ namespace moona {
     ObjectSignature::ObjectSignature(const ObjectSignature& os) : PureSignature(os) {
     }
 
+    const ObjectSignature ObjectSignature::STRING = ObjectSignature("java/lang/String");
+
     ArraySignature::ArraySignature(const char* obj) {
         unsigned int len = strlen(obj);
         this->signature = new char[len+4];
@@ -102,6 +104,8 @@ namespace moona {
     const ArraySignature ArraySignature::LONG_ARRAY = ArraySignature(Signature::LONG);
     const ArraySignature ArraySignature::FLOAT_ARRAY = ArraySignature(Signature::FLOAT);
     const ArraySignature ArraySignature::DOUBLE_ARRAY = ArraySignature(Signature::DOUBLE);
+
+    const ArraySignature ArraySignature::STRING_ARRAY = ArraySignature(ObjectSignature::STRING);
 
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
@@ -170,6 +174,17 @@ namespace moona {
         delete[] this->signature;
     }
 
+    const MethodSignature MethodSignature::BOOLEAN_METHOD = MethodSignature(Signature::BOOLEAN);
+    const MethodSignature MethodSignature::BYTE_METHOD = MethodSignature(Signature::BYTE);
+    const MethodSignature MethodSignature::SHORT_METHOD = MethodSignature(Signature::SHORT);
+    const MethodSignature MethodSignature::CHAR_METHOD = MethodSignature(Signature::CHAR);
+    const MethodSignature MethodSignature::INT_METHOD = MethodSignature(Signature::INT);
+    const MethodSignature MethodSignature::LONG_METHOD = MethodSignature(Signature::LONG);
+    const MethodSignature MethodSignature::FLOAT_METHOD = MethodSignature(Signature::FLOAT);
+    const MethodSignature MethodSignature::DOUBLE_METHOD = MethodSignature(Signature::DOUBLE);
+    
+    const MethodSignature MethodSignature::STRING_METHOD = MethodSignature(ObjectSignature::STRING);
+
     MethodSignature& MethodSignature::operator = (const MethodSignature& ms) noexcept {
         const char* sign = ms.getSignature();
         unsigned int len = strlen(sign);
@@ -221,13 +236,9 @@ namespace moona {
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
     }
 
-    const ConstructorSignature ConstructorSignature::standard = ConstructorSignature();
+    const ConstructorSignature ConstructorSignature::STANDARD = ConstructorSignature();
 
     FieldSignature::FieldSignature(const PureSignature& type) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         const char* typeStr = type.getSignature();
         unsigned int len = strlen(type);
         this->signature = new char[len];
@@ -243,6 +254,17 @@ namespace moona {
     FieldSignature::~FieldSignature() {
         delete[] this->signature;
     }
+
+    const FieldSignature FieldSignature::BOOLEAN_FIELD = FieldSignature(Signature::BOOLEAN);
+    const FieldSignature FieldSignature::BYTE_FIELD = FieldSignature(Signature::BYTE);
+    const FieldSignature FieldSignature::SHORT_FIELD = FieldSignature(Signature::SHORT);
+    const FieldSignature FieldSignature::CHAR_FIELD = FieldSignature(Signature::CHAR);
+    const FieldSignature FieldSignature::INT_FIELD = FieldSignature(Signature::INT);
+    const FieldSignature FieldSignature::LONG_FIELD = FieldSignature(Signature::LONG);
+    const FieldSignature FieldSignature::FLOAT_FIELD = FieldSignature(Signature::FLOAT);
+    const FieldSignature FieldSignature::DOUBLE_FIELD = FieldSignature(Signature::DOUBLE);
+
+    const FieldSignature FieldSignature::STRING_FIELD = FieldSignature(ObjectSignature::STRING);
 
     FieldSignature& FieldSignature::operator = (const FieldSignature& ms) noexcept {
         const char* sign = ms.getSignature();
