@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include "jvmexception.hpp"
 #include "../base/notation.hpp"
 #include "../base/entity.hpp"
 #include "../exceptions/nullptrexception.hpp"

@@ -48,6 +48,10 @@ namespace moona {
         args.ignoreUnrecognized = false;
 
         this->JNIStatus = jvmbuilder(&this->jvm, (void**)&this->env, &args);
+        if (JNIStatus != JNI_OK || this->env->ExceptionCheck()) {
+            this->env->ExceptionDescribe();
+            throw JVMException("Unable to build the JVM.");
+        }
         delete opts;
     }
     void JVM::destroyJVM() {
