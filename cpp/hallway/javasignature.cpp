@@ -221,10 +221,6 @@ namespace moona {
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
     }
 
-    ConstructorSignature::~ConstructorSignature() {
-        delete[] this->signature;
-    }
-
     const ConstructorSignature ConstructorSignature::standard = ConstructorSignature();
 
     FieldSignature::FieldSignature(const PureSignature& type) {

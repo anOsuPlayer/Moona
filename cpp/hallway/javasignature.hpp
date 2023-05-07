@@ -33,6 +33,10 @@ namespace moona {
             explicit Signature(const char* signature);
 
         public:
+            Signature() = delete;
+            Signature(const Signature& s);
+            virtual ~Signature() = default;
+
             static const Signature BOOLEAN;
             static const Signature BYTE;
             static const Signature CHAR;
@@ -43,10 +47,6 @@ namespace moona {
             static const Signature DOUBLE;
 
             static const Signature V0ID;
-
-            Signature() = delete;
-            Signature(const Signature& s);
-            virtual ~Signature() = default;
     };
 
     class ObjectSignature : public PureSignature {
@@ -59,6 +59,11 @@ namespace moona {
 
     class ArraySignature : public PureSignature {
         public:
+            ArraySignature() = delete;
+            ArraySignature(const char* obj);
+            ArraySignature(const PureSignature& base);
+            virtual ~ArraySignature() = default;
+
             static const ArraySignature BOOLEAN_ARRAY;
             static const ArraySignature BYTE_ARRAY;
             static const ArraySignature CHAR_ARRAY;
@@ -67,11 +72,6 @@ namespace moona {
             static const ArraySignature LONG_ARRAY;
             static const ArraySignature FLOAT_ARRAY;
             static const ArraySignature DOUBLE_ARRAY;
-
-            ArraySignature() = delete;
-            ArraySignature(const char* obj);
-            ArraySignature(const PureSignature& base);
-            virtual ~ArraySignature() = default;
     };
 
     class MethodSignature : public Entity<MethodSignature> {
@@ -101,7 +101,7 @@ namespace moona {
             ConstructorSignature();
             ConstructorSignature(unsigned int argc, const PureSignature* args);
             ConstructorSignature(const ConstructorSignature& cs);
-            ~ConstructorSignature();
+            ~ConstructorSignature() = default;
 
             static const ConstructorSignature standard;
     };
