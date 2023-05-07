@@ -7,7 +7,7 @@ namespace moona {
         this->signature = new char[len+1];
         this->signature[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = signature[i];
         }
     }
@@ -23,7 +23,7 @@ namespace moona {
         unsigned int len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = sign[i];
         }
 
@@ -62,7 +62,7 @@ namespace moona {
         this->signature[0] = 'L';
         this->signature[len+1] = ';'; this->signature[len+2] = '\0';
 
-        for (unsigned int i = 1; i < len+1; i++) {
+        for (size_t i = 1; i < len+1; i++) {
             this->signature[i] = obj[i-1];
         }
     }
@@ -71,28 +71,41 @@ namespace moona {
 
     const ObjectSignature ObjectSignature::STRING = ObjectSignature("java/lang/String");
 
-    ArraySignature::ArraySignature(const char* obj) {
+    ArraySignature::ArraySignature(const char* obj, size_t order) {
+        if (order == 0) {
+            throw IllegalArgumentException("Unable to create a Signature referring to a 0-dimensions array.");
+        }
+
         unsigned int len = strlen(obj);
         this->signature = new char[len+4];
-        this->signature[0] = '['; this->signature[1] = 'L';
-        this->signature[len+2] = ';'; this->signature[len+3] = '\0';
+        for (size_t i = 0; i < order; i++) {
+            this->signature[i] = '[';
+        }
+        this->signature[order] = 'L';
+        this->signature[len+1+order] = ';'; this->signature[len+2+order] = '\0';
 
-        for (unsigned int i = 2; i < len+2; i++) {
-            this->signature[i] = obj[i-2];
+        for (size_t i = 1+order; i < len+1+order; i++) {
+            this->signature[i] = obj[i-1-order];
         }
     }
-    ArraySignature::ArraySignature(const PureSignature& base) {
+    ArraySignature::ArraySignature(const PureSignature& base, size_t order) {
+        if (order == 0) {
+            throw IllegalArgumentException("Unable to create a Signature referring to a 0-dimensions array.");
+        }
         if (base == Signature::V0ID) {
             throw IllegalArgumentException("Cannot create an ArraySignature of a void array.");
         }
 
         const char* sign = base.getSignature();
         unsigned int len = strlen(sign);
-        this->signature = new char[len+2];
-        this->signature[0] = '['; this->signature[len+1] = '\0';
+        this->signature = new char[len+1+order];
+        for (size_t i = 0; i < order; i++) {
+            this->signature[i] = '[';
+        }
+        this->signature[len+order] = '\0';
 
-        for (unsigned int i = 1; i < len+1; i++) {
-            this->signature[i] = sign[i-1];
+        for (size_t i = order; i < len+order; i++) {
+            this->signature[i] = sign[i-order];
         }
     }
 
@@ -114,7 +127,7 @@ namespace moona {
         fullname[0] = '('; fullname[1] = ')';
         fullname[len+2] = '\0';
 
-        for (unsigned int i = 2; i < len+2; i++) {
+        for (size_t i = 2; i < len+2; i++) {
             fullname[i] = sign[i-2];
         }
 
@@ -129,7 +142,7 @@ namespace moona {
         unsigned int* lens = new unsigned int[argc];
         unsigned int totalLength = 0;
 
-        for (unsigned int i = 0; i < argc; i++) {
+        for (size_t i = 0; i < argc; i++) {
             signs[i] = args[i].getSignature();
             lens[i] = strlen(signs[i]);
             totalLength += lens[i];
@@ -142,7 +155,7 @@ namespace moona {
         this->signature[0] = '('; this->signature[totalLength+1] = ')'; this->signature[totalLength+retLen+2] = '\0';
 
         unsigned int passedLen = 0;
-        for (unsigned int i = 0; i < argc; i++) {
+        for (size_t i = 0; i < argc; i++) {
             if (args[i] == Signature::V0ID) {
                 throw IllegalArgumentException("Cannot build a MethodSignature accepting void as a parameter.");
             }
@@ -153,7 +166,7 @@ namespace moona {
             passedLen += lens[i];
         }
 
-        for (unsigned int i = totalLength+2; i < totalLength+retLen+2; i++) {
+        for (size_t i = totalLength+2; i < totalLength+retLen+2; i++) {
             this->signature[i] = retSign[i-totalLength-2];
         }
 
@@ -165,7 +178,7 @@ namespace moona {
         unsigned int len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = sign[i];
         }
     }
@@ -190,7 +203,7 @@ namespace moona {
         unsigned int len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = sign[i];
         }
 
@@ -243,7 +256,7 @@ namespace moona {
         unsigned int len = strlen(type);
         this->signature = new char[len];
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = typeStr[i];
         }
     }
@@ -271,7 +284,7 @@ namespace moona {
         unsigned int len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->signature[i] = sign[i];
         }
 

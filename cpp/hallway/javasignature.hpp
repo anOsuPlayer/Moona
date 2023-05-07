@@ -62,8 +62,8 @@ namespace moona {
     class ArraySignature : public PureSignature {
         public:
             ArraySignature() = delete;
-            ArraySignature(const char* obj);
-            ArraySignature(const PureSignature& base);
+            ArraySignature(const char* obj, size_t order = 1);
+            ArraySignature(const PureSignature& base, size_t order = 1);
             virtual ~ArraySignature() = default;
 
             static const ArraySignature BOOLEAN_ARRAY;
