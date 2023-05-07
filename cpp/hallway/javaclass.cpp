@@ -14,7 +14,7 @@ namespace moona {
         this->classname = new char[packlen+classlen+1];
 
         for (unsigned int i = 0; i < packlen; i++) {
-            this->classname[i] = packname[i];
+            this->classname[i] = (packname[i] == '.') ? '/' : packname[i];
         }
         this->classname[packlen] = '/';
         for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
