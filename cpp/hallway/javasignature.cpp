@@ -63,7 +63,7 @@ namespace moona {
         this->signature[len+1] = ';'; this->signature[len+2] = '\0';
 
         for (size_t i = 1; i < len+1; i++) {
-            this->signature[i] = obj[i-1];
+            this->signature[i] = (obj[i-1] == '.') ? '/' : obj[i-1];
         }
     }
     ObjectSignature::ObjectSignature(const ObjectSignature& os) : PureSignature(os) {
@@ -85,7 +85,7 @@ namespace moona {
         this->signature[len+1+order] = ';'; this->signature[len+2+order] = '\0';
 
         for (size_t i = 1+order; i < len+1+order; i++) {
-            this->signature[i] = obj[i-1-order];
+            this->signature[i] = (obj[i-1-order] == '.') ? '/' : obj[i-1-order];
         }
     }
     ArraySignature::ArraySignature(const PureSignature& base, size_t order) {
@@ -224,7 +224,7 @@ namespace moona {
         unsigned int len = strlen(this->signature); char* begin = this->signature;
         for (int i = 0; *begin != ')'; i++) { begin++; }
         if (*(begin+1) == '[' || *(begin+1) == 'L') {
-            return ObjectSignature("placeholder");
+            return ObjectSignature("");
         }
         else {
             switch (*(begin+1)) {
