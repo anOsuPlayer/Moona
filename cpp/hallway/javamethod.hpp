@@ -55,4 +55,15 @@ namespace moona {
             virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const override final;
             JValue call(const jvalue* args = nullptr) const;
     };
+
+    class JavaConstructor : public Object<JavaConstructor>, protected JavaMethod {
+        public:
+            JavaConstructor() = default;
+            explicit JavaConstructor(const JavaClass& clazz, const ConstructorSignature& cs);
+            explicit JavaConstructor(const JavaClass& clazz);
+            JavaConstructor(const JavaConstructor& con);
+            ~JavaConstructor() = default;
+
+            JavaObject newInstance(const jvalue* args = nullptr) const;
+    };
 }

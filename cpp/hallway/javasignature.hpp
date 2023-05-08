@@ -118,7 +118,7 @@ namespace moona {
             ConstructorSignature(const ConstructorSignature& cs);
             ~ConstructorSignature() = default;
 
-            static const ConstructorSignature STANDARD;
+            static const ConstructorSignature DEFAULT;
     };
 
     class FieldSignature : public Entity<FieldSignature> {

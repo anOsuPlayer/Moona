@@ -189,11 +189,8 @@ namespace moona {
         return JavaStaticMethod(name, *this, ms);
     }
 
-    JavaObject JavaClass::newInstance() const {
-        jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
-        JavaObject jobj = Moona::defaultJNIEnv().NewGlobalRef(obj);
-        Moona::defaultJNIEnv().DeleteLocalRef(obj);
-        return jobj;
+    JavaConstructor JavaClass::getConstructor(const ConstructorSignature& cs) const {
+        return JavaConstructor(*this, cs);
     }
 
     JavaClass::operator const jclass&() const noexcept {

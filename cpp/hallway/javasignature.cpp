@@ -249,7 +249,7 @@ namespace moona {
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
     }
 
-    const ConstructorSignature ConstructorSignature::STANDARD = ConstructorSignature();
+    const ConstructorSignature ConstructorSignature::DEFAULT = ConstructorSignature();
 
     FieldSignature::FieldSignature(const PureSignature& type) {
         const char* typeStr = type.getSignature();

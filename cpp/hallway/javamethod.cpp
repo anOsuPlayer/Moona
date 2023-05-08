@@ -101,4 +101,25 @@ namespace moona {
     JValue JavaStaticMethod::call(const jvalue* args) const {
         return this->clazz->call(*this, args);
     }
+
+    JavaConstructor::JavaConstructor(const JavaClass& clazz, const ConstructorSignature& cs) : JavaMethod("<init>", clazz, cs) {
+    }
+
+    JavaConstructor::JavaConstructor(const JavaClass& clazz) : JavaMethod("<init>", clazz, ConstructorSignature::DEFAULT) {
+    }
+
+    JavaConstructor::JavaConstructor(const JavaConstructor& con) : JavaMethod(con) {
+    }
+
+    JavaObject JavaConstructor::newInstance(const jvalue* args) const {
+        JavaObject obj = (args == nullptr) ? Moona::defaultJNIEnv().NewObject(this->clazz->getJClass(), this->method)
+            : Moona::defaultJNIEnv().NewObjectA(this->clazz->getJClass(), this->method, args);
+        
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
+            throw JVMException();
+        }
+
+        return obj;
+    }
 }

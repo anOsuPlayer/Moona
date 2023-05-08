@@ -17,6 +17,7 @@ namespace moona {
 
     class JavaPackage;
     class JavaMethod;
+    class JavaConstructor;
     class JavaStaticMethod;
     class JavaObject;
 
@@ -43,7 +44,7 @@ namespace moona {
             JavaMethod getMethod(const char* name, const MethodSignature& ms) const;
             JavaStaticMethod getStaticMethod(const char* name, const MethodSignature& ms) const;
 
-            JavaObject newInstance() const;
+            JavaConstructor getConstructor(const ConstructorSignature& cs = ConstructorSignature::DEFAULT) const;
 
             operator const jclass&() const noexcept;
             operator const char*() const noexcept;
