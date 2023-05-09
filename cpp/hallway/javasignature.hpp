@@ -26,6 +26,8 @@ namespace moona {
 
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
+
+        friend class ArraySignature;
     };
 
     class Signature : public PureSignature {
@@ -76,6 +78,8 @@ namespace moona {
             static const ArraySignature DOUBLE_ARRAY;
 
             static const ArraySignature STRING_ARRAY;
+
+            PureSignature getBaseSignature() const noexcept;
     };
 
     class MethodSignature : public Entity<MethodSignature> {
