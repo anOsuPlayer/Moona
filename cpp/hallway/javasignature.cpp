@@ -121,7 +121,7 @@ namespace moona {
     const ArraySignature ArraySignature::STRING_ARRAY = ArraySignature(ObjectSignature::STRING);
 
     PureSignature ArraySignature::getBaseSignature() const noexcept {
-        size_t i = 0; size_t len = strlen(this->signature);
+        size_t i = 0, len = strlen(this->signature);
         for (const char* ch = this->signature; *ch == '['; ch++) { i++; }
         char sign[len-i+1];
         for (size_t e = 0; e < len-i+1; e++) {

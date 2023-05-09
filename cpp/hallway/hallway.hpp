@@ -14,4 +14,5 @@
 #include "javasignature.hpp"
 #include "javamethod.hpp"
 #include "javafield.hpp"
+#include "javaarray.hpp"
 #include "javaobject.hpp"
