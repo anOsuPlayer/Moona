@@ -40,7 +40,7 @@ namespace moona {
         }
 
         this->pack = clazz.pack;
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz.clazz);
+        this->clazz = clazz.clazz;
     }
 
     JavaClass::~JavaClass() {
@@ -58,7 +58,7 @@ namespace moona {
         }
 
         this->pack = other.pack;
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(other.clazz);
+        this->clazz = other.clazz;
 
         return *this;
     }
