@@ -32,10 +32,6 @@ namespace moona {
                 Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
                 delete[] this->elements;
             }
-            
-            size_t length() const noexcept {
-                return Moona::defaultJNIEnv().GetArrayLength(this->array);
-            }
 
             virtual T& operator [] (size_t index) final {
                 if (index >= this->length()) {
@@ -46,6 +42,10 @@ namespace moona {
 
             virtual A& getJArray() const noexcept abstract;
             virtual operator A&() const noexcept abstract;
+            
+            size_t length() const noexcept {
+                return Moona::defaultJNIEnv().GetArrayLength(this->array);
+            }
     };
 
     class JavaBooleanArray : public Object<JavaBooleanArray>, public JavaArray<jbooleanArray, jboolean> {
