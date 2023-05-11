@@ -9,12 +9,13 @@
 #include "../base/notation.hpp"
 #include "../base/object.hpp"
 #include "../exceptions/indexexception.hpp"
+#include "../exceptions/illegalexception.hpp"
 
 namespace moona {
 
     template <typename A> concept JArray = requires { std::is_base_of<_jarray, A>(); };
 
-    template <JArray A, typename T, typename Alias = void> class JavaArray : public Object<JavaArray<A, T>> {
+    template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>> {
         protected:
             A array;
             T* elements;
@@ -54,6 +55,8 @@ namespace moona {
         public:
             JavaBooleanArray(size_t size, jboolean* elements = nullptr);
             virtual ~JavaBooleanArray() = default;
+
+            JavaBooleanArray region(size_t begin, size_t end) const;
 
             virtual jbooleanArray& getJArray() const noexcept override final;
             virtual operator jbooleanArray&() const noexcept override final;
