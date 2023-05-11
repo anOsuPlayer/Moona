@@ -33,32 +33,35 @@ namespace moona {
         return (strcmp(this->signature, ps2.signature) == 0);
     }
 
-    PureSignature& PureSignature::concat(const PureSignature& ps) noexcept {
-        size_t thislen = strlen(this->signature), len = strlen(ps.signature);
+    PureSignature::operator const char*() const noexcept {
+        return this->signature;
+    }
+    const char* PureSignature::getSignature() const noexcept {
+        return this->signature;
+    }
+
+    ComposedSignature::ComposedSignature(const PureSignature& ps) : PureSignature(ps) {
+    }
+
+    ComposedSignature& ComposedSignature::concat(const PureSignature& ps) noexcept {
+        size_t thislen = strlen(this->signature), len = strlen(ps.getSignature());
         char* newSign = new char[thislen+len+1]; newSign[thislen+len] = '\0';
         for (size_t i = 0; i < thislen; i++) {
             newSign[i] = this->signature[i];
         }
         for (size_t i = thislen; i < thislen+len; i++) {
-            newSign[i] = ps.signature[i-thislen];
+            newSign[i] = ps.getSignature()[i-thislen];
         }
         delete[] this->signature;
         this->signature = newSign;
 
         return *this;
     }
-    PureSignature& PureSignature::operator + (const PureSignature& ps) noexcept {
+    ComposedSignature& ComposedSignature::operator + (const PureSignature& ps) noexcept {
         return this->concat(ps);
     }
-    PureSignature& PureSignature::operator += (const PureSignature& ps) noexcept {
+    ComposedSignature& ComposedSignature::operator += (const PureSignature& ps) noexcept {
         return this->concat(ps);
-    }
-
-    PureSignature::operator const char*() const noexcept {
-        return this->signature;
-    }
-    const char* PureSignature::getSignature() const noexcept {
-        return this->signature;
     }
 
     Signature::Signature(const char* signature) : PureSignature(signature) {
@@ -166,7 +169,7 @@ namespace moona {
 
         this->signature = fullname;
     }
-    MethodSignature::MethodSignature(const PureSignature& returntype, const PureSignature& args) {
+    MethodSignature::MethodSignature(const PureSignature& returntype, const ComposedSignature& args) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
@@ -253,7 +256,7 @@ namespace moona {
 
     ConstructorSignature::ConstructorSignature() : MethodSignature(Signature::V0ID) {
     }
-    ConstructorSignature::ConstructorSignature(const PureSignature& args) : MethodSignature(Signature::V0ID, args) {
+    ConstructorSignature::ConstructorSignature(const ComposedSignature& args) : MethodSignature(Signature::V0ID, args) {
     }
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
     }
