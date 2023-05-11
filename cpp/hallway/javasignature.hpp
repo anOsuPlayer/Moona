@@ -24,6 +24,10 @@ namespace moona {
             virtual PureSignature& operator = (const PureSignature& ps2) noexcept;
             virtual bool operator == (const PureSignature& ps2) const noexcept;
 
+            virtual PureSignature& concat(const PureSignature& ps) noexcept;
+            virtual PureSignature& operator + (const PureSignature& ps) noexcept final;
+            virtual PureSignature& operator += (const PureSignature& ps) noexcept final;
+
             operator const char*() const noexcept;
             const char* getSignature() const noexcept;
 
@@ -89,7 +93,7 @@ namespace moona {
         public:
             MethodSignature() = default;
             MethodSignature(const PureSignature& returntype);
-            MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args);
+            MethodSignature(const PureSignature& returntype, const PureSignature& args);
             MethodSignature(const MethodSignature& ms);
             ~MethodSignature();
 
@@ -118,7 +122,7 @@ namespace moona {
     class ConstructorSignature : public Entity<ConstructorSignature>, public MethodSignature {
         public:
             ConstructorSignature();
-            ConstructorSignature(unsigned int argc, const PureSignature* args);
+            ConstructorSignature(const PureSignature& args);
             ConstructorSignature(const ConstructorSignature& cs);
             ~ConstructorSignature() = default;
 

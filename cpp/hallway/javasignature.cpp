@@ -3,7 +3,7 @@
 namespace moona {
 
     PureSignature::PureSignature(const char* signature) {
-        unsigned int len = strlen(signature);
+        size_t len = strlen(signature);
         this->signature = new char[len+1];
         this->signature[len] = '\0';
 
@@ -20,7 +20,7 @@ namespace moona {
 
     PureSignature& PureSignature::operator = (const PureSignature& ps2) noexcept {
         const char* sign = ps2.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
         for (size_t i = 0; i < len; i++) {
@@ -31,6 +31,27 @@ namespace moona {
     }
     bool PureSignature::operator == (const PureSignature& ps2) const noexcept {
         return (strcmp(this->signature, ps2.signature) == 0);
+    }
+
+    PureSignature& PureSignature::concat(const PureSignature& ps) noexcept {
+        size_t thislen = strlen(this->signature), len = strlen(ps.signature);
+        char* newSign = new char[thislen+len+1]; newSign[thislen+len] = '\0';
+        for (size_t i = 0; i < thislen; i++) {
+            newSign[i] = this->signature[i];
+        }
+        for (size_t i = thislen; i < thislen+len; i++) {
+            newSign[i] = ps.signature[i-thislen];
+        }
+        delete[] this->signature;
+        this->signature = newSign;
+
+        return *this;
+    }
+    PureSignature& PureSignature::operator + (const PureSignature& ps) noexcept {
+        return this->concat(ps);
+    }
+    PureSignature& PureSignature::operator += (const PureSignature& ps) noexcept {
+        return this->concat(ps);
     }
 
     PureSignature::operator const char*() const noexcept {
@@ -57,7 +78,7 @@ namespace moona {
     const Signature Signature::V0ID = Signature("V");
 
     ObjectSignature::ObjectSignature(const char* obj) {
-        unsigned int len = strlen(obj);
+        size_t len = strlen(obj);
         this->signature = new char[len+3];
         this->signature[0] = 'L';
         this->signature[len+1] = ';'; this->signature[len+2] = '\0';
@@ -76,7 +97,7 @@ namespace moona {
             throw IllegalArgumentException("Unable to create a Signature referring to a 0-dimensions array.");
         }
 
-        unsigned int len = strlen(obj);
+        size_t len = strlen(obj);
         this->signature = new char[len+4];
         for (size_t i = 0; i < order; i++) {
             this->signature[i] = '[';
@@ -97,7 +118,7 @@ namespace moona {
         }
 
         const char* sign = base.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         this->signature = new char[len+1+order];
         for (size_t i = 0; i < order; i++) {
             this->signature[i] = '[';
@@ -134,7 +155,7 @@ namespace moona {
 
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         char* fullname = new char[len+3];
         fullname[0] = '('; fullname[1] = ')';
         fullname[len+2] = '\0';
@@ -145,49 +166,25 @@ namespace moona {
 
         this->signature = fullname;
     }
-    MethodSignature::MethodSignature(const PureSignature& returntype, unsigned int argc, const PureSignature* args) {
+    MethodSignature::MethodSignature(const PureSignature& returntype, const PureSignature& args) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
 
-        const char** signs = new const char*[argc];
-        unsigned int* lens = new unsigned int[argc];
-        unsigned int totalLength = 0;
+        size_t retlen = strlen(returntype), arglen = strlen(args);
+        this->signature = new char[retlen+arglen+3]; this->signature[retlen+arglen+2] = '\0';
+        this->signature[0] = '('; this->signature[arglen+1] = ')';
 
-        for (size_t i = 0; i < argc; i++) {
-            signs[i] = args[i].getSignature();
-            lens[i] = strlen(signs[i]);
-            totalLength += lens[i];
+        for (size_t i = 1; i <= arglen; i++) {
+            this->signature[i] = args[i-1];
         }
-
-        const char* retSign = returntype.getSignature();
-        unsigned int retLen = strlen(retSign);
-
-        this->signature = new char[totalLength+retLen+3];
-        this->signature[0] = '('; this->signature[totalLength+1] = ')'; this->signature[totalLength+retLen+2] = '\0';
-
-        unsigned int passedLen = 0;
-        for (size_t i = 0; i < argc; i++) {
-            if (args[i] == Signature::V0ID) {
-                throw IllegalArgumentException("Cannot build a MethodSignature accepting void as a parameter.");
-            }
-
-            for (unsigned int e = 0; e < lens[i]; e++) {
-                this->signature[1+passedLen+e] = signs[i][e];
-            }
-            passedLen += lens[i];
+        for (size_t i = arglen+2; i < arglen+2+retlen; i++) {
+            this->signature[i] = returntype[i-arglen-2];
         }
-
-        for (size_t i = totalLength+2; i < totalLength+retLen+2; i++) {
-            this->signature[i] = retSign[i-totalLength-2];
-        }
-
-        delete[] signs;
-        delete[] lens;
     }
     MethodSignature::MethodSignature(const MethodSignature& ms) {
         const char* sign = ms.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
         for (size_t i = 0; i < len; i++) {
@@ -212,7 +209,7 @@ namespace moona {
 
     MethodSignature& MethodSignature::operator = (const MethodSignature& ms) noexcept {
         const char* sign = ms.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
         for (size_t i = 0; i < len; i++) {
@@ -233,7 +230,7 @@ namespace moona {
     }
 
     const PureSignature MethodSignature::returnType() const noexcept {
-        unsigned int len = strlen(this->signature); char* begin = this->signature;
+        size_t len = strlen(this->signature); char* begin = this->signature;
         for (int i = 0; *begin != ')'; i++) { begin++; }
         if (*(begin+1) == '[' || *(begin+1) == 'L') {
             return ObjectSignature("");
@@ -256,7 +253,7 @@ namespace moona {
 
     ConstructorSignature::ConstructorSignature() : MethodSignature(Signature::V0ID) {
     }
-    ConstructorSignature::ConstructorSignature(unsigned int argc, const PureSignature* args) : MethodSignature(Signature::V0ID, argc, args) {
+    ConstructorSignature::ConstructorSignature(const PureSignature& args) : MethodSignature(Signature::V0ID, args) {
     }
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
     }
@@ -265,7 +262,7 @@ namespace moona {
 
     FieldSignature::FieldSignature(const PureSignature& type) {
         const char* typeStr = type.getSignature();
-        unsigned int len = strlen(type);
+        size_t len = strlen(type);
         this->signature = new char[len];
 
         for (size_t i = 0; i < len; i++) {
@@ -293,7 +290,7 @@ namespace moona {
 
     FieldSignature& FieldSignature::operator = (const FieldSignature& ms) noexcept {
         const char* sign = ms.getSignature();
-        unsigned int len = strlen(sign);
+        size_t len = strlen(sign);
         this->signature = new char[len+1]; this->signature[len] = '\0';
 
         for (size_t i = 0; i < len; i++) {
