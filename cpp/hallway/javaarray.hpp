@@ -61,4 +61,17 @@ namespace moona {
             virtual jbooleanArray& getJArray() const noexcept override final;
             virtual operator jbooleanArray&() const noexcept override final;
     };
+    class JavaByteArray : public Object<JavaByteArray>, public JavaArray<jbyteArray, jbyte> {
+        protected:
+            JavaByteArray() = default;
+
+        public:
+            JavaByteArray(size_t size, jbyte* elements = nullptr);
+            virtual ~JavaByteArray() = default;
+
+            JavaByteArray region(size_t begin, size_t end) const;
+
+            virtual jbyteArray& getJArray() const noexcept override final;
+            virtual operator jbyteArray&() const noexcept override final;
+    };
 }

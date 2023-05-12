@@ -30,4 +30,33 @@ namespace moona {
         Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, this->length(), this->elements);
         return const_cast<jbooleanArray&>(this->array);
     }
+
+    JavaByteArray::JavaByteArray(size_t size, jbyte* elements) : JavaArray(size) {
+        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        if (elements != nullptr) {
+            Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, size, elements);
+            this->elements = elements;
+        }
+    }
+
+    JavaByteArray JavaByteArray::region(size_t begin, size_t len) const {
+        if (begin >= this->length() || len >= this->length()) {
+            throw IndexOutOfBoundsException("The given index goes out of bounds for this JavaByteArray.");
+        }
+        JavaByteArray arr(len);
+        for (size_t i = 0; i < len; i++) {
+            arr[i] = this->elements[begin+i];
+        }
+
+        return arr;
+    }
+
+    jbyteArray& JavaByteArray::getJArray() const noexcept {
+        Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
+        return const_cast<jbyteArray&>(this->array);
+    }
+    JavaByteArray::operator jbyteArray&() const noexcept {
+        Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
+        return const_cast<jbyteArray&>(this->array);
+    }
 }
