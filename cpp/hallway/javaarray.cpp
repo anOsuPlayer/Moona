@@ -5,8 +5,10 @@ namespace moona {
     JavaBooleanArray::JavaBooleanArray(size_t size, jboolean* elements) : JavaArray(size) {
         this->array = (jbooleanArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -34,8 +36,10 @@ namespace moona {
     JavaByteArray::JavaByteArray(size_t size, jbyte* elements) : JavaArray(size) {
         this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -63,8 +67,19 @@ namespace moona {
     JavaCharArray::JavaCharArray(size_t size, jchar* elements) : JavaArray(size) {
         this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, size, this->elements);
+        }
+    }
+    JavaCharArray::JavaCharArray(size_t size, const char* elements) : JavaArray(size) {
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        if (elements != nullptr) {
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = jchar(elements[i]);
+            }
+            Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -92,8 +107,10 @@ namespace moona {
     JavaIntArray::JavaIntArray(size_t size, jint* elements) : JavaArray(size) {
         this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -121,8 +138,10 @@ namespace moona {
     JavaLongArray::JavaLongArray(size_t size, jlong* elements) : JavaArray(size) {
         this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -150,8 +169,10 @@ namespace moona {
     JavaFloatArray::JavaFloatArray(size_t size, jfloat* elements) : JavaArray(size) {
         this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, size, this->elements);
         }
     }
 
@@ -179,8 +200,10 @@ namespace moona {
     JavaDoubleArray::JavaDoubleArray(size_t size, jdouble* elements) : JavaArray(size) {
         this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
         if (elements != nullptr) {
-            Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, size, elements);
-            this->elements = elements;
+            for (size_t i = 0; i < size; i++) {
+                this->elements[i] = elements[i];
+            }
+            Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, size, this->elements);
         }
     }
 

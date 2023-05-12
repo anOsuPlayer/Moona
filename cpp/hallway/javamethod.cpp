@@ -115,6 +115,9 @@ namespace moona {
         JavaObject obj = (args == nullptr) ? Moona::defaultJNIEnv().NewObject(this->clazz->getJClass(), this->method)
             : Moona::defaultJNIEnv().NewObjectA(this->clazz->getJClass(), this->method, args);
         
+        if (obj == nullptr) {
+            throw JVMException("Object creation failed.");
+        }
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
             Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();

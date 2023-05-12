@@ -42,6 +42,15 @@ namespace moona {
 
             virtual A& getJArray() const noexcept abstract;
             virtual operator A&() const noexcept abstract;
+
+            virtual jvalue getJValue() const noexcept {
+                jvalue val; val.l = this->array;
+                return val;
+            }
+            virtual operator jvalue() const noexcept {
+                jvalue val; val.l = this->array;
+                return val;
+            }
             
             size_t length() const noexcept {
                 return Moona::defaultJNIEnv().GetArrayLength(this->array);
@@ -80,6 +89,7 @@ namespace moona {
 
         public:
             JavaCharArray(size_t size, jchar* elements = nullptr);
+            JavaCharArray(size_t size, const char* elements);
             virtual ~JavaCharArray() = default;
 
             JavaCharArray region(size_t begin, size_t end) const;
