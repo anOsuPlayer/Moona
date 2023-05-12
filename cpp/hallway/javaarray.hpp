@@ -30,11 +30,22 @@ namespace moona {
 
         public:
             JavaArray(const JavaArray<A, T>& arr) {
-                this->array = arr.array;
+                this->array = Moona::defaultJNIEnv().NewGlobalRef(arr.array);
             }
             virtual ~JavaArray() {
                 Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
                 delete[] this->elements;
+            }
+
+            virtual JavaArray<A, T>& operator = (const JavaArray<A, T>& arr) noexcept final {
+                this->array = Moona::defaultJNIEnv().NewGlobalRef(arr.array);
+                size_t len = arr.length();
+                this->elements = new T[len];
+                for (size_t i = 0; i < len; i++) {
+                    this->elements[i] = arr.elements[i];
+                }
+
+                return *this;
             }
 
             virtual T& operator [] (size_t index) final {
