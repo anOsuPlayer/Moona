@@ -74,4 +74,69 @@ namespace moona {
             virtual jbyteArray& getJArray() const noexcept override final;
             virtual operator jbyteArray&() const noexcept override final;
     };
+    class JavaCharArray : public Object<JavaCharArray>, public JavaArray<jcharArray, jchar> {
+        protected:
+            JavaCharArray() = default;
+
+        public:
+            JavaCharArray(size_t size, jchar* elements = nullptr);
+            virtual ~JavaCharArray() = default;
+
+            JavaCharArray region(size_t begin, size_t end) const;
+
+            virtual jcharArray& getJArray() const noexcept override final;
+            virtual operator jcharArray&() const noexcept override final;
+    };
+    class JavaIntArray : public Object<JavaIntArray>, public JavaArray<jintArray, jint> {
+        protected:
+            JavaIntArray() = default;
+
+        public:
+            JavaIntArray(size_t size, jint* elements = nullptr);
+            virtual ~JavaIntArray() = default;
+
+            JavaIntArray region(size_t begin, size_t end) const;
+
+            virtual jintArray& getJArray() const noexcept override final;
+            virtual operator jintArray&() const noexcept override final;
+    };
+    class JavaLongArray : public Object<JavaLongArray>, public JavaArray<jlongArray, jlong> {
+        protected:
+            JavaLongArray() = default;
+
+        public:
+            JavaLongArray(size_t size, jlong* elements = nullptr);
+            virtual ~JavaLongArray() = default;
+
+            JavaLongArray region(size_t begin, size_t end) const;
+
+            virtual jlongArray& getJArray() const noexcept override final;
+            virtual operator jlongArray&() const noexcept override final;
+    };
+    class JavaFloatArray : public Object<JavaFloatArray>, public JavaArray<jfloatArray, jfloat> {
+        protected:
+            JavaFloatArray() = default;
+
+        public:
+            JavaFloatArray(size_t size, jfloat* elements = nullptr);
+            virtual ~JavaFloatArray() = default;
+
+            JavaFloatArray region(size_t begin, size_t end) const;
+
+            virtual jfloatArray& getJArray() const noexcept override final;
+            virtual operator jfloatArray&() const noexcept override final;
+    };
+    class JavaDoubleArray : public Object<JavaDoubleArray>, public JavaArray<jdoubleArray, jdouble> {
+        protected:
+            JavaDoubleArray() = default;
+
+        public:
+            JavaDoubleArray(size_t size, jdouble* elements = nullptr);
+            virtual ~JavaDoubleArray() = default;
+
+            JavaDoubleArray region(size_t begin, size_t end) const;
+
+            virtual jdoubleArray& getJArray() const noexcept override final;
+            virtual operator jdoubleArray&() const noexcept override final;
+    };
 }
