@@ -9,9 +9,11 @@
 namespace moona {
 
     class JavaMethod;
+    class JavaClass;
 
     class JavaObject : public Object<JavaObject> {
         private:
+            const JavaClass* clazz;
             jobject obj;
 
         public:

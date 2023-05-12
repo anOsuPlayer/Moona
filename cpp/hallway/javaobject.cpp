@@ -12,7 +12,7 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->obj = Moona::defaultJNIEnv().NewGlobalRef(obj.getJObject());
+        this->obj = obj.getJObject();
     }
 
     JavaObject::~JavaObject() {
