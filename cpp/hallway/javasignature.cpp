@@ -43,7 +43,11 @@ namespace moona {
     ComposedSignature::ComposedSignature(const PureSignature& ps) : PureSignature(ps) {
     }
 
-    ComposedSignature& ComposedSignature::concat(const PureSignature& ps) noexcept {
+    ComposedSignature& ComposedSignature::concat(const PureSignature& ps) {
+        if (ps == Signature::V0ID) {
+            throw IllegalArgumentException("A Void Signature cannot be part of a ComposedSignature.");
+        }
+
         size_t thislen = strlen(this->signature), len = strlen(ps.getSignature());
         char* newSign = new char[thislen+len+1]; newSign[thislen+len] = '\0';
         for (size_t i = 0; i < thislen; i++) {
@@ -57,10 +61,10 @@ namespace moona {
 
         return *this;
     }
-    ComposedSignature& ComposedSignature::operator + (const PureSignature& ps) noexcept {
+    ComposedSignature& ComposedSignature::operator + (const PureSignature& ps) {
         return this->concat(ps);
     }
-    ComposedSignature& ComposedSignature::operator += (const PureSignature& ps) noexcept {
+    ComposedSignature& ComposedSignature::operator += (const PureSignature& ps) {
         return this->concat(ps);
     }
 

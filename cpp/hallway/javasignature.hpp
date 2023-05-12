@@ -35,9 +35,9 @@ namespace moona {
             ComposedSignature(const PureSignature& ps);
             virtual ~ComposedSignature() = default;
 
-            ComposedSignature& concat(const PureSignature& ps) noexcept;
-            ComposedSignature& operator + (const PureSignature& ps) noexcept;
-            ComposedSignature& operator += (const PureSignature& ps) noexcept;
+            ComposedSignature& concat(const PureSignature& ps);
+            ComposedSignature& operator + (const PureSignature& ps);
+            ComposedSignature& operator += (const PureSignature& ps);
     };
 
     class Signature : public PureSignature {
