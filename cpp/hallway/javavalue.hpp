@@ -122,7 +122,7 @@ namespace moona {
             friend std::ostream& operator << (std::ostream& os, const JValue& val) noexcept {
                 switch (val.tag) {
                     case ValueTag::BOOLEAN : {
-                        os << std::boolalpha << val.z << std::noboolalpha;
+                        os << std::boolalpha << ((val.z == 0) ? false : true) << std::noboolalpha;
                         break;
                     }
                     case ValueTag::BYTE : {

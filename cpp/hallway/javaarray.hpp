@@ -4,6 +4,7 @@
 #include <concepts>
 
 #include "javavalue.hpp"
+#include "hallwayexception.hpp"
 #include "../base/entity.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/notation.hpp"
@@ -21,6 +22,9 @@ namespace moona {
             T* elements;
 
             JavaArray(size_t size) {
+                if (!Moona::enableHallwayAccess) {
+                    throw HallwayAccessException();
+                }
                 this->elements = new T[size];
             }
 
