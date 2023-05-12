@@ -97,7 +97,8 @@ namespace moona {
     ObjectSignature::ObjectSignature(const ObjectSignature& os) : PureSignature(os) {
     }
 
-    const ObjectSignature ObjectSignature::STRING = ObjectSignature("java/lang/String");
+    const ObjectSignature ObjectSignature::STRING = ObjectSignature("java.lang.String");
+    const ObjectSignature ObjectSignature::OBJECT = ObjectSignature("java.lang.Object");
 
     ArraySignature::ArraySignature(const char* obj, size_t order) {
         if (order == 0) {
@@ -147,6 +148,7 @@ namespace moona {
     const ArraySignature ArraySignature::DOUBLE_ARRAY = ArraySignature(Signature::DOUBLE);
 
     const ArraySignature ArraySignature::STRING_ARRAY = ArraySignature(ObjectSignature::STRING);
+    const ArraySignature ArraySignature::OBJECT_ARRAY = ArraySignature(ObjectSignature::OBJECT);
 
     PureSignature ArraySignature::getBaseSignature() const noexcept {
         size_t i = 0, len = strlen(this->signature);
@@ -211,8 +213,18 @@ namespace moona {
     const MethodSignature MethodSignature::LONG_METHOD = MethodSignature(Signature::LONG);
     const MethodSignature MethodSignature::FLOAT_METHOD = MethodSignature(Signature::FLOAT);
     const MethodSignature MethodSignature::DOUBLE_METHOD = MethodSignature(Signature::DOUBLE);
+
+    const MethodSignature MethodSignature::VOID_METHOD = MethodSignature(Signature::V0ID);
     
     const MethodSignature MethodSignature::STRING_METHOD = MethodSignature(ObjectSignature::STRING);
+
+    const MethodSignature MethodSignature::MAIN = MethodSignature(Signature::V0ID, ComposedSignature(ArraySignature(ObjectSignature::STRING)));
+    
+    const MethodSignature MethodSignature::TO_STRING = MethodSignature(ObjectSignature::STRING);
+    const MethodSignature MethodSignature::EQUALS = MethodSignature(Signature::BOOLEAN, ComposedSignature(ObjectSignature::OBJECT));
+    const MethodSignature MethodSignature::HASH_CODE = MethodSignature(Signature::INT);
+    const MethodSignature MethodSignature::WAIT = MethodSignature(Signature::V0ID);
+    const MethodSignature MethodSignature::NOTIFY = MethodSignature(Signature::V0ID);
 
     MethodSignature& MethodSignature::operator = (const MethodSignature& ms) noexcept {
         const char* sign = ms.getSignature();

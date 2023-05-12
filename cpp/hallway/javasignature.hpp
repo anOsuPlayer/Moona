@@ -69,6 +69,7 @@ namespace moona {
             virtual ~ObjectSignature() = default;
 
             static const ObjectSignature STRING;
+            static const ObjectSignature OBJECT;
     };
 
     class ArraySignature : public PureSignature {
@@ -88,6 +89,7 @@ namespace moona {
             static const ArraySignature DOUBLE_ARRAY;
 
             static const ArraySignature STRING_ARRAY;
+            static const ArraySignature OBJECT_ARRAY;
 
             PureSignature getBaseSignature() const noexcept;
     };
@@ -112,7 +114,17 @@ namespace moona {
             static const MethodSignature FLOAT_METHOD;
             static const MethodSignature DOUBLE_METHOD;
             
+            static const MethodSignature VOID_METHOD;
+
             static const MethodSignature STRING_METHOD;
+
+            static const MethodSignature MAIN;
+
+            static const MethodSignature TO_STRING;
+            static const MethodSignature EQUALS;
+            static const MethodSignature HASH_CODE;
+            static const MethodSignature WAIT;
+            static const MethodSignature NOTIFY;
 
             virtual MethodSignature& operator = (const MethodSignature& ms) noexcept;
             virtual bool operator == (const MethodSignature& ms) const noexcept;
