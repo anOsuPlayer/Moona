@@ -176,10 +176,6 @@ namespace moona {
         this->signature = fullname;
     }
     MethodSignature::MethodSignature(const PureSignature& returntype, const ComposedSignature& args) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
-        }
-
         size_t retlen = strlen(returntype), arglen = strlen(args);
         this->signature = new char[retlen+arglen+3]; this->signature[retlen+arglen+2] = '\0';
         this->signature[0] = '('; this->signature[arglen+1] = ')';

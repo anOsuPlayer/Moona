@@ -14,7 +14,7 @@
 
 namespace moona {
 
-    template <typename A> concept JArray = requires { std::is_base_of<_jarray, A>(); };
+    template <typename A> concept JArray = requires { std::is_base_of<jarray, A>(); };
 
     template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>> {
         protected:
@@ -30,7 +30,7 @@ namespace moona {
 
         public:
             JavaArray(const JavaArray<A, T>& arr) {
-                this->array = Moona::defaultJNIEnv().NewGlobalRef(arr.array);
+                this->array = (A) Moona::defaultJNIEnv().NewGlobalRef(arr.array);
             }
             virtual ~JavaArray() {
                 Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
@@ -38,7 +38,7 @@ namespace moona {
             }
 
             virtual JavaArray<A, T>& operator = (const JavaArray<A, T>& arr) noexcept final {
-                this->array = Moona::defaultJNIEnv().NewGlobalRef(arr.array);
+                this->array = (A) Moona::defaultJNIEnv().NewGlobalRef(arr.array);
                 size_t len = arr.length();
                 this->elements = new T[len];
                 for (size_t i = 0; i < len; i++) {
