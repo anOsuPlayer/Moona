@@ -40,13 +40,13 @@ namespace moona {
         return arr;
     }
 
-    jbooleanArray& JavaBooleanArray::getJArray() const noexcept {
+    jbooleanArray JavaBooleanArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jbooleanArray>(this->array);
+        return (jbooleanArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaBooleanArray::operator jbooleanArray&() const noexcept {
+    JavaBooleanArray::operator jbooleanArray() const noexcept {
         Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jbooleanArray>(this->array);
+        return this->array;
     }
 
     JavaByteArray::JavaByteArray(jbyteArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -54,7 +54,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetByteArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaByteArray::JavaByteArray(size_t size, jbyte* elements) : JavaArray(size) {
-        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewByteArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -87,13 +87,13 @@ namespace moona {
         return arr;
     }
 
-    jbyteArray& JavaByteArray::getJArray() const noexcept {
+    jbyteArray JavaByteArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jbyteArray>(this->array);
+        return (jbyteArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaByteArray::operator jbyteArray&() const noexcept {
+    JavaByteArray::operator jbyteArray() const noexcept {
         Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jbyteArray>(this->array);
+        return this->array;
     }
 
     JavaCharArray::JavaCharArray(jcharArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -101,7 +101,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetCharArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaCharArray::JavaCharArray(size_t size, jchar* elements) : JavaArray(size) {
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewCharArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -110,7 +110,7 @@ namespace moona {
         }
     }
     JavaCharArray::JavaCharArray(size_t size, const char* elements) : JavaArray(size) {
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewCharArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = jchar(elements[i]);
@@ -143,13 +143,13 @@ namespace moona {
         return arr;
     }
 
-    jcharArray& JavaCharArray::getJArray() const noexcept {
+    jcharArray JavaCharArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jcharArray>(this->array);
+        return (jcharArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaCharArray::operator jcharArray&() const noexcept {
+    JavaCharArray::operator jcharArray() const noexcept {
         Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jcharArray>(this->array);
+        return this->array;
     }
 
     JavaIntArray::JavaIntArray(jintArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -157,7 +157,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetIntArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaIntArray::JavaIntArray(size_t size, jint* elements) : JavaArray(size) {
-        this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewIntArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -190,13 +190,13 @@ namespace moona {
         return arr;
     }
 
-    jintArray& JavaIntArray::getJArray() const noexcept {
+    jintArray JavaIntArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jintArray>(this->array);
+        return (jintArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaIntArray::operator jintArray&() const noexcept {
+    JavaIntArray::operator jintArray() const noexcept {
         Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jintArray>(this->array);
+        return this->array;
     }
 
     JavaLongArray::JavaLongArray(jlongArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -204,7 +204,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetLongArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaLongArray::JavaLongArray(size_t size, jlong* elements) : JavaArray(size) {
-        this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewLongArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -237,13 +237,13 @@ namespace moona {
         return arr;
     }
 
-    jlongArray& JavaLongArray::getJArray() const noexcept {
+    jlongArray JavaLongArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jlongArray>(this->array);
+        return (jlongArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaLongArray::operator jlongArray&() const noexcept {
+    JavaLongArray::operator jlongArray() const noexcept {
         Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jlongArray>(this->array);
+        return this->array;
     }
 
     JavaFloatArray::JavaFloatArray(jfloatArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -251,7 +251,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetFloatArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaFloatArray::JavaFloatArray(size_t size, jfloat* elements) : JavaArray(size) {
-        this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewFloatArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -284,13 +284,13 @@ namespace moona {
         return arr;
     }
 
-    jfloatArray& JavaFloatArray::getJArray() const noexcept {
+    jfloatArray JavaFloatArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jfloatArray>(this->array);
+        return (jfloatArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaFloatArray::operator jfloatArray&() const noexcept {
+    JavaFloatArray::operator jfloatArray() const noexcept {
         Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jfloatArray>(this->array);
+        return this->array;
     }
 
     JavaDoubleArray::JavaDoubleArray(jdoubleArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
@@ -298,7 +298,7 @@ namespace moona {
         Moona::defaultJNIEnv().GetDoubleArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaDoubleArray::JavaDoubleArray(size_t size, jdouble* elements) : JavaArray(size) {
-        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewBooleanArray(size));
+        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(Moona::defaultJNIEnv().NewDoubleArray(size));
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -331,12 +331,12 @@ namespace moona {
         return arr;
     }
 
-    jdoubleArray& JavaDoubleArray::getJArray() const noexcept {
+    jdoubleArray JavaDoubleArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jdoubleArray>(this->array);
+        return (jdoubleArray) Moona::defaultJNIEnv().NewLocalRef(this->array);
     }
-    JavaDoubleArray::operator jdoubleArray&() const noexcept {
+    JavaDoubleArray::operator jdoubleArray() const noexcept {
         Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, this->length(), this->elements);
-        return static_cast<jdoubleArray>(this->array);
+        return this->array;
     }
 }
