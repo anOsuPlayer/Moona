@@ -40,11 +40,11 @@ namespace moona {
         return arr;
     }
 
-    jbooleanArray JavaBooleanArray::getJArray() const noexcept {
+    jbooleanArray& JavaBooleanArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jbooleanArray>(this->array);
     }
-    JavaBooleanArray::operator jbooleanArray() const noexcept {
+    JavaBooleanArray::operator jbooleanArray&() const noexcept {
         Moona::defaultJNIEnv().SetBooleanArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jbooleanArray>(this->array);
     }
@@ -87,11 +87,11 @@ namespace moona {
         return arr;
     }
 
-    jbyteArray JavaByteArray::getJArray() const noexcept {
+    jbyteArray& JavaByteArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jbyteArray>(this->array);
     }
-    JavaByteArray::operator jbyteArray() const noexcept {
+    JavaByteArray::operator jbyteArray&() const noexcept {
         Moona::defaultJNIEnv().SetByteArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jbyteArray>(this->array);
     }
@@ -143,11 +143,11 @@ namespace moona {
         return arr;
     }
 
-    jcharArray JavaCharArray::getJArray() const noexcept {
+    jcharArray& JavaCharArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jcharArray>(this->array);
     }
-    JavaCharArray::operator jcharArray() const noexcept {
+    JavaCharArray::operator jcharArray&() const noexcept {
         Moona::defaultJNIEnv().SetCharArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jcharArray>(this->array);
     }
@@ -190,11 +190,11 @@ namespace moona {
         return arr;
     }
 
-    jintArray JavaIntArray::getJArray() const noexcept {
+    jintArray& JavaIntArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jintArray>(this->array);
     }
-    JavaIntArray::operator jintArray() const noexcept {
+    JavaIntArray::operator jintArray&() const noexcept {
         Moona::defaultJNIEnv().SetIntArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jintArray>(this->array);
     }
@@ -237,11 +237,11 @@ namespace moona {
         return arr;
     }
 
-    jlongArray JavaLongArray::getJArray() const noexcept {
+    jlongArray& JavaLongArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jlongArray>(this->array);
     }
-    JavaLongArray::operator jlongArray() const noexcept {
+    JavaLongArray::operator jlongArray&() const noexcept {
         Moona::defaultJNIEnv().SetLongArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jlongArray>(this->array);
     }
@@ -284,11 +284,11 @@ namespace moona {
         return arr;
     }
 
-    jfloatArray JavaFloatArray::getJArray() const noexcept {
+    jfloatArray& JavaFloatArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jfloatArray>(this->array);
     }
-    JavaFloatArray::operator jfloatArray() const noexcept {
+    JavaFloatArray::operator jfloatArray&() const noexcept {
         Moona::defaultJNIEnv().SetFloatArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jfloatArray>(this->array);
     }
@@ -331,11 +331,11 @@ namespace moona {
         return arr;
     }
 
-    jdoubleArray JavaDoubleArray::getJArray() const noexcept {
+    jdoubleArray& JavaDoubleArray::getJArray() const noexcept {
         Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jdoubleArray>(this->array);
     }
-    JavaDoubleArray::operator jdoubleArray() const noexcept {
+    JavaDoubleArray::operator jdoubleArray&() const noexcept {
         Moona::defaultJNIEnv().SetDoubleArrayRegion(this->array, 0, this->length(), this->elements);
         return static_cast<jdoubleArray>(this->array);
     }

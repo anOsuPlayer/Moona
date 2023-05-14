@@ -59,16 +59,14 @@ namespace moona {
                 return this->elements[index];
             }
 
-            virtual A getJArray() const noexcept abstract;
-            virtual operator A() const noexcept abstract;
+            virtual A& getJArray() const noexcept abstract;
+            virtual operator A&() const noexcept abstract;
 
-            virtual jvalue getJValue() const noexcept {
-                jvalue val; val.l = this->array;
-                return val;
+            virtual JValue getJValue() const noexcept {
+                return JValue(this->array);
             }
-            virtual operator jvalue() const noexcept {
-                jvalue val; val.l = this->array;
-                return val;
+            virtual operator JValue() const noexcept {
+                return JValue(this->array);
             }
             
             size_t length() const noexcept {
@@ -89,8 +87,8 @@ namespace moona {
 
             JavaBooleanArray region(size_t begin, size_t end) const;
 
-            virtual jbooleanArray getJArray() const noexcept override final;
-            virtual operator jbooleanArray() const noexcept override final;
+            virtual jbooleanArray& getJArray() const noexcept override final;
+            virtual operator jbooleanArray&() const noexcept override final;
     };
     class JavaByteArray : public Object<JavaByteArray>, public JavaArray<jbyteArray, jbyte> {
         protected:
@@ -105,8 +103,8 @@ namespace moona {
 
             JavaByteArray region(size_t begin, size_t end) const;
 
-            virtual jbyteArray getJArray() const noexcept override final;
-            virtual operator jbyteArray() const noexcept override final;
+            virtual jbyteArray& getJArray() const noexcept override final;
+            virtual operator jbyteArray&() const noexcept override final;
     };
     class JavaCharArray : public Object<JavaCharArray>, public JavaArray<jcharArray, jchar> {
         protected:
@@ -122,8 +120,8 @@ namespace moona {
 
             JavaCharArray region(size_t begin, size_t end) const;
 
-            virtual jcharArray getJArray() const noexcept override final;
-            virtual operator jcharArray() const noexcept override final;
+            virtual jcharArray& getJArray() const noexcept override final;
+            virtual operator jcharArray&() const noexcept override final;
     };
     class JavaIntArray : public Object<JavaIntArray>, public JavaArray<jintArray, jint> {
         protected:
@@ -138,8 +136,8 @@ namespace moona {
 
             JavaIntArray region(size_t begin, size_t end) const;
 
-            virtual jintArray getJArray() const noexcept override final;
-            virtual operator jintArray() const noexcept override final;
+            virtual jintArray& getJArray() const noexcept override final;
+            virtual operator jintArray&() const noexcept override final;
     };
     class JavaLongArray : public Object<JavaLongArray>, public JavaArray<jlongArray, jlong> {
         protected:
@@ -154,8 +152,8 @@ namespace moona {
 
             JavaLongArray region(size_t begin, size_t end) const;
 
-            virtual jlongArray getJArray() const noexcept override final;
-            virtual operator jlongArray() const noexcept override final;
+            virtual jlongArray& getJArray() const noexcept override final;
+            virtual operator jlongArray&() const noexcept override final;
     };
     class JavaFloatArray : public Object<JavaFloatArray>, public JavaArray<jfloatArray, jfloat> {
         protected:
@@ -170,8 +168,8 @@ namespace moona {
 
             JavaFloatArray region(size_t begin, size_t end) const;
 
-            virtual jfloatArray getJArray() const noexcept override final;
-            virtual operator jfloatArray() const noexcept override final;
+            virtual jfloatArray& getJArray() const noexcept override final;
+            virtual operator jfloatArray&() const noexcept override final;
     };
     class JavaDoubleArray : public Object<JavaDoubleArray>, public JavaArray<jdoubleArray, jdouble> {
         protected:
@@ -186,7 +184,7 @@ namespace moona {
 
             JavaDoubleArray region(size_t begin, size_t end) const;
 
-            virtual jdoubleArray getJArray() const noexcept override final;
-            virtual operator jdoubleArray() const noexcept override final;
+            virtual jdoubleArray& getJArray() const noexcept override final;
+            virtual operator jdoubleArray&() const noexcept override final;
     };
 }
