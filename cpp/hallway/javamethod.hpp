@@ -8,6 +8,7 @@
 #include "javasignature.hpp"
 #include "javavalue.hpp"
 #include "javaobject.hpp"
+#include "javaarray.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 #include "../exceptions/unsupportedexception.hpp"
