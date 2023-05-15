@@ -11,7 +11,7 @@ namespace moona {
     class JavaMethod;
 
     class JavaObject : public Object<JavaObject> {
-        private:
+        protected:
             jobject obj;
 
         public:

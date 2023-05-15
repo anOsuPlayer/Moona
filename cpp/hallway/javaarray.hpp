@@ -31,9 +31,6 @@ namespace moona {
             }
 
         public:
-            JavaArray(const JavaArray<A, T>& arr) {
-                this->array = (A) Moona::defaultJNIEnv().NewGlobalRef(arr.array);
-            }
             virtual ~JavaArray() {
                 Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
                 delete[] this->elements;
@@ -82,6 +79,7 @@ namespace moona {
 
         public:
             JavaBooleanArray(jbooleanArray arr);
+            JavaBooleanArray(const JavaBooleanArray& arr);
             JavaBooleanArray(size_t size, jboolean* elements = nullptr);
             virtual ~JavaBooleanArray() = default;
 
@@ -98,6 +96,7 @@ namespace moona {
 
         public:
             JavaByteArray(jbyteArray arr);
+            JavaByteArray(const JavaByteArray& arr);
             JavaByteArray(size_t size, jbyte* elements = nullptr);
             virtual ~JavaByteArray() = default;
 
@@ -114,6 +113,7 @@ namespace moona {
 
         public:
             JavaCharArray(jcharArray arr);
+            JavaCharArray(const JavaCharArray& arr);
             JavaCharArray(size_t size, jchar* elements = nullptr);
             JavaCharArray(size_t size, const char* elements);
             virtual ~JavaCharArray() = default;
@@ -131,6 +131,7 @@ namespace moona {
 
         public:
             JavaIntArray(jintArray arr);
+            JavaIntArray(const JavaIntArray& arr);
             JavaIntArray(size_t size, jint* elements = nullptr);
             virtual ~JavaIntArray() = default;
 
@@ -147,6 +148,7 @@ namespace moona {
 
         public:
             JavaLongArray(jlongArray arr);
+            JavaLongArray(const JavaLongArray& arr);
             JavaLongArray(size_t size, jlong* elements = nullptr);
             virtual ~JavaLongArray() = default;
 
@@ -163,6 +165,7 @@ namespace moona {
 
         public:
             JavaFloatArray(jfloatArray arr);
+            JavaFloatArray(const JavaFloatArray& arr);
             JavaFloatArray(size_t size, jfloat* elements = nullptr);
             virtual ~JavaFloatArray() = default;
 
@@ -179,6 +182,7 @@ namespace moona {
 
         public:
             JavaDoubleArray(jdoubleArray arr);
+            JavaDoubleArray(const JavaDoubleArray& arr);
             JavaDoubleArray(size_t size, jdouble* elements = nullptr);
             virtual ~JavaDoubleArray() = default;
 
