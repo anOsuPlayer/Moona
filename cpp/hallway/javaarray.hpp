@@ -35,11 +35,12 @@ namespace moona {
             }
 
             virtual JavaArray<A, T>& operator = (const JavaArray<A, T>& arr) noexcept final {
-                this->array = (A) Moona::defaultJNIEnv().NewGlobalRef(arr.array);
-                size_t len = arr.length();
                 if (this->elements != nullptr) {
+                    Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
                     delete[] this->elements;
                 }
+                this->array = (A) Moona::defaultJNIEnv().NewGlobalRef(arr.array);
+                size_t len = arr.length();
                 this->elements = new T[len];
                 for (size_t i = 0; i < len; i++) {
                     this->elements[i] = arr.elements[i];
