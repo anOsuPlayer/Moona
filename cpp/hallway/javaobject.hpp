@@ -18,10 +18,10 @@ namespace moona {
             JavaObject() = delete;
             JavaObject(const jobject& obj);
             JavaObject(const JavaObject& obj);
-            ~JavaObject();
+            virtual ~JavaObject();
 
-            JavaObject& operator = (const JavaObject& obj) noexcept;
-            JavaObject& operator = (const jobject& obj);
+            virtual JavaObject& operator = (const JavaObject& obj) noexcept;
+            virtual JavaObject& operator = (const jobject& obj);
 
             JValue call(const JavaMethod& jm, const jvalue* args = nullptr) const;
 

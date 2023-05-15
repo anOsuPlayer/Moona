@@ -21,8 +21,6 @@ namespace moona {
             A array;
             T* elements;
 
-            bool mustRelease = false;
-
             JavaArray(size_t size) {
                 if (!Moona::enableHallwayAccess) {
                     throw HallwayAccessException();
