@@ -28,7 +28,8 @@ namespace moona {
 
         public:
             JavaClass() = default;
-            explicit JavaClass(const JavaPackage& pack, const char* classname);
+            explicit JavaClass(const char* fullname, size_t arrayDimensions = 0);
+            explicit JavaClass(const JavaPackage& pack, const char* classname, size_t arrayDimensions = 0);
             JavaClass(const JavaClass& clazz);
             ~JavaClass();
 

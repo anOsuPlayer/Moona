@@ -2,7 +2,26 @@
 
 namespace moona {
 
-    JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
+    JavaClass::JavaClass(const char* classname, size_t arrayDimensions) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        size_t len = strlen(classname);
+        this->classname = new char[len+1]; this->classname[len] = '\0';
+        for (size_t i = 0; i < len; i++) {
+            this->classname[i] = (classname[i] == '.') ? '/' : classname[i];
+        }
+
+        jclass c = Moona::defaultJNIEnv().FindClass(this->classname);
+
+        if (c == nullptr) {
+            throw NoSuchClassException();
+        }
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
+        Moona::defaultJNIEnv().DeleteLocalRef(c);
+    }
+    JavaClass::JavaClass(const JavaPackage& pack, const char* classname, size_t arrayDimensions) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
