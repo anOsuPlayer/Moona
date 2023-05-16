@@ -14,7 +14,7 @@ namespace moona {
 
     class JavaPackage : public Object<JavaPackage> {
         private:
-            const char* location;
+            char* location;
 
         public:
             JavaPackage() = delete;

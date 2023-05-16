@@ -7,7 +7,6 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        this->pack = &pack;
         const char* packname = pack.toString();
         unsigned int packlen = strlen(packname), classlen = strlen(classname);
         
@@ -39,7 +38,6 @@ namespace moona {
             this->classname[i] = classname[i];
         }
 
-        this->pack = clazz.pack;
         this->clazz = clazz.clazz;
     }
 
@@ -57,13 +55,12 @@ namespace moona {
             this->classname[i] = classname[i];
         }
 
-        this->pack = other.pack;
         this->clazz = other.clazz;
 
         return *this;
     }
     bool JavaClass::operator == (const JavaClass& other) {
-        return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
+        return (strcmp(this->classname, other.classname) == 0);
     }
 
     JValue JavaClass::call(const JavaStaticMethod& jsm, const jvalue* args) const {
@@ -172,9 +169,6 @@ namespace moona {
     const jclass& JavaClass::getJClass() const noexcept {
         return this->clazz;
     }
-    const JavaPackage& JavaClass::getPackage() const noexcept {
-        return *this->pack;
-    }
 
     JavaMethod JavaClass::getMethod(const char* name, const MethodSignature& ms) const {
         if (name == nullptr) {
@@ -204,6 +198,6 @@ namespace moona {
         return this->classname;
     }
     bool JavaClass::equals(const JavaClass& other) const noexcept {
-        return ((strcmp(this->classname, other.classname) == 0) && this->pack == other.pack);
+        return (strcmp(this->classname, other.classname) == 0);
     }
 }

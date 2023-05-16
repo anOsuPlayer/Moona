@@ -24,7 +24,6 @@ namespace moona {
     class JavaClass : public Object<JavaClass> {
         private:
             char* classname;
-            const JavaPackage* pack;
             jclass clazz;
 
         public:
@@ -39,7 +38,6 @@ namespace moona {
             JValue call(const JavaStaticMethod& jsm, const jvalue* args = nullptr) const;
 
             const jclass& getJClass() const noexcept;
-            const JavaPackage& getPackage() const noexcept;
 
             JavaMethod getMethod(const char* name, const MethodSignature& ms) const;
             JavaStaticMethod getStaticMethod(const char* name, const MethodSignature& ms) const;

@@ -6,17 +6,35 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->location = location;
+        
+        size_t len = strlen(location);
+        this->location = new char[len+1]; this->location[len] = '\0';
+        for (size_t i = 0; i < len; i++) {
+            this->location[i] = location[i];
+        }
     }
     JavaPackage::JavaPackage(const JavaPackage& pack) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->location = pack.location;
+        
+        size_t len = strlen(pack.location);
+        this->location = new char[len+1]; this->location[len] = '\0';
+        for (size_t i = 0; i < len; i++) {
+            this->location[i] = pack.location[i];
+        }
     }
 
     JavaPackage& JavaPackage::operator = (const JavaPackage& other) noexcept {
-        this->location = other.location;
+        if (this->location != nullptr) {
+            delete[] this->location;
+        }
+
+        size_t len = strlen(other.location);
+        this->location = new char[len+1]; this->location[len] = '\0';
+        for (size_t i = 0; i < len; i++) {
+            this->location[i] = other.location[i];
+        }
 
         return *this;
     }
