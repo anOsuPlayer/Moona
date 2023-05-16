@@ -2,7 +2,7 @@
 
 namespace moona {
 
-    JavaClass::JavaClass(const char* classname, size_t arrayDimensions) {
+    JavaClass::JavaClass(const char* classname) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
@@ -21,7 +21,7 @@ namespace moona {
         this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
-    JavaClass::JavaClass(const JavaPackage& pack, const char* classname, size_t arrayDimensions) {
+    JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
@@ -204,6 +204,49 @@ namespace moona {
 
     JavaConstructor JavaClass::getConstructor(const ConstructorSignature& cs) const {
         return JavaConstructor(*this, cs);
+    }
+
+    JavaClass JavaClass::arrayType() const noexcept {
+        size_t len = strlen(this->classname);
+        if (this->classname[0] != '[') {
+            char* name = new char[len+4];
+            name[0] = '['; name[1] = 'L', name[len+2] = ';', name[len+3] = '\0';
+            for (size_t i = 2; i < len+2; i++) {
+                name[i] = this->classname[i-2];
+            }
+
+            JavaClass clazz(name);
+            delete[] name;
+
+            return clazz;
+        }
+
+        char* name = new char[len+2];
+        name[0] = '[', name[len+1] = '\0';
+        for (size_t i = 1; i < len+1; i++) {
+            name[i] = this->classname[i-1];
+        }
+
+        JavaClass clazz(name);
+        delete[] name;
+
+        return clazz;
+    }
+    JavaClass JavaClass::componentType() const noexcept {
+        if (this->classname[0] == '[') {
+            return *this;
+        }
+
+        size_t len = strlen(this->classname);
+        char* name = new char[len]; name[len-1] = '\0';
+        for (size_t i = 1; i < len; i++) {
+            name[i-1] = this->classname[i];
+        }
+
+        JavaClass clazz(name);
+        delete[] name;
+        
+        return clazz;
     }
 
     JavaClass::operator const jclass&() const noexcept {

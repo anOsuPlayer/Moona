@@ -26,10 +26,12 @@ namespace moona {
             char* classname;
             jclass clazz;
 
+            static const JavaMethod CLASS_TO_STRING;
+
         public:
             JavaClass() = default;
-            explicit JavaClass(const char* fullname, size_t arrayDimensions = 0);
-            explicit JavaClass(const JavaPackage& pack, const char* classname, size_t arrayDimensions = 0);
+            explicit JavaClass(const char* fullname);
+            explicit JavaClass(const JavaPackage& pack, const char* classname);
             JavaClass(const JavaClass& clazz);
             ~JavaClass();
 
@@ -44,6 +46,9 @@ namespace moona {
             JavaStaticMethod getStaticMethod(const char* name, const MethodSignature& ms) const;
 
             JavaConstructor getConstructor(const ConstructorSignature& cs = ConstructorSignature::DEFAULT) const;
+
+            JavaClass arrayType() const noexcept;
+            JavaClass componentType() const noexcept;
 
             operator const jclass&() const noexcept;
             operator const char*() const noexcept;
