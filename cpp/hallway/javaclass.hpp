@@ -30,6 +30,7 @@ namespace moona {
 
         public:
             JavaClass() = default;
+            JavaClass(jclass clazz);
             explicit JavaClass(const char* fullname);
             explicit JavaClass(const JavaPackage& pack, const char* classname);
             JavaClass(const JavaClass& clazz);

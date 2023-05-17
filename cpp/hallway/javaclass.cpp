@@ -2,6 +2,29 @@
 
 namespace moona {
 
+    JavaClass::JavaClass(jclass clazz) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz);
+
+        jmethodID getClass = Moona::defaultJNIEnv().GetMethodID(this->clazz, "getClass", MethodSignature(ObjectSignature("java.lang.Class")));
+        jclass thisClass = (jclass) Moona::defaultJNIEnv().CallObjectMethod(this->clazz, getClass);
+        jmethodID getName = Moona::defaultJNIEnv().GetMethodID(thisClass, "getName", MethodSignature::STRING_METHOD);
+        jstring name = (jstring) Moona::defaultJNIEnv().CallObjectMethod(this->clazz, getName);
+
+        const char* str = Moona::defaultJNIEnv().GetStringUTFChars(name, 0);
+        size_t len = strlen(str);
+        this->classname = new char[len+1]; this->classname[len] = '\0';        
+        for (size_t i = 0; i < len; i++) {
+            this->classname[i] = str[i];
+        }
+
+        Moona::defaultJNIEnv().ReleaseStringUTFChars(name, str);
+        Moona::defaultJNIEnv().DeleteLocalRef(thisClass);
+        Moona::defaultJNIEnv().DeleteLocalRef(name);
+    }
     JavaClass::JavaClass(const char* classname) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
