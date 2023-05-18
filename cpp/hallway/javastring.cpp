@@ -2,6 +2,23 @@
 
 namespace moona {
 
+    JavaStringImpl::JavaStringImpl(const char* text) {
+        jstring str = Moona::defaultJNIEnv().NewStringUTF(text);
+        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(str);
+        Moona::defaultJNIEnv().DeleteLocalRef(str);
+    }
+
+    JavaStringImpl::~JavaStringImpl() {
+        Moona::defaultJNIEnv().DeleteGlobalRef(this->str);
+    }
+
+    JavaStringImpl::operator jstring&() noexcept {
+        return this->str;
+    }
+    jstring& JavaStringImpl::getJString() noexcept {
+        return this->str;
+    }
+
     JavaString::JavaString() {
         this->text = new char[0];
     }
@@ -17,10 +34,6 @@ namespace moona {
         for (size_t i = init; i < end; i++) {
             this->text[i-init] = str[init+i]; 
         }
-
-        jstring ref = Moona::defaultJNIEnv().NewStringUTF(this->text);
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(this->str);
-        Moona::defaultJNIEnv().DeleteLocalRef(ref);
     }
     JavaString::JavaString(JavaCharArray& charr, size_t init, size_t end) {
         if (init > end) {
@@ -33,17 +46,11 @@ namespace moona {
         for (size_t i = init; i < end; i++) {
             this->text[i-init] = charr[init+i]; 
         }
-
-        jstring ref = Moona::defaultJNIEnv().NewStringUTF(this->text);
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(this->str);
-        Moona::defaultJNIEnv().DeleteLocalRef(ref);
     }
     JavaString::JavaString(jstring str, size_t init, size_t end) {
         if (init > end) {
             throw IllegalArgumentException("Invalid combination of init and end index.");
         }
-
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(str);
 
         size_t len = Moona::defaultJNIEnv().GetStringLength(str);
         if (end == 0) { end = len; }
@@ -55,9 +62,7 @@ namespace moona {
             throw IllegalArgumentException("Invalid combination of init and end index.");
         }
 
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(str.str);
-
-        size_t len = Moona::defaultJNIEnv().GetStringLength(this->str);
+        size_t len = strlen(str.text);
         if (end == 0) { end = len; }
         this->text = new char[end-init+1]; this->text[end-init] = '\0';
         for (size_t i = init; i < end; i++) {
@@ -71,9 +76,6 @@ namespace moona {
 
     JavaString& JavaString::operator = (const JavaString& str) noexcept {
         delete[] this->text;
-        if (this->str != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->str);
-        }
 
         size_t len = str.length();
         this->text = new char[len+1]; this->text[len] = '\0';
@@ -81,19 +83,10 @@ namespace moona {
             this->text[i] = str.text[i];
         }
 
-        jstring ref = Moona::defaultJNIEnv().NewStringUTF(this->text);
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(this->str);
-        Moona::defaultJNIEnv().DeleteLocalRef(ref);
-
         return *this;
     }
     JavaString& JavaString::operator = (jstring str) noexcept {
         delete[] this->text;
-        if (this->str != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->str);
-        }
-
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(str);
 
         size_t len = Moona::defaultJNIEnv().GetStringUTFLength(str);
         this->text = new char[len+1]; this->text[len] = '\0';
@@ -141,13 +134,24 @@ namespace moona {
     }
 
     size_t JavaString::length() const noexcept {
-        return Moona::defaultJNIEnv().GetStringUTFLength(this->str);
+        return strlen(this->text);
     }
 
-    JavaString::operator const jstring&() const noexcept {
-        return this->str;
+    JavaCharArray JavaString::toCharArray() const noexcept {
+        return JavaCharArray(this->length(), this->text);
     }
-    const jstring& JavaString::getJString() const noexcept {
-        return this->str;
+
+    JavaString::operator const JavaStringImpl() const noexcept {
+        return JavaStringImpl(this->text);
+    }
+    const JavaStringImpl JavaString::getJString() const noexcept {
+        return JavaStringImpl(this->text);
+    }
+
+    const char* JavaString::toString() const noexcept {
+        return this->text;
+    }
+    bool JavaString::equals(const JavaString& str) const noexcept {
+        return *this == str;
     }
 }

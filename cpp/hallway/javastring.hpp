@@ -3,15 +3,30 @@
 #include <jni.h>
 
 #include "javaobject.hpp"
+#include "javaarray.hpp"
 #include "../base/object.hpp"
 #include "../exceptions/illegalexception.hpp"
 #include "../exceptions/indexexception.hpp"
 
 namespace moona {
 
-    class JavaString : public Object<JavaString> {
+    class JavaStringImpl : public Object<JavaStringImpl> {
         private:
             jstring str;
+
+            JavaStringImpl(const char* text);
+
+        public:
+            ~JavaStringImpl();
+
+            operator jstring&() noexcept;
+            jstring& getJString() noexcept;
+
+        friend class JavaString;
+    };
+
+    class JavaString : public Object<JavaString> {
+        private:
             char* text;
 
         public:
@@ -30,10 +45,19 @@ namespace moona {
 
             char& operator [] (size_t index);
 
+            friend std::ostream& operator << (std::ostream& os, const JavaString& str) noexcept {
+                os << str.text;
+                return os;
+            }
+
             size_t length() const noexcept;
 
-            operator const jstring&() const noexcept;
-            
-            const jstring& getJString() const noexcept;
+            JavaCharArray toCharArray() const noexcept;
+
+            operator const JavaStringImpl() const noexcept;
+            const JavaStringImpl getJString() const noexcept;
+
+            virtual const char* toString() const noexcept override final;
+            virtual bool equals(const JavaString& str) const noexcept override final;
     };
 }

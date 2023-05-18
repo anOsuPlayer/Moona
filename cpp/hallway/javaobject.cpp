@@ -136,7 +136,7 @@ namespace moona {
         return r;
     }
 
-    JavaClass JavaObject::getClass() const noexcept {
+    JavaClass JavaObject::getClass() const {
         if (this->getJObject() == nullptr) {
             throw NullPointerException("Unable to call .getClass() method on a null JavaObject.");
         }

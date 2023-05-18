@@ -26,7 +26,7 @@ namespace moona {
 
             JValue call(const JavaMethod& jm, const jvalue* args = nullptr) const;
 
-            JavaClass getClass() const noexcept;
+            JavaClass getClass() const;
 
             operator const jobject&() const noexcept;
             
