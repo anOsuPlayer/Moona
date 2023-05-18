@@ -22,8 +22,8 @@ namespace moona {
         }
 
         Moona::defaultJNIEnv().ReleaseStringUTFChars(name, str);
-        Moona::defaultJNIEnv().DeleteLocalRef(thisClass);
         Moona::defaultJNIEnv().DeleteLocalRef(name);
+        Moona::defaultJNIEnv().DeleteLocalRef(thisClass);
     }
     JavaClass::JavaClass(const char* classname) {
         if (!Moona::enableHallwayAccess) {
@@ -50,15 +50,15 @@ namespace moona {
         }
 
         const char* packname = pack.toString();
-        unsigned int packlen = strlen(packname), classlen = strlen(classname);
+        size_t packlen = strlen(packname), classlen = strlen(classname);
         
         this->classname = new char[packlen+classlen+1];
 
-        for (unsigned int i = 0; i < packlen; i++) {
+        for (size_t i = 0; i < packlen; i++) {
             this->classname[i] = (packname[i] == '.') ? '/' : packname[i];
         }
         this->classname[packlen] = '/';
-        for (unsigned int i = packlen+1; i < packlen+classlen+1; i++) {
+        for (size_t i = packlen+1; i < packlen+classlen+1; i++) {
             this->classname[i] = classname[i-packlen-1];
         }
         this->classname[packlen+classlen+1] = '\0';
@@ -73,10 +73,10 @@ namespace moona {
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
         const char* classname = clazz.classname;
-        unsigned int len = strlen(classname);
+        size_t len = strlen(classname);
         this->classname = new char[len+1]; this->classname[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->classname[i] = classname[i];
         }
 
@@ -90,10 +90,10 @@ namespace moona {
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
         const char* classname = other.classname;
-        unsigned int len = strlen(classname);
+        size_t len = strlen(classname);
         this->classname = new char[len+1]; this->classname[len] = '\0';
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (size_t i = 0; i < len; i++) {
             this->classname[i] = classname[i];
         }
 
