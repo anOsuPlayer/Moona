@@ -12,10 +12,11 @@ namespace moona {
 
     class JavaObject : public Object<JavaObject> {
         protected:
+            JavaObject() = default;
+
             jobject obj;
 
         public:
-            JavaObject() = delete;
             JavaObject(const jobject& obj);
             JavaObject(const JavaObject& obj);
             virtual ~JavaObject();

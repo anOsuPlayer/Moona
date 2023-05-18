@@ -137,10 +137,10 @@ namespace moona {
     }
 
     JavaClass JavaObject::getClass() const noexcept {
-        if (this->obj != nullptr) {
-            return JavaClass(Moona::defaultJNIEnv().GetObjectClass(this->obj));
+        if (this->getJObject() == nullptr) {
+            throw NullPointerException("Unable to call .getClass() method on a null JavaObject.");
         }
-        throw NullPointerException("Unable to call .getClass() method on a null JavaObject.");
+        return JavaClass(Moona::defaultJNIEnv().GetObjectClass(this->obj));
     }
 
     JavaObject::operator const jobject&() const noexcept {

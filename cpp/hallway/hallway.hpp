@@ -16,3 +16,4 @@
 #include "javafield.hpp"
 #include "javaarray.hpp"
 #include "javaobject.hpp"
+#include "javastring.hpp"
