@@ -198,7 +198,7 @@ public final class Dynamo {
 	}
 	
 	static String generateName(NativeGeneration ng) {
-		return (ng.getSource().getDeclaringClass().getName() + "." + ng.getSource().getName()).replace('.', '_');
+		return (ng.getSource().getDeclaringClass().getName() + "." + ng.getSource().getName()).replace('.', '_').replace("$", "_00024");
 	}
 	
 	private static String generationID(NativeGeneration ng) {

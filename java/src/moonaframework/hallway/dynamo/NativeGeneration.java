@@ -23,7 +23,7 @@ public final class NativeGeneration {
 		return this.imports;
 	}
 	
-	public void addRequiredImport(String imp) throws NullArgumentException, IllegalArgumentException {
+	private void addRequiredImport(String imp) throws NullArgumentException, IllegalArgumentException {
 		if (imp == null) {
 			throw new NullArgumentException("Unable to add a null String as an import.");
 		}
@@ -51,7 +51,7 @@ public final class NativeGeneration {
 		return this.files;
 	}
 	
-	public void addRequiredFile(String file) throws NullArgumentException, IllegalArgumentException {
+	private void addRequiredFile(String file) throws NullArgumentException, IllegalArgumentException {
 		if (file == null) {
 			throw new NullArgumentException("Unable to add a null String as a required file.");
 		}
