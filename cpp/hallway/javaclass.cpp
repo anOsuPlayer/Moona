@@ -208,6 +208,101 @@ namespace moona {
         return r;
     }
 
+    JValue JavaClass::access(const JavaStaticField& jsf) const {
+        const char id = jsf.getSignature()[0];
+        JValue r;
+
+        switch (id) {
+            case 'Z': {
+                r = Moona::defaultJNIEnv().GetStaticBooleanField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'B': {
+                r = Moona::defaultJNIEnv().GetStaticByteField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'S': {
+                r = Moona::defaultJNIEnv().GetStaticShortField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'C': {
+                r = Moona::defaultJNIEnv().GetStaticCharField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'I': {
+                r = Moona::defaultJNIEnv().GetStaticIntField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'J': {
+                r = Moona::defaultJNIEnv().GetStaticLongField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'F': {
+                r = Moona::defaultJNIEnv().GetStaticFloatField(this->clazz, jsf.getJField());
+                break;
+            }
+            case 'D': {
+                r = Moona::defaultJNIEnv().GetStaticDoubleField(this->clazz, jsf.getJField());
+                break;
+            }
+            default: {
+                r = Moona::defaultJNIEnv().GetStaticObjectField(this->clazz, jsf.getJField());
+                break;
+            }
+        }
+
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            throw JVMException();
+        }
+        return r;
+    }
+    void JavaClass::edit(const JavaStaticField& jsf, const jvalue& value) {
+        const char id = jsf.getSignature()[0];
+
+        switch (id) {
+            case 'Z': {
+                Moona::defaultJNIEnv().SetStaticBooleanField(this->clazz, jsf.getJField(), value.z);
+                break;
+            }
+            case 'B': {
+                Moona::defaultJNIEnv().SetStaticByteField(this->clazz, jsf.getJField(), value.b);
+                break;
+            }
+            case 'S': {
+                Moona::defaultJNIEnv().SetStaticShortField(this->clazz, jsf.getJField(), value.s);
+                break;
+            }
+            case 'C': {
+                Moona::defaultJNIEnv().SetStaticCharField(this->clazz, jsf.getJField(), value.c);
+                break;
+            }
+            case 'I': {
+                Moona::defaultJNIEnv().SetStaticIntField(this->clazz, jsf.getJField(), value.i);
+                break;
+            }
+            case 'J': {
+                Moona::defaultJNIEnv().SetStaticLongField(this->clazz, jsf.getJField(), value.j);
+                break;
+            }
+            case 'F': {
+                Moona::defaultJNIEnv().SetStaticFloatField(this->clazz, jsf.getJField(), value.f);
+                break;
+            }
+            case 'D': {
+                Moona::defaultJNIEnv().SetStaticDoubleField(this->clazz, jsf.getJField(), value.d);
+                break;
+            }
+            default: {
+                Moona::defaultJNIEnv().SetStaticObjectField(this->clazz, jsf.getJField(), value.l);
+                break;
+            }
+        }
+
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            throw JVMException();
+        }
+    }
+
     const jclass& JavaClass::getJClass() const noexcept {
         return this->clazz;
     }
@@ -227,6 +322,19 @@ namespace moona {
 
     JavaConstructor JavaClass::getConstructor(const ConstructorSignature& cs) const {
         return JavaConstructor(*this, cs);
+    }
+
+    JavaField JavaClass::getField(const char* name, const FieldSignature& fs) {
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find any JavaField from a nullptr.");
+        }
+        return JavaField(name, *this, fs);
+    }
+    JavaStaticField JavaClass::getStaticField(const char* name, const FieldSignature& fs) {
+        if (name == nullptr) {
+            throw NullPointerException("Unable to find any JavaStaticField from a nullptr.");
+        }
+        return JavaStaticField(name, *this, fs);
     }
 
     JavaClass JavaClass::arrayType() const noexcept {
@@ -274,9 +382,6 @@ namespace moona {
 
     JavaClass::operator const jclass&() const noexcept {
         return this->clazz;
-    }
-    JavaClass::operator const char*() const noexcept {
-        return this->classname;
     }
 
     const char* JavaClass::toString() const noexcept {

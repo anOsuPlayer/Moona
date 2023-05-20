@@ -30,14 +30,13 @@ namespace moona {
             explicit JavaMethod(const char* name, const JavaClass& clazz, const MethodSignature& sign);
             JavaMethod(const JavaMethod& meth);
             virtual ~JavaMethod() = default;
-            
-            operator const char*() const noexcept;
+
+            const jmethodID& getJMethod() const noexcept;        
             operator const jmethodID&() const noexcept;
 
             virtual JavaMethod& operator = (const JavaMethod& other) noexcept;
             virtual bool operator == (const JavaMethod& other) const noexcept;
 
-            const jmethodID& getJMethod() const noexcept;
             const MethodSignature& getSignature() const noexcept;
 
             virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const;

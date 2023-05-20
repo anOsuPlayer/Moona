@@ -20,7 +20,8 @@ namespace moona {
         LONG = 5,
         FLOAT = 6,
         DOUBLE = 7,
-        OBJECT = -2
+        OBJECT = -2,
+        STRING = -3
     };
 
     class JValue : public Entity<JValue> {
@@ -80,6 +81,7 @@ namespace moona {
             JValue(const jfloat& f);
             JValue(const jdouble& d);
             JValue(const jobject& o);
+            JValue(const char* str);
             JValue(const JValue& val);
             ~JValue() = default;
 
@@ -92,6 +94,7 @@ namespace moona {
             JValue& operator = (const jfloat& f) noexcept;
             JValue& operator = (const jdouble& d) noexcept;
             JValue& operator = (const jobject& o) noexcept;
+            JValue& operator = (const char* str) noexcept;
 
             JValue& operator = (const JValue& val) noexcept;
 
@@ -106,6 +109,7 @@ namespace moona {
             void setValue(const jfloat& f) noexcept;
             void setValue(const jdouble& d) noexcept;
             void setValue(const jobject& o) noexcept;
+            void setValue(const char* str) noexcept;
 
             operator const jboolean() const;
             operator const jbyte() const;
@@ -116,6 +120,7 @@ namespace moona {
             operator const jfloat() const;
             operator const jdouble() const;
             operator const jobject() const;
+            operator const jstring() const;
 
             operator const jvalue() const;
 
@@ -155,6 +160,12 @@ namespace moona {
                     }
                     case ValueTag::OBJECT : {
                         os << val.o;
+                        break;
+                    }
+                    case ValueTag::STRING : {
+                        const char* str = Moona::defaultJNIEnv().GetStringUTFChars((jstring) val.o, 0);
+                        os << str;
+                        Moona::defaultJNIEnv().ReleaseStringUTFChars((jstring) val.o, str);
                         break;
                     }
                     case ValueTag::NONE : {

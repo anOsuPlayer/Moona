@@ -41,10 +41,7 @@ namespace moona {
     bool JavaMethod::operator == (const JavaMethod& other) const noexcept {
         return ((strcmp(this->name, other.name) == 0) && this->sign == other.sign);
     }
-
-    JavaMethod::operator const char*() const noexcept {
-        return this->name;
-    }
+    
     JavaMethod::operator const jmethodID&() const noexcept {
         return this->method;
     }

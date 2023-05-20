@@ -136,6 +136,13 @@ namespace moona {
         return r;
     }
 
+    JValue JavaObject::access(const JavaField& jf) const {
+        return JValue();
+    }
+    void JavaObject::edit(const JavaField& jf, const jvalue& value) {
+        
+    }
+
     JavaClass JavaObject::getClass() const {
         if (this->getJObject() == nullptr) {
             throw NullPointerException("Unable to call .getClass() method on a null JavaObject.");
@@ -148,5 +155,33 @@ namespace moona {
     }
     const jobject& JavaObject::getJObject() const noexcept {
         return this->obj;
+    }
+
+    const char* JavaObject::toString() const noexcept {
+        jclass clazz = Moona::defaultJNIEnv().GetObjectClass(this->obj);
+        jmethodID toString = Moona::defaultJNIEnv().GetMethodID(clazz, "toString", MethodSignature::TO_STRING);
+
+        JavaString str = (jstring) Moona::defaultJNIEnv().CallObjectMethod(this->obj, toString);
+        char* res = new char[str.length()]; strcpy(res, str);
+        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
+
+        return res;
+    }
+    bool JavaObject::equals(const JavaObject& obj) const noexcept {
+        return this->equals(obj.getJObject());
+    }
+
+    bool JavaObject::equals(const jobject& obj) const noexcept {
+        jclass clazz = Moona::defaultJNIEnv().GetObjectClass(this->obj);
+        jmethodID equals = Moona::defaultJNIEnv().GetMethodID(clazz, "equals", MethodSignature::EQUALS);
+
+        jboolean res = Moona::defaultJNIEnv().CallBooleanMethod(this->obj, equals, obj);
+        bool eq = (res == 1) ? true : false;
+        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
+
+        return eq;
+    }
+    bool JavaObject::sameType(const jobject& obj) const noexcept {
+        return Moona::defaultJNIEnv().GetObjectClass(this->obj) == Moona::defaultJNIEnv().GetObjectClass(obj);
     }
 }

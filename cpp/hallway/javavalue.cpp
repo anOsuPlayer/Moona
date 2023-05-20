@@ -32,6 +32,9 @@ namespace moona {
     JValue::JValue(const jobject& o) : o{o} {
         this->tag = ValueTag::OBJECT;
     }
+    JValue::JValue(const char* str) : o{Moona::defaultJNIEnv().NewStringUTF(str)} {
+        this->tag = ValueTag::STRING;
+    }
 
     JValue::JValue(const JValue& val) {
         *this = val;
@@ -93,6 +96,12 @@ namespace moona {
 
         return *this;
     }
+    JValue& JValue::operator = (const char* str) noexcept {
+        this->tag = ValueTag::STRING;
+        this->o = Moona::defaultJNIEnv().NewStringUTF(str);
+
+        return *this;
+    }
 
     JValue& JValue::operator = (const JValue& val) noexcept {
         this->tag = val.tag;
@@ -130,6 +139,7 @@ namespace moona {
                 this->d = val.d;
                 break;
             }
+            case ValueTag::STRING : 
             case ValueTag::OBJECT : {
                 this->o = val.o;
                 break;
@@ -142,6 +152,15 @@ namespace moona {
     bool JValue::operator == (const JValue& val) const noexcept {
         if (this->tag <= 0 || val.tag <= 0) {
             switch (this->tag) {
+                case ValueTag::STRING : {
+                    const char* chars1 = Moona::defaultJNIEnv().GetStringUTFChars((jstring) this->o, 0);
+                    const char* chars2 = Moona::defaultJNIEnv().GetStringUTFChars((jstring) val.o, 0);
+                    bool comp = (strcmp(chars1, chars2) == 1) ? true : false;
+
+                    Moona::defaultJNIEnv().ReleaseStringUTFChars((jstring) this->o, chars1);
+                    Moona::defaultJNIEnv().ReleaseStringUTFChars((jstring) val.o, chars2);
+                    return comp;
+                }
                 case ValueTag::OBJECT : {
                     return (val.tag == ValueTag::OBJECT) && this->o == val.o;
                 }
@@ -245,6 +264,10 @@ namespace moona {
         this->tag = ValueTag::OBJECT;
         this->o = o;
     }
+    void JValue::setValue(const char* str) noexcept {
+        this->tag = ValueTag::STRING;
+        this->o = Moona::defaultJNIEnv().NewStringUTF(str);
+    }
 
     JValue::operator const jboolean() const {
         if (this->tag != ValueTag::BOOLEAN) {
@@ -316,6 +339,7 @@ namespace moona {
                 val.d = this->d;
                 break;
             }
+            case ValueTag::STRING :
             case ValueTag::OBJECT : {
                 val.l = this->o;
                 break;

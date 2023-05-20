@@ -2,7 +2,7 @@
 
 namespace moona {
 
-    JavaField::JavaField(const char* name, const JavaClass& clazz, const FieldSignature& sign) {
+    JavaField::JavaField(const char* name, JavaClass& clazz, const FieldSignature& sign) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
@@ -19,15 +19,15 @@ namespace moona {
             throw NoSuchFieldException();
         }
     }
-    JavaField::JavaField(const JavaField& meth) {
+    JavaField::JavaField(const JavaField& field) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
 
-        this->clazz = meth.clazz;
-        this->name = meth.name;
-        this->sign = meth.sign;
-        this->field = meth.field;
+        this->clazz = field.clazz;
+        this->name = field.name;
+        this->sign = field.sign;
+        this->field = field.field;
     }
 
     JavaField& JavaField::operator = (const JavaField& other) noexcept {
@@ -42,9 +42,6 @@ namespace moona {
         return ((strcmp(this->name, other.name) == 0) && this->sign == other.sign);
     }
 
-    JavaField::operator const char*() const noexcept {
-        return this->name;
-    }
     JavaField::operator const jfieldID&() const noexcept {
         return this->field;
     }
@@ -56,6 +53,13 @@ namespace moona {
         return this->sign;
     }
 
+    JValue JavaField::accessOn(const JavaObject& obj) const {
+        return obj.access(*this);
+    }
+    void JavaField::editOn(JavaObject& obj, const jvalue& value) {
+        obj.edit(*this, value);
+    }
+
     const char* JavaField::toString() const noexcept {
         return this->name;
     }
@@ -63,12 +67,12 @@ namespace moona {
         return ((strcmp(this->name, other.name) == 0) && this->sign == other.sign);
     }
 
-    JavaStaticField::JavaStaticField(const char* name, const JavaClass& clazz, const FieldSignature& sign) {
+    JavaStaticField::JavaStaticField(const char* name, JavaClass& clazz, const FieldSignature& sign) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
         if (name == nullptr) {
-            throw NullPointerException("Unable to find a JavaMethod from a nullptr.");
+            throw NullPointerException("Unable to find a Javafieldod from a nullptr.");
         }
 
         this->clazz = &clazz;
@@ -77,17 +81,31 @@ namespace moona {
         this->field = Moona::defaultJNIEnv().GetStaticFieldID(clazz.getJClass(), name, sign.getSignature());
 
         if (this->field == nullptr) {
-            throw NoSuchMethodException();
+            throw NoSuchFieldException();
         }
     }
-    JavaStaticField::JavaStaticField(const JavaStaticField& meth) {
+    JavaStaticField::JavaStaticField(const JavaStaticField& field) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
         
-        this->clazz = meth.clazz;
-        this->name = meth.name;
-        this->sign = meth.sign;
-        this->field = meth.field;
+        this->clazz = field.clazz;
+        this->name = field.name;
+        this->sign = field.sign;
+        this->field = field.field;
+    }
+
+    JValue JavaStaticField::accessOn(const JavaObject& obj) const {
+        throw UnsupportedOperationException("Unable to access a JavaStaticField from a JavaObject.");
+    }
+    void JavaStaticField::editOn(JavaObject& obj, const jvalue& value) {
+        throw UnsupportedOperationException("Unable to edit a JavaStaticField from a JavaObject.");
+    }
+
+    JValue JavaStaticField::access() const {
+        return this->clazz->access(*this);
+    }
+    void JavaStaticField::edit(const jvalue& value) const {
+        this->clazz->edit(*this, value);
     }
 }

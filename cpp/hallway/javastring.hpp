@@ -10,24 +10,10 @@
 
 namespace moona {
 
-    class JavaStringImpl : public Object<JavaStringImpl> {
-        private:
-            jstring str;
-
-            JavaStringImpl(const char* text);
-
-        public:
-            ~JavaStringImpl();
-
-            operator jstring&() noexcept;
-            jstring& getJString() noexcept;
-
-        friend class JavaString;
-    };
-
     class JavaString : public Object<JavaString> {
         private:
             char* text;
+            mutable jstring str;
 
         public:
             JavaString();
@@ -54,8 +40,10 @@ namespace moona {
 
             JavaCharArray toCharArray() const noexcept;
 
-            operator const JavaStringImpl() const noexcept;
-            const JavaStringImpl getJString() const noexcept;
+            operator const jstring&() const noexcept;
+            const jstring& getJString() const noexcept;
+
+            operator const char*() const noexcept;
 
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaString& str) const noexcept override final;

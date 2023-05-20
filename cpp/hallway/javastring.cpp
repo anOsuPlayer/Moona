@@ -2,23 +2,6 @@
 
 namespace moona {
 
-    JavaStringImpl::JavaStringImpl(const char* text) {
-        jstring str = Moona::defaultJNIEnv().NewStringUTF(text);
-        this->str = (jstring) Moona::defaultJNIEnv().NewGlobalRef(str);
-        Moona::defaultJNIEnv().DeleteLocalRef(str);
-    }
-
-    JavaStringImpl::~JavaStringImpl() {
-        Moona::defaultJNIEnv().DeleteGlobalRef(this->str);
-    }
-
-    JavaStringImpl::operator jstring&() noexcept {
-        return this->str;
-    }
-    jstring& JavaStringImpl::getJString() noexcept {
-        return this->str;
-    }
-
     JavaString::JavaString() {
         this->text = new char[0];
     }
@@ -71,6 +54,9 @@ namespace moona {
     }
 
     JavaString::~JavaString() {
+        if (this->str != nullptr) {
+            Moona::defaultJNIEnv().DeleteLocalRef(this->str);
+        }
         delete[] this->text;
     }
 
@@ -141,11 +127,19 @@ namespace moona {
         return JavaCharArray(this->length(), this->text);
     }
 
-    JavaString::operator const JavaStringImpl() const noexcept {
-        return JavaStringImpl(this->text);
+    JavaString::operator const jstring&() const noexcept {
+        return this->getJString();
     }
-    const JavaStringImpl JavaString::getJString() const noexcept {
-        return JavaStringImpl(this->text);
+    const jstring& JavaString::getJString() const noexcept {
+        if (this->str != nullptr) {
+            Moona::defaultJNIEnv().DeleteLocalRef(this->str);
+        }
+        this->str = Moona::defaultJNIEnv().NewStringUTF(this->text);
+        return this->str;
+    }
+
+    JavaString::operator const char*() const noexcept {
+        return this->text;
     }
 
     const char* JavaString::toString() const noexcept {
