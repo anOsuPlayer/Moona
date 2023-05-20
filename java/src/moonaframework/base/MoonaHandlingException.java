@@ -8,16 +8,13 @@ public class MoonaHandlingException extends RuntimeException {
 	
 	public MoonaHandlingException(String message, Throwable cause) {
 		super(message, cause);
-		Moona.isOn = false;
 	}
 	
 	public MoonaHandlingException(String message) {
 		super(message);
-		Moona.isOn = false;
 	}
 	
 	public MoonaHandlingException() {
 		super("Something went wrong with Moona...");
-		Moona.isOn = false;
 	}
 }
