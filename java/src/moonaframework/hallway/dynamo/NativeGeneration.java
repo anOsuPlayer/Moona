@@ -62,7 +62,7 @@ public final class NativeGeneration {
 	}
 	public void addRequiredFiles(String...files) throws NullArgumentException, IllegalArgumentException {
 		for (String file : files) {
-			addRequiredImport(file);
+			addRequiredFile(file);
 		}
 	}
 	
