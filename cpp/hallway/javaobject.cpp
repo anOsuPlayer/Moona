@@ -137,10 +137,98 @@ namespace moona {
     }
 
     JValue JavaObject::access(const JavaField& jf) const {
-        return JValue();
+        const char id = jf.getSignature()[0];
+        JValue r;
+
+        switch (id) {
+            case 'Z' : {
+                r = Moona::defaultJNIEnv().GetBooleanField(this->obj, jf.getJField());
+                break;
+            }
+            case 'B' : {
+                r = Moona::defaultJNIEnv().GetByteField(this->obj, jf.getJField());
+                break;
+            }
+            case 'S' : {
+                r = Moona::defaultJNIEnv().GetShortField(this->obj, jf.getJField());
+                break;
+            }
+            case 'C' : {
+                r = Moona::defaultJNIEnv().GetCharField(this->obj, jf.getJField());
+                break;
+            }
+            case 'I' : {
+                r = Moona::defaultJNIEnv().GetIntField(this->obj, jf.getJField());
+                break;
+            }
+            case 'J' : {
+                r = Moona::defaultJNIEnv().GetLongField(this->obj, jf.getJField());
+                break;
+            }
+            case 'F' : {
+                r = Moona::defaultJNIEnv().GetFloatField(this->obj, jf.getJField());
+                break;
+            }
+            case 'D' : {
+                r = Moona::defaultJNIEnv().GetDoubleField(this->obj, jf.getJField());
+                break;
+            }
+            default : {
+                r = Moona::defaultJNIEnv().GetObjectField(this->obj, jf.getJField());
+                break;
+            }
+        }
+
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            throw JVMException();
+        }
+        return r;
     }
     void JavaObject::edit(const JavaField& jf, const jvalue& value) {
-        
+        const char id = jf.getSignature()[0];
+
+        switch (id) {
+            case 'Z' : {
+                Moona::defaultJNIEnv().SetBooleanField(this->obj, jf.getJField(), value.z);
+                break;
+            }
+            case 'B' : {
+                Moona::defaultJNIEnv().SetByteField(this->obj, jf.getJField(), value.b);
+                break;
+            }
+            case 'S' : {
+                Moona::defaultJNIEnv().SetShortField(this->obj, jf.getJField(), value.s);
+                break;
+            }
+            case 'C' : {
+                Moona::defaultJNIEnv().SetCharField(this->obj, jf.getJField(), value.s);
+                break;
+            }
+            case 'I' : {
+                Moona::defaultJNIEnv().SetIntField(this->obj, jf.getJField(), value.i);
+                break;
+            }
+            case 'J' : {
+                Moona::defaultJNIEnv().SetLongField(this->obj, jf.getJField(), value.j);
+                break;
+            }
+            case 'F' : {
+                Moona::defaultJNIEnv().SetFloatField(this->obj, jf.getJField(), value.f);
+                break;
+            }
+            case 'D' : {
+                Moona::defaultJNIEnv().SetDoubleField(this->obj, jf.getJField(), value.d);
+                break;
+            }
+            default : {
+                Moona::defaultJNIEnv().SetObjectField(this->obj, jf.getJField(), value.l);
+                break;
+            }
+        }
+
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            throw JVMException();
+        }
     }
 
     JavaClass JavaObject::getClass() const {

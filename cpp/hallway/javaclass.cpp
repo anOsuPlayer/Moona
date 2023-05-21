@@ -213,39 +213,39 @@ namespace moona {
         JValue r;
 
         switch (id) {
-            case 'Z': {
+            case 'Z' : {
                 r = Moona::defaultJNIEnv().GetStaticBooleanField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'B': {
+            case 'B' : {
                 r = Moona::defaultJNIEnv().GetStaticByteField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'S': {
+            case 'S' : {
                 r = Moona::defaultJNIEnv().GetStaticShortField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'C': {
+            case 'C' : {
                 r = Moona::defaultJNIEnv().GetStaticCharField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'I': {
+            case 'I' : {
                 r = Moona::defaultJNIEnv().GetStaticIntField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'J': {
+            case 'J' : {
                 r = Moona::defaultJNIEnv().GetStaticLongField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'F': {
+            case 'F' : {
                 r = Moona::defaultJNIEnv().GetStaticFloatField(this->clazz, jsf.getJField());
                 break;
             }
-            case 'D': {
+            case 'D' : {
                 r = Moona::defaultJNIEnv().GetStaticDoubleField(this->clazz, jsf.getJField());
                 break;
             }
-            default: {
+            default : {
                 r = Moona::defaultJNIEnv().GetStaticObjectField(this->clazz, jsf.getJField());
                 break;
             }
@@ -260,39 +260,39 @@ namespace moona {
         const char id = jsf.getSignature()[0];
 
         switch (id) {
-            case 'Z': {
+            case 'Z' : {
                 Moona::defaultJNIEnv().SetStaticBooleanField(this->clazz, jsf.getJField(), value.z);
                 break;
             }
-            case 'B': {
+            case 'B' : {
                 Moona::defaultJNIEnv().SetStaticByteField(this->clazz, jsf.getJField(), value.b);
                 break;
             }
-            case 'S': {
+            case 'S' : {
                 Moona::defaultJNIEnv().SetStaticShortField(this->clazz, jsf.getJField(), value.s);
                 break;
             }
-            case 'C': {
+            case 'C' : {
                 Moona::defaultJNIEnv().SetStaticCharField(this->clazz, jsf.getJField(), value.c);
                 break;
             }
-            case 'I': {
+            case 'I' : {
                 Moona::defaultJNIEnv().SetStaticIntField(this->clazz, jsf.getJField(), value.i);
                 break;
             }
-            case 'J': {
+            case 'J' : {
                 Moona::defaultJNIEnv().SetStaticLongField(this->clazz, jsf.getJField(), value.j);
                 break;
             }
-            case 'F': {
+            case 'F' : {
                 Moona::defaultJNIEnv().SetStaticFloatField(this->clazz, jsf.getJField(), value.f);
                 break;
             }
-            case 'D': {
+            case 'D' : {
                 Moona::defaultJNIEnv().SetStaticDoubleField(this->clazz, jsf.getJField(), value.d);
                 break;
             }
-            default: {
+            default : {
                 Moona::defaultJNIEnv().SetStaticObjectField(this->clazz, jsf.getJField(), value.l);
                 break;
             }

@@ -5,6 +5,7 @@
 #include "javafield.hpp"
 #include "javavalue.hpp"
 #include "javastring.hpp"
+#include "jvmexception.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 
