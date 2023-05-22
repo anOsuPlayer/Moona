@@ -61,11 +61,6 @@ namespace moona {
             JavaClass arrayType() const noexcept;
             JavaClass componentType() const noexcept;
 
-            friend std::ostream& operator << (std::ostream& os, const JavaClass& clazz) noexcept {
-                os << clazz.classname;
-                return os;
-            }
-
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaClass& other) const noexcept override final;
     };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "entity.hpp"
 #include "type.hpp"
 
@@ -20,6 +22,10 @@ namespace moona {
 
             virtual const char* toString() const noexcept {
                 return this->type().name();
+            }
+            friend std::ostream& operator << (std::ostream& os, const Object<O, super...>& o) noexcept {
+                os << o.toString();
+                return os;
             }
 
             virtual bool equals(const O& obj2) const noexcept {
