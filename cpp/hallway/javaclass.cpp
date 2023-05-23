@@ -7,7 +7,8 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(clazz);
+        Moona::defaultJNIEnv().PushLocalFrame(1);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(clazz);
 
         jmethodID getClass = Moona::defaultJNIEnv().GetMethodID(this->clazz, "getClass", MethodSignature(ObjectSignature("java.lang.Class")));
         jclass thisClass = (jclass) Moona::defaultJNIEnv().CallObjectMethod(this->clazz, getClass);
@@ -68,7 +69,9 @@ namespace moona {
         if (c == nullptr) {
             throw NoSuchClassException();
         }
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
+        Moona::defaultJNIEnv().PushLocalFrame(1);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(c);
+
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
     JavaClass::JavaClass(const JavaClass& clazz) {
@@ -80,12 +83,12 @@ namespace moona {
             this->classname[i] = classname[i];
         }
 
-        this->clazz = clazz.clazz;
+        Moona::defaultJNIEnv().PushLocalFrame(1);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
         delete[] this->classname;
-        Moona::defaultJNIEnv().DeleteGlobalRef(this->clazz);
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {

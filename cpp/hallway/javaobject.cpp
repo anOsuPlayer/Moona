@@ -6,30 +6,33 @@ namespace moona {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->obj = Moona::defaultJNIEnv().NewGlobalRef(obj);
+
+        Moona::defaultJNIEnv().PushLocalFrame(1);
+        this->obj = Moona::defaultJNIEnv().NewLocalRef(obj);
     }
     JavaObject::JavaObject(const JavaObject& obj) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
-        this->obj = obj.getJObject();
-    }
 
-    JavaObject::~JavaObject() {
-        Moona::defaultJNIEnv().DeleteGlobalRef(this->obj);
+        Moona::defaultJNIEnv().PushLocalFrame(1);
+        this->obj = Moona::defaultJNIEnv().NewLocalRef(obj.obj);
     }
 
     JavaObject& JavaObject::operator = (const JavaObject& other) noexcept {
-        this->obj = Moona::defaultJNIEnv().NewGlobalRef(other.getJObject());
+        if (this->obj != nullptr) {
+            Moona::defaultJNIEnv().DeleteLocalRef(this->obj);
+        }
+        this->obj = Moona::defaultJNIEnv().NewLocalRef(other.getJObject());
 
         return *this;
     }
     JavaObject& JavaObject::operator = (const jobject& other) {
-        if (!Moona::enableHallwayAccess) {
-            throw HallwayAccessException();
+        if (this->obj != nullptr) {
+            Moona::defaultJNIEnv().DeleteLocalRef(this->obj);
         }
+        this->obj = Moona::defaultJNIEnv().NewLocalRef(other);
         
-        this->obj = Moona::defaultJNIEnv().NewGlobalRef(other);
         return *this;
     }
 

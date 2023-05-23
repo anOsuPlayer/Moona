@@ -23,7 +23,7 @@ namespace moona {
         public:
             JavaObject(const jobject& obj);
             JavaObject(const JavaObject& obj);
-            virtual ~JavaObject();
+            virtual ~JavaObject() = default;
 
             operator const jobject&() const noexcept;
             const jobject& getJObject() const noexcept;

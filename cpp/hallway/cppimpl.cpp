@@ -4,13 +4,11 @@
 
 namespace moona {
 
-    JavaImpl jstring Java_test_Test_edit(DefaultArgs, jstring str) {
-        JavaString s = str;
-        for (size_t i = 0; i < s.length(); i++) {
-            s[i] = (s[i] >= 'a') ? (s[i] - 32) : (s[i] + 32);
-        }
+    JavaImpl jobject Java_test_Test_edit(DefaultArgs, jobject o) {
+        JavaMethod m = JavaClass("moonaframework.util.condition.Condition").getMethod("reverse", MethodSignature::VOID_METHOD);
+        m.callOn(o);
 
-        return s;
+        return o;
     }
 
     JavaImpl jlong Java_moonaframework_hallway_Cpp_version(DefaultArgs) {
