@@ -55,6 +55,7 @@ namespace moona {
         delete opts;
     }
     void JVM::destroyJVM() {
+        Moona::defaultJNIEnv().PopLocalFrame(0);
         if (jvm != nullptr) {
             jvm->DestroyJavaVM();
         }

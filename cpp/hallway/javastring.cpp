@@ -54,9 +54,6 @@ namespace moona {
     }
 
     JavaString::~JavaString() {
-        if (this->str != nullptr) {
-            Moona::defaultJNIEnv().DeleteLocalRef(this->str);
-        }
         delete[] this->text;
     }
 
@@ -134,6 +131,8 @@ namespace moona {
         if (this->str != nullptr) {
             Moona::defaultJNIEnv().DeleteLocalRef(this->str);
         }
+        
+        Moona::defaultJNIEnv().PushLocalFrame(1);
         this->str = Moona::defaultJNIEnv().NewStringUTF(this->text);
         return this->str;
     }
