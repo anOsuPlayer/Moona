@@ -13,6 +13,7 @@
 #include "jvmexception.hpp"
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
+#include "../exceptions/illegalexception.hpp"
 
 namespace moona {
 
@@ -58,7 +59,7 @@ namespace moona {
             JavaField getField(const char* name, const FieldSignature& ms);
             JavaStaticField getStaticField(const char* name, const FieldSignature& ms);
 
-            JavaClass arrayType() const noexcept;
+            JavaClass arrayType(size_t level = 1) const;
             JavaClass componentType() const noexcept;
 
             virtual const char* toString() const noexcept override final;

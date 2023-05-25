@@ -341,13 +341,22 @@ namespace moona {
         return JavaStaticField(name, *this, fs);
     }
 
-    JavaClass JavaClass::arrayType() const noexcept {
+    JavaClass JavaClass::arrayType(size_t level) const {
+        if (level == 0) {
+            throw IllegalArgumentException("Unable to obtain 0-dimensional arrays.");
+        }
+
         size_t len = strlen(this->classname);
         if (this->classname[0] != '[') {
-            char* name = new char[len+4];
-            name[0] = '['; name[1] = 'L', name[len+2] = ';', name[len+3] = '\0';
-            for (size_t i = 2; i < len+2; i++) {
-                name[i] = this->classname[i-2];
+            char* name = new char[len+3+level];
+            
+            for (size_t i = 0; i < level; i++) {
+                name[i] = '[';
+            }
+            
+            name[level] = 'L', name[len+1+level] = ';', name[len+2+level] = '\0';
+            for (size_t i = level+1; i < len+1+level; i++) {
+                name[i] = this->classname[i-1-level];
             }
 
             JavaClass clazz(name);
@@ -356,10 +365,15 @@ namespace moona {
             return clazz;
         }
 
-        char* name = new char[len+2];
-        name[0] = '[', name[len+1] = '\0';
-        for (size_t i = 1; i < len+1; i++) {
-            name[i] = this->classname[i-1];
+        char* name = new char[len+1+level];
+        
+        for (size_t i = 0; i < level; i++) {
+            name[i] = '[';
+        }
+
+        name[len+level] = '\0';
+        for (size_t i = level; i < len+level; i++) {
+            name[i] = this->classname[i-level];
         }
 
         JavaClass clazz(name);
