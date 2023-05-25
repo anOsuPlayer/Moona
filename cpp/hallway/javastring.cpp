@@ -124,10 +124,10 @@ namespace moona {
         return JavaCharArray(this->length(), this->text);
     }
 
-    JavaString::operator const jstring&() const noexcept {
+    JavaString::operator jstring() const noexcept {
         return this->getJString();
     }
-    const jstring& JavaString::getJString() const noexcept {
+    jstring JavaString::getJString() const noexcept {
         return Moona::defaultJNIEnv().NewStringUTF(this->text);
     }
 

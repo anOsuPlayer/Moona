@@ -40,7 +40,7 @@ namespace moona {
             ~JavaClass();
 
             operator const jclass&() const noexcept;
-            const jclass& getJClass() const noexcept;
+            jclass getJClass() const noexcept;
 
             JavaClass& operator = (const JavaClass& other);
             bool operator == (const JavaClass& other);

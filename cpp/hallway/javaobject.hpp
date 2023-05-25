@@ -26,7 +26,7 @@ namespace moona {
             virtual ~JavaObject() = default;
 
             operator const jobject&() const noexcept;
-            const jobject& getJObject() const noexcept;
+            jobject getJObject() const noexcept;
 
             virtual JavaObject& operator = (const JavaObject& obj) noexcept;
             virtual JavaObject& operator = (const jobject& obj);

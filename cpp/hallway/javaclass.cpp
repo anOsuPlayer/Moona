@@ -307,7 +307,7 @@ namespace moona {
     JavaClass::operator const jclass&() const noexcept {
         return this->clazz;
     }
-    const jclass& JavaClass::getJClass() const noexcept {
+    jclass JavaClass::getJClass() const noexcept {
         return (jclass) Moona::defaultJNIEnv().NewLocalRef(this->clazz);
     }
 

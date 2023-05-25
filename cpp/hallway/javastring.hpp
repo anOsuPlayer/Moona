@@ -39,8 +39,8 @@ namespace moona {
 
             JavaCharArray toCharArray() const noexcept;
 
-            operator const jstring&() const noexcept;
-            const jstring& getJString() const noexcept;
+            operator jstring() const noexcept;
+            jstring getJString() const noexcept;
 
             operator const char*() const noexcept;
 

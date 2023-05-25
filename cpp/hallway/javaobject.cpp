@@ -242,7 +242,7 @@ namespace moona {
     JavaObject::operator const jobject&() const noexcept {
         return this->obj;
     }
-    const jobject& JavaObject::getJObject() const noexcept {
+    jobject JavaObject::getJObject() const noexcept {
         return Moona::defaultJNIEnv().NewLocalRef(this->obj);
     }
 
