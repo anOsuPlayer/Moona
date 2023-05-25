@@ -3,12 +3,12 @@
 namespace moona {
 
     JavaBooleanArray::JavaBooleanArray(jbooleanArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetBooleanArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaBooleanArray::JavaBooleanArray(size_t size, jboolean* elements) : JavaArray(size) {
         jbooleanArray a = Moona::defaultJNIEnv().NewBooleanArray(size);
-        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -21,10 +21,10 @@ namespace moona {
 
     JavaBooleanArray& JavaBooleanArray::operator = (jbooleanArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jbooleanArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jboolean[len];
         Moona::defaultJNIEnv().GetBooleanArrayRegion(this->array, 0, len, this->elements);
@@ -54,12 +54,12 @@ namespace moona {
     }
 
     JavaByteArray::JavaByteArray(jbyteArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jbyteArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetByteArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaByteArray::JavaByteArray(size_t size, jbyte* elements) : JavaArray(size) {
         jbyteArray a = Moona::defaultJNIEnv().NewByteArray(size);
-        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jbyteArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -72,10 +72,10 @@ namespace moona {
 
     JavaByteArray& JavaByteArray::operator = (jbyteArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jbyteArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jbyteArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jbyte[len];
         Moona::defaultJNIEnv().GetByteArrayRegion(this->array, 0, len, this->elements);
@@ -105,12 +105,12 @@ namespace moona {
     }
 
     JavaCharArray::JavaCharArray(jcharArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetCharArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaCharArray::JavaCharArray(size_t size, jchar* elements) : JavaArray(size) {
         jcharArray a = Moona::defaultJNIEnv().NewCharArray(size);
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -121,7 +121,7 @@ namespace moona {
     }
     JavaCharArray::JavaCharArray(size_t size, const char* elements) : JavaArray(size) {
         jcharArray a = Moona::defaultJNIEnv().NewCharArray(size);
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = jchar(elements[i]);
@@ -134,10 +134,10 @@ namespace moona {
 
     JavaCharArray& JavaCharArray::operator = (jcharArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jcharArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jcharArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jchar[len];
         Moona::defaultJNIEnv().GetCharArrayRegion(this->array, 0, len, this->elements);
@@ -167,12 +167,12 @@ namespace moona {
     }
 
     JavaIntArray::JavaIntArray(jintArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jintArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetIntArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaIntArray::JavaIntArray(size_t size, jint* elements) : JavaArray(size) {
         jintArray a = Moona::defaultJNIEnv().NewIntArray(size);
-        this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jintArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -185,10 +185,10 @@ namespace moona {
 
     JavaIntArray& JavaIntArray::operator = (jintArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jintArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jintArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jint[len];
         Moona::defaultJNIEnv().GetIntArrayRegion(this->array, 0, len, this->elements);
@@ -218,12 +218,12 @@ namespace moona {
     }
 
     JavaLongArray::JavaLongArray(jlongArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jlongArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetLongArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaLongArray::JavaLongArray(size_t size, jlong* elements) : JavaArray(size) {
         jlongArray a = Moona::defaultJNIEnv().NewLongArray(size);
-        this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jlongArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -236,10 +236,10 @@ namespace moona {
 
     JavaLongArray& JavaLongArray::operator = (jlongArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jlongArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jlongArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jlong[len];
         Moona::defaultJNIEnv().GetLongArrayRegion(this->array, 0, len, this->elements);
@@ -269,12 +269,12 @@ namespace moona {
     }
 
     JavaFloatArray::JavaFloatArray(jfloatArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jfloatArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetFloatArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaFloatArray::JavaFloatArray(size_t size, jfloat* elements) : JavaArray(size) {
         jfloatArray a = Moona::defaultJNIEnv().NewFloatArray(size);
-        this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jfloatArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -287,10 +287,10 @@ namespace moona {
 
     JavaFloatArray& JavaFloatArray::operator = (jfloatArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jfloatArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jfloatArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jfloat[len];
         Moona::defaultJNIEnv().GetFloatArrayRegion(this->array, 0, len, this->elements);
@@ -320,12 +320,12 @@ namespace moona {
     }
 
     JavaDoubleArray::JavaDoubleArray(jdoubleArray arr) : JavaArray(Moona::defaultJNIEnv().GetArrayLength(arr)) {
-        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         Moona::defaultJNIEnv().GetDoubleArrayRegion(this->array, 0, Moona::defaultJNIEnv().GetArrayLength(arr), this->elements);
     }
     JavaDoubleArray::JavaDoubleArray(size_t size, jdouble* elements) : JavaArray(size) {
         jdoubleArray a = Moona::defaultJNIEnv().NewDoubleArray(size);
-        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(a);
+        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewWeakGlobalRef(a);
         if (elements != nullptr) {
             for (size_t i = 0; i < size; i++) {
                 this->elements[i] = elements[i];
@@ -338,10 +338,10 @@ namespace moona {
 
     JavaDoubleArray& JavaDoubleArray::operator = (jdoubleArray& arr) noexcept {
         if (this->elements != nullptr) {
-            Moona::defaultJNIEnv().DeleteGlobalRef(this->array);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
             delete[] this->elements;
         }
-        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewGlobalRef(arr);
+        this->array = (jdoubleArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
         size_t len = Moona::defaultJNIEnv().GetArrayLength(arr);
         this->elements = new jdouble[len];
         Moona::defaultJNIEnv().GetDoubleArrayRegion(this->array, 0, len, this->elements);

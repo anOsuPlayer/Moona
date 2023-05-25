@@ -7,21 +7,19 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->obj = Moona::defaultJNIEnv().NewLocalRef(obj);
+        this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(obj);
     }
     JavaObject::JavaObject(const JavaObject& obj) {
         if (!Moona::enableHallwayAccess) {
             throw HallwayAccessException();
         }
 
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->obj = Moona::defaultJNIEnv().NewLocalRef(obj.obj);
+        this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(obj.obj);
     }
 
     JavaObject& JavaObject::operator = (const JavaObject& other) noexcept {
         if (this->obj != nullptr) {
-            Moona::defaultJNIEnv().DeleteLocalRef(this->obj);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->obj);
         }
         this->obj = Moona::defaultJNIEnv().NewLocalRef(other.getJObject());
 
@@ -29,9 +27,9 @@ namespace moona {
     }
     JavaObject& JavaObject::operator = (const jobject& other) {
         if (this->obj != nullptr) {
-            Moona::defaultJNIEnv().DeleteLocalRef(this->obj);
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->obj);
         }
-        this->obj = Moona::defaultJNIEnv().NewLocalRef(other);
+        this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(other);
         
         return *this;
     }
@@ -245,7 +243,7 @@ namespace moona {
         return this->obj;
     }
     const jobject& JavaObject::getJObject() const noexcept {
-        return this->obj;
+        return Moona::defaultJNIEnv().NewLocalRef(this->obj);
     }
 
     const char* JavaObject::toString() const noexcept {

@@ -7,8 +7,7 @@ namespace moona {
             throw HallwayAccessException();
         }
 
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(clazz);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewWeakGlobalRef(clazz);
 
         jmethodID getClass = Moona::defaultJNIEnv().GetMethodID(this->clazz, "getClass", MethodSignature(ObjectSignature("java.lang.Class")));
         jclass thisClass = (jclass) Moona::defaultJNIEnv().CallObjectMethod(this->clazz, getClass);
@@ -42,7 +41,7 @@ namespace moona {
         if (c == nullptr) {
             throw NoSuchClassException();
         }
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewGlobalRef(c);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewWeakGlobalRef(c);
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
     JavaClass::JavaClass(const JavaPackage& pack, const char* classname) {
@@ -69,8 +68,7 @@ namespace moona {
         if (c == nullptr) {
             throw NoSuchClassException();
         }
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(c);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewWeakGlobalRef(c);
 
         Moona::defaultJNIEnv().DeleteLocalRef(c);
     }
@@ -83,11 +81,11 @@ namespace moona {
             this->classname[i] = classname[i];
         }
 
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->clazz = (jclass) Moona::defaultJNIEnv().NewLocalRef(clazz.clazz);
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewWeakGlobalRef(clazz.clazz);
     }
 
     JavaClass::~JavaClass() {
+        Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->clazz);
         delete[] this->classname;
     }
 
@@ -306,8 +304,11 @@ namespace moona {
         }
     }
 
-    const jclass& JavaClass::getJClass() const noexcept {
+    JavaClass::operator const jclass&() const noexcept {
         return this->clazz;
+    }
+    const jclass& JavaClass::getJClass() const noexcept {
+        return (jclass) Moona::defaultJNIEnv().NewLocalRef(this->clazz);
     }
 
     JavaMethod JavaClass::getMethod(const char* name, const MethodSignature& ms) const {
@@ -381,10 +382,6 @@ namespace moona {
         delete[] name;
         
         return clazz;
-    }
-
-    JavaClass::operator const jclass&() const noexcept {
-        return this->clazz;
     }
 
     const char* JavaClass::toString() const noexcept {

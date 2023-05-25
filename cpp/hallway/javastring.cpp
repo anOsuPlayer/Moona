@@ -128,13 +128,7 @@ namespace moona {
         return this->getJString();
     }
     const jstring& JavaString::getJString() const noexcept {
-        if (this->str != nullptr) {
-            Moona::defaultJNIEnv().DeleteLocalRef(this->str);
-        }
-        
-        Moona::defaultJNIEnv().PushLocalFrame(1);
-        this->str = Moona::defaultJNIEnv().NewStringUTF(this->text);
-        return this->str;
+        return Moona::defaultJNIEnv().NewStringUTF(this->text);
     }
 
     JavaString::operator const char*() const noexcept {

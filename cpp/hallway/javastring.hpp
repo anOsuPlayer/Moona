@@ -13,7 +13,6 @@ namespace moona {
     class JavaString : public Object<JavaString> {
         private:
             char* text;
-            mutable jstring str;
 
         public:
             JavaString();

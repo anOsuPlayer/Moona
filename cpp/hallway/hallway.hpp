@@ -6,7 +6,6 @@
 #include "javanotation.hpp"
 #include "jvm.hpp"
 #include "cppimpl.hpp"
-#include "nativelinkerimpl.hpp"
 
 #include "javavalue.hpp"
 #include "javapackage.hpp"
