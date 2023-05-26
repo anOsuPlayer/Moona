@@ -39,6 +39,9 @@ namespace moona {
             virtual JValue accessOn(const JavaObject& obj) const;
             virtual void editOn(JavaObject& obj, const jvalue& value);
 
+            virtual JValue accessOn(jobject obj) const;
+            virtual void editOn(jobject obj, const jvalue& value);
+
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaField& other) const noexcept override final;
     };
@@ -52,6 +55,9 @@ namespace moona {
 
             virtual JValue accessOn(const JavaObject& obj) const override final;
             virtual void editOn(JavaObject& obj, const jvalue& value) override final;
+
+            virtual JValue accessOn(jobject obj) const override final;
+            virtual void editOn(jobject obj, const jvalue& value) override final;
 
             JValue access() const;
             void edit(const jvalue& value) const;

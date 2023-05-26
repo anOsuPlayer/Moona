@@ -60,6 +60,13 @@ namespace moona {
         obj.edit(*this, value);
     }
 
+    JValue JavaField::accessOn(jobject obj) const {
+        return JavaObject::_access(obj, *this);
+    }
+    void JavaField::editOn(jobject obj, const jvalue& value) {
+        JavaObject::_edit(obj, *this, value);
+    }
+
     const char* JavaField::toString() const noexcept {
         return this->name;
     }
@@ -99,6 +106,13 @@ namespace moona {
         throw UnsupportedOperationException("Unable to access a JavaStaticField from a JavaObject.");
     }
     void JavaStaticField::editOn(JavaObject& obj, const jvalue& value) {
+        throw UnsupportedOperationException("Unable to edit a JavaStaticField from a JavaObject.");
+    }
+
+    JValue JavaStaticField::accessOn(jobject obj) const {
+        throw UnsupportedOperationException("Unable to access a JavaStaticField from a JavaObject.");
+    }
+    void JavaStaticField::editOn(jobject obj, const jvalue& value) {
         throw UnsupportedOperationException("Unable to edit a JavaStaticField from a JavaObject.");
     }
 

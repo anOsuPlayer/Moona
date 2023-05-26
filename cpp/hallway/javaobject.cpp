@@ -34,98 +34,98 @@ namespace moona {
         return *this;
     }
 
-    JValue JavaObject::call(const JavaMethod& jm, const jvalue* args) const {
+    JValue JavaObject::_call(jobject obj, const JavaMethod& jm, const jvalue* args) {
         const PureSignature ret = jm.getSignature().returnType();
         JValue r;
 
         switch (ret[0]) {
             case 'Z' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallBooleanMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallBooleanMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallBooleanMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallBooleanMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'B' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallByteMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallByteMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallByteMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallByteMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'S' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallShortMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallShortMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallShortMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallShortMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'C' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallCharMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallCharMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallCharMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallCharMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'I' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallIntMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallIntMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallIntMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallIntMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'J' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallLongMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallLongMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallLongMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallLongMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'F' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallFloatMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallFloatMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallFloatMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallFloatMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'D' : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallDoubleMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallDoubleMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallDoubleMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallDoubleMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             case 'V' : {
                 if (args != nullptr) {
-                    Moona::defaultJNIEnv().CallVoidMethodA(this->obj, jm.getJMethod(), args);
+                    Moona::defaultJNIEnv().CallVoidMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    Moona::defaultJNIEnv().CallVoidMethod(this->obj, jm.getJMethod());
+                    Moona::defaultJNIEnv().CallVoidMethod(obj, jm.getJMethod());
                 }
                 break;
             }
             default : {
                 if (args != nullptr) {
-                    r = Moona::defaultJNIEnv().CallObjectMethodA(this->obj, jm.getJMethod(), args);
+                    r = Moona::defaultJNIEnv().CallObjectMethodA(obj, jm.getJMethod(), args);
                 }
                 else {
-                    r = Moona::defaultJNIEnv().CallObjectMethod(this->obj, jm.getJMethod());
+                    r = Moona::defaultJNIEnv().CallObjectMethod(obj, jm.getJMethod());
                 }
                 break;
             }
@@ -136,46 +136,49 @@ namespace moona {
         }
         return r;
     }
+    JValue JavaObject::call(const JavaMethod& jm, const jvalue* args) const {
+        return JavaObject::_call(this->obj, jm, args);
+    }
 
-    JValue JavaObject::access(const JavaField& jf) const {
+    JValue JavaObject::_access(jobject obj, const JavaField& jf) {
         const char id = jf.getSignature()[0];
         JValue r;
 
         switch (id) {
             case 'Z' : {
-                r = Moona::defaultJNIEnv().GetBooleanField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetBooleanField(obj, jf.getJField());
                 break;
             }
             case 'B' : {
-                r = Moona::defaultJNIEnv().GetByteField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetByteField(obj, jf.getJField());
                 break;
             }
             case 'S' : {
-                r = Moona::defaultJNIEnv().GetShortField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetShortField(obj, jf.getJField());
                 break;
             }
             case 'C' : {
-                r = Moona::defaultJNIEnv().GetCharField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetCharField(obj, jf.getJField());
                 break;
             }
             case 'I' : {
-                r = Moona::defaultJNIEnv().GetIntField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetIntField(obj, jf.getJField());
                 break;
             }
             case 'J' : {
-                r = Moona::defaultJNIEnv().GetLongField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetLongField(obj, jf.getJField());
                 break;
             }
             case 'F' : {
-                r = Moona::defaultJNIEnv().GetFloatField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetFloatField(obj, jf.getJField());
                 break;
             }
             case 'D' : {
-                r = Moona::defaultJNIEnv().GetDoubleField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetDoubleField(obj, jf.getJField());
                 break;
             }
             default : {
-                r = Moona::defaultJNIEnv().GetObjectField(this->obj, jf.getJField());
+                r = Moona::defaultJNIEnv().GetObjectField(obj, jf.getJField());
                 break;
             }
         }
@@ -185,44 +188,48 @@ namespace moona {
         }
         return r;
     }
-    void JavaObject::edit(const JavaField& jf, const jvalue& value) {
+    JValue JavaObject::access(const JavaField& jf) const {
+        return JavaObject::_access(this->obj, jf);
+    }
+
+    void JavaObject::_edit(jobject obj, const JavaField& jf, const jvalue& value) {
         const char id = jf.getSignature()[0];
 
         switch (id) {
             case 'Z' : {
-                Moona::defaultJNIEnv().SetBooleanField(this->obj, jf.getJField(), value.z);
+                Moona::defaultJNIEnv().SetBooleanField(obj, jf.getJField(), value.z);
                 break;
             }
             case 'B' : {
-                Moona::defaultJNIEnv().SetByteField(this->obj, jf.getJField(), value.b);
+                Moona::defaultJNIEnv().SetByteField(obj, jf.getJField(), value.b);
                 break;
             }
             case 'S' : {
-                Moona::defaultJNIEnv().SetShortField(this->obj, jf.getJField(), value.s);
+                Moona::defaultJNIEnv().SetShortField(obj, jf.getJField(), value.s);
                 break;
             }
             case 'C' : {
-                Moona::defaultJNIEnv().SetCharField(this->obj, jf.getJField(), value.s);
+                Moona::defaultJNIEnv().SetCharField(obj, jf.getJField(), value.s);
                 break;
             }
             case 'I' : {
-                Moona::defaultJNIEnv().SetIntField(this->obj, jf.getJField(), value.i);
+                Moona::defaultJNIEnv().SetIntField(obj, jf.getJField(), value.i);
                 break;
             }
             case 'J' : {
-                Moona::defaultJNIEnv().SetLongField(this->obj, jf.getJField(), value.j);
+                Moona::defaultJNIEnv().SetLongField(obj, jf.getJField(), value.j);
                 break;
             }
             case 'F' : {
-                Moona::defaultJNIEnv().SetFloatField(this->obj, jf.getJField(), value.f);
+                Moona::defaultJNIEnv().SetFloatField(obj, jf.getJField(), value.f);
                 break;
             }
             case 'D' : {
-                Moona::defaultJNIEnv().SetDoubleField(this->obj, jf.getJField(), value.d);
+                Moona::defaultJNIEnv().SetDoubleField(obj, jf.getJField(), value.d);
                 break;
             }
             default : {
-                Moona::defaultJNIEnv().SetObjectField(this->obj, jf.getJField(), value.l);
+                Moona::defaultJNIEnv().SetObjectField(obj, jf.getJField(), value.l);
                 break;
             }
         }
@@ -230,6 +237,9 @@ namespace moona {
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
             throw JVMException();
         }
+    }
+    void JavaObject::edit(const JavaField& jf, const jvalue& value) {
+        return JavaObject::_edit(this->obj, jf, value);
     }
 
     JavaClass JavaObject::getClass() const {

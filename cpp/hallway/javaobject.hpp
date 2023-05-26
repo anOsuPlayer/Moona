@@ -20,6 +20,11 @@ namespace moona {
 
             JavaObject() = default;
 
+            static JValue _call(jobject obj, const JavaMethod& jm, const jvalue* args = nullptr);
+
+            static JValue _access(jobject obj, const JavaField& jf);
+            static void _edit(jobject obj, const JavaField& jf, const jvalue& value);
+
         public:
             JavaObject(const jobject& obj);
             JavaObject(const JavaObject& obj);
@@ -43,5 +48,8 @@ namespace moona {
 
             bool equals(const jobject& obj) const noexcept;
             bool sameType(const jobject& obj) const noexcept;
+
+        friend class JavaMethod;
+        friend class JavaField;
     };
 }

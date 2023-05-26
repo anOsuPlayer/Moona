@@ -40,6 +40,7 @@ namespace moona {
             const MethodSignature& getSignature() const noexcept;
 
             virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const;
+            virtual JValue callOn(jobject obj, const jvalue* args = nullptr) const;
 
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaMethod& other) const noexcept override final;
@@ -53,6 +54,8 @@ namespace moona {
             virtual ~JavaStaticMethod() = default;
 
             virtual JValue callOn(const JavaObject& obj, const jvalue* args = nullptr) const override final;
+            virtual JValue callOn(jobject obj, const jvalue* args = nullptr) const override final;
+            
             JValue call(const jvalue* args = nullptr) const;
     };
 
