@@ -18,31 +18,29 @@ namespace moona {
 
     template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>> {
         protected:
-            A array;
             T* elements;
+            mutable size_t size;
 
             JavaArray(size_t size) {
                 if (!Moona::enableHallwayAccess) {
                     throw HallwayAccessException();
                 }
                 this->elements = new T[size];
+                this->size = size;
             }
 
         public:
             virtual ~JavaArray() {
-                Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
                 delete[] this->elements;
             }
 
             virtual JavaArray<A, T>& operator = (const JavaArray<A, T>& arr) noexcept final {
                 if (this->elements != nullptr) {
-                    Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->array);
                     delete[] this->elements;
                 }
-                this->array = (A) Moona::defaultJNIEnv().NewWeakGlobalRef(arr.array);
-                size_t len = arr.length();
-                this->elements = new T[len];
-                for (size_t i = 0; i < len; i++) {
+                this->size = arr.length();
+                this->elements = new T[size];
+                for (size_t i = 0; i < size; i++) {
                     this->elements[i] = arr.elements[i];
                 }
 
@@ -61,14 +59,14 @@ namespace moona {
             virtual operator A() const noexcept abstract;
 
             virtual JValue getJValue() const noexcept {
-                return JValue(this->array);
+                return JValue(*this);
             }
             virtual operator JValue() const noexcept {
-                return JValue(this->array);
+                return JValue(*this);
             }
             
             size_t length() const noexcept {
-                return Moona::defaultJNIEnv().GetArrayLength(this->array);
+                return this->size;
             }
     };
 
