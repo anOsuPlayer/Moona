@@ -30,8 +30,6 @@ namespace moona {
             char* classname;
             jclass clazz;
 
-            static const JavaMethod CLASS_TO_STRING;
-
         public:
             JavaClass() = default;
             JavaClass(jclass clazz);
