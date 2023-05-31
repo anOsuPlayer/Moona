@@ -281,6 +281,9 @@ namespace moona {
         return eq;
     }
     bool JavaObject::sameType(const jobject& obj) const noexcept {
-        return Moona::defaultJNIEnv().GetObjectClass(this->obj) == Moona::defaultJNIEnv().GetObjectClass(obj);
+        return (Moona::defaultJNIEnv().IsInstanceOf(this->obj, Moona::defaultJNIEnv().GetObjectClass(obj)) == 0 ? false : true);
+    }
+    bool JavaObject::isInstanceof(const jclass& clazz) const noexcept {
+        return (Moona::defaultJNIEnv().IsInstanceOf(this->obj, clazz) == 0 ? false : true);
     }
 }

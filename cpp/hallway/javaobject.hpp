@@ -49,6 +49,8 @@ namespace moona {
             bool equals(const jobject& obj) const noexcept;
             bool sameType(const jobject& obj) const noexcept;
 
+            bool isInstanceof(const jclass& clazz) const noexcept;
+
         friend class JavaMethod;
         friend class JavaField;
     };
