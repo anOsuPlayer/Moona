@@ -42,6 +42,8 @@ namespace moona {
 
     ComposedSignature::ComposedSignature(const PureSignature& ps) : PureSignature(ps) {
     }
+    ComposedSignature::ComposedSignature(const char* signature) : PureSignature(signature) {
+    }
 
     ComposedSignature& ComposedSignature::concat(const PureSignature& ps) {
         if (ps == Signature::V0ID) {
@@ -85,6 +87,13 @@ namespace moona {
     const Signature Signature::V0ID = Signature("V");
 
     ObjectSignature::ObjectSignature(const char* obj) {
+        if (obj[0] == 'L' || obj[0] == '[') {
+            size_t len = strlen(obj);
+            this->signature = new char[len+1]; this->signature[len] = '\0';
+            for (size_t i = 0; i < len; i++) {
+                this->signature[i] = obj[i];
+            }
+        }
         size_t len = strlen(obj);
         this->signature = new char[len+3];
         this->signature[0] = 'L';
@@ -106,7 +115,7 @@ namespace moona {
         }
 
         size_t len = strlen(obj);
-        this->signature = new char[len+4];
+        this->signature = new char[len+3+order];
         for (size_t i = 0; i < order; i++) {
             this->signature[i] = '[';
         }
@@ -162,6 +171,13 @@ namespace moona {
         return PureSignature(sign);
     }
 
+    MethodSignature::MethodSignature(const char* signature) {
+        size_t len = strlen(signature);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+        for (size_t i = 0; i < len; i++) {
+            this->signature[i] = signature[i];
+        }
+    }
     MethodSignature::MethodSignature(const PureSignature& returntype) {
         const char* sign = returntype.getSignature();
         size_t len = strlen(sign);
@@ -268,6 +284,11 @@ namespace moona {
 
     ConstructorSignature::ConstructorSignature() : MethodSignature(Signature::V0ID) {
     }
+    ConstructorSignature::ConstructorSignature(const char* signature) : MethodSignature(signature) {
+        if (signature[strlen(signature)-1] != 'V') {
+            throw IllegalArgumentException("ConstructorSignatures must not state any return type other than void: \"(...)V\"");
+        }  
+    }
     ConstructorSignature::ConstructorSignature(const ComposedSignature& args) : MethodSignature(Signature::V0ID, args) {
     }
     ConstructorSignature::ConstructorSignature(const ConstructorSignature& cs) : MethodSignature(cs) {
@@ -275,6 +296,23 @@ namespace moona {
 
     const ConstructorSignature ConstructorSignature::DEFAULT = ConstructorSignature();
 
+    FieldSignature::FieldSignature(const char* signature) {
+        size_t len = strlen(signature);
+        this->signature = new char[len+1]; this->signature[len] = '\0';
+        
+        bool isMethod = false;
+        for (size_t i = 0; i < len; i++) {
+            this->signature[i] = signature[i];
+            if (signature[i] == '(' || signature[i] == ')') {
+                isMethod = true;
+                break;
+            }
+        }
+
+        if (isMethod) {
+            throw IllegalArgumentException("FieldSignatures must not contain any method-like declaration.");
+        }
+    }
     FieldSignature::FieldSignature(const PureSignature& type) {
         const char* typeStr = type.getSignature();
         size_t len = strlen(type);

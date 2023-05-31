@@ -15,9 +15,9 @@ namespace moona {
         protected:
             char* signature;
             PureSignature() = default;
-            explicit PureSignature(const char* signature);
         
         public:
+            explicit PureSignature(const char* signature);
             PureSignature(const PureSignature& ps);
             virtual ~PureSignature();
 
@@ -32,6 +32,7 @@ namespace moona {
 
     class ComposedSignature : public PureSignature {
         public:
+            explicit ComposedSignature(const char* signature);
             ComposedSignature(const PureSignature& ps);
             virtual ~ComposedSignature() = default;
 
@@ -41,11 +42,9 @@ namespace moona {
     };
 
     class Signature : public PureSignature {
-        protected:
-            explicit Signature(const char* signature);
-
         public:
             Signature() = delete;
+            explicit Signature(const char* signature);
             Signature(const Signature& s);
             virtual ~Signature() = default;
 
@@ -100,6 +99,7 @@ namespace moona {
 
         public:
             MethodSignature() = default;
+            explicit MethodSignature(const char* signature);
             MethodSignature(const PureSignature& returntype);
             MethodSignature(const PureSignature& returntype, const ComposedSignature& args);
             MethodSignature(const MethodSignature& ms);
@@ -140,6 +140,7 @@ namespace moona {
     class ConstructorSignature : public Entity<ConstructorSignature>, public MethodSignature {
         public:
             ConstructorSignature();
+            explicit ConstructorSignature(const char* signature);
             ConstructorSignature(const ComposedSignature& args);
             ConstructorSignature(const ConstructorSignature& cs);
             ~ConstructorSignature() = default;
@@ -153,6 +154,7 @@ namespace moona {
 
         public:
             FieldSignature() = default;
+            explicit FieldSignature(const char* signature);
             FieldSignature(const PureSignature& type);
             FieldSignature(const FieldSignature& fs);
             ~FieldSignature();
