@@ -16,7 +16,7 @@ namespace moona {
 
     template <typename A> concept JArray = requires { std::is_base_of<jarray, A>(); };
 
-    template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>> {
+    template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>>, public EffectiveJObject {
         protected:
             T* elements;
             mutable size_t size;
@@ -63,6 +63,10 @@ namespace moona {
             }
             virtual operator JValue() const noexcept {
                 return JValue(*this);
+            }
+
+            virtual JavaObject asObject() const noexcept override final {
+                return JavaObject(this->getJArray());
             }
             
             size_t length() const noexcept {

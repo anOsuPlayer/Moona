@@ -131,6 +131,10 @@ namespace moona {
         return Moona::defaultJNIEnv().NewStringUTF(this->text);
     }
 
+    JavaObject JavaString::asObject() const noexcept {
+        return JavaObject(this->getJString());
+    }
+
     JavaString::operator const char*() const noexcept {
         return this->text;
     }

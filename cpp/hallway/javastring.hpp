@@ -10,7 +10,7 @@
 
 namespace moona {
 
-    class JavaString : public Object<JavaString> {
+    class JavaString : public Object<JavaString>, public EffectiveJObject {
         private:
             char* text;
 
@@ -41,6 +41,8 @@ namespace moona {
 
             operator jstring() const noexcept;
             jstring getJString() const noexcept;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             operator const char*() const noexcept;
 

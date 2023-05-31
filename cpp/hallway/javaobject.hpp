@@ -7,14 +7,27 @@
 #include "javastring.hpp"
 #include "jvmexception.hpp"
 #include "../base/moonaclass.hpp"
+#include "../base/notation.hpp"
 #include "../base/object.hpp"
 
 namespace moona {
 
+    class JavaObject;
+
+    class EffectiveJObject : public Object<EffectiveJObject> {
+        protected:
+            EffectiveJObject() = default;
+        
+        public:
+            ~EffectiveJObject() = default;
+
+            virtual JavaObject asObject() const noexcept abstract;
+    };
+
     class JavaMethod;
     class JavaField;
 
-    class JavaObject : public Object<JavaObject> {
+    class JavaObject : public Object<JavaObject>, public EffectiveJObject {
         protected:
             jobject obj;
 
@@ -32,6 +45,8 @@ namespace moona {
 
             operator const jobject&() const noexcept;
             jobject getJObject() const noexcept;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             virtual JavaObject& operator = (const JavaObject& obj) noexcept;
             virtual JavaObject& operator = (const jobject& obj);

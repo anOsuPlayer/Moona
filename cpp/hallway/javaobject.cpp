@@ -256,6 +256,10 @@ namespace moona {
         return Moona::defaultJNIEnv().NewLocalRef(this->obj);
     }
 
+    JavaObject JavaObject::asObject() const noexcept {
+        return *this;
+    }
+
     const char* JavaObject::toString() const noexcept {
         jclass clazz = Moona::defaultJNIEnv().GetObjectClass(this->obj);
         jmethodID toString = Moona::defaultJNIEnv().GetMethodID(clazz, "toString", MethodSignature::TO_STRING);

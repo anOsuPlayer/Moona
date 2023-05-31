@@ -311,6 +311,10 @@ namespace moona {
         return (jclass) Moona::defaultJNIEnv().NewLocalRef(this->clazz);
     }
 
+    JavaObject JavaClass::asObject() const noexcept {
+        return JavaObject(this->clazz);
+    }
+
     JavaMethod JavaClass::getMethod(const char* name, const MethodSignature& ms) const {
         if (name == nullptr) {
             throw NullPointerException("Unable to find any JavaMethod from a nullptr.");

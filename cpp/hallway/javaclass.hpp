@@ -25,7 +25,7 @@ namespace moona {
     class JavaStaticField;
     class JavaObject;
 
-    class JavaClass : public Object<JavaClass> {
+    class JavaClass : public Object<JavaClass>, public EffectiveJObject {
         private:
             char* classname;
             jclass clazz;
@@ -40,6 +40,8 @@ namespace moona {
 
             operator const jclass&() const noexcept;
             jclass getJClass() const noexcept;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             JavaClass& operator = (const JavaClass& other);
             bool operator == (const JavaClass& other);
