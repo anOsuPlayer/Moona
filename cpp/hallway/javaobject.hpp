@@ -52,4 +52,9 @@ namespace moona {
         friend class JavaMethod;
         friend class JavaField;
     };
+
+    class JavaObjectArray : public Object<JavaObjectArray> {
+        protected:
+            jobjectArray arr;
+    };
 }
