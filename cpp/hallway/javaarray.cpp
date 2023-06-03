@@ -1,4 +1,5 @@
 #include "javaarray.hpp"
+#include "javaobject.hpp"
 
 namespace moona {
 
@@ -16,6 +17,10 @@ namespace moona {
         for (size_t i = 0; i < this->size; i++) {
             this->elements[i] = arr.elements[i];
         }
+    }
+
+    JavaObject JavaBooleanArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
     }
 
     JavaBooleanArray& JavaBooleanArray::operator = (jbooleanArray& arr) noexcept {
@@ -64,6 +69,10 @@ namespace moona {
         for (size_t i = 0; i < this->size; i++) {
             this->elements[i] = arr.elements[i];
         }
+    }
+
+    JavaObject JavaByteArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
     }
 
     JavaByteArray& JavaByteArray::operator = (jbyteArray& arr) noexcept {
@@ -121,6 +130,10 @@ namespace moona {
         }
     }
 
+    JavaObject JavaCharArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
+    }
+
     JavaCharArray& JavaCharArray::operator = (jcharArray& arr) noexcept {
         if (this->elements != nullptr) {
             delete[] this->elements;
@@ -167,6 +180,10 @@ namespace moona {
         for (size_t i = 0; i < this->size; i++) {
             this->elements[i] = arr.elements[i];
         }
+    }
+
+    JavaObject JavaIntArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
     }
 
     JavaIntArray& JavaIntArray::operator = (jintArray& arr) noexcept {
@@ -217,6 +234,10 @@ namespace moona {
         }
     }
 
+    JavaObject JavaLongArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
+    }
+
     JavaLongArray& JavaLongArray::operator = (jlongArray& arr) noexcept {
         if (this->elements != nullptr) {
             delete[] this->elements;
@@ -263,6 +284,10 @@ namespace moona {
         for (size_t i = 0; i < this->size; i++) {
             this->elements[i] = arr.elements[i];
         }
+    }
+    
+    JavaObject JavaFloatArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
     }
 
     JavaFloatArray& JavaFloatArray::operator = (jfloatArray& arr) noexcept {
@@ -311,6 +336,10 @@ namespace moona {
         for (size_t i = 0; i < this->size; i++) {
             this->elements[i] = arr.elements[i];
         }
+    }
+
+    JavaObject JavaDoubleArray::asObject() const noexcept {
+        return JavaObject(this->getJArray());
     }
 
     JavaDoubleArray& JavaDoubleArray::operator = (jdoubleArray& arr) noexcept {

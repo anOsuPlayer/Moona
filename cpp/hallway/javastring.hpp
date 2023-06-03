@@ -2,15 +2,15 @@
 
 #include <jni.h>
 
-#include "javaobject.hpp"
 #include "javaarray.hpp"
+#include "javaobject.hpp"
 #include "../base/object.hpp"
 #include "../exceptions/illegalexception.hpp"
 #include "../exceptions/indexexception.hpp"
 
 namespace moona {
 
-    class JavaString : public Object<JavaString>, public EffectiveJObject {
+    class JavaString : public Object<JavaString> {
         private:
             char* text;
 
@@ -42,7 +42,7 @@ namespace moona {
             operator jstring() const noexcept;
             jstring getJString() const noexcept;
 
-            virtual JavaObject asObject() const noexcept override final;
+            virtual JavaObject asObject() const noexcept final;
 
             operator const char*() const noexcept;
 

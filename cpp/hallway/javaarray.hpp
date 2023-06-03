@@ -14,9 +14,11 @@
 
 namespace moona {
 
+    class JavaObject;
+
     template <typename A> concept JArray = requires { std::is_base_of<jarray, A>(); };
 
-    template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>>, public EffectiveJObject {
+    template <JArray A, typename T> class JavaArray : public Object<JavaArray<A, T>> {
         protected:
             T* elements;
             mutable size_t size;
@@ -65,9 +67,7 @@ namespace moona {
                 return JValue(*this);
             }
 
-            virtual JavaObject asObject() const noexcept override final {
-                return JavaObject(this->getJArray());
-            }
+            virtual JavaObject asObject() const noexcept abstract;
             
             size_t length() const noexcept {
                 return this->size;
@@ -83,6 +83,8 @@ namespace moona {
             JavaBooleanArray(const JavaBooleanArray& arr);
             JavaBooleanArray(size_t size, jboolean* elements = nullptr);
             virtual ~JavaBooleanArray() = default;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             virtual JavaBooleanArray& operator = (jbooleanArray& arr) noexcept override final;
 
@@ -100,6 +102,8 @@ namespace moona {
             JavaByteArray(const JavaByteArray& arr);
             JavaByteArray(size_t size, jbyte* elements = nullptr);
             virtual ~JavaByteArray() = default;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             virtual JavaByteArray& operator = (jbyteArray& arr) noexcept override final;
 
@@ -119,6 +123,8 @@ namespace moona {
             JavaCharArray(size_t size, const char* elements);
             virtual ~JavaCharArray() = default;
 
+            virtual JavaObject asObject() const noexcept override final;
+
             virtual JavaCharArray& operator = (jcharArray& arr) noexcept override final;
 
             JavaCharArray region(size_t begin, size_t end) const;
@@ -135,6 +141,8 @@ namespace moona {
             JavaIntArray(const JavaIntArray& arr);
             JavaIntArray(size_t size, jint* elements = nullptr);
             virtual ~JavaIntArray() = default;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             virtual JavaIntArray& operator = (jintArray& arr) noexcept override final;
 
@@ -153,6 +161,8 @@ namespace moona {
             JavaLongArray(size_t size, jlong* elements = nullptr);
             virtual ~JavaLongArray() = default;
 
+            virtual JavaObject asObject() const noexcept override final;
+
             virtual JavaLongArray& operator = (jlongArray& arr) noexcept override final;
 
             JavaLongArray region(size_t begin, size_t end) const;
@@ -170,6 +180,8 @@ namespace moona {
             JavaFloatArray(size_t size, jfloat* elements = nullptr);
             virtual ~JavaFloatArray() = default;
 
+            virtual JavaObject asObject() const noexcept override final;
+
             virtual JavaFloatArray& operator = (jfloatArray& arr) noexcept override final;
 
             JavaFloatArray region(size_t begin, size_t end) const;
@@ -186,6 +198,8 @@ namespace moona {
             JavaDoubleArray(const JavaDoubleArray& arr);
             JavaDoubleArray(size_t size, jdouble* elements = nullptr);
             virtual ~JavaDoubleArray() = default;
+
+            virtual JavaObject asObject() const noexcept override final;
 
             virtual JavaDoubleArray& operator = (jdoubleArray& arr) noexcept override final;
 

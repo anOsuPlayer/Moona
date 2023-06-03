@@ -17,21 +17,22 @@ namespace moona {
         this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(obj.obj);
     }
 
-    JavaObject& JavaObject::operator = (const JavaObject& other) noexcept {
+    JavaObject::~JavaObject() {
         if (this->obj != nullptr) {
             Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->obj);
         }
-        this->obj = Moona::defaultJNIEnv().NewLocalRef(other.getJObject());
-
-        return *this;
     }
-    JavaObject& JavaObject::operator = (const jobject& other) {
+
+    JavaObject& JavaObject::operator = (const jobject& other) noexcept {
         if (this->obj != nullptr) {
             Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->obj);
         }
         this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(other);
         
         return *this;
+    }
+    bool JavaObject::operator == (const jobject& other) const noexcept {
+        return this->equals(other);
     }
 
     JValue JavaObject::_call(jobject obj, const JavaMethod& jm, const jvalue* args) {
@@ -289,5 +290,119 @@ namespace moona {
     }
     bool JavaObject::isInstanceof(const jclass& clazz) const noexcept {
         return (Moona::defaultJNIEnv().IsInstanceOf(this->obj, clazz) == 0 ? false : true);
+    }
+
+    JavaObjectArrayElement::JavaObjectArrayElement(JavaObjectArray* ref, size_t refIndex) : JavaObject(Moona::defaultJNIEnv().GetObjectArrayElement(ref->arr, refIndex)) {
+        this->ref = ref; this->refIndex = refIndex;
+    }
+    JavaObjectArrayElement::~JavaObjectArrayElement() {
+        if (this->hasChanged) {
+            Moona::defaultJNIEnv().SetObjectArrayElement(this->ref->arr, this->refIndex, this->obj);
+        }
+    }
+
+    JavaObject& JavaObjectArrayElement::operator = (const jobject& obj) noexcept {
+        this->hasChanged = true;
+        
+        if (this->obj != nullptr) {
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->obj);
+        }
+        this->obj = Moona::defaultJNIEnv().NewWeakGlobalRef(obj);
+        
+        return *this;
+    }
+
+    JavaObjectArray::JavaObjectArray(const jobjectArray& arr) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        this->arr = (jobjectArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
+    }
+    JavaObjectArray::JavaObjectArray(const JavaObjectArray& arr) {
+        if (!Moona::enableHallwayAccess) {
+            throw HallwayAccessException();
+        }
+
+        this->arr = (jobjectArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr.arr);
+    }
+
+    JavaObjectArray::~JavaObjectArray() {
+        if (this->currentElement != nullptr) {
+            delete this->currentElement;
+        }
+        Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->arr);
+    }
+
+    void JavaObjectArray::popCurrent() noexcept {
+        if (this->currentElement != nullptr) {
+            delete this->currentElement;
+        }
+    }
+
+    JavaObjectArray::operator const jobjectArray&() const noexcept {
+        return this->arr;
+    }
+    jobjectArray JavaObjectArray::getJObjectArray() const noexcept {
+        return (jobjectArray) Moona::defaultJNIEnv().NewLocalRef(this->arr);
+    }
+
+    JavaObject JavaObjectArray::asObject() const noexcept {
+        return JavaObject(this->arr);
+    }
+
+    JavaObjectArrayElement& JavaObjectArray::operator [] (size_t index) {
+        if (index >= this->length()) {
+            throw IndexOutOfBoundsException("The given index goes out of bounds for this JavaObjectArray.");
+        }
+
+        if (this->currentElement != nullptr) {
+            delete this->currentElement;
+        }
+        this->currentElement = new JavaObjectArrayElement(this, index);
+        
+        return *this->currentElement;
+    }
+
+    JavaObjectArray& JavaObjectArray::operator = (const jobjectArray& arr) noexcept {
+        if (this->arr != nullptr) {
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->arr);
+        }
+        
+        this->arr = (jobjectArray) Moona::defaultJNIEnv().NewWeakGlobalRef(arr);
+
+        return *this;
+    }
+    bool JavaObjectArray::operator == (const jobjectArray& arr) const noexcept {
+        return this->equals(arr);
+    }
+
+    size_t JavaObjectArray::length() const noexcept {
+        return Moona::defaultJNIEnv().GetArrayLength(this->arr);
+    }
+
+    const char* JavaObjectArray::toString() const noexcept {
+        jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
+        jmethodID toString = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "toString", MethodSignature(ObjectSignature::STRING, ArraySignature::OBJECT_ARRAY));
+        
+        JavaString str = (jstring) Moona::defaultJNIEnv().CallStaticObjectMethod(clazz, toString, this->arr);
+        char* res = new char[str.length()]; strcpy(res, str);
+        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
+
+        return res;
+    }
+    bool JavaObjectArray::equals(const JavaObjectArray& arr) const noexcept {
+        return this->equals(arr.arr);
+    }
+
+    bool JavaObjectArray::equals(const jobjectArray& arr) const noexcept {
+        jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
+        jmethodID equals = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "toString", MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
+
+        jboolean res = Moona::defaultJNIEnv().CallStaticBooleanMethod(clazz, equals, this->arr, arr);
+        bool eq = (res == 1) ? true : false;
+        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
+
+        return eq;
     }
 }

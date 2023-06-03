@@ -345,6 +345,10 @@ namespace moona {
         return JavaStaticField(name, *this, fs);
     }
 
+    constexpr bool JavaClass::isArray() const noexcept {
+        return this->classname[0] == '[';
+    }
+
     JavaClass JavaClass::arrayType(size_t level) const {
         if (level == 0) {
             throw IllegalArgumentException("Unable to obtain 0-dimensional arrays.");
