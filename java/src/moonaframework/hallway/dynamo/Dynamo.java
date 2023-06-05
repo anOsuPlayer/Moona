@@ -154,7 +154,7 @@ public final class Dynamo {
 			}
 			br.close();
 			System.err.println(log);
-			
+
 			throw new CompilationError("First Phase failed: defective code.");
 		}
 		
