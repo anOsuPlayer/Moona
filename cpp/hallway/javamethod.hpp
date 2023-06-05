@@ -17,6 +17,7 @@ namespace moona {
 
     class JavaClass;
     class JavaObject;
+    class JavaObjectArray;
 
     class JavaMethod : public Object<JavaMethod> {
         protected:
@@ -68,5 +69,6 @@ namespace moona {
             ~JavaConstructor() = default;
 
             JavaObject newInstance(const jvalue* args = nullptr) const;
+            JavaObjectArray newArray(size_t length) const;
     };
 }

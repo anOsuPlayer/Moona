@@ -396,6 +396,10 @@ namespace moona {
     }
 
     bool JavaObjectArray::equals(const jobjectArray& arr) const noexcept {
+        if (arr == nullptr) {
+            return false;
+        }
+
         jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
         jmethodID equals = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "toString", MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
 

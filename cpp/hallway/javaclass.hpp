@@ -66,5 +66,7 @@ namespace moona {
 
             virtual const char* toString() const noexcept override final;
             virtual bool equals(const JavaClass& other) const noexcept override final;
+        
+        friend class JavaConstructor;
     };
 }

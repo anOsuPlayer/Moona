@@ -129,4 +129,17 @@ namespace moona {
 
         return obj;
     }
+    JavaObjectArray JavaConstructor::newArray(size_t length) const {
+        JavaObjectArray arr = Moona::defaultJNIEnv().NewObjectArray(length, this->clazz->clazz, nullptr);
+
+        if (arr == nullptr) {
+            throw JVMException("Array creation failed.");
+        }
+        if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
+            throw JVMException();
+        }
+
+        return arr;
+    }
 }
