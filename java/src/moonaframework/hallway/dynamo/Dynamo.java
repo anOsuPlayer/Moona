@@ -97,9 +97,9 @@ public final class Dynamo {
 					writer.println(gen.getImplementation());
 					writer.println("}");
 					
-					compile(gen);
-					
 					writer.close();
+					
+					compile(gen);
 				}
 				catch (IOException | UndefinedReflectionException | InterruptedException e) {
 					e.printStackTrace();
@@ -154,6 +154,12 @@ public final class Dynamo {
 			}
 			br.close();
 			System.err.println(log);
+			
+			for (File f : new File(exportLocation).listFiles()) {
+				if (f.getName().contains(".cpp")) {
+					f.deleteOnExit();
+				}
+			}
 
 			throw new CompilationError("First Phase failed: defective code.");
 		}
