@@ -334,6 +334,8 @@ namespace moona {
         Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->arr);
     }
 
+    JavaStaticMethod* JavaObjectArray::PRINT_ARRAY = nullptr;
+
     void JavaObjectArray::popCurrent() noexcept {
         if (this->currentElement != nullptr) {
             delete this->currentElement;
@@ -382,13 +384,16 @@ namespace moona {
     }
 
     const char* JavaObjectArray::toString() const noexcept {
-        jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
-        jmethodID toString = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "toString", MethodSignature(ObjectSignature::STRING, ArraySignature::OBJECT_ARRAY));
-        
-        JavaString str = (jstring) Moona::defaultJNIEnv().CallStaticObjectMethod(clazz, toString, this->arr);
-        char* res = new char[str.length()]; strcpy(res, str);
-        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
+        if (this->PRINT_ARRAY == nullptr) {
+            JavaClass clazz("java/util/Arrays");
+            JavaObjectArray::PRINT_ARRAY = new JavaStaticMethod("toString", clazz, MethodSignature(ObjectSignature::STRING, ArraySignature::OBJECT_ARRAY));
+        }
 
+        jvalue* array = new jvalue[1]; array[0].l = this->arr;
+        JavaString str = (jstring) JavaObjectArray::PRINT_ARRAY->call(array);
+        delete[] array;
+
+        char* res = new char[str.length()]; strcpy(res, str);
         return res;
     }
     bool JavaObjectArray::equals(const JavaObjectArray& arr) const noexcept {
@@ -401,7 +406,7 @@ namespace moona {
         }
 
         jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
-        jmethodID equals = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "toString", MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
+        jmethodID equals = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "equals", MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
 
         jboolean res = Moona::defaultJNIEnv().CallStaticBooleanMethod(clazz, equals, this->arr, arr);
         bool eq = (res == 1) ? true : false;

@@ -88,6 +88,8 @@ namespace moona {
             jobjectArray arr;
             JavaObjectArrayElement* currentElement;
 
+            static JavaStaticMethod* PRINT_ARRAY;
+
             JavaObjectArray() = default;
 
             void popCurrent() noexcept;
@@ -115,5 +117,6 @@ namespace moona {
             bool equals(const jobjectArray& obj) const noexcept;
         
         friend class JavaObjectArrayElement;
+        friend class Moona;
     };
 }

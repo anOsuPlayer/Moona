@@ -297,10 +297,16 @@ namespace moona {
         return JValue::castNumber<jdouble>(*this);
     }
     JValue::operator const jobject() const {
-        if (this->tag != ValueTag::OBJECT) {
-            throw JValue::badcast;
+        if (this->tag == ValueTag::OBJECT || this->tag == ValueTag::STRING) {
+            return this->o;
         }
-        return this->o;
+        throw JValue::badcast;
+    }
+    JValue::operator const jstring() const {
+        if (this->tag == ValueTag::OBJECT || this->tag == ValueTag::STRING) {
+            return (jstring) this->o;
+        }
+        throw JValue::badcast;
     }
 
     JValue::operator const jvalue() const {

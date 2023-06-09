@@ -4,8 +4,9 @@
 
 namespace moona {
 
-    JavaImpl jobjectArray Java_test_Test_arr(StaticArgs, jclass clazz) {
-        return JavaClass(clazz).getConstructor(ConstructorSignature::DEFAULT).newArray(3);
+    JavaImpl void Java_test_Test_arr(StaticArgs, jobjectArray arr) {
+        JavaObjectArray a = arr;
+        std::cout << a.toString();
     }
     
     JavaImpl jlong Java_moonaframework_hallway_Cpp_version(StaticArgs) {
