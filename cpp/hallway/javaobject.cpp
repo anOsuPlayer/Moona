@@ -335,6 +335,7 @@ namespace moona {
     }
 
     JavaStaticMethod* JavaObjectArray::PRINT_ARRAY = nullptr;
+    JavaStaticMethod* JavaObjectArray::ARRAY_EQUALS = nullptr;
 
     void JavaObjectArray::popCurrent() noexcept {
         if (this->currentElement != nullptr) {
@@ -405,13 +406,16 @@ namespace moona {
             return false;
         }
 
-        jclass clazz = Moona::defaultJNIEnv().FindClass("java/util/Arrays");
-        jmethodID equals = Moona::defaultJNIEnv().GetStaticMethodID(clazz, "equals", MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
+        if (this->ARRAY_EQUALS == nullptr) {
+            JavaClass clazz("java/util/Arrays");
+            JavaObjectArray::ARRAY_EQUALS = new JavaStaticMethod("equals", clazz,  MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
+        }
 
-        jboolean res = Moona::defaultJNIEnv().CallStaticBooleanMethod(clazz, equals, this->arr, arr);
+        jvalue* arrays = new jvalue[2]; arrays[0].l = this->arr; arrays[1].l = arr;
+        jboolean res = JavaObjectArray::ARRAY_EQUALS->call(arrays);
+        delete[] arrays;
+
         bool eq = (res == 1) ? true : false;
-        Moona::defaultJNIEnv().DeleteLocalRef(clazz);
-
         return eq;
     }
 }

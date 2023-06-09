@@ -89,6 +89,7 @@ namespace moona {
             JavaObjectArrayElement* currentElement;
 
             static JavaStaticMethod* PRINT_ARRAY;
+            static JavaStaticMethod* ARRAY_EQUALS;
 
             JavaObjectArray() = default;
 
