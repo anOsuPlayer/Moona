@@ -334,8 +334,8 @@ namespace moona {
         Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->arr);
     }
 
-    JavaStaticMethod* JavaObjectArray::PRINT_ARRAY = nullptr;
-    JavaStaticMethod* JavaObjectArray::ARRAY_EQUALS = nullptr;
+    JavaStaticMethod JavaObjectArray::PRINT_ARRAY;
+    JavaStaticMethod JavaObjectArray::ARRAY_EQUALS;
 
     void JavaObjectArray::popCurrent() noexcept {
         if (this->currentElement != nullptr) {
@@ -387,11 +387,11 @@ namespace moona {
     const char* JavaObjectArray::toString() const noexcept {
         if (this->PRINT_ARRAY == nullptr) {
             JavaClass clazz("java/util/Arrays");
-            JavaObjectArray::PRINT_ARRAY = new JavaStaticMethod("toString", clazz, MethodSignature(ObjectSignature::STRING, ArraySignature::OBJECT_ARRAY));
+            JavaObjectArray::PRINT_ARRAY = JavaStaticMethod("toString", clazz, MethodSignature(ObjectSignature::STRING, ArraySignature::OBJECT_ARRAY));
         }
 
         jvalue* array = new jvalue[1]; array[0].l = this->arr;
-        JavaString str = (jstring) JavaObjectArray::PRINT_ARRAY->call(array);
+        JavaString str = (jstring) JavaObjectArray::PRINT_ARRAY.call(array);
         delete[] array;
 
         char* res = new char[str.length()]; strcpy(res, str);
@@ -408,11 +408,11 @@ namespace moona {
 
         if (this->ARRAY_EQUALS == nullptr) {
             JavaClass clazz("java/util/Arrays");
-            JavaObjectArray::ARRAY_EQUALS = new JavaStaticMethod("equals", clazz,  MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
+            JavaObjectArray::ARRAY_EQUALS = JavaStaticMethod("equals", clazz,  MethodSignature(Signature::BOOLEAN, ComposedSignature(ArraySignature::OBJECT_ARRAY).concat(ArraySignature::OBJECT_ARRAY)));
         }
 
         jvalue* arrays = new jvalue[2]; arrays[0].l = this->arr; arrays[1].l = arr;
-        jboolean res = JavaObjectArray::ARRAY_EQUALS->call(arrays);
+        jboolean res = JavaObjectArray::ARRAY_EQUALS.call(arrays);
         delete[] arrays;
 
         bool eq = (res == 1) ? true : false;
