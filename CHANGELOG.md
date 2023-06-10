@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## early_dev-0.0.6 - The Hallway Update - Part I
+
+* **Added Hallway Interface:** It's a set of features which allows Moona to interact with other languages. In this update, compatibility between Java and C++ was made possile; in the future, when Moona will expand to new languages, new interoperability features will come.
+* **Added Dynamo System:** This system allows a Java user to link _native methods_ without the need of creating .dll libraries manually. It utilizes _NativeGenerations_ to link to a Method Reference (which points to a native Java method) and makes automatic code generation possible. One needs to specify an _implementation_, which is the C++ raw code, as well as the _required #include clauses_: the Dynamo Handler will automatically generate the .dll library and link it to Java.
+* **Added moonaframework.hallway package:** It stores all the newly added Hallway related features.
+* **Added Dynamo Class:** The Dynamo Class is the Object Handler which manages NativeGenerations and creates the native .dll libraries. Other than taking care of generating the native code, it will also deal with _deleting unnecessary files_. In case a file was the result of an aborted compilation or in case it was no longer needed, the Dynamo will take care of it.
+* **Added NativeGeneration Class:** A NativeGeneration is a particular Object which allows a native Java method to receive a _full implementation_ without dealing with separate C++ files. It will need a String, containing _C++ code_ as _implementation_, as well as _a list of all the required #include clauses_. NativeGenerations are automatically handled by the Dynamo (if the _Moona.implicitDynamoInclusion_ settings is disabled) and they each have _one and one only corresponding .dll library_. Said library will be deleted in case the NativeGeneration's implementation in the code went missing: this means that the Dynamo will maintain a NativeGeneration's .dll if and only if _the NativeGeneration keeps being a part of the code_.
+
 ## early_dev-0.0.5.1 - The SuperObjects Update!
 
 * **C++ Features:** About the _actual_ C++ features I've added, I have a disclaimer to do.. _THEY ARE VERY UNSTABLE_. I am not yet 100% confident on how to make good code in C++ (at least not as much as I am in Java) and this makes things... a bit radioactive, to say the least.
