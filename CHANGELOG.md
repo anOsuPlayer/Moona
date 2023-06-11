@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## early_dev-0.0.6.1 - 0.0.6 Fixing Patch I!
+
+* **Added New Cast to JValue Class:** Now can be casted into a _jstring_.
+* **Added Static Fields to JavaObjectArray:** Two static JavaStaticField fields have been added to the JavaObjectArray Wrapper Class to hold both references to the _Arrays.equals()_ and _Arrays.toString()_ methods.
+* **Corrected JavaObjectArray's .equals() Function.**
+* **Fixed Dynamo's Aborted Compilations Disposal:** The Dynamo will now handle failed compilations and will delete all the unwanted files. 
+
 ## early_dev-0.0.6 - The Hallway Update - Part I!
 
 * **Added Hallway Interface:** It's a set of features that allows Moona to interact with other languages. In this update, compatibility between Java and C++ was made possible; in the future, when Moona expands to new languages, new interoperability features will come.
