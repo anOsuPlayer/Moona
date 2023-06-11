@@ -10,6 +10,7 @@
 * **Added Generated Annotation:** This optional Annotation has to be used to mark _methods generated with the Dynamo_.
 * **Added Moona.enableDynamo Setting:** This setting establishes whether or not the Dynamo is active. This is needed since the Dynamo will perform a routine task every time the Moona.init() method is called, for this reason, this might end up resulting in performance issues if not needed.
 * **Added Moona.enableHallwayAccess Setting:** For the same reasons listed above, this setting states if Moona is allowed to interact with the Hallway and, consequently, with its other languages counterparts.
+> NOTE: This Setting has been added to both Java and C++.
 * **Added Moona.implicitDynamoInclusion Setting:** States whether or not NativeGenerations should be automatically added to the Dynamo or not. This is especially useful when _dealing with multiple NativeGenerations pointing to the same native method_: In case an implementation was needed on top of another for whatever reason, this will be a good way of deciding without the Dynamo interfering.
 * **Added DynamoAccessException Class:** Gets thrown in case some Dynamo-related feature was called when the _Moona.enableDynamo Setting_ is disabled.
 * **Added CompilationError Class:** Gets thrown in case the Dynamo tried to generate a .dll library from a NativeGeneration _containing defective C++ code_. With it, a detailed _g++ error log_ will follow to enlighten you about what was wrong with said code.
@@ -19,11 +20,47 @@
 * **Added Moona.nativeInterrupt() Method:** This method does the same thing as the _Moona.interrupt() method_ but on the native side of Moona. This only gets called if the _Moona.enableHallwayException Setting_ is enabled.
 * **Added Endexpr Class:** Endexpressions are snippets of code that get executed when the _Moona.interrupt() method_ is called.
 * **Added MoonaSetting Class:** MoonaSettings are a special kind of settings that _can be modified only before the Moona.init() method's invocation_.
+> NOTE: MoonaSettings have been added to both Java and C++.
 * **Added Cpp Class:** Inside the .hallway package, it is required to handle any _C++ related interactions_. This does not mean it's an equivalent of the _Java's Unsafe Class_, but rather, it focuses on minor things, such as _telling you what C++ version you're using_ or _stating where the JNI libraries reside_ (which sounds, and actually is, more useful than the latter).
 * **Added Address Class:** It contains a long that points to a _memory address_. As of now, it's not used.
 * **Added Moona.moonastack:** It is a _java.lang.foreign.MemorySession_ instance that is entirely handled by Moona. It stays alive until the framework does, and it will be automatically opened and closed.
 * **Added .asOptional Method in SuperObject Class:** Casts a SuperObject\<T\> into an Optional\<T\>.
+* **Added C++ exception Assets:** A brand new set of Exceptions were added to the C++ side of Moona.
+> NOTE: All the newly added Exceptions will be implemented only in _Moona-related situations_. Do not expect regular C++ to throw these bad boys on its own (would be way too good).
+* **Added Exception C++ Class:** Acts as a base class for all the other Moona Exceptions.
+* **Added BadCastException C++ Exception:** Gets thrown when a bad cast occurs.
+* **Added IllegalArgumentException C++ Exception:** In a very Java-fashion, gets thrown when an _unworty argument_ is fed into an unsuspecting method.
+* **Added IndexOutOfBoundsException C++ Exception:** Gets thrown when, guess what, a given index goes out of bounds for a certain context.
+* **Added NullPointerException C++ Exception:** Gets thrown when a _nullptr_ goes where it shouldn't.
+* **Added UnsupportedOperationException C++ Exception:** In case a certain operation was restricted, this bad boy gets thrown.
+* **Added C++ hallway Assets:** All the Hallway related assets will be stored in the newly added _cpp/hallway_ folder.
+* **Added JVM C++ Class:** Represents a Java Virtual Machine in C++. Can either come from a _Java initialization_ or a _C++ initialization_ of Moona. It contains a JNIEnv pointer, which is the root of all the JNI-related actions that take place during runtime.
+* **Added JVMException C++ Exception:** Gets thrown when a Java-related exception occurs. Specifically, this exception will be thrown both when _a JVM creation fails_ or when _Java Method Calls rise Java Exceptions_. Together with the JVMException, in case the JNI detected Java Exceptions being thrown, a thorough log of the latter will be displayed.
+> NOTE: Resides in the _cpp/hallway_ folder.
+* **Added cppimpl C++ Header and Implementation:** Serves both as a _test file_ and as a place where to put _native methods implementations_ for the Java Cpp class.
+* **Added javanotation.hpp Header:** Contains a series of _#define constants_ which are useful when writing native implementations for native Java Methods.
+* **Added JavaPackage C++ Wrapper Class:** Serves as a Wrapper Class for a Java Package. Can be used to _get classes_ which are (supposedly) inside of it.
+* **Added JavaClass C++ Wrapper Class:** Mimics a Java Class. It contains a _jclass JNI pointer_ stored as _WeakGlobalReference_. It's the base source to derive _static and non-static methods and fields_. Can also be used to directly call _JavaStaticMethod(s)_ and to edit/view _JavaStaticField(s)_.
+* **Added NoSuchClassException C++ Exception:** Gets thrown when trying to get a Java Class which doesn't exist.
+* **Added JavaObject C++ Wrapper Class:** Resembles a Java Object. Can be constructed from both a _JavaConstructor_ or _an already existing jobject JNI pointer_. It's the base to _call regular methods_ and access or edit _non-static fields_.
+* **Added JavaObjectArray C++ Wrapper Class:** Resembles a Java Object[] and can be edited with the "[]" operator.
+* **Added JavaObjectArrayElement C++ Class:** It's the Object returned from the "[]" operator of the JavaObjectArray Wrapper Class. Serves as a vessel to edit an Object inside of a JavaObjectArray.
+* **Added JavaArray Wrapper Class:** By itself, the JavaArray Class is a _template_ which acts as an _abstract super-class_ for all the other _primitive Array Wrapper Classes_, which wrap a _boolean, short, char, int, long, float and double_ primitive Java Array.
+> NOTE: A JavaObjectArray is NOT a JavaArray!
+* **Added JavaMethod and JavaStaticMethod Wrapper Classes:** They resemble, respectively, a _Java method and static method_. They store a _jmethodID_ and can be called on _JavaObjects_ and _JavaClasses_, respectively.
+* **Added NoSuchMethodException C++ Exception:** Gets thrown when trying to get a Java Method which doesn't belong to a certain Class.
+* **Added JavaField and JavaStaticField Wrapper Classes:** Much like their Method counterparts, this Wrappers represent _Java fields and static fields_. They store a _jfieldID_ and can be accessed on _JavaObjects_ and _JavaClasses_, respectively.
+* **Added NoSuchFieldException C++ Exception:** Gets thrown when trying to get a Java Field which doesn't belong to a certain Class.
+* **Added JValue Wrapper Class:** Wraps a _jvalue JNI pointer_ making it _less painful_ to utilize.
+* **Added JavaString Wrapper Class:** Holds a _const char*_ and exports it as a _jstring JNI pointer_ when needed. This design choice was taken because editing already existing jstrings is quite slow compared to editing a _const char*_.
+* **Added javasignature C++ Header and Implementation:** These files store a series of Objects which can be used to _generate Java Methods Signatures_ without having to remember how to write them by heart. There is the: _PureSignature Class_, acting as a solid base for all the other Signatures (Except _Field_, _Method_ and _ConstructorSignatures_); _Signature Class_, representing the basic _primitive types signatures_; _ObjectSignature Class_, representing the signature of any _Java Object_; _ArraySignature Class_, which can generate an array of any other Signature or ObjectSignature; _ComposedSignature Class_, which represents an _integral signature_ for _method and constructor parameters_; _MethodSignature, ConstructorSignature and FieldSignature Classes_, which represent... well read their names and you'll find out.
+* **Added cpp/util Folder:** Stores all the util features of Moona's C++ side.
+* **Added LICENSE.md File:** Finally Moona has a license too.
+* **Added base/notation.hpp C++ Header:** The base/notation.hpp header will provide the standard notation for all the files concerning the C++ side of Moona.
 * **Improved .evaluate() Method in Setting Class:** Better handles autoboxing of booleans, avoiding the use of wrapper classes in the process.
+* **Removed cpp/contitions Assets:** To be re-implemented.
+* **Removed Unused Imports:** Across the framework... somewhere.
+* **Removed Useless Casts:** in Benchmark Java Class.
 
 ## early_dev-0.0.5.1 - The SuperObjects Update!
 
