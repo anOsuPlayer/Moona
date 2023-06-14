@@ -67,6 +67,10 @@ public final class Dynamo {
 		for (NativeGeneration gen : generations) {
 			final String genID = generationID(gen);
 			
+			if (gen.getImplementation() == null) {
+				throw new EmptyGenerationException("This NativeGeneration carries a non existing implementation.");
+			}
+			
 			File generation = new File(exportLocation + "/" + genID + ".dll");
 			if (!generation.exists()) {
 				File sourceCode = new File(exportLocation + "/" + genID + ".cpp");
@@ -255,7 +259,7 @@ public final class Dynamo {
 		return null;
 	}
 	
-	public static void add(NativeGeneration ng) throws NullArgumentException, DynamoAccessException, DuplicateGenerationException {
+	public static void add(NativeGeneration ng) throws NullArgumentException, DynamoAccessException, DuplicateGenerationException, IllegalArgumentException {
 		if (!Moona.enableDynamo.evaluate()) {
 			throw new DynamoAccessException();
 		}
@@ -265,7 +269,7 @@ public final class Dynamo {
 		if (has(ng)) {
 			throw new DuplicateGenerationException(ng);
 		}
- 		
+		
  		generations.add(ng);
 	}
 	public static void remove(NativeGeneration ng) throws NullArgumentException, DynamoAccessException {
