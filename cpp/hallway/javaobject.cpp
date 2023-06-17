@@ -133,6 +133,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
         return r;
@@ -185,6 +186,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
         return r;
@@ -236,6 +238,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
     }

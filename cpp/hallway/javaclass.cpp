@@ -204,6 +204,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
         return r;
@@ -253,6 +254,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
         return r;
@@ -300,6 +302,7 @@ namespace moona {
         }
 
         if (Moona::defaultJNIEnv().ExceptionCheck()) {
+            Moona::defaultJNIEnv().ExceptionDescribe();
             throw JVMException();
         }
     }
@@ -347,6 +350,11 @@ namespace moona {
 
     constexpr bool JavaClass::isArray() const noexcept {
         return this->classname[0] == '[';
+    }
+
+    constexpr bool JavaClass::extends(const JavaClass& clazz) const noexcept {
+        jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
+        return Moona::defaultJNIEnv().IsInstanceOf(obj, clazz.clazz) == 1;
     }
 
     JavaClass JavaClass::arrayType(size_t level) const {
