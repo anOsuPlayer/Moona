@@ -61,7 +61,7 @@ namespace moona {
 
             constexpr bool isArray() const noexcept;
 
-            constexpr bool extends(const JavaClass& clazz) const noexcept;
+            bool extends(const jclass& clazz) const noexcept;
 
             JavaClass arrayType(size_t level = 1) const;
             JavaClass componentType() const noexcept;

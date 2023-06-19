@@ -1,5 +1,7 @@
 #pragma once
 
+#include <jni.h>
+
 #define JavaImpl extern "C" JNIEXPORT JNICALL
 
 #define DefaultArgs JNIEnv* env, jobject thisObj

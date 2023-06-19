@@ -352,9 +352,9 @@ namespace moona {
         return this->classname[0] == '[';
     }
 
-    constexpr bool JavaClass::extends(const JavaClass& clazz) const noexcept {
+    bool JavaClass::extends(const jclass& clazz) const noexcept {
         jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
-        return Moona::defaultJNIEnv().IsInstanceOf(obj, clazz.clazz) == 1;
+        return Moona::defaultJNIEnv().IsInstanceOf(obj, clazz) == 1;
     }
 
     JavaClass JavaClass::arrayType(size_t level) const {
