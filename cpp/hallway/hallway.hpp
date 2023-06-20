@@ -16,3 +16,5 @@
 #include "javaarray.hpp"
 #include "javaobject.hpp"
 #include "javastring.hpp"
+
+#include "twinclass.hpp"
