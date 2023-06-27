@@ -88,7 +88,7 @@ namespace moona {
         return *Moona::jvm;
     }
     JNIEnv& Moona::defaultJNIEnv() {
-        if (!Moona::enableHallwayAccess) {
+        if (!Moona::enableHallwayAccess) { 
             throw HallwayAccessException();
         }
 

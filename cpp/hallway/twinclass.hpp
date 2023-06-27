@@ -1,5 +1,6 @@
 #pragma once
 
+#include "javaarray.hpp"
 #include "javaclass.hpp"
 #include "hallwayexception.hpp"
 #include "../base/moonaclass.hpp"
@@ -8,23 +9,15 @@
 
 namespace moona {
 
-    class TwinClass : public Object<TwinClass> {
-        private:
-            JavaClass clazz;
-
+    class TwinClass : public JavaClass {
         public:
             TwinClass() = default;
             explicit TwinClass(const char* clazz);
             TwinClass(const jclass& clazz);
             TwinClass(const JavaClass& clazz);
             TwinClass(const TwinClass& tc);
-            ~TwinClass() = default;
+            virtual ~TwinClass() = default;
 
-            TwinClass& operator = (const TwinClass& tc) noexcept;
-
-            bool operator == (const TwinClass& tc) const noexcept;
-
-            const char* toString() const noexcept;
-            bool equals(const TwinClass& tc) const noexcept;
+        friend class Moona;
     };
 }

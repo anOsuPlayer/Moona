@@ -85,20 +85,30 @@ namespace moona {
     }
 
     JavaClass::~JavaClass() {
-        Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->clazz);
-        delete[] this->classname;
+        if (this->clazz != nullptr) {
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->clazz);
+        }
+        if (this->classname != nullptr) {
+            delete[] this->classname;
+        }
     }
 
     JavaClass& JavaClass::operator = (const JavaClass& other) {
         const char* classname = other.classname;
         size_t len = strlen(classname);
+        if (this->classname != nullptr) {
+            delete[] this->classname;
+        }
         this->classname = new char[len+1]; this->classname[len] = '\0';
 
         for (size_t i = 0; i < len; i++) {
             this->classname[i] = classname[i];
         }
 
-        this->clazz = other.clazz;
+        if (this->clazz != nullptr) {
+            Moona::defaultJNIEnv().DeleteWeakGlobalRef(this->clazz);
+        }
+        this->clazz = (jclass) Moona::defaultJNIEnv().NewWeakGlobalRef(other.clazz);
 
         return *this;
     }
@@ -353,8 +363,7 @@ namespace moona {
     }
 
     bool JavaClass::extends(const jclass& clazz) const noexcept {
-        jobject obj = Moona::defaultJNIEnv().AllocObject(this->clazz);
-        return Moona::defaultJNIEnv().IsInstanceOf(obj, clazz) == 1;
+        return Moona::defaultJNIEnv().IsAssignableFrom(this->clazz, clazz);
     }
 
     JavaClass JavaClass::arrayType(size_t level) const {

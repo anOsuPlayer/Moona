@@ -26,7 +26,7 @@ namespace moona {
     class JavaObject;
 
     class JavaClass : public Object<JavaClass> {
-        private:
+        protected:
             char* classname;
             jclass clazz;
 
@@ -36,7 +36,7 @@ namespace moona {
             explicit JavaClass(const char* fullname);
             explicit JavaClass(const JavaPackage& pack, const char* classname);
             JavaClass(const JavaClass& clazz);
-            ~JavaClass();
+            virtual ~JavaClass();
 
             operator const jclass&() const noexcept;
             jclass getJClass() const noexcept;
@@ -67,7 +67,7 @@ namespace moona {
             JavaClass componentType() const noexcept;
 
             virtual const char* toString() const noexcept override final;
-            virtual bool equals(const JavaClass& other) const noexcept override final;
+            virtual bool equals(const JavaClass& other) const noexcept override;
         
         friend class JavaConstructor;
     };

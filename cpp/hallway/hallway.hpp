@@ -18,3 +18,4 @@
 #include "javastring.hpp"
 
 #include "twinclass.hpp"
+#include "twinobject.hpp"
