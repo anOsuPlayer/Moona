@@ -10,13 +10,23 @@
 namespace moona {
 
     class TwinClass : public JavaClass {
+        private:
+            TwinClass();
+
+            mutable int* pattern;
+
+            void setupPattern() const noexcept;
+
         public:
-            TwinClass() = default;
             explicit TwinClass(const char* clazz);
             TwinClass(const jclass& clazz);
             TwinClass(const JavaClass& clazz);
             TwinClass(const TwinClass& tc);
-            virtual ~TwinClass() = default;
+            virtual ~TwinClass();
+
+            const int* getPattern() const noexcept {
+                return this->pattern;
+            }
 
         friend class Moona;
     };
