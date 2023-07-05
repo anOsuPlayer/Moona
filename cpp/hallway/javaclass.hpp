@@ -43,7 +43,7 @@ namespace moona {
 
             virtual JavaObject asObject() const noexcept final;
 
-            JavaClass& operator = (const JavaClass& other);
+            virtual JavaClass& operator = (const JavaClass& other);
             bool operator == (const JavaClass& other);
 
             JValue call(const JavaStaticMethod& jsm, const jvalue* args = nullptr) const;

@@ -2,6 +2,10 @@
 
 namespace moona {
 
+    TwinClass::TwinClass() {
+        this->pattern = new int[0];
+    }
+
     TwinClass::TwinClass(const char* clazz) : JavaClass(clazz) {
         JavaClass twinnable("moonaframework.hallway.twin.Twinnable");
         if (!this->extends(twinnable)) {
