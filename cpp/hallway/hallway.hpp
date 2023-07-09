@@ -17,5 +17,4 @@
 #include "javaobject.hpp"
 #include "javastring.hpp"
 
-#include "twinclass.hpp"
 #include "twinobject.hpp"
