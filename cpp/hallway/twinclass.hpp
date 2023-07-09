@@ -11,9 +11,9 @@ namespace moona {
 
     class TwinClass : public JavaClass {
         private:
-            mutable int* pattern;
+            int* pattern;
 
-            void setupPattern() const noexcept;
+            void setupPattern() noexcept;
 
         public:
             TwinClass();
@@ -23,9 +23,7 @@ namespace moona {
             TwinClass(const TwinClass& tc);
             virtual ~TwinClass();
 
-            const int* getPattern() const noexcept {
-                return this->pattern;
-            }
+            const int* getPattern() const noexcept;
 
         friend class Moona;
     };

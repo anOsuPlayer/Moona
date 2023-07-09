@@ -39,7 +39,7 @@ namespace moona {
         delete[] this->pattern;
     }
 
-    void TwinClass::setupPattern() const noexcept {
+    void TwinClass::setupPattern() noexcept {
         JavaMethod pattern = this->getMethod("pattern", ArraySignature::INT_ARRAY);
         JavaIntArray arr = (jintArray) ((jobject) pattern.callOn(Moona::defaultJNIEnv().AllocObject(this->clazz)));
         
@@ -47,5 +47,9 @@ namespace moona {
         for (size_t i = 0; i < arr.length(); i++) {
             this->pattern[i] = arr[i];
         }
+    }
+
+    const int* TwinClass::getPattern() const noexcept {
+        return this->pattern;
     }
 }
