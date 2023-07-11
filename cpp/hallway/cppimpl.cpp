@@ -9,6 +9,8 @@ namespace moona {
     }
 
     JavaImpl jobject Java_test_Test_generate(StaticArgs, jobject obj) {
-        return nullptr; 
+        TwinObject<double, double>* to = TwinObject<double, double>::of(obj);
+        std::cout << std::get<0>(to->data);
+        return nullptr;
     }
 }
