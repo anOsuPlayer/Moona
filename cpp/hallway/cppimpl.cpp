@@ -10,7 +10,7 @@ namespace moona {
 
     JavaImpl jobject Java_test_Test_generate(StaticArgs, jobject obj) {
         TwinObject<double, double>* to = TwinObject<double, double>::of(obj);
-        std::cout << std::get<0>(to->data);
+        std::cout << *reinterpret_cast<double*>(reinterpret_cast<char*>(to)+sizeof(TwinObject<double, double>));
         return nullptr;
     }
 }

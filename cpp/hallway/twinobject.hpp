@@ -14,13 +14,11 @@ namespace moona {
     template <typename... T> class TwinObject {
         private:
             unsigned int header1, header2, header3;
+            TwinObject<T...>** jthis;
 
             TwinObject() = default;
 
         public:
-            std::tuple<T...> data = std::tuple<T...>();
-            // TwinObject<T...>** jthis;
-
             ~TwinObject() = default;
             
             static TwinObject<T...>* of(jobject obj) {
