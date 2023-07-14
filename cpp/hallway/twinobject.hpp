@@ -1,7 +1,5 @@
 #pragma once
 
-#include <tuple>
-
 #include "javaarray.hpp"
 #include "javaclass.hpp"
 #include "hallwayexception.hpp"
@@ -19,15 +17,21 @@ namespace moona {
             TwinObject() = default;
 
         public:
+            TwinObject(jobject obj) {
+                this->jthis = reinterpret_cast<TwinObject<T...>**>(obj);
+            }
+            TwinObject(const TwinObject<T...>& obj) {
+                this->header1 = obj.header1; this->header2 = obj.header2; this->header3 = obj.header3;
+                this->jthis = obj.jthis;
+            }
             ~TwinObject() = default;
-            
-            static TwinObject<T...>* of(jobject obj) {
-                TwinObject<T...>** o = reinterpret_cast<TwinObject<T...>**>(obj);
-                return *o;
+
+            template <typename S> S atDistance(const size_t dist) {
+                return *reinterpret_cast<S*>(reinterpret_cast<char*>(*this->jthis)+16+dist);
             }
 
-            // operator jobject() const noexcept {
-            //     return reinterpret_cast<jobject>(this->jthis);
-            // }
+            operator jobject() const noexcept {
+                return reinterpret_cast<jobject>(this->jthis);
+            }
     };
 }

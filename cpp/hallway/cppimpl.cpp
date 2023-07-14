@@ -9,8 +9,10 @@ namespace moona {
     }
 
     JavaImpl jobject Java_test_Test_generate(StaticArgs, jobject obj) {
-        TwinObject<double, double>* to = TwinObject<double, double>::of(obj);
-        std::cout << *reinterpret_cast<double*>(reinterpret_cast<char*>(to)+sizeof(TwinObject<double, double>));
+        TwinObject<double, double> to(obj);
+        std::cout << to.atDistance<double>(0) << "\n";
+        // jfieldID id = env->GetFieldID(env->GetObjectClass(obj), "x", "D");
+        // std::cout << env->GetDoubleField(obj, id);
         return nullptr;
     }
 }
