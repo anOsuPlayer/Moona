@@ -33,7 +33,7 @@ namespace moona {
             template <typename S> S atSafeDistance(const size_t dist) const {
                 size_t sizes[] = { sizeof(T)... }; size_t sum;
                 for (size_t i = 0; i < sizeof...(T); i++) { sum += sizes[i]; }
-                if (dist + sizeof(S) > dist) {
+                if (dist + sizeof(S) > sum) {
                     throw IllegalArgumentException("The given distance exceeds this TwinObject's bounds.");
                 }
                 return atDistance<S>(dist);

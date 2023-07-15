@@ -8,11 +8,8 @@ namespace moona {
         return __cplusplus;
     }
 
-    JavaImpl jobject Java_test_Test_generate(StaticArgs, jobject obj) {
+    JavaImpl void Java_test_Test_generate(StaticArgs, jobject obj) {
         TwinObject<double, double> to(obj);
-        std::cout << to.atDistance<double>(0) << "\n";
-        // jfieldID id = env->GetFieldID(env->GetObjectClass(obj), "x", "D");
-        // std::cout << env->GetDoubleField(obj, id);
-        return nullptr;
+        std::cout << to.atSafeDistance<double>(0) << " " << to.atSafeDistance<double>(8);
     }
 }
