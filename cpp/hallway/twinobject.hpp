@@ -6,6 +6,7 @@
 #include "../base/moonaclass.hpp"
 #include "../base/object.hpp"
 #include "../exceptions/illegalexception.hpp"
+#include "../exceptions/indexexception.hpp"
 
 namespace moona {
 
@@ -26,8 +27,23 @@ namespace moona {
             }
             ~TwinObject() = default;
 
-            template <typename S> S atDistance(const size_t dist) {
+            template <typename S> S atDistance(const size_t dist) const noexcept {
                 return *reinterpret_cast<S*>(reinterpret_cast<char*>(*this->jthis)+16+dist);
+            }
+            template <typename S> S atSafeDistance(const size_t dist) const {
+                size_t sizes[] = { sizeof(T)... }; size_t sum;
+                for (size_t i = 0; i < sizeof...(T); i++) { sum += sizes[i]; }
+                if (dist + sizeof(S) > dist) {
+                    throw IllegalArgumentException("The given distance exceeds this TwinObject's bounds.");
+                }
+                return atDistance<S>(dist);
+            }
+
+            template <typename S> S atIndex(const size_t index) const noexcept {
+                if (index > sizeof...(T)) {
+                    throw IndexOutOfBoundsException("The given index exceeds this TwinObject's declared number of elements.");
+                }
+                
             }
 
             operator jobject() const noexcept {
