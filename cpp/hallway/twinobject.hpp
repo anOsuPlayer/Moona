@@ -39,11 +39,22 @@ namespace moona {
                 return atDistance<S>(dist);
             }
 
-            template <typename S> S atIndex(const size_t index) const noexcept {
+            template <typename S> S atIndex(const size_t index) const {
                 if (index > sizeof...(T)) {
                     throw IndexOutOfBoundsException("The given index exceeds this TwinObject's declared number of elements.");
                 }
-                
+                size_t sizes[] = { sizeof(T)... }; size_t sum = 0, dist = 0;
+                for (size_t i = 0; i < sizeof...(T); i++) {
+                    sum += sizes[i];
+                    if (i < index) {
+                        dist += sizes[i];
+                    }
+                }
+
+                if (dist + sizeof(S) > sum) {
+                    throw IllegalArgumentException("Unable to extract the given type at the given index.");
+                }
+                return *reinterpret_cast<S*>(reinterpret_cast<char*>(*this->jthis)+16+dist);
             }
 
             operator jobject() const noexcept {

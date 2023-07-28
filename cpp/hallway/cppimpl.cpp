@@ -10,7 +10,7 @@ namespace moona {
 
     JavaImpl jobject Java_test_Test_generate(StaticArgs, jobject obj) {
         TwinObject<double, double, int> to(obj);
-        std::cout << to.atDistance<double>(0) << " " << to.atDistance<double>(8) << "\n";
+        std::cout << to.atIndex<double>(0) << " " << to.atIndex<double>(1) << "\n";
         return to;
     }
 }
